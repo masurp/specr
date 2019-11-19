@@ -6,6 +6,9 @@
 #' @param model
 #' @param controls
 #' @param subsets
+#'
+#' @return
+#' @export
 
 run_specs <- function(df, y, x, model, controls, subsets) {
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
