@@ -1,3 +1,17 @@
+x1 <- rnorm(500, 2.5, 1)
+x2 <- 2*x1 + rnorm(500, 0, 1)
+c1 <- rnorm(500, 2.5, 2)
+c2 <- rnorm(500, 2.5, 2)
+gender <- rep(c(0,1), 250)
+y1 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnorm(500, 0, 1)
+y2 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnorm(500, 0, 1)
+d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
+
+# Test
+setup_specs(y = c("y1", "y2"), x = c("x1", "x2"), model = "glm", controls = c("c1", "c2"))
+
+
+run_specs(df = d, y = c("y1", "y2"), x = c("x1", "x2"), model = "glm", controls = c("c1", "c2"), subset = "gender")
 
 # choices <- function(independent,
 #                     dependent,
