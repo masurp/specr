@@ -4,10 +4,10 @@
 \alias{run_specs}
 \title{Run specification curve analysis}
 \usage{
-run_specs(specs, fun_model, fun_fit)
+run_specs(df, y, x, model, controls, subsets)
 }
 \arguments{
-\item{fun_fit}{}
+\item{subsets}{}
 }
 \description{
 Run specification curve analysis

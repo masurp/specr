@@ -4,26 +4,21 @@
 \alias{setup_specs}
 \title{Create result frame with specifications}
 \usage{
-setup_specs(independent, dependent, control = NA, subset = NA,
-  transform = NA)
+setup_specs(x, y, model = "glm", controls = NA)
 }
 \arguments{
-\item{independent}{Enter independent variable as vector.}
+\item{x}{Enter x variable as vector.}
 
-\item{transform}{}
+\item{controls}{}
 }
 \description{
 Create result frame with specifications
 }
 \examples{
-# Create variable for subsetting
-gender <- c(rep(c("male", "female"), 10))
-
 # Setup results frame with specifications
-setup_specs(independent = c("tv_use", "smartphone_use"),
-            dependent = c("depression", "loneliness"),
-            control = c("self_esteem", "number_friends"),
-            subset = gender)
+setup_specs(x = c("tv_use", "smartphone_use"),
+            y = c("depression", "loneliness"),
+            controls = c("self_esteem", "number_friends"))
 
 
 }
