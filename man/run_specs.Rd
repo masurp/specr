@@ -7,7 +7,17 @@
 run_specs(df, y, x, model, controls, subsets)
 }
 \arguments{
-\item{subsets}{}
+\item{df}{a data frame that includes all relevant variables}
+
+\item{y}{a vector of the dependent variables}
+
+\item{x}{a vevtor of the dependent variables}
+
+\item{model}{a vector of the type of models that should be estimated}
+
+\item{controls}{a vector of the control variables that should be included}
+
+\item{subsets}{a list that includes named vectors}
 }
 \description{
 Run specification curve analysis
