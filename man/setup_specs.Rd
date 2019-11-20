@@ -2,22 +2,27 @@
 % Please edit documentation in R/setup_specs.r
 \name{setup_specs}
 \alias{setup_specs}
-\title{Create result frame with specifications}
+\title{Create result frame with all specifications}
 \usage{
 setup_specs(x, y, model = "glm", controls = NA)
 }
 \arguments{
-\item{x}{Enter x variable as vector.}
+\item{x}{a vector of the independent variables}
 
-\item{controls}{}
+\item{y}{a vector of the dependent variables}
+
+\item{model}{a vector of the type of models that should be estimated}
+
+\item{controls}{a vector of the control variables that should be included}
 }
 \description{
-Create result frame with specifications
+This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{run_specs()}.
 }
 \examples{
 # Setup results frame with specifications
 setup_specs(x = c("tv_use", "smartphone_use"),
             y = c("depression", "loneliness"),
+            model = c("lm", "glm"),
             controls = c("self_esteem", "number_friends"))
 
 
