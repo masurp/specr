@@ -4,13 +4,21 @@
 \alias{plot_specs}
 \title{Plot specification curve}
 \usage{
-plot_specs(df, ci = TRUE)
+plot_specs(df, labels = c("A", "B"), rel_heights = c(2, 2.5),
+  ci = TRUE)
 }
 \arguments{
 \item{df}{data frame resulting from run_specs().}
+
+\item{labels}{labels for the two parts of the plot}
+
+\item{rel_heights}{vector indicating the relative heights of the plot}
 
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 }
 \description{
 Plot specification curve
+}
+\examples{
+
 }
