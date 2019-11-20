@@ -10,7 +10,11 @@
 plot_specs <- function(df,
                        ci = TRUE){
 
-  # Rank specs and estiamte CIs
+  # dependencies
+  require(dplyr)
+  require(ggplot2)
+
+  # rank specs and estiamte CIs
   df <- df %>%
     arrange(estimate) %>%
     mutate(rank = 1:n()) %>%
@@ -30,7 +34,7 @@ plot_specs <- function(df,
                linetype = "solid") +
     papaja::theme_apa()
 
-  # Add CIs if necessary
+  # add CIs if necessary
   if (isTRUE(ci)) {
   plot <- plot +
     geom_pointrange(alpha = 0.5,
