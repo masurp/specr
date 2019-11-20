@@ -1,8 +1,10 @@
+# Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
   if (controls == "") controls <- 1
   as.formula(paste(y, "~", x, "+", controls))
 }
 
+# run individual specification
 run_spec <- function(specs, df) {
   specs %>%
     mutate(formula = pmap(., create_formula)) %>%
@@ -13,7 +15,7 @@ run_spec <- function(specs, df) {
     select(-formula, -res, -term)
 }
 
-
+# create subsets
 create_subsets <- function(df, subsets) {
   subsets %>%
     map_dfc(~.x) %>%
