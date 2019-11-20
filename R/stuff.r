@@ -11,7 +11,10 @@ d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
 setup_specs(y = c("y1", "y2"), x = c("x1", "x2"), model = "glm", controls = c("c1", "c2"))
 
 
-run_specs(df = d, y = c("y1", "y2"), x = c("x1", "x2"), model = "glm", controls = c("c1", "c2"), subset = "gender")
+test <- run_specs(df = d, y = c("y1", "y2"), x = c("x1", "x2"), model = "lm", controls = c("c1", "c2"), subset = list(gender = unique(d$gender)))
+
+
+plot_specs(test)
 
 # choices <- function(independent,
 #                     dependent,
