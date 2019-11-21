@@ -32,9 +32,12 @@ devtools::install_github("masurp/specr")
 ```
 ## Example
 
-This is a basic example of how to use the major functions in this package
+This is a basic example of how to use the major functions in this package. In a first step, we simulate some data that we can run a specification curve analysis with. 
 
-```{r example, fig.height=10, fig.width=7, message=F, warning = F}
+```{r, message=F, warning = F}
+# Load library
+library(specr)
+
 # Simulating some data
 x1 <- rnorm(500, 2.5, 1)
 x2 <- 2*x1 + rnorm(500, 0, 1)
@@ -47,10 +50,12 @@ d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
 
 # Check data
 head(d)
+```
 
-# Load library
-library(specr)
+In a second step, we only need to use the function `run_specs()` and include our analytical choices as arguments. 
+The resulting data frame includes relevant statistics of all models that were estimated.
 
+```{r, message=F, warning = F}
 # Run specification curve analysis
 results <- run_specs(df = d, 
                   y = c("y1", "y2"), 
@@ -60,11 +65,18 @@ results <- run_specs(df = d,
                   subset = list(gender = unique(d$gender)))
 # Check results
 head(results)
+```
+
+In a final step, we can use the function `plot_specs()` to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results. 
+
+
+```{r, fig.height=10, fig.width=7, message=F, warning = F}
 
 # Plot specification curve analysis
 plot_specs(results)
 ```
 
 
+## References
 
 [^1]: http://sticerd.lse.ac.uk/seminarpapers/psyc16022016.pdf

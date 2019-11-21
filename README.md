@@ -28,9 +28,13 @@ devtools::install_github("masurp/specr")
 ## Example
 
 This is a basic example of how to use the major functions in this
-package
+package. In a first step, we simulate some data that we can run a
+specification curve analysis with.
 
 ``` r
+# Load library
+library(specr)
+
 # Simulating some data
 x1 <- rnorm(500, 2.5, 1)
 x2 <- 2*x1 + rnorm(500, 0, 1)
@@ -43,17 +47,20 @@ d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
 
 # Check data
 head(d)
-#>         x1       x2       c1       c2 gender       y1       y2
-#> 1 1.923342 2.335086 1.102197 2.499008      0 19.84669 20.05541
-#> 2 1.549052 2.951681 3.724179 3.537191      1 31.67117 32.24054
-#> 3 1.639111 2.103567 3.480188 5.813824      0 31.88726 32.79715
-#> 4 1.376519 3.746129 3.784648 3.038297      1 34.24784 32.76637
-#> 5 2.887784 5.682990 3.101651 6.182157      0 51.41092 51.60973
-#> 6 1.502650 4.247065 4.188093 1.302151      1 31.58377 31.92277
+#>         x1       x2       c1         c2 gender       y1       y2
+#> 1 2.651347 5.551732 4.586782  0.8926008      0 37.49179 37.49800
+#> 2 3.682208 7.662658 1.658685 -1.9727400      1 27.29487 25.92298
+#> 3 3.321175 6.455129 2.664986 -1.7209318      0 26.25652 27.62138
+#> 4 4.891453 8.896054 1.475284 -0.5069221      1 37.18363 36.54832
+#> 5 3.144061 7.017656 3.734942  3.3965117      0 48.41670 49.17358
+#> 6 2.903576 4.735994 2.969299  4.9735140      1 43.02540 44.99472
+```
 
-# Load library
-library(specr)
+In a second step, we only need to use the function `run_specs()` and
+include our analytical choices as arguments. The resulting data frame
+includes relevant statistics of all models that were estimated.
 
+``` r
 # Run specification curve analysis
 results <- run_specs(df = d, 
                   y = c("y1", "y2"), 
@@ -66,17 +73,26 @@ head(results)
 #> # A tibble: 6 x 9
 #>   x     y     model controls estimate std.error statistic   p.value subset 
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>     <dbl> <chr>  
-#> 1 x1    y1    glm   c1 + c2      9.60    0.242       39.7 6.55e-109 gender…
-#> 2 x2    y1    glm   c1 + c2      4.54    0.0686      66.2 7.73e-159 gender…
-#> 3 x1    y2    glm   c1 + c2      9.69    0.233       41.6 2.37e-113 gender…
-#> 4 x2    y2    glm   c1 + c2      4.56    0.0677      67.3 1.66e-160 gender…
-#> 5 x1    y1    glm   c1           9.98    0.508       19.6 2.36e- 52 gender…
-#> 6 x2    y1    glm   c1           4.76    0.208       22.9 4.12e- 63 gender…
+#> 1 x1    y1    glm   c1 + c2      9.35    0.201       46.4 1.05e-123 gender…
+#> 2 x2    y1    glm   c1 + c2      4.40    0.0639      68.9 9.18e-163 gender…
+#> 3 x1    y2    glm   c1 + c2      9.43    0.195       48.3 1.61e-127 gender…
+#> 4 x2    y2    glm   c1 + c2      4.42    0.0642      68.9 8.38e-163 gender…
+#> 5 x1    y1    glm   c1           9.30    0.452       20.5 2.20e- 55 gender…
+#> 6 x2    y1    glm   c1           4.43    0.191       23.2 4.57e- 64 gender…
+```
+
+In a final step, we can use the function `plot_specs()` to produce a
+typical visualization of the specification curve and how the analytical
+choices affected the obtained results.
+
+``` r
 
 # Plot specification curve analysis
 plot_specs(results)
 ```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+## References
 
 1.  <http://sticerd.lse.ac.uk/seminarpapers/psyc16022016.pdf>
