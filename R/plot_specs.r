@@ -81,7 +81,7 @@ plot_curve <- function(df,
 plot_choices <- function(df) {
 
   df %>%
-    gather(key, value, -estimate, -std.error, -statistic, -p.value, -rank, -ll, -ul) %>%
+    tidyr::gather(key, value, -estimate, -std.error, -statistic, -p.value, -rank, -ll, -ul) %>%
     ggplot(aes(x = rank,
                y = value,
                color = p.value < .05)) +
