@@ -7,11 +7,12 @@ y1 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnor
 y2 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnorm(500, 0, 1)
 d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
 
-# Test
-setup_specs(y = c("y1", "y2"), x = c("x1", "x2"), model = "glm", controls = c("c1", "c2"))
-
-
-test <- run_specs(df = d, y = c("y1", "y2"), x = c("x1", "x2"), model = "lm", controls = c("c1", "c2"), subset = list(gender = unique(d$gender)))
+test <- run_specs(df = d,
+                  y = c("y1", "y2"),
+                  x = c("x1", "x2"),
+                  model = "my_model",
+                  controls = c("c1", "c2"),
+                  subset = list(gender = unique(d$gender)))
 
 
 plot_specs(test)
