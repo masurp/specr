@@ -10,7 +10,7 @@ run_spec <- function(specs, df) {
     mutate(formula = pmap(., create_formula)) %>%
     mutate(res = modelr::fit_with(df, glm, formula)) %>%
     mutate(coefs = map(res, broom::tidy)) %>%
-    unnest(coefs) %>%
+    tidyr::unnest(coefs) %>%
     filter(term == x) %>%
     select(-formula, -res, -term)
 }
@@ -19,7 +19,7 @@ run_spec <- function(specs, df) {
 create_subsets <- function(df, subsets) {
   subsets %>%
     map_dfc(~.x) %>%
-    gather(k, v) %>%
+    tidyr::gather(k, v) %>%
     pmap(~ filter(df, get(..1) == ..2) %>%
       mutate(filter = paste(..1, "=", ..2)))
 }
