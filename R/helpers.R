@@ -8,10 +8,9 @@ create_formula <- function(x, y, controls, ...) {
 run_spec <- function(specs, df) {
   specs %>%
     mutate(formula = pmap(., create_formula)) %>%
-    mutate(res = modelr::fit_with(df, glm, formula)) %>%
+    mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
     mutate(coefs = map(res, broom::tidy)) %>%
     tidyr::unnest(coefs) %>%
-    filter(term == x) %>%
     select(-formula, -res, -term)
 }
 
