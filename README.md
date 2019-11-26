@@ -28,32 +28,20 @@ devtools::install_github("masurp/specr")
 ## Example
 
 This is a basic example of how to use the major functions in this
-package. In a first step, we simulate some data that we can run a
-specification curve analysis with.
+package. In a first step, check the data (here a simulated data set).
 
 ``` r
 # Load library
 library(specr)
-
-# Simulating some data
-x1 <- rnorm(500, 2.5, 1)
-x2 <- 2*x1 + rnorm(500, 0, 1)
-c1 <- rnorm(500, 2.5, 2)
-c2 <- rnorm(500, 2.5, 2)
-gender <- rep(c(0,1), 250)
-y1 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnorm(500, 0, 1)
-y2 <- 2*x1 + 2.5*x2 + 2*c1 + 2*c2 + 0.5*(x1*c1) + 0.25*(x2*c2) + 2*gender + rnorm(500, 0, 1)
-d <- data.frame(x1, x2, c1, c2, gender, y1, y2)
-
-# Check data
+d <- example_data
 head(d)
-#>         x1       x2       c1         c2 gender       y1       y2
-#> 1 2.651347 5.551732 4.586782  0.8926008      0 37.49179 37.49800
-#> 2 3.682208 7.662658 1.658685 -1.9727400      1 27.29487 25.92298
-#> 3 3.321175 6.455129 2.664986 -1.7209318      0 26.25652 27.62138
-#> 4 4.891453 8.896054 1.475284 -0.5069221      1 37.18363 36.54832
-#> 5 3.144061 7.017656 3.734942  3.3965117      0 48.41670 49.17358
-#> 6 2.903576 4.735994 2.969299  4.9735140      1 43.02540 44.99472
+#>          x1        x2          c1       c2 gender       y1       y2
+#> 1 3.5835162 6.7585730 -0.08479593 1.046597      0 26.73193 28.45278
+#> 2 1.5918187 3.9296317  6.37908937 2.974318      1 41.77180 42.09489
+#> 3 0.4962778 0.5390142  3.03729593 3.941277      0 18.10251 18.67046
+#> 4 0.5755038 2.1816832  5.26185866 2.083192      1 25.81769 25.09875
+#> 5 1.7683538 3.1776625  1.62403890 1.054171      0 19.84352 18.74082
+#> 6 2.3275039 5.6656614  4.34043420 2.218534      1 42.13992 42.14452
 ```
 
 In a second step, we only need to use the function `run_specs()` and
@@ -63,22 +51,22 @@ includes relevant statistics of all models that were estimated.
 ``` r
 # Run specification curve analysis
 results <- run_specs(df = d, 
-                  y = c("y1", "y2"), 
-                  x = c("x1", "x2"), 
-                  model = "glm", 
-                  controls = c("c1", "c2"), 
-                  subset = list(gender = unique(d$gender)))
+                     y = c("y1", "y2"), 
+                     x = c("x1", "x2"), 
+                     model = c("lm", "glm"), 
+                     controls = c("c1", "c2"), 
+                     subset = list(gender = unique(d$gender)))
 # Check results
 head(results)
 #> # A tibble: 6 x 9
 #>   x     y     model controls estimate std.error statistic   p.value subset 
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>     <dbl> <chr>  
-#> 1 x1    y1    glm   c1 + c2      9.35    0.201       46.4 1.05e-123 gender…
-#> 2 x2    y1    glm   c1 + c2      4.40    0.0639      68.9 9.18e-163 gender…
-#> 3 x1    y2    glm   c1 + c2      9.43    0.195       48.3 1.61e-127 gender…
-#> 4 x2    y2    glm   c1 + c2      4.42    0.0642      68.9 8.38e-163 gender…
-#> 5 x1    y1    glm   c1           9.30    0.452       20.5 2.20e- 55 gender…
-#> 6 x2    y1    glm   c1           4.43    0.191       23.2 4.57e- 64 gender…
+#> 1 x1    y1    lm    c1 + c2      8.93    0.232       38.5 3.14e-106 gender…
+#> 2 x2    y1    lm    c1 + c2      4.32    0.0716      60.3 2.40e-149 gender…
+#> 3 x1    y2    lm    c1 + c2      9.03    0.242       37.3 2.67e-103 gender…
+#> 4 x2    y2    lm    c1 + c2      4.40    0.0694      63.3 2.67e-154 gender…
+#> 5 x1    y1    glm   c1 + c2      8.93    0.232       38.5 3.14e-106 gender…
+#> 6 x2    y1    glm   c1 + c2      4.32    0.0716      60.3 2.40e-149 gender…
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -86,7 +74,6 @@ typical visualization of the specification curve and how the analytical
 choices affected the obtained results.
 
 ``` r
-
 # Plot specification curve analysis
 plot_specs(results)
 ```
