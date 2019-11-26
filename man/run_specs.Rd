@@ -13,12 +13,15 @@ run_specs(df, y, x, model, controls, subsets)
 
 \item{x}{a vevtor of the dependent variables}
 
-\item{model}{a vector of the type of models that should be estimated}
+\item{model}{a vector of the type of models that should be estimated.}
 
 \item{controls}{a vector of the control variables that should be included}
 
 \item{subsets}{a list that includes named vectors}
 }
+\value{
+a tibble including all choices and results
+}
 \description{
-Run specification curve analysis
+This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factorial variables.
 }
