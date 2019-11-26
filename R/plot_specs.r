@@ -14,7 +14,7 @@
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
 #'
-#' @return a gg/ggplot object.
+#' @return
 #' @export
 #'
 #' @examples

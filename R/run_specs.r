@@ -9,7 +9,7 @@
 #' @param controls a vector of the control variables that should be included
 #' @param subsets a list that includes named vectors
 #'
-#' @return a tibble including all choices and results
+#' @return
 #' @export
 
 run_specs <- function(df, y, x, model, controls, subsets) {

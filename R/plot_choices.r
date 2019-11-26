@@ -5,7 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
-#' @return a ggplot object.
+#' @return
 #' @export
 #'
 #' @examples

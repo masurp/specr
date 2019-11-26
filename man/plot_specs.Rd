@@ -25,9 +25,6 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL, labels = c("A",
 
 \item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
 }
-\value{
-a gg/ggplot object.
-}
 \description{
 This function plots an entire visualization of the specification curve analysis. It can be used in two ways:
 \enumerate{
