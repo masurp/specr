@@ -45,6 +45,8 @@
 #'            plot_b = p2,
 #'            rel_height = c(2, 2))
 #'
+#'
+#'
 plot_specs <- function(df = NULL,
                        plot_a = NULL,
                        plot_b = NULL,
