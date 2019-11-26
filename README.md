@@ -49,11 +49,16 @@ include our analytical choices as arguments. The resulting data frame
 includes relevant statistics of all models that were estimated.
 
 ``` r
+# Self-made functions can be used too
+mymodel <- function(formula, data) {
+  glm(formula = formula, data = data, family = gaussian(link = "identity"))
+}
+
 # Run specification curve analysis
 results <- run_specs(df = d, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "glm"), 
+                     model = c("lm", "glm", "mymodel"), 
                      controls = c("c1", "c2"), 
                      subset = list(gender = unique(d$gender)))
 # Check results
@@ -75,10 +80,9 @@ choices affected the obtained results.
 
 ``` r
 # Plot specification curve analysis
-plot_specs(results)
+plot_specs(results) %>% class
+#> [1] "gg"     "ggplot"
 ```
-
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## References
 
