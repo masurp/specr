@@ -5,15 +5,21 @@ Authors@R:
     person(given = "Philipp K.",
            family = "Masur",
            role = c("aut", "cre"),
-           email = "philipp.masur@uni-mainz.de",
+           email = "phil.masur@gmail.com",
            comment = c(ORCID = "YOUR-ORCID-ID"))
     person(given = "Michael",
            family = "Scharkow",
            role = c("aut", "cre"),
-           email = "scharkow@uni-mainz.de",
+           email = "michael@underused.org",
            comment = c(ORCID = "YOUR-ORCID-ID"))
 Description: The goal of specr is to facilitate specification curve analyses as described by Simonson, Simmons & Nelson (2015). It provides functions to setup, run, and plot all specifications.
 License: GPL-3
+Imports:
+    dplyr,
+    purrr,
+    ggplot2,
+    cowplot,
+    broom
 Suggests: 
     testthat
 Encoding: UTF-8
