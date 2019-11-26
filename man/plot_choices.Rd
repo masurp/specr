@@ -11,6 +11,9 @@ plot_choices(df, desc = FALSE)
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
+\value{
+a ggplot object.
+}
 \description{
-Plot how analytical choices affect results
+This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.
 }
