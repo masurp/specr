@@ -66,7 +66,7 @@ In a final step, we can use the function `plot_specs()` to produce a typical vis
 
 ```{r, fig.height=10, fig.width=7, message=F, warning = F}
 # Plot specification curve analysis
-plot_specs(results) %>% class
+plot_specs(results)
 ```
 
 

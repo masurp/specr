@@ -80,9 +80,10 @@ choices affected the obtained results.
 
 ``` r
 # Plot specification curve analysis
-plot_specs(results) %>% class
-#> [1] "gg"     "ggplot"
+plot_specs(results)
 ```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
 ## References
 
