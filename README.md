@@ -33,8 +33,7 @@ package. In a first step, check the data (here a simulated data set).
 ``` r
 # Load library
 library(specr)
-d <- example_data
-head(d)
+head(example_data)
 #>         x1       x2        c1       c2       y1       y2 group1 group2
 #> 1 1.942902 4.104683 0.5941764 3.700289 16.11449 16.04155      0      A
 #> 2 2.512857 3.675712 4.1336440 2.378237 22.75160 22.79317      1      C
@@ -55,12 +54,12 @@ mymodel <- function(formula, data) {
 }
 
 # Run specification curve analysis
-results <- run_specs(df = d, 
+results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
                      model = c("lm", "glm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(group1 = unique(d$group1)))
+                     subset = list(group1 = unique(example_data$group1)))
 # Check results
 head(results)
 #> # A tibble: 6 x 9

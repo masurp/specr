@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  fig.retina = 2
 )
 ```
 
@@ -37,8 +38,7 @@ This is a basic example of how to use the major functions in this package. In a 
 ```{r, message=F, warning = F}
 # Load library
 library(specr)
-d <- example_data
-head(d)
+head(example_data)
 ```
 
 In a second step, we only need to use the function `run_specs()` and include our analytical choices as arguments. 
@@ -51,12 +51,12 @@ mymodel <- function(formula, data) {
 }
 
 # Run specification curve analysis
-results <- run_specs(df = d, 
+results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
                      model = c("lm", "glm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(group1 = unique(d$group1)))
+                     subset = list(group1 = unique(example_data$group1)))
 # Check results
 head(results)
 ```
@@ -64,7 +64,7 @@ head(results)
 In a final step, we can use the function `plot_specs()` to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results. 
 
 
-```{r, fig.height=10, fig.width=7, message=F, warning = F}
+```{r, fig.height=8, fig.width=6, message=F, warning = F}
 # Plot specification curve analysis
 plot_specs(results)
 ```
