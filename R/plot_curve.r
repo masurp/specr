@@ -8,7 +8,7 @@
 #' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
 #'
-#' @return
+#' @return a ggplot object.
 #' @export
 #'
 #' @examples

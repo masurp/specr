@@ -18,6 +18,9 @@ plot_curve(df, desc = FALSE, ci = TRUE, prob = 0.975,
 
 \item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
 }
+\value{
+a ggplot object.
+}
 \description{
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible.
 }
