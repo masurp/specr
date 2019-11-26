@@ -18,8 +18,7 @@ run_spec <- function(specs, df) {
 # create subsets
 create_subsets <- function(df, subsets) {
   subsets %>%
-    map_dfc(~.x) %>%
-    tidyr::gather(k, v) %>%
-    pmap(~ filter(df, get(..1) == ..2) %>%
+    stack %>%
+    pmap(~ filter(df, get(as.character(..2)) == ..1) %>%
       mutate(filter = paste(..1, "=", ..2)))
 }
