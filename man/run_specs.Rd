@@ -4,7 +4,7 @@
 \alias{run_specs}
 \title{Run specification curve analysis}
 \usage{
-run_specs(df, y, x, model, controls, subsets)
+run_specs(df, y, x, model, controls, subsets = NA)
 }
 \arguments{
 \item{df}{a data frame that includes all relevant variables}

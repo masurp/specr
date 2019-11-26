@@ -12,11 +12,20 @@
 #' @return
 #' @export
 
-run_specs <- function(df, y, x, model, controls, subsets) {
+run_specs <- function(df, y, x, model, controls, subsets = NA) {
 
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
+
+  if (!is.na(subsets)) {
+
   df_list <- create_subsets(df, subsets)
   map_df(df_list, ~ run_spec(specs, .x) %>%
-    mutate(subset = unique(.x$filter)))
+           mutate(subset = unique(.x$filter)))
+
+  } else {
+
+  run_spec(specs, df)
+
+  }
 
 }
