@@ -33,11 +33,8 @@ This function plots an entire visualization of the specification curve analysis.
 }
 }
 \examples{
-# load data
-d <- example_data
-
 # run spec analysis
-results <- run_specs(d,
+results <- run_specs(example_data,
                      y = c("y1", "y2"),
                      x = c("x1", "x2"),
                      model = "lm",
@@ -59,7 +56,6 @@ p2 <- plot_choices(results) +
 plot_specs(plot_a = p1,
            plot_b = p2,
            rel_height = c(2, 2))
-
 
 
 }
