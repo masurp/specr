@@ -35,13 +35,13 @@ package. In a first step, check the data (here a simulated data set).
 library(specr)
 d <- example_data
 head(d)
-#>          x1        x2          c1       c2 gender       y1       y2
-#> 1 3.5835162 6.7585730 -0.08479593 1.046597      0 26.73193 28.45278
-#> 2 1.5918187 3.9296317  6.37908937 2.974318      1 41.77180 42.09489
-#> 3 0.4962778 0.5390142  3.03729593 3.941277      0 18.10251 18.67046
-#> 4 0.5755038 2.1816832  5.26185866 2.083192      1 25.81769 25.09875
-#> 5 1.7683538 3.1776625  1.62403890 1.054171      0 19.84352 18.74082
-#> 6 2.3275039 5.6656614  4.34043420 2.218534      1 42.13992 42.14452
+#>         x1       x2        c1       c2       y1       y2 group1 group2
+#> 1 1.942902 4.104683 0.5941764 3.700289 16.11449 16.04155      0      A
+#> 2 2.512857 3.675712 4.1336440 2.378237 22.75160 22.79317      1      C
+#> 3 3.053931 7.995717 2.0264256 5.254413 32.75778 36.06999      0      C
+#> 4 2.279223 4.451733 3.3688941 3.220657 28.80391 21.77937      1      A
+#> 5 3.599990 6.274502 3.6629448 2.955270 31.78923 32.05191      0      A
+#> 6 2.762323 5.180676 1.5159513 3.132042 14.83215 21.36287      1      C
 ```
 
 In a second step, we only need to use the function `run_specs()` and
@@ -60,18 +60,18 @@ results <- run_specs(df = d,
                      x = c("x1", "x2"), 
                      model = c("lm", "glm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(gender = unique(d$gender)))
+                     subset = list(group1 = unique(d$group1)))
 # Check results
 head(results)
 #> # A tibble: 6 x 9
-#>   x     y     model controls estimate std.error statistic   p.value subset 
-#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>     <dbl> <chr>  
-#> 1 x1    y1    lm    c1 + c2      8.93    0.232       38.5 3.14e-106 gender…
-#> 2 x2    y1    lm    c1 + c2      4.32    0.0716      60.3 2.40e-149 gender…
-#> 3 x1    y2    lm    c1 + c2      9.03    0.242       37.3 2.67e-103 gender…
-#> 4 x2    y2    lm    c1 + c2      4.40    0.0694      63.3 2.67e-154 gender…
-#> 5 x1    y1    glm   c1 + c2      8.93    0.232       38.5 3.14e-106 gender…
-#> 6 x2    y1    glm   c1 + c2      4.32    0.0716      60.3 2.40e-149 gender…
+#>   x     y     model controls estimate std.error statistic  p.value subset  
+#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr>   
+#> 1 x1    y1    lm    c1 + c2      4.37    0.199       22.0 6.45e-60 group1 …
+#> 2 x2    y1    lm    c1 + c2      1.98    0.0871      22.8 1.90e-62 group1 …
+#> 3 x1    y2    lm    c1 + c2      4.25    0.176       24.1 1.08e-66 group1 …
+#> 4 x2    y2    lm    c1 + c2      1.91    0.0784      24.4 1.15e-67 group1 …
+#> 5 x1    y1    glm   c1 + c2      4.37    0.199       22.0 6.45e-60 group1 …
+#> 6 x2    y1    glm   c1 + c2      1.98    0.0871      22.8 1.90e-62 group1 …
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a

@@ -56,7 +56,7 @@ results <- run_specs(df = d,
                      x = c("x1", "x2"), 
                      model = c("lm", "glm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(gender = unique(d$gender)))
+                     subset = list(group1 = unique(d$group1)))
 # Check results
 head(results)
 ```
