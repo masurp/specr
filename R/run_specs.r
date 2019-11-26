@@ -11,7 +11,15 @@
 #'
 #' @return
 #' @export
-
+#'
+#' @examples
+#' # run specification curve analysis
+#' run_specs(df = example_data,
+#'           y = "y1",
+#'           x = c("x1", "x2"),
+#'           model = "lm",
+#'           controls = "c1")
+#'
 run_specs <- function(df, y, x, model, controls, subsets = NA) {
 
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
