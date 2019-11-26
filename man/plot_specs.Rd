@@ -2,23 +2,29 @@
 % Please edit documentation in R/plot_specs.r
 \name{plot_specs}
 \alias{plot_specs}
-\title{Plot specification curve}
+\title{Plot specification curve and analytical choices}
 \usage{
-plot_specs(df, labels = c("A", "B"), rel_heights = c(2, 2.5),
-  ci = TRUE)
+plot_specs(df = NULL, plot_a = NULL, plot_b = NULL, labels = c("A",
+  "B"), rel_heights = c(2, 3), desc = FALSE, ci = TRUE,
+  prob = 0.975)
 }
 \arguments{
-\item{df}{data frame resulting from run_specs().}
+\item{df}{data frame resulting from \code{run_specs()}.}
+
+\item{plot_a}{a ggplot object resulting from \code{plot_curve()}.}
+
+\item{plot_b}{a ggplot object resulting from \code{plot_choices()}.}
 
 \item{labels}{labels for the two parts of the plot}
 
-\item{rel_heights}{vector indicating the relative heights of the plot}
+\item{rel_heights}{vector indicating the relative heights of the plot.}
+
+\item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
+
+\item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
 }
 \description{
-Plot specification curve
-}
-\examples{
-
+Plot specification curve and analytical choices
 }

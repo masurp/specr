@@ -1,37 +1,37 @@
-#' Plot specification curve
+#' Plot specification curve and analytical choices
 #'
-#' @param df data frame resulting from run_specs().
+#' @param df data frame resulting from \code{run_specs()}.
+#' @param plot_a a ggplot object resulting from \code{plot_curve()}.
+#' @param plot_b a ggplot object resulting from \code{plot_choices()}.
 #' @param labels labels for the two parts of the plot
-#' @param rel_heights vector indicating the relative heights of the plot
+#' @param rel_heights vector indicating the relative heights of the plot.
+#' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
+#' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
 #'
 #' @return
 #' @export
 #'
 #' @examples
-#'
-plot_specs <- function(df,
+plot_specs <- function(df = NULL,
+                       plot_a = NULL,
+                       plot_b = NULL,
                        labels = c("A", "B"),
-                       rel_heights = c(2, 2.5),
-                       ci = TRUE) {
+                       rel_heights = c(2, 3),
+                       desc = FALSE,
+                       ci = TRUE,
+                       prob = .975) {
 
   # dependencies
-  require(dplyr)
-  require(ggplot2)
   require(cowplot)
 
-  # rank specs and estiamte CIs
-  df <- df %>%
-    arrange(estimate) %>%
-    mutate(rank = 1:n()) %>%
-    mutate(ll = estimate - 1.96*std.error,
-           ul = estimate + 1.96*std.error)
+  if (!is_null(df)) {
+  plot_a <- plot_curve(df, ci = ci, prob = prob, desc = desc)
+  plot_b <- plot_choices(df, desc = desc)
 
-  p1 <- plot_curve(df, ci)
-  p2 <- plot_choices(df)
+  }
 
-
-  plot_grid(p1, p2,
+  plot_grid(plot_a, plot_b,
             labels = labels,
             align = "v",
             axis = "b",
@@ -40,64 +40,4 @@ plot_specs <- function(df,
 }
 
 
-# Internal functions
-## Plot 1 - Specification curve
-plot_curve <- function(df,
-                       ci){
-
-
-  # Create basic plot
-  plot <- ggplot(df, aes(x = rank,
-                         y = estimate,
-                         ymin = ll,
-                         ymax = ul,
-                         color = p.value < .05)) +
-    geom_point(aes(color = p.value < .05),
-               size = .6) +
-    scale_color_manual(values = c("#FF0000", "#000000")) +
-    geom_hline(yintercept = 0,
-               linetype = "solid") +
-    papaja::theme_apa() +
-    theme(strip.text = element_blank(),
-          axis.line.y = element_line("black", size = .5),
-          axis.line.x = element_line("black", size = .5),
-          axis.text = element_text(colour = "black"),
-          legend.position = "none") +
-    labs(x = "", y = "")
-
-  # add CIs if necessary
-  if (isTRUE(ci)) {
-  plot <- plot +
-    geom_pointrange(alpha = 0.5,
-                    color = "grey",
-                    size = .6,
-                    fatten = 1)
-  }
-
-  return(plot)
-}
-
-## Plot 2 - Analytical choices
-plot_choices <- function(df) {
-
-  df %>%
-    tidyr::gather(key, value, -estimate, -std.error, -statistic, -p.value, -rank, -ll, -ul) %>%
-    ggplot(aes(x = rank,
-               y = value,
-               color = p.value < .05)) +
-    geom_point(aes(x = rank,
-                   y = value),
-               shape = 124,
-               size = 3.35) +
-    scale_color_manual(values = c("#FF0000", "#000000")) +
-    papaja::theme_apa() +
-    facet_wrap(~key, scales = "free_y", ncol = 1) +
-    theme(strip.text = element_blank(),
-          axis.line = element_line("black", size = .5),
-          legend.position = "none",
-          panel.spacing = unit(.75, "lines"),
-          axis.text = element_text(colour = "black")) +
-    labs(x = "", y = "")
-
-}
 

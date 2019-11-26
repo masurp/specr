@@ -1,0 +1,68 @@
+#' Plot specification curve
+#'
+#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible.
+#'
+#' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
+#' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
+#' @param ci logical value indicating whether confidence intervals should be plotted.
+#' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
+#' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
+#'
+#' @return
+#' @export
+#'
+#' @examples
+plot_curve <- function(df,
+                       desc = FALSE,
+                       ci = TRUE,
+                       prob = .975,
+                       legend = FALSE){
+
+  require(ggplot2)
+  require(dplyr)
+
+  # rank specs
+  if (isFALSE(desc)) {
+    df <- df %>%
+      arrange(estimate)
+  } else {
+    df <- df %>%
+      arrange(desc(estimate))
+  }
+
+
+  df <- df %>%
+    mutate(specifications = 1:n(),
+           ll = estimate - qnorm(prob)*std.error,
+           ul = estimate + qnorm(prob)*std.error)
+
+  # Create basic plot
+  plot <- ggplot(df, aes(x = specifications,
+                         y = estimate,
+                         ymin = ll,
+                         ymax = ul)) +
+    geom_point(aes(color = p.value < .05),
+               size = 1) +
+    theme_minimal() +
+    theme(strip.text = element_blank(),
+          axis.line = element_line("black", size = .5),
+          legend.position = "none",
+          panel.spacing = unit(.75, "lines"),
+          axis.text = element_text(colour = "black")) +
+
+  if (isFALSE(legend)) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+
+  # add CIs if necessary
+  if (isTRUE(ci)) {
+    plot <- plot +
+      geom_pointrange(alpha = 0.5,
+                      color = "grey",
+                      size = .6,
+                      fatten = 1)
+  }
+
+  return(plot)
+}
