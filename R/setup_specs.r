@@ -5,7 +5,7 @@
 #' @param x a vector of the independent variables
 #' @param y a vector of the dependent variables
 #' @param model a vector of the type of models that should be estimated
-#' @param controls a vector of the control variables that should be included
+#' @param controls a vector of the control variables that should be included. Defaults to none.
 #'
 #' @return
 #' @export
@@ -14,14 +14,13 @@
 #' # Setup results frame with specifications
 #' setup_specs(x = c("tv_use", "smartphone_use"),
 #'             y = c("depression", "loneliness"),
-#'             model = c("lm", "glm"),
-#'             controls = c("self_esteem", "number_friends"))
+#'             model = c("lm", "glm"))
 #'
 #'
 setup_specs <- function(x,
                         y,
                         model = "glm",
-                        controls = NA) {
+                        controls = "") {
   # dependencies
   require(dplyr)
   require(purrr)

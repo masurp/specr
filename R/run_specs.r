@@ -6,7 +6,7 @@
 #' @param y a vector of the dependent variables
 #' @param x a vevtor of the dependent variables
 #' @param model a vector of the type of models that should be estimated.
-#' @param controls a vector of the control variables that should be included
+#' @param controls a vector of the control variables that should be included. Defaults to none.
 #' @param subsets a list that includes named vectors
 #'
 #' @return
@@ -17,10 +17,9 @@
 #' run_specs(df = example_data,
 #'           y = "y1",
 #'           x = c("x1", "x2"),
-#'           model = "lm",
-#'           controls = "c1")
+#'           model = c("lm", "glm"))
 #'
-run_specs <- function(df, y, x, model, controls, subsets = NA) {
+run_specs <- function(df, y, x, model, controls = "", subsets = NA) {
 
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
