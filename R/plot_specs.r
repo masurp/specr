@@ -38,6 +38,8 @@
 #' p2 <- plot_choices(results) +
 #'   labs(y = "analytical choices")
 #'
+#' p3 <- plot_variance(results)
+#'
 #' plot_specs(plot_a = p1,
 #'            plot_b = p2,
 #'            rel_height = c(2, 2))
@@ -61,12 +63,14 @@ plot_specs <- function(df = NULL,
 
   }
 
-  plot_grid(plot_a, plot_b,
-            labels = labels,
-            align = "v",
-            axis = "b",
-            rel_heights = rel_heights,
-            ncol = 1)
+
+    plot_grid(plot_a, plot_b,
+              labels = labels,
+              align = "v",
+              axis = "b",
+              rel_heights = rel_heights,
+              ncol = 1)
+
 }
 
 

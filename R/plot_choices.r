@@ -10,6 +10,7 @@
 #'
 #' @examples
 plot_choices <- function(df,
+                         prob = .975,
                          desc = FALSE) {
 
   require(ggplot2)
@@ -24,16 +25,22 @@ plot_choices <- function(df,
       arrange(desc(estimate))
   }
 
+  df <- df %>%
+    mutate(specifications = 1:n(),
+           ll = estimate - qnorm(prob)*std.error,
+           ul = estimate + qnorm(prob)*std.error,
+           color = case_when(ll > 0 ~ "lightblue", ul < 0 ~ "lightred", TRUE ~ "grey"))
+
   df %>%
-    mutate(specifications = 1:n()) %>%
-    tidyr::gather(key, value, -estimate, -std.error, -statistic, -p.value, -specifications) %>%
+    tidyr::gather(key, value, x, y, model, controls, subset) %>%
     ggplot(aes(x = specifications,
                y = value,
-               color = p.value < .05)) +
+               color = color)) +
     geom_point(aes(x = specifications,
                    y = value),
                shape = 124,
                size = 3.35) +
+    scale_color_identity() +
     theme_minimal() +
     facet_wrap(~key, scales = "free_y", ncol = 1) +
     theme(strip.text = element_blank(),

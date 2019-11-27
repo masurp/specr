@@ -34,16 +34,19 @@ plot_curve <- function(df,
   df <- df %>%
     mutate(specifications = 1:n(),
            ll = estimate - qnorm(prob)*std.error,
-           ul = estimate + qnorm(prob)*std.error)
+           ul = estimate + qnorm(prob)*std.error,
+           color = case_when(ll > 0 ~ "lightblue", ul < 0 ~ "lightred", TRUE ~ "grey"))
 
   # Create basic plot
   plot <- ggplot(df, aes(x = specifications,
                          y = estimate,
                          ymin = ll,
-                         ymax = ul)) +
-    geom_point(aes(color = p.value < .05),
+                         ymax = ul,
+                         color = color)) +
+    geom_point(aes(color = color),
                size = 1) +
     theme_minimal() +
+    scale_color_identity() +
     theme(strip.text = element_blank(),
           axis.line = element_line("black", size = .5),
           legend.position = "none",
@@ -59,7 +62,6 @@ plot_curve <- function(df,
   if (isTRUE(ci)) {
     plot <- plot +
       geom_pointrange(alpha = 0.5,
-                      color = "grey",
                       size = .6,
                       fatten = 1)
   }
