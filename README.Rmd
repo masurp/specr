@@ -69,6 +69,15 @@ In a final step, we can use the function `plot_specs()` to produce a typical vis
 plot_specs(results)
 ```
 
+Furthermore, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we can use the function `variance_specs()` to calculate a respective table or `plot_variance()`to visualize the distribution.
+
+```{r, fig.height=2, fig.width=8, message=F, warning = F}
+# Decompose variance of the specification curve
+variance_specs(results)
+
+# Plot decomposition
+plot_variance(results)
+```
 
 ## References
 

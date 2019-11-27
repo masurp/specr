@@ -34,13 +34,20 @@ package. In a first step, check the data (here a simulated data set).
 # Load library
 library(specr)
 head(example_data)
-#>         x1       x2        c1       c2       y1       y2 group1 group2
-#> 1 1.942902 4.104683 0.5941764 3.700289 16.11449 16.04155      0      A
-#> 2 2.512857 3.675712 4.1336440 2.378237 22.75160 22.79317      1      C
-#> 3 3.053931 7.995717 2.0264256 5.254413 32.75778 36.06999      0      C
-#> 4 2.279223 4.451733 3.3688941 3.220657 28.80391 21.77937      1      A
-#> 5 3.599990 6.274502 3.6629448 2.955270 31.78923 32.05191      0      A
-#> 6 2.762323 5.180676 1.5159513 3.132042 14.83215 21.36287      1      C
+#>         x1         x2         c1        c2        y1         y2 group1
+#> 1 1.533913  1.3697122  0.5424902 3.8924435 23.500543 10.4269278      0
+#> 2 1.680639  1.5163745 -1.2415868 3.3377268 17.017955  0.5733467      1
+#> 3 1.223941 -0.2381044  0.1405891 0.8911959 -3.678272  4.2303190      0
+#> 4 1.765276  0.9524049  4.0397943 1.8567454 21.668684 14.8865252      1
+#> 5 1.907134  0.6282816  3.1002518 5.5840574 32.713106 20.5251920      0
+#> 6 1.710695  1.1898467  0.4648824 4.0239483 20.422171  4.3471236      1
+#>   group2
+#> 1      A
+#> 2      C
+#> 3      B
+#> 4      B
+#> 5      A
+#> 6      C
 ```
 
 In a second step, we only need to use the function `run_specs()` and
@@ -65,12 +72,12 @@ head(results)
 #> # A tibble: 6 x 9
 #>   x     y     model controls estimate std.error statistic  p.value subset  
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr>   
-#> 1 x1    y1    lm    c1 + c2      4.37    0.199       22.0 6.45e-60 group1 …
-#> 2 x2    y1    lm    c1 + c2      1.98    0.0871      22.8 1.90e-62 group1 …
-#> 3 x1    y2    lm    c1 + c2      4.25    0.176       24.1 1.08e-66 group1 …
-#> 4 x2    y2    lm    c1 + c2      1.91    0.0784      24.4 1.15e-67 group1 …
-#> 5 x1    y1    glm   c1 + c2      4.37    0.199       22.0 6.45e-60 group1 …
-#> 6 x2    y1    glm   c1 + c2      1.98    0.0871      22.8 1.90e-62 group1 …
+#> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18 0 = gro…
+#> 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57 0 = gro…
+#> 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1 0 = gro…
+#> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3 0 = gro…
+#> 5 x1    y1    glm   c1 + c2     4.95      0.525     9.43  3.11e-18 0 = gro…
+#> 6 x2    y1    glm   c1 + c2     6.83      0.321    21.3   1.20e-57 0 = gro…
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -83,6 +90,30 @@ plot_specs(results)
 ```
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+Furthermore, we can estimate how much variance in the specification
+curve is related to which analytical decisions. Therefore, we can use
+the function `variance_specs()` to calculate a respective table or
+`plot_variance()`to visualize the distribution.
+
+``` r
+# Decompose variance of the specification curve
+variance_specs(results)
+#> # A tibble: 6 x 4
+#>   grp         vcov     icc percent
+#>   <chr>      <dbl>   <dbl>   <dbl>
+#> 1 controls  0.0526 0.00233   0.233
+#> 2 model     0      0         0    
+#> 3 subset    0.609  0.0270    2.70 
+#> 4 y        20.9    0.927    92.7  
+#> 5 x         0.650  0.0288    2.88 
+#> 6 Residual  0.347  0.0154    1.54
+
+# Plot decomposition
+plot_variance(results)
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 ## References
 
