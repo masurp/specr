@@ -53,6 +53,8 @@ p1 <- plot_curve(results) +
 p2 <- plot_choices(results) +
   labs(y = "analytical choices")
 
+p3 <- plot_variance(results)
+
 plot_specs(plot_a = p1,
            plot_b = p2,
            rel_height = c(2, 2))

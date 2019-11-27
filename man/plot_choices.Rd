@@ -4,7 +4,7 @@
 \alias{plot_choices}
 \title{Plot how analytical choices affect results}
 \usage{
-plot_choices(df, desc = FALSE)
+plot_choices(df, prob = 0.975, desc = FALSE)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}

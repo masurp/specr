@@ -4,7 +4,7 @@
 \alias{run_specs}
 \title{Run specification curve analysis}
 \usage{
-run_specs(df, y, x, model, controls, subsets = NA)
+run_specs(df, y, x, model, controls = NULL, subsets = NA)
 }
 \arguments{
 \item{df}{a data frame that includes all relevant variables}
@@ -15,7 +15,7 @@ run_specs(df, y, x, model, controls, subsets = NA)
 
 \item{model}{a vector of the type of models that should be estimated.}
 
-\item{controls}{a vector of the control variables that should be included}
+\item{controls}{a vector of the control variables that should be included. Defaults to none.}
 
 \item{subsets}{a list that includes named vectors}
 }
@@ -27,7 +27,6 @@ This is the central function of the package. It can be used to run the specifica
 run_specs(df = example_data,
           y = "y1",
           x = c("x1", "x2"),
-          model = "lm",
-          controls = "c1")
+          model = c("lm", "glm"))
 
 }
