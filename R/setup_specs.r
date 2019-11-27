@@ -20,13 +20,13 @@
 setup_specs <- function(x,
                         y,
                         model = "glm",
-                        controls = "") {
+                        controls) {
   # dependencies
   require(dplyr)
   require(purrr)
 
   # create controls variables
-  if (!is.na(controls)) {
+  if (!is_null(controls)) {
     controls <- list(controls %>%
                        paste(collapse = " + "),
                      map(1:length(controls),

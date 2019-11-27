@@ -19,7 +19,7 @@
 #'           x = c("x1", "x2"),
 #'           model = c("lm", "glm"))
 #'
-run_specs <- function(df, y, x, model, controls = "", subsets = NA) {
+run_specs <- function(df, y, x, model, controls = NULL, subsets = NA) {
 
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 

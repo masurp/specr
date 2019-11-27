@@ -21,6 +21,7 @@ plot_variance <- function(df,
     scale_fill_brewer(palette = palette) +
     theme_minimal() +
     coord_flip() +
+    theme(legend.position="bottom") +
     theme(axis.text = element_text(colour = "black"),
           axis.line.y = element_line(colour = "black"),
           axis.line.x = element_line(colour = "black")) +
