@@ -1,3 +1,4 @@
+
 # Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
   if (controls == "") controls <- 1
@@ -17,8 +18,25 @@ run_spec <- function(specs, df) {
 
 # create subsets
 create_subsets <- function(df, subsets) {
+
+  # dependencies
+  require(purrr)
+  require(dplyr)
+
   subsets %>%
     stack %>%
     pmap(~ filter(df, get(as.character(..2)) == ..1) %>%
       mutate(filter = paste(..2, "=", ..1)))
 }
+
+
+format_results <- function(df, prob) {
+  df %>%
+    mutate(specifications = 1:n(),
+           ll = estimate - qnorm(prob)*std.error,
+           ul = estimate + qnorm(prob)*std.error,
+           color = case_when(ll > 0 ~ "#377eb8",
+                             ul < 0 ~ "#e41a1c",
+                             TRUE ~ "grey"))
+}
+
