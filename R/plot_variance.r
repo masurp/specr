@@ -1,14 +1,12 @@
 #' Plot variance components of the specification curve
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
-#' @param palette see "palette" within ggplot2. Defaults to "Set3".
 #'
 #' @return
 #' @export
 #'
 #' @examples
-plot_variance <- function(df,
-                          palette = "Set3") {
+plot_variance <- function(df) {
 
   # dependencies
   require(ggplot2)
@@ -16,8 +14,7 @@ plot_variance <- function(df,
   variance_specs(df) %>%
     ggplot(aes(x = grp,
                y = percent)) +
-    geom_bar(stat = "identity", fill = "lightblue") +
-    scale_fill_brewer(palette = palette) +
+    geom_bar(stat = "identity", fill = "#377eb8") +
     theme_minimal() +
     theme(axis.text = element_text(colour = "black"),
           axis.line.y = element_line(colour = "black"),

@@ -4,12 +4,10 @@
 \alias{plot_variance}
 \title{Plot variance components of the specification curve}
 \usage{
-plot_variance(df, palette = "Set3")
+plot_variance(df)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
-
-\item{palette}{see "palette" within ggplot2. Defaults to "Set3".}
 }
 \description{
 Plot variance components of the specification curve
