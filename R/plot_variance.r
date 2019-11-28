@@ -14,14 +14,11 @@ plot_variance <- function(df,
   require(ggplot2)
 
   variance_specs(df) %>%
-    ggplot(aes(x = "",
-               y = percent,
-               fill = grp)) +
-    geom_bar(stat = "identity", color = "white") +
+    ggplot(aes(x = grp,
+               y = percent)) +
+    geom_bar(stat = "identity", fill = "lightblue") +
     scale_fill_brewer(palette = palette) +
     theme_minimal() +
-    coord_flip() +
-    theme(legend.position="bottom") +
     theme(axis.text = element_text(colour = "black"),
           axis.line.y = element_line(colour = "black"),
           axis.line.x = element_line(colour = "black")) +
