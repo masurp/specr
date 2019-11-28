@@ -59,7 +59,8 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
 
   } else {
 
-  run_spec(specs, df)
+  run_spec(specs, df) %>%
+    mutate(subset = "all")
 
   }
 
