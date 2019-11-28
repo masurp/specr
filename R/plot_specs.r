@@ -67,7 +67,7 @@ plot_specs <- function(df = NULL,
     plot_grid(plot_a, plot_b,
               labels = labels,
               align = "v",
-              axis = "b",
+              axis = "rbl",
               rel_heights = rel_heights,
               ncol = 1)
 
