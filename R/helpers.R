@@ -20,5 +20,5 @@ create_subsets <- function(df, subsets) {
   subsets %>%
     stack %>%
     pmap(~ filter(df, get(as.character(..2)) == ..1) %>%
-      mutate(filter = paste(..1, "=", ..2)))
+      mutate(filter = paste(..2, "=", ..1)))
 }
