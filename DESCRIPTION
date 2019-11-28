@@ -1,6 +1,6 @@
 Package: specr
 Title: Statistical functions for conducting specification curve analyses 
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: 
     person(given = "Philipp K.",
            family = "Masur",
