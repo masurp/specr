@@ -67,7 +67,7 @@ results
 In a final step, we can use the function `plot_specs()` to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results. 
 
 
-```{r, fig.height=8, fig.width=6, message=F, warning = F}
+```{r, fig.height=10, fig.width=10, message=F, warning = F}
 # Plot specification curve analysis
 plot_specs(results)
 ```

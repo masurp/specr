@@ -76,7 +76,7 @@ results <- run_specs(df = example_data,
                                    group2 = unique(example_data$group2)))
 # Check results
 results
-#> # A tibble: 288 x 9
+#> # A tibble: 384 x 9
 #>    x     y     model  controls estimate std.error statistic  p.value subset
 #>    <chr> <chr> <chr>  <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr> 
 #>  1 x1    y1    lm     c1 + c2     4.95      0.525     9.43  3.11e-18 group…
@@ -89,7 +89,7 @@ results
 #>  8 x2    y2    mymod… c1 + c2     0.985     0.324     3.04  2.62e- 3 group…
 #>  9 x1    y1    lm     c1          5.53      0.794     6.97  2.95e-11 group…
 #> 10 x2    y1    lm     c1          8.07      0.557    14.5   6.90e-35 group…
-#> # … with 278 more rows
+#> # … with 374 more rows
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -114,12 +114,12 @@ variance_specs(results)
 #> # A tibble: 6 x 4
 #>   grp         vcov     icc percent
 #>   <chr>      <dbl>   <dbl>   <dbl>
-#> 1 subset    0.303  0.0138    1.38 
-#> 2 controls  0.0634 0.00288   0.288
+#> 1 subset    0.795  0.0363    3.63 
+#> 2 controls  0.0497 0.00227   0.227
 #> 3 model     0      0         0    
-#> 4 y        20.7    0.940    94.0  
-#> 5 x         0.651  0.0296    2.96 
-#> 6 Residual  0.301  0.0137    1.37
+#> 4 y        19.7    0.898    89.8  
+#> 5 x         0.430  0.0196    1.96 
+#> 6 Residual  0.963  0.0439    4.39
 
 # Plot decomposition
 plot_variance(results)
@@ -144,7 +144,7 @@ citation("specr")
 #> 
 #>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical
 #>   functions for conducting specification curve analyses. Available
-#>   from https://github.com/masurp/specr
+#>   from https://github.com/masurp/specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
