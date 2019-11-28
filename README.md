@@ -127,7 +127,7 @@ plot_variance(results)
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
-How to cite this package:
+## How to cite this package
 
 Masur, K. P, Scharkow, M. (2019). *specr: Statistical functions for
 conducting specification curve analyses.* \<URL:
