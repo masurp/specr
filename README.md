@@ -3,7 +3,7 @@
 
 <div style="padding-top:1em; padding-bottom: 0.5em;">
 
-<img src="man/figures/specr_logo.png" width = 125 align="right" />
+<img src="man/figures/specr_logo.png" width = 135 align="right" />
 
 </div>
 
@@ -18,8 +18,8 @@ status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/
 <!-- badges: end -->
 
 The goal of specr is to facilitate specification curve analyses as
-described by Simonson, Simmons & Nelson (2019).\[1\] It provides
-functions to setup, run, and plot all specifications.
+described by Simonson, Simmons & Nelson (2019). It provides functions to
+setup, run, and plot all specifications.
 
 **Disclaimer:** Running a specification curve analysis does not make
 your findings any more reliable, valid or generalizable than a single
@@ -162,7 +162,7 @@ citation("specr")
 
 ## References
 
-1.  Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
-    Curve: Descriptive and Inferential Statistics for all Plausible
-    Specifications Available at:
-    <http://urisohn.com/sohn_files/wp/wordpress/wp-content/uploads/Paper-Specification-curve-2019-11-16.pdf>
+Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
+Curve: Descriptive and Inferential Statistics for all Plausible
+Specifications Available at:
+<http://urisohn.com/sohn_files/wp/wordpress/wp-content/uploads/Paper-Specification-curve-2019-11-16.pdf>
