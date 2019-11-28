@@ -15,6 +15,12 @@ The goal of specr is to facilitate specification curve analyses as
 described by Simonson, Simmons & Nelson (2015).\[1\] It provides
 functions to setup, run, and plot all specifications.
 
+**Disclaimer:** Running a specification curve analysis does not make
+your findings any more reliable, valid or generalizable than a single
+analyis. The method is meant to inform about the effects of analytical
+choices on results, and not a better way to estimate a correlation or
+effect.
+
 ## Installation
 
 You can install the development version from
@@ -120,6 +126,31 @@ plot_variance(results)
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+How to cite this package:
+
+Masur, K. P, Scharkow, M. (2019). *specr: Statistical functions for
+conducting specification curve analyses.* \<URL:
+<https://github.com/masurp/specr>\>.
+
+You can also get BibTex entry using this code:
+
+``` r
+citation("specr")
+#> 
+#> Masur, K. P, Scharkow, M. (2019). "specr: Statistical functions
+#> for conducting specification curve analyses (Version 0.0.0.9000)."
+#> <URL: https://github.com/masurp/specr>.
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Misc{,
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.0.0.9000)},
+#>     author = {{Masur} and P. K. and {Scharkow} and {M.}},
+#>     year = {2019},
+#>     url = {https://github.com/masurp/specr},
+#>   }
+```
 
 ## References
 
