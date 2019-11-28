@@ -1,0 +1,10 @@
+
+title <- sprintf("specr: Statistical functions for conducting specification curve analyses (Version %s)", meta$Version)
+
+bibentry(
+    bibtype    = "misc",
+    title    = title,
+    author   = "Masur, P. K. and Scharkow, M.",
+    year     = 2019,
+    url      = "https://github.com/masurp/specr",
+)
