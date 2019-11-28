@@ -129,24 +129,28 @@ plot_variance(results)
 
 ## How to cite this package
 
-Masur, K. P, Scharkow, M. (2019). *specr: Statistical functions for
-conducting specification curve analyses.* \<URL:
-<https://github.com/masurp/specr>\>.
+Developing and maintaining open source software is an important yet
+often underappreciated contribution to scientific progress. Thus,
+whenever you are using open source software (or software in general),
+please make sure to cite it appropriately so that developers get credit
+for their work.
 
-You can also get BibTex entry using this code:
+When using `specr`, please cite it as follows:
 
 ``` r
 citation("specr")
 #> 
-#> Masur, K. P, Scharkow, M. (2019). "specr: Statistical functions
-#> for conducting specification curve analyses (Version 0.0.0.9000)."
-#> <URL: https://github.com/masurp/specr>.
+#> To cite parameters in publications use:
+#> 
+#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical
+#>   functions for conducting specification curve analyses. Available
+#>   from https://github.com/masurp/specr
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
 #>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.0.0.9000)},
-#>     author = {{Masur} and P. K. and {Scharkow} and {M.}},
+#>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2019},
 #>     url = {https://github.com/masurp/specr},
 #>   }

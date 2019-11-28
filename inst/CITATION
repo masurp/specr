@@ -4,7 +4,12 @@ title <- sprintf("specr: Statistical functions for conducting specification curv
 bibentry(
     bibtype    = "misc",
     title    = title,
-    author   = "Masur, P. K. and Scharkow, M.",
-    year     = 2019,
+    author   = c(person("Philipp K.", "Masur"), person("Michael", "Scharkow")),
+    year     = "2019",
     url      = "https://github.com/masurp/specr",
+    textVersion =
+  	paste("Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions for conducting specification curve analyses.",
+		"Available from https://github.com/masurp/specr."
+		),
+	mheader = "To cite parameters in publications use:"
 )
