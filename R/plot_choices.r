@@ -25,8 +25,6 @@ plot_choices <- function(df,
       arrange(desc(estimate))
   }
 
-
-
   df %>%
     format_results(prob = prob) %>%
     tidyr::gather(key, value, x, y, model, controls, subset) %>%

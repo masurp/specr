@@ -26,12 +26,11 @@ variance_specs <- function(df,
 
   # estimate icc
   var <- var %>%
-    mutate(icc = vcov/sum_var) %>%
-    tbl_df
+    dplyr::mutate(icc = vcov/sum_var)
 
   if (isTRUE(percent)) {
     var <- var %>%
-      mutate(percent = icc*100)
+      dplyr::mutate(percent = icc*100)
   }
 
   return(var)

@@ -23,14 +23,13 @@ setup_specs <- function(x,
                         controls) {
   # dependencies
   require(dplyr)
-  require(purrr)
 
   # create controls variables
   if (!is_null(controls)) {
     controls <- list(controls %>%
-                       paste(collapse = " + "),
-                     map(1:length(controls),
-                         ~ controls[[.x]]), "") %>%
+                     paste(collapse = " + "),
+                     purrr::map(1:length(controls),
+                               ~ controls[[.x]]), "") %>%
       unlist
   }
   # Expand to all possible combinations

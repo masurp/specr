@@ -21,6 +21,10 @@
 #'
 run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
 
+  # dependencies
+  require(dplyr)
+  require(purrr)
+
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
   if (!is.null(subsets)) {
@@ -43,6 +47,7 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
 
   df_all <- append(df_list, df_comb)
   })
+
   } else {
 
   df_all <- df_list

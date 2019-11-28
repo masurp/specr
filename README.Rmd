@@ -33,6 +33,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("masurp/specr")
 ```
+
 ## Example
 
 This is a basic example of how to use the major functions in this package. In a first step, check the data (here a simulated data set).

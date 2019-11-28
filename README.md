@@ -111,15 +111,13 @@ the function `variance_specs()` to calculate a respective table or
 ``` r
 # Decompose variance of the specification curve
 variance_specs(results)
-#> # A tibble: 6 x 4
-#>   grp         vcov     icc percent
-#>   <chr>      <dbl>   <dbl>   <dbl>
-#> 1 subset    0.795  0.0363    3.63 
-#> 2 controls  0.0497 0.00227   0.227
-#> 3 model     0      0         0    
-#> 4 y        19.7    0.898    89.8  
-#> 5 x         0.430  0.0196    1.96 
-#> 6 Residual  0.963  0.0439    4.39
+#>        grp        vcov         icc    percent
+#> 1   subset  0.79493804 0.036267265  3.6267265
+#> 2 controls  0.04969939 0.002267423  0.2267423
+#> 3    model  0.00000000 0.000000000  0.0000000
+#> 4        y 19.68136056 0.897917924 89.7917924
+#> 5        x  0.43038432 0.019635319  1.9635319
+#> 6 Residual  0.96250363 0.043912069  4.3912069
 
 # Plot decomposition
 plot_variance(results)

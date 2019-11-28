@@ -54,8 +54,6 @@ plot_specs <- function(df = NULL,
                        ci = TRUE,
                        prob = .975) {
 
-  # dependencies
-  require(cowplot)
 
   if (!is_null(df)) {
   plot_a <- plot_curve(df, ci = ci, prob = prob, desc = desc)
@@ -64,12 +62,13 @@ plot_specs <- function(df = NULL,
   }
 
 
-    plot_grid(plot_a, plot_b,
-              labels = labels,
-              align = "v",
-              axis = "rbl",
-              rel_heights = rel_heights,
-              ncol = 1)
+  cowplot::plot_grid(plot_a,
+                     plot_b,
+                     labels = labels,
+                     align = "v",
+                     axis = "rbl",
+                     rel_heights = rel_heights,
+                     ncol = 1)
 
 }
 

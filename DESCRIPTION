@@ -16,6 +16,7 @@ Description: The goal of specr is to facilitate specification curve analyses as 
 License: GPL-3
 Imports:
     dplyr,
+    tidyr,
     purrr,
     ggplot2,
     cowplot,
