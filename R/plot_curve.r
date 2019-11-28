@@ -52,6 +52,7 @@ plot_curve <- function(df,
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
           axis.text = element_text(colour = "black")) +
+    labs(x = "")
 
   if (isFALSE(legend)) {
     plot <- plot +

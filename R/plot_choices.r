@@ -42,11 +42,12 @@ plot_choices <- function(df,
                size = 3.35) +
     scale_color_identity() +
     theme_minimal() +
-    facet_wrap(~key, scales = "free_y", ncol = 1) +
-    theme(strip.text = element_blank(),
+    facet_grid(key~1, scales = "free_y", space = "free_y") +
+    theme(
           axis.line = element_line("black", size = .5),
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
-          axis.text = element_text(colour = "black"))
+          axis.text = element_text(colour = "black")) +
+    labs(x = "", y = "")
 
 }
