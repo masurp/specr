@@ -1,6 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+<div style="padding-top:1em; padding-bottom: 0.5em;">
+
+<img src="man/figures/specr_logo.png" width = 125 align="right" />
+
+</div>
+
 # specr
 
 <!-- badges: start -->
