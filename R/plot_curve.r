@@ -30,19 +30,14 @@ plot_curve <- function(df,
       arrange(desc(estimate))
   }
 
-
-  df <- df %>%
-    mutate(specifications = 1:n(),
-           ll = estimate - qnorm(prob)*std.error,
-           ul = estimate + qnorm(prob)*std.error,
-           color = case_when(ll > 0 ~ "lightblue", ul < 0 ~ "lightred", TRUE ~ "grey"))
-
   # Create basic plot
-  plot <- ggplot(df, aes(x = specifications,
-                         y = estimate,
-                         ymin = ll,
-                         ymax = ul,
-                         color = color)) +
+  plot <- df %>%
+    format_results(prob = prob) %>%
+    ggplot(aes(x = specifications,
+               y = estimate,
+               ymin = ll,
+               ymax = ul,
+               color = color)) +
     geom_point(aes(color = color),
                size = 1) +
     theme_minimal() +

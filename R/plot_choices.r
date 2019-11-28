@@ -25,13 +25,10 @@ plot_choices <- function(df,
       arrange(desc(estimate))
   }
 
-  df <- df %>%
-    mutate(specifications = 1:n(),
-           ll = estimate - qnorm(prob)*std.error,
-           ul = estimate + qnorm(prob)*std.error,
-           color = case_when(ll > 0 ~ "lightblue", ul < 0 ~ "lightred", TRUE ~ "grey"))
+
 
   df %>%
+    format_results(prob = prob) %>%
     tidyr::gather(key, value, x, y, model, controls, subset) %>%
     ggplot(aes(x = specifications,
                y = value,
@@ -51,3 +48,4 @@ plot_choices <- function(df,
     labs(x = "", y = "")
 
 }
+
