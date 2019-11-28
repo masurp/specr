@@ -64,20 +64,26 @@ mymodel <- function(formula, data) {
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "glm", "mymodel"), 
+                     model = c("lm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(group1 = unique(example_data$group1)))
+                     subset = list(group1 = unique(example_data$group1),
+                                   group2 = unique(example_data$group2)))
 # Check results
-head(results)
-#> # A tibble: 6 x 9
-#>   x     y     model controls estimate std.error statistic  p.value subset  
-#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr>   
-#> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18 0 = gro…
-#> 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57 0 = gro…
-#> 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1 0 = gro…
-#> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3 0 = gro…
-#> 5 x1    y1    glm   c1 + c2     4.95      0.525     9.43  3.11e-18 0 = gro…
-#> 6 x2    y1    glm   c1 + c2     6.83      0.321    21.3   1.20e-57 0 = gro…
+results
+#> # A tibble: 288 x 9
+#>    x     y     model  controls estimate std.error statistic  p.value subset
+#>    <chr> <chr> <chr>  <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr> 
+#>  1 x1    y1    lm     c1 + c2     4.95      0.525     9.43  3.11e-18 group…
+#>  2 x2    y1    lm     c1 + c2     6.83      0.321    21.3   1.20e-57 group…
+#>  3 x1    y2    lm     c1 + c2    -0.227     0.373    -0.607 5.44e- 1 group…
+#>  4 x2    y2    lm     c1 + c2     0.985     0.324     3.04  2.62e- 3 group…
+#>  5 x1    y1    mymod… c1 + c2     4.95      0.525     9.43  3.11e-18 group…
+#>  6 x2    y1    mymod… c1 + c2     6.83      0.321    21.3   1.20e-57 group…
+#>  7 x1    y2    mymod… c1 + c2    -0.227     0.373    -0.607 5.44e- 1 group…
+#>  8 x2    y2    mymod… c1 + c2     0.985     0.324     3.04  2.62e- 3 group…
+#>  9 x1    y1    lm     c1          5.53      0.794     6.97  2.95e-11 group…
+#> 10 x2    y1    lm     c1          8.07      0.557    14.5   6.90e-35 group…
+#> # … with 278 more rows
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -102,12 +108,12 @@ variance_specs(results)
 #> # A tibble: 6 x 4
 #>   grp         vcov     icc percent
 #>   <chr>      <dbl>   <dbl>   <dbl>
-#> 1 controls  0.0526 0.00233   0.233
-#> 2 model     0      0         0    
-#> 3 subset    0.609  0.0270    2.70 
-#> 4 y        20.9    0.927    92.7  
-#> 5 x         0.650  0.0288    2.88 
-#> 6 Residual  0.347  0.0154    1.54
+#> 1 subset    0.303  0.0138    1.38 
+#> 2 controls  0.0634 0.00288   0.288
+#> 3 model     0      0         0    
+#> 4 y        20.7    0.940    94.0  
+#> 5 x         0.651  0.0296    2.96 
+#> 6 Residual  0.301  0.0137    1.37
 
 # Plot decomposition
 plot_variance(results)

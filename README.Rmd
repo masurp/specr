@@ -54,11 +54,12 @@ mymodel <- function(formula, data) {
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "glm", "mymodel"), 
+                     model = c("lm", "mymodel"), 
                      controls = c("c1", "c2"), 
-                     subset = list(group1 = unique(example_data$group1)))
+                     subset = list(group1 = unique(example_data$group1),
+                                   group2 = unique(example_data$group2)))
 # Check results
-head(results)
+results
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results. 
@@ -71,7 +72,7 @@ plot_specs(results)
 
 Furthermore, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we can use the function `variance_specs()` to calculate a respective table or `plot_variance()`to visualize the distribution.
 
-```{r, fig.height=2, fig.width=8, message=F, warning = F}
+```{r, fig.height=3.5, fig.width=8, message=F, warning = F}
 # Decompose variance of the specification curve
 variance_specs(results)
 
