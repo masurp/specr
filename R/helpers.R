@@ -10,7 +10,7 @@ run_spec <- function(specs, df) {
 
   # dependencies
   require(dplyr)
-  require(purr)
+  require(purrr)
 
   specs %>%
     mutate(formula = pmap(., create_formula)) %>%
