@@ -19,11 +19,13 @@
 #'           x = c("x1", "x2"),
 #'           model = c("lm", "glm"))
 #'
-run_specs <- function(df, y, x, model, controls = NULL, subsets = NA) {
+run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
 
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
-  if (!is.na(subsets)) {
+  if (!is.null(subsets)) {
+
+  subsets = map(subsets, as.character)
 
   # Create subsets and full data set, but no combination
   df_list <- create_subsets(df, subsets)
@@ -31,7 +33,7 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NA) {
 
   if (length(subsets) > 1) {
 
-
+  suppressMessages({
   df_comb <- subsets %>%
     cross %>%
     map(~ create_subsets(subsets = .x, df = df) %>%
@@ -40,7 +42,7 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NA) {
           mutate(filter = paste(names(.x), .x, collapse = " & ", sep = " = ")))
 
   df_all <- append(df_list, df_comb)
-
+  })
   } else {
 
   df_all <- df_list
