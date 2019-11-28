@@ -25,8 +25,29 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NA) {
 
   if (!is.na(subsets)) {
 
+  # Create subsets and full data set, but no combination
   df_list <- create_subsets(df, subsets)
-  map_df(df_list, ~ run_spec(specs, .x) %>%
+  df_list[[length(df_list)+1]] <- df %>% mutate(filter = "all")
+
+  if (length(subsets) > 1) {
+
+
+  df_comb <- subsets %>%
+    cross %>%
+    map(~ create_subsets(subsets = .x, df = df) %>%
+          map(~select(.x, -filter)) %>%
+          reduce(inner_join) %>%
+          mutate(filter = paste(names(.x), .x, collapse = " & ", sep = " = ")))
+
+  df_all <- append(df_list, df_comb)
+
+  } else {
+
+  df_all <- df_list
+
+  }
+
+  map_df(df_all, ~ run_spec(specs, .x) %>%
            mutate(subset = unique(.x$filter)))
 
   } else {
