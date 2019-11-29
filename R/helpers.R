@@ -15,8 +15,10 @@ run_spec <- function(specs, df) {
   specs %>%
     mutate(formula = pmap(., create_formula)) %>%
     mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
-    mutate(coefs = map(res, broom::tidy)) %>%
+    mutate(coefs = map(res, broom::tidy),
+           obs = map(res, nobs)) %>%
     tidyr::unnest(coefs) %>%
+    tidyr::unnest(obs) %>%
     filter(term == x) %>%
     select(-formula, -res, -term)
 }
