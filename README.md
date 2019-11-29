@@ -78,7 +78,7 @@ results <- run_specs(df = example_data,
                      x = c("x1", "x2"), 
                      model = c("lm", "lm_gauss"), 
                      controls = c("c1", "c2"), 
-                     subset = list(group1 = unique(example_data$group1),
+                     subsets = list(group1 = unique(example_data$group1),
                                    group2 = unique(example_data$group2)))
 # Check results
 results
@@ -95,7 +95,7 @@ results
 #>  8 x2    y2    lm_g… c1 + c2     0.985     0.324     3.04  2.62e- 3   250
 #>  9 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11   250
 #> 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35   250
-#> # … with 374 more rows, and 1 more variable: subset <chr>
+#> # … with 374 more rows, and 1 more variable: subsets <chr>
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -118,7 +118,7 @@ the function `variance_specs()` to calculate a respective table or
 # Decompose variance of the specification curve
 variance_specs(results)
 #>        grp        vcov         icc    percent
-#> 1   subset  0.79493804 0.036267265  3.6267265
+#> 1  subsets  0.79493804 0.036267265  3.6267265
 #> 2 controls  0.04969939 0.002267423  0.2267423
 #> 3    model  0.00000000 0.000000000  0.0000000
 #> 4        y 19.68136056 0.897917924 89.7917924

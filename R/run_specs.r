@@ -25,6 +25,8 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
   require(dplyr)
   require(purrr)
 
+
+
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
   if (!is.null(subsets)) {
@@ -55,12 +57,12 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
   }
 
   map_df(df_all, ~ run_spec(specs, .x) %>%
-           mutate(subset = unique(.x$filter)))
+           mutate(subsets = unique(.x$filter)))
 
   } else {
 
   run_spec(specs, df) %>%
-    mutate(subset = "all")
+    mutate(subsets = "all")
 
   }
 

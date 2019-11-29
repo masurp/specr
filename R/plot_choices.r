@@ -27,7 +27,7 @@ plot_choices <- function(df,
 
   df %>%
     format_results(prob = prob) %>%
-    tidyr::gather(key, value, x, y, model, controls, subset) %>%
+    tidyr::gather(key, value, x, y, model, controls, subsets) %>%
     ggplot(aes(x = specifications,
                y = value,
                color = color)) +
