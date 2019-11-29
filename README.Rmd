@@ -55,7 +55,7 @@ The resulting data frame includes relevant statistics of all models that were es
 
 ```{r, message=F, warning = F}
 # Self-made functions can be used too
-mymodel <- function(formula, data) {
+lm_gauss <- function(formula, data) {
   glm(formula = formula, data = data, family = gaussian(link = "identity"))
 }
 
@@ -63,7 +63,7 @@ mymodel <- function(formula, data) {
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "mymodel"), 
+                     model = c("lm", "lm_gauss"), 
                      controls = c("c1", "c2"), 
                      subset = list(group1 = unique(example_data$group1),
                                    group2 = unique(example_data$group2)))

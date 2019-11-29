@@ -68,7 +68,7 @@ includes relevant statistics of all models that were estimated.
 
 ``` r
 # Self-made functions can be used too
-mymodel <- function(formula, data) {
+lm_gauss <- function(formula, data) {
   glm(formula = formula, data = data, family = gaussian(link = "identity"))
 }
 
@@ -76,26 +76,26 @@ mymodel <- function(formula, data) {
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "mymodel"), 
+                     model = c("lm", "lm_gauss"), 
                      controls = c("c1", "c2"), 
                      subset = list(group1 = unique(example_data$group1),
                                    group2 = unique(example_data$group2)))
 # Check results
 results
-#> # A tibble: 384 x 9
-#>    x     y     model  controls estimate std.error statistic  p.value subset
-#>    <chr> <chr> <chr>  <chr>       <dbl>     <dbl>     <dbl>    <dbl> <chr> 
-#>  1 x1    y1    lm     c1 + c2     4.95      0.525     9.43  3.11e-18 group…
-#>  2 x2    y1    lm     c1 + c2     6.83      0.321    21.3   1.20e-57 group…
-#>  3 x1    y2    lm     c1 + c2    -0.227     0.373    -0.607 5.44e- 1 group…
-#>  4 x2    y2    lm     c1 + c2     0.985     0.324     3.04  2.62e- 3 group…
-#>  5 x1    y1    mymod… c1 + c2     4.95      0.525     9.43  3.11e-18 group…
-#>  6 x2    y1    mymod… c1 + c2     6.83      0.321    21.3   1.20e-57 group…
-#>  7 x1    y2    mymod… c1 + c2    -0.227     0.373    -0.607 5.44e- 1 group…
-#>  8 x2    y2    mymod… c1 + c2     0.985     0.324     3.04  2.62e- 3 group…
-#>  9 x1    y1    lm     c1          5.53      0.794     6.97  2.95e-11 group…
-#> 10 x2    y1    lm     c1          8.07      0.557    14.5   6.90e-35 group…
-#> # … with 374 more rows
+#> # A tibble: 384 x 10
+#>    x     y     model controls estimate std.error statistic  p.value   obs
+#>    <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl> <int>
+#>  1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18   250
+#>  2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57   250
+#>  3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   250
+#>  4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3   250
+#>  5 x1    y1    lm_g… c1 + c2     4.95      0.525     9.43  3.11e-18   250
+#>  6 x2    y1    lm_g… c1 + c2     6.83      0.321    21.3   1.20e-57   250
+#>  7 x1    y2    lm_g… c1 + c2    -0.227     0.373    -0.607 5.44e- 1   250
+#>  8 x2    y2    lm_g… c1 + c2     0.985     0.324     3.04  2.62e- 3   250
+#>  9 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11   250
+#> 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35   250
+#> # … with 374 more rows, and 1 more variable: subset <chr>
 ```
 
 In a final step, we can use the function `plot_specs()` to produce a
@@ -153,7 +153,7 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.0.0.9000)},
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2019},
 #>     url = {https://github.com/masurp/specr},
