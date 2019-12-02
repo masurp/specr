@@ -4,9 +4,10 @@
 \alias{plot_specs}
 \title{Plot specification curve and analytical choices}
 \usage{
-plot_specs(df = NULL, plot_a = NULL, plot_b = NULL, labels = c("A",
-  "B"), rel_heights = c(2, 3), desc = FALSE, ci = TRUE,
-  prob = 0.975)
+plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
+  choices = c("x", "y", "model", "controls", "subsets"),
+  labels = c("A", "B"), rel_heights = c(2, 3), desc = FALSE,
+  ci = TRUE, prob = 0.975)
 }
 \arguments{
 \item{df}{data frame resulting from \code{run_specs()}.}
@@ -14,6 +15,8 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL, labels = c("A",
 \item{plot_a}{a ggplot object resulting from \code{plot_curve()}.}
 
 \item{plot_b}{a ggplot object resulting from \code{plot_choices()}.}
+
+\item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 
 \item{labels}{labels for the two parts of the plot}
 

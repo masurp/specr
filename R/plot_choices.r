@@ -3,6 +3,8 @@
 #' This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
+#' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
+#' @param prob numeric value indicating what type of confidence intervals should used to highlight non-significant results.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
 #' @return
@@ -10,6 +12,7 @@
 #'
 #' @examples
 plot_choices <- function(df,
+                         choices = c("x", "y", "model", "controls", "subsets"),
                          prob = .975,
                          desc = FALSE) {
 
@@ -27,7 +30,7 @@ plot_choices <- function(df,
 
   df %>%
     format_results(prob = prob) %>%
-    tidyr::gather(key, value, x, y, model, controls, subsets) %>%
+    tidyr::gather(key, value, choices) %>%
     ggplot(aes(x = specifications,
                y = value,
                color = color)) +
@@ -46,4 +49,3 @@ plot_choices <- function(df,
     labs(x = "", y = "")
 
 }
-

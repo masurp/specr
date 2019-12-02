@@ -8,6 +8,7 @@
 #' @param df data frame resulting from \code{run_specs()}.
 #' @param plot_a a ggplot object resulting from \code{plot_curve()}.
 #' @param plot_b a ggplot object resulting from \code{plot_choices()}.
+#' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param labels labels for the two parts of the plot
 #' @param rel_heights vector indicating the relative heights of the plot.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
@@ -48,6 +49,7 @@
 plot_specs <- function(df = NULL,
                        plot_a = NULL,
                        plot_b = NULL,
+                       choices = c("x", "y", "model", "controls", "subsets"),
                        labels = c("A", "B"),
                        rel_heights = c(2, 3),
                        desc = FALSE,
@@ -57,7 +59,7 @@ plot_specs <- function(df = NULL,
 
   if (!is_null(df)) {
   plot_a <- plot_curve(df, ci = ci, prob = prob, desc = desc)
-  plot_b <- plot_choices(df, desc = desc)
+  plot_b <- plot_choices(df, choices = choices, desc = desc)
 
   }
 
