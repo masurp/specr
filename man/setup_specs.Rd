@@ -4,7 +4,7 @@
 \alias{setup_specs}
 \title{Create result frame with all specifications}
 \usage{
-setup_specs(x, y, model = "glm", controls)
+setup_specs(x, y, model, controls)
 }
 \arguments{
 \item{x}{a vector of the independent variables}

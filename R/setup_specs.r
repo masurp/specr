@@ -19,7 +19,7 @@
 #'
 setup_specs <- function(x,
                         y,
-                        model = "glm",
+                        model,
                         controls) {
   # dependencies
   require(dplyr)
