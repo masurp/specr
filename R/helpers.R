@@ -2,7 +2,7 @@
 # Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
   if (controls == "") controls <- 1
-  as.formula(paste(y, "~", x, "+", controls))
+  paste(y, "~", x, "+", controls)
 }
 
 # run individual specification
@@ -14,13 +14,14 @@ run_spec <- function(specs, df) {
 
   specs %>%
     mutate(formula = pmap(., create_formula)) %>%
+    tidyr::unnest(formula) %>%
     mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
     mutate(coefs = map(res, broom::tidy),
            obs = map(res, nobs)) %>%
     tidyr::unnest(coefs) %>%
     tidyr::unnest(obs) %>%
     filter(term == x) %>%
-    select(-formula, -res, -term)
+    select( -res, -term)
 }
 
 # create subsets
