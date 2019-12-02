@@ -2,7 +2,7 @@
 # Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
   if (controls == "") controls <- 1
-  as.formula(paste(y, "~", x, "+", controls))
+  paste(y, "~", x, "+", controls)
 }
 
 # run individual specification
