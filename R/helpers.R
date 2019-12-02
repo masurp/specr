@@ -2,7 +2,7 @@
 # Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
   if (controls == "") controls <- 1
-  paste(y, "~", x, "+", controls)
+  as.formula(paste(y, "~", x, "+", controls))
 }
 
 # run individual specification
@@ -21,7 +21,7 @@ run_spec <- function(specs, df) {
     tidyr::unnest(coefs) %>%
     tidyr::unnest(obs) %>%
     filter(term == x) %>%
-    select( -res, -term)
+    select(-formula, -res, -term)
 }
 
 # create subsets
