@@ -1,7 +1,7 @@
 
 # Create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
-  if (controls == "") controls <- 1
+  if (controls == "no covariates") controls <- 1
   paste(y, "~", x, "+", controls)
 }
 
