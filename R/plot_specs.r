@@ -14,6 +14,7 @@
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
+#' @param or should odds ratios be computed?
 #'
 #' @return
 #' @export
@@ -54,12 +55,13 @@ plot_specs <- function(df = NULL,
                        rel_heights = c(2, 3),
                        desc = FALSE,
                        ci = TRUE,
-                       prob = .975) {
+                       prob = .975,
+                       or = FALSE) {
 
 
   if (!is_null(df)) {
-  plot_a <- plot_curve(df, ci = ci, prob = prob, desc = desc)
-  plot_b <- plot_choices(df, choices = choices, desc = desc)
+  plot_a <- plot_curve(df, ci = ci, prob = prob, desc = desc, or = or)
+  plot_b <- plot_choices(df, choices = choices, desc = desc, or = or)
 
   }
 

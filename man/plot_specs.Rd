@@ -7,7 +7,7 @@
 plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"), rel_heights = c(2, 3), desc = FALSE,
-  ci = TRUE, prob = 0.975)
+  ci = TRUE, prob = 0.975, or = FALSE)
 }
 \arguments{
 \item{df}{data frame resulting from \code{run_specs()}.}
@@ -27,6 +27,8 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 
 \item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
+
+\item{or}{should odds ratios be computed?}
 }
 \description{
 This function plots an entire visualization of the specification curve analysis. It can be used in two ways:

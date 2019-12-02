@@ -5,7 +5,7 @@
 \title{Plot how analytical choices affect results}
 \usage{
 plot_choices(df, choices = c("x", "y", "model", "controls", "subsets"),
-  prob = 0.975, desc = FALSE)
+  prob = 0.975, desc = FALSE, or = FALSE)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
@@ -15,6 +15,8 @@ plot_choices(df, choices = c("x", "y", "model", "controls", "subsets"),
 \item{prob}{numeric value indicating what type of confidence intervals should used to highlight non-significant results.}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
+
+\item{or}{should odds ratios be computed?}
 }
 \description{
 This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.

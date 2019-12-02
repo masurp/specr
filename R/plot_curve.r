@@ -7,6 +7,7 @@
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
+#' @param or should odds ratio be computed?
 #'
 #' @return
 #' @export
@@ -16,7 +17,8 @@ plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
                        prob = .975,
-                       legend = FALSE){
+                       legend = FALSE,
+                       or = FALSE){
 
   require(ggplot2)
   require(dplyr)
@@ -32,7 +34,7 @@ plot_curve <- function(df,
 
   # Create basic plot
   plot <- df %>%
-    format_results(prob = prob) %>%
+    format_results(prob = prob, or = or) %>%
     ggplot(aes(x = specifications,
                y = estimate,
                ymin = ll,

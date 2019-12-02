@@ -5,7 +5,7 @@
 \title{Plot specification curve}
 \usage{
 plot_curve(df, desc = FALSE, ci = TRUE, prob = 0.975,
-  legend = FALSE)
+  legend = FALSE, or = FALSE)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
@@ -17,6 +17,8 @@ plot_curve(df, desc = FALSE, ci = TRUE, prob = 0.975,
 \item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
 
 \item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
+
+\item{or}{should odds ratio be computed?}
 }
 \description{
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible.

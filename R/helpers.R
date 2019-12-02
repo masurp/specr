@@ -37,17 +37,23 @@ create_subsets <- function(df, subsets) {
 }
 
 
-format_results <- function(df, prob) {
+format_results <- function(df, prob, or = FALSE) {
 
   # dependencies
   require(dplyr)
 
-  df %>%
+  df <- df %>%
     mutate(specifications = 1:n(),
            ll = estimate - qnorm(prob)*std.error,
            ul = estimate + qnorm(prob)*std.error,
            color = case_when(ll > 0 ~ "#377eb8",
                              ul < 0 ~ "#e41a1c",
                              TRUE ~ "grey"))
+  if (isTRUE(or)) {
+    df <- df %>%
+      mutate_at(vars(estimate, ul, ll), funs(exp))
+  }
+
+  return(df)
 }
 
