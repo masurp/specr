@@ -29,7 +29,7 @@ setup_specs <- function(x,
     controls <- list(controls %>%
                      paste(collapse = " + "),
                      purrr::map(1:length(controls),
-                               ~ controls[[.x]]), "") %>%
+                               ~ controls[[.x]]), "no covariates") %>%
       unlist
   }
   # Expand to all possible combinations
