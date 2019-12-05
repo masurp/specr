@@ -98,9 +98,9 @@ results
 #> # … with 374 more rows, and 1 more variable: subsets <chr>
 ```
 
-In a final step, we can use the function `plot_specs()` to produce a
-typical visualization of the specification curve and how the analytical
-choices affected the obtained results.
+We can then use the function `plot_specs()` to produce a typical
+visualization of the specification curve and how the analytical choices
+affected the obtained results.
 
 ``` r
 # Plot specification curve analysis
@@ -118,12 +118,12 @@ the function `variance_specs()` to calculate a respective table or
 # Decompose variance of the specification curve
 variance_specs(results)
 #>        grp        vcov         icc    percent
-#> 1  subsets  0.79493804 0.036267265  3.6267265
-#> 2 controls  0.04969939 0.002267423  0.2267423
+#> 1  subsets  0.79559770 0.036197590  3.6197590
+#> 2 controls  0.04954707 0.002254261  0.2254261
 #> 3    model  0.00000000 0.000000000  0.0000000
-#> 4        y 19.68136056 0.897917924 89.7917924
-#> 5        x  0.43038432 0.019635319  1.9635319
-#> 6 Residual  0.96250363 0.043912069  4.3912069
+#> 4        y 19.74075311 0.898152033 89.8152033
+#> 5        x  0.43091262 0.019605384  1.9605384
+#> 6 Residual  0.96248965 0.043790732  4.3790732
 
 # Plot decomposition
 plot_variance(results)

@@ -32,6 +32,7 @@ plot_choices <- function(df,
 
   df %>%
     format_results(prob = prob, or = or) %>%
+    mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
     tidyr::gather(key, value, choices) %>%
     mutate(key = factor(key, levels=c("x", "y", "controls", "subsets", "model"))) %>%
     ggplot(aes(x = specifications,
