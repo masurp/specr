@@ -5,16 +5,16 @@
 \title{Plot how analytical choices affect results}
 \usage{
 plot_choices(df, choices = c("x", "y", "model", "controls", "subsets"),
-  prob = 0.975, desc = FALSE, or = FALSE)
+  desc = FALSE)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
 
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 
-\item{prob}{numeric value indicating what type of confidence intervals should used to highlight non-significant results.}
-
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
+
+\item{prob}{numeric value indicating what type of confidence intervals should used to highlight non-significant results.}
 
 \item{or}{should odds ratios be computed?}
 }

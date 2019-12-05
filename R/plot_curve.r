@@ -5,9 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
-#' @param prob numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
-#' @param or should odds ratio be computed?
 #'
 #' @return
 #' @export
@@ -16,29 +14,18 @@
 plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
-                       prob = .975,
-                       legend = FALSE,
-                       or = FALSE){
+                       legend = FALSE){
 
   require(ggplot2)
   require(dplyr)
 
-  # rank specs
-  if (isFALSE(desc)) {
-    df <- df %>%
-      arrange(estimate)
-  } else {
-    df <- df %>%
-      arrange(desc(estimate))
-  }
-
   # Create basic plot
   plot <- df %>%
-    format_results(prob = prob, or = or) %>%
+    format_results(desc = desc) %>%
     ggplot(aes(x = specifications,
                y = estimate,
-               ymin = ll,
-               ymax = ul,
+               ymin = conf.low,
+               ymax = conf.high,
                color = color)) +
     geom_point(aes(color = color),
                size = 1) +

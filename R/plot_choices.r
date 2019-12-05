@@ -4,9 +4,7 @@
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
-#' @param prob numeric value indicating what type of confidence intervals should used to highlight non-significant results.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
-#' @param or should odds ratios be computed?
 #'
 #' @return
 #' @export
@@ -14,24 +12,13 @@
 #' @examples
 plot_choices <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets"),
-                         prob = .975,
-                         desc = FALSE,
-                         or = FALSE) {
+                         desc = FALSE) {
 
   require(ggplot2)
   require(dplyr)
 
-  # rank specs
-  if (isFALSE(desc)) {
-    df <- df %>%
-      arrange(estimate)
-  } else {
-    df <- df %>%
-      arrange(desc(estimate))
-  }
-
   df %>%
-    format_results(prob = prob, or = or) %>%
+    format_results(desc = desc) %>%
     mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
     tidyr::gather(key, value, choices) %>%
     mutate(key = factor(key, levels=c("x", "y", "controls", "subsets", "model"))) %>%

@@ -8,6 +8,7 @@
 #' @param model a vector of the type of models that should be estimated.
 #' @param controls a vector of the control variables that should be included. Defaults to none.
 #' @param subsets a list that includes named vectors
+#' @param conf.level the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.
 #'
 #' @return
 #' @export
@@ -19,7 +20,7 @@
 #'           x = c("x1", "x2"),
 #'           model = c("lm", "glm"))
 #'
-run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
+run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95) {
 
   # dependencies
   require(dplyr)
@@ -56,12 +57,12 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL) {
 
   }
 
-  map_df(df_all, ~ run_spec(specs, .x) %>%
+  map_df(df_all, ~ run_spec(specs, .x, conf.level) %>%
            mutate(subsets = unique(.x$filter)))
 
   } else {
 
-  run_spec(specs, df) %>%
+  run_spec(specs, df, conf.level) %>%
     mutate(subsets = "all")
 
   }

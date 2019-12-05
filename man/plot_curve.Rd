@@ -4,8 +4,7 @@
 \alias{plot_curve}
 \title{Plot specification curve}
 \usage{
-plot_curve(df, desc = FALSE, ci = TRUE, prob = 0.975,
-  legend = FALSE, or = FALSE)
+plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
@@ -14,9 +13,9 @@ plot_curve(df, desc = FALSE, ci = TRUE, prob = 0.975,
 
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 
-\item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
-
 \item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
+
+\item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
 
 \item{or}{should odds ratio be computed?}
 }
