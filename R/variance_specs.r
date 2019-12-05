@@ -14,12 +14,12 @@ variance_specs <- function(df,
 
   # dependencies
   require(lme4)
-
   # get random effect variances
-  var <- lmer(estimate ~ 1 + (1|x)+ (1|y) + (1|model) + (1|controls) + (1|subsets), data = results) %>%
+  var <- lmer(estimate ~ 1 + (1|x)+ (1|y) + (1|model) + (1|controls) + (1|subsets), data = df) %>%
     VarCorr %>%
     as.data.frame %>%
     select(grp, vcov)
+
 
   # sum all variance components
   sum_var <- sum(var$vcov)
@@ -36,4 +36,3 @@ variance_specs <- function(df,
   return(var)
 
 }
-
