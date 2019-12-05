@@ -25,13 +25,11 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
-
-\item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
-
-\item{or}{should odds ratios be computed?}
 }
 \description{
 This function plots an entire visualization of the specification curve analysis. It can be used in two ways:
+}
+\details{
 \enumerate{
 \item The results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically.
 \item The ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
@@ -44,7 +42,7 @@ results <- run_specs(example_data,
                      x = c("x1", "x2"),
                      model = "lm",
                      controls = c("c1", "c2"),
-                     subset = list(gender = unique(d$gender)))
+                     subset = list(group1 = unique(example_data$group1)))
 
 # plot results directly
 plot_specs(results)
@@ -55,10 +53,7 @@ p1 <- plot_curve(results) +
   ylim(-3, 12) +
   labs(x = "", y = "unstandarized regression coefficient")
 
-p2 <- plot_choices(results) +
-  labs(y = "analytical choices")
-
-p3 <- plot_variance(results)
+p2 <- plot_choices(results)
 
 plot_specs(plot_a = p1,
            plot_b = p2,

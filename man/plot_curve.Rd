@@ -14,10 +14,6 @@ plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE)
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 
 \item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
-
-\item{prob}{numeric value indicating what type of confidence intervals should be plotted. Defaults to .975 (= 95% confidence intervalls.)}
-
-\item{or}{should odds ratio be computed?}
 }
 \description{
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible.
