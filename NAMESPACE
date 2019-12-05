@@ -3,6 +3,7 @@
 export("%>%")
 export(plot_choices)
 export(plot_curve)
+export(plot_samplesizes)
 export(plot_specs)
 export(plot_variance)
 export(run_specs)
