@@ -6,7 +6,7 @@ create_formula <- function(x, y, controls, ...) {
 }
 
 # run individual specification
-run_spec <- function(specs, df) {
+run_spec <- function(specs, df, conf.level) {
 
   # dependencies
   require(dplyr)
@@ -16,7 +16,7 @@ run_spec <- function(specs, df) {
     mutate(formula = pmap(., create_formula)) %>%
     tidyr::unnest(formula) %>%
     mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
-    mutate(coefs = map(res, broom::tidy),
+    mutate(coefs = map(res, broom::tidy, conf.int = TRUE, conf.level = conf.level),
            obs = map(res, nobs)) %>%
     tidyr::unnest(coefs) %>%
     tidyr::unnest(obs) %>%
@@ -37,22 +37,23 @@ create_subsets <- function(df, subsets) {
 }
 
 
-format_results <- function(df, prob, or = FALSE) {
+format_results <- function(df, desc = FALSE) {
 
   # dependencies
   require(dplyr)
-
+  # rank specs
+  if (isFALSE(desc)) {
+    df <- df %>%
+      arrange(estimate)
+  } else {
+    df <- df %>%
+      arrange(desc(estimate))
+  }
   df <- df %>%
     mutate(specifications = 1:n(),
-           ll = estimate - qnorm(prob)*std.error,
-           ul = estimate + qnorm(prob)*std.error,
-           color = case_when(ll > 0 ~ "#377eb8",
-                             ul < 0 ~ "#e41a1c",
+           color = case_when(conf.low > 0 ~ "#377eb8",
+                             conf.high < 0 ~ "#e41a1c",
                              TRUE ~ "grey"))
-  if (isTRUE(or)) {
-    df <- df %>%
-      mutate_at(vars(estimate, ul, ll), funs(exp))
-  }
 
   return(df)
 }
