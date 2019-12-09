@@ -50,12 +50,13 @@ plot_specs <- function(df = NULL,
                        labels = c("A", "B"),
                        rel_heights = c(2, 3),
                        desc = FALSE,
+                       null = 0,
                        ci = TRUE) {
 
 
   if (!is_null(df)) {
-  plot_a <- plot_curve(df, ci = ci, desc = desc)
-  plot_b <- plot_choices(df, choices = choices, desc = desc)
+  plot_a <- plot_curve(df, ci = ci, desc = desc, null = null)
+  plot_b <- plot_choices(df, choices = choices, desc = desc, null = null)
 
   }
 

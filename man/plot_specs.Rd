@@ -7,7 +7,7 @@
 plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"), rel_heights = c(2, 3), desc = FALSE,
-  ci = TRUE)
+  null = 0, ci = TRUE)
 }
 \arguments{
 \item{df}{data frame resulting from \code{run_specs()}.}

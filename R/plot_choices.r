@@ -5,6 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
+#' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
 #' @return
 #' @export
@@ -12,13 +13,14 @@
 #' @examples
 plot_choices <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets"),
-                         desc = FALSE) {
+                         desc = FALSE,
+                         null = 0) {
 
   require(ggplot2)
   require(dplyr)
 
   df %>%
-    format_results(desc = desc) %>%
+    format_results(desc = desc, null = null) %>%
     mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
     tidyr::gather(key, value, choices) %>%
     mutate(key = factor(key, levels=c("x", "y", "controls", "subsets", "model"))) %>%
@@ -36,7 +38,8 @@ plot_choices <- function(df,
           axis.line = element_line("black", size = .5),
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
-          axis.text = element_text(colour = "black")) +
+          axis.text = element_text(colour = "black"),
+          strip.text.x = element_blank()) +
     labs(x = "", y = "")
 
 }

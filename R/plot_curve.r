@@ -6,6 +6,7 @@
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
+#' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
 #' @return
 #' @export
@@ -14,14 +15,15 @@
 plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
-                       legend = FALSE){
+                       legend = FALSE,
+                       null = 0){
 
   require(ggplot2)
   require(dplyr)
 
   # Create basic plot
   plot <- df %>%
-    format_results(desc = desc) %>%
+    format_results(desc = desc, null = null) %>%
     ggplot(aes(x = specifications,
                y = estimate,
                ymin = conf.low,

@@ -37,7 +37,7 @@ create_subsets <- function(df, subsets) {
 }
 
 
-format_results <- function(df, desc = FALSE) {
+format_results <- function(df, null = 0, desc = FALSE) {
 
   # dependencies
   require(dplyr)
@@ -51,9 +51,9 @@ format_results <- function(df, desc = FALSE) {
   }
   df <- df %>%
     mutate(specifications = 1:n(),
-           color = case_when(conf.low > 0 ~ "#377eb8",
-                             conf.high < 0 ~ "#e41a1c",
-                             TRUE ~ "grey"))
+           color = case_when(conf.low > null ~ "#377eb8",
+                             conf.high < null ~ "#e41a1c",
+                             TRUE ~ "darkgrey"))
 
   return(df)
 }
