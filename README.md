@@ -82,20 +82,46 @@ results <- run_specs(df = example_data,
                                    group2 = unique(example_data$group2)))
 # Check results
 results
-#> # A tibble: 384 x 10
-#>    x     y     model controls estimate std.error statistic  p.value   obs
-#>    <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl> <int>
-#>  1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18   250
-#>  2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57   250
-#>  3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   250
-#>  4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3   250
-#>  5 x1    y1    lm_g… c1 + c2     4.95      0.525     9.43  3.11e-18   250
-#>  6 x2    y1    lm_g… c1 + c2     6.83      0.321    21.3   1.20e-57   250
-#>  7 x1    y2    lm_g… c1 + c2    -0.227     0.373    -0.607 5.44e- 1   250
-#>  8 x2    y2    lm_g… c1 + c2     0.985     0.324     3.04  2.62e- 3   250
-#>  9 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11   250
-#> 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35   250
-#> # … with 374 more rows, and 1 more variable: subsets <chr>
+#> # A tibble: 384 x 12
+#>    x     y     model controls estimate std.error statistic  p.value
+#>    <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>
+#>  1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18
+#>  2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57
+#>  3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1
+#>  4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3
+#>  5 x1    y1    lm_g… c1 + c2     4.95      0.525     9.43  3.11e-18
+#>  6 x2    y1    lm_g… c1 + c2     6.83      0.321    21.3   1.20e-57
+#>  7 x1    y2    lm_g… c1 + c2    -0.227     0.373    -0.607 5.44e- 1
+#>  8 x2    y2    lm_g… c1 + c2     0.985     0.324     3.04  2.62e- 3
+#>  9 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11
+#> 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35
+#> # … with 374 more rows, and 4 more variables: conf.low <dbl>,
+#> #   conf.high <dbl>, obs <int>, subsets <chr>
+```
+
+We can use the function `summarise_specs()` to get a first summary of
+our results.
+
+``` r
+# basic use
+summarise_specs(results)
+#> # A tibble: 1 x 7
+#>   median   mad   min   max   q25   q75   obs
+#>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
+#> 1   3.59  4.56 -2.05  9.58  1.03  7.63   123
+
+# grouping and specific statistics
+summarise_specs(results, 
+                stats = lst(median, min, max), 
+                group = c("x", "y"))
+#> # A tibble: 4 x 5
+#> # Groups:   x [2]
+#>   x     y     median    min   max
+#>   <chr> <chr>  <dbl>  <dbl> <dbl>
+#> 1 x1    y1     6.52   3.49   9.28
+#> 2 x1    y2     0.498 -2.05   3.67
+#> 3 x2    y1     7.80   5.89   9.58
+#> 4 x2    y2     1.29  -0.258  2.91
 ```
 
 We can then use the function `plot_specs()` to produce a typical
@@ -107,7 +133,7 @@ affected the obtained results.
 plot_specs(results)
 ```
 
-<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Furthermore, we can estimate how much variance in the specification
 curve is related to which analytical decisions. Therefore, we can use
@@ -129,7 +155,7 @@ variance_specs(results)
 plot_variance(results)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ## How to cite this package
 
