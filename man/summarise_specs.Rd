@@ -4,12 +4,16 @@
 \alias{summarise_specs}
 \title{Summarise the specification curve results}
 \usage{
-summarise_specs(df, var = estimate, group = NULL)
+summarise_specs(df, var = estimate, stats = lst(median, mad, min, max,
+  q25 = function(x) quantile(x, prob = 0.25), q75 = function(x) quantile(x,
+  prob = 0.75)), group = NULL)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}). No need to use closures.}
+
+\item{stats}{list object (\code{lst()}) of summary functions.}
 
 \item{group}{a grouping factor (e.g., "subsets"). Several grouping variables can be passed. Defaults to NULL.}
 }
