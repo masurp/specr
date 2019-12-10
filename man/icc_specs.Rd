@@ -15,14 +15,16 @@ icc_specs(model, percent = TRUE)
 Get variance component of the specification curve
 }
 \examples{
+# Step 1: Run spec curve analysis
 results <- run_specs(df = example_data,
                      y = c("y1", "y2"),
                      x = c("x1", "x2"),
                      model = c("lm"))
+
+# Step 2: Estimate multilevel model
 library(lme4)
 model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 
+# Step 3: Estimate intra-class correlation
 icc_specs(model)
-
-
 }
