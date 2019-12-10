@@ -4,12 +4,14 @@
 \alias{summarise_specs}
 \title{Summarise the specification curve results}
 \usage{
-summarise_specs(df, group = NULL)
+summarise_specs(df, var = estimate, group = NULL)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
 
-\item{group}{a grouping factor (e.g., "subsets"). Defaults to NULL.}
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}). No need to use closures.}
+
+\item{group}{a grouping factor (e.g., "subsets"). Several grouping variables can be passed. Defaults to NULL.}
 }
 \description{
 This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices.
