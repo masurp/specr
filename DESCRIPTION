@@ -1,17 +1,18 @@
 Package: specr
 Title: Statistical functions for conducting specification curve analyses 
 Version: 0.1.0
-Authors@R: 
+Authors@R: c(
     person(given = "Philipp K.",
            family = "Masur",
            role = c("aut", "cre"),
            email = "phil.masur@gmail.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           comment = c(ORCID = "YOUR-ORCID-ID")),
     person(given = "Michael",
            family = "Scharkow",
            role = c("aut", "cre"),
            email = "michael@underused.org",
            comment = c(ORCID = "YOUR-ORCID-ID"))
+           )
 Description: The goal of specr is to facilitate specification curve analyses as described by Simonson, Simmons & Nelson (2015). It provides functions to setup, run, and plot all specifications.
 License: GPL-3
 Imports:
