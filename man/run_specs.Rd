@@ -30,7 +30,7 @@ This is the central function of the package. It can be used to run the specifica
 results <- run_specs(df = example_data,
                      y = c("y1", "y2"),
                      x = c("x1", "x2"),
-                     model = c("lm", "lm_gauss"),
+                     model = c("lm"),
                      controls = c("c1", "c2"),
                      subsets = list(group1 = unique(example_data$group1),
                                     group2 = unique(example_data$group2)))
