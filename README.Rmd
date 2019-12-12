@@ -91,14 +91,19 @@ We can then use the function `plot_specs()` to produce a typical visualization o
 plot_specs(results)
 ```
 
-Furthermore, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we can use the function `variance_specs()` to calculate a respective table or `plot_variance()`to visualize the distribution.
+Furthermore, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we have to estimate a basic multilevel model without predictors and the analytical decisions as random effects (interaction could be included too). We then use the function `icc_specs()` to calculate a respective table or `plot_variance()` to visualize the distribution.
 
 ```{r, fig.height=3.5, fig.width=8, message=F, warning = F}
-# Decompose variance of the specification curve
-variance_specs(results)
+# Estimate multilevel model 
+library(lme4)
+model <- lmer(estimate ~ 1 + (1|x)  + (1|y) + (1|controls) + (1|subsets), data = results)
+
+# Get intra-class correlation
+icc_specs(model) %>%
+  mutate_if(is.numeric, round, 2)
 
 # Plot decomposition
-plot_variance(results)
+plot_variance(model)
 ```
 
 

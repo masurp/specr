@@ -114,14 +114,14 @@ summarise_specs(results)
 summarise_specs(results, 
                 stats = lst(median, min, max), 
                 group = c("x", "y"))
-#> # A tibble: 4 x 5
+#> # A tibble: 4 x 6
 #> # Groups:   x [2]
-#>   x     y     median    min   max
-#>   <chr> <chr>  <dbl>  <dbl> <dbl>
-#> 1 x1    y1     6.52   3.49   9.28
-#> 2 x1    y2     0.498 -2.05   3.67
-#> 3 x2    y1     7.80   5.89   9.58
-#> 4 x2    y2     1.29  -0.258  2.91
+#>   x     y     median    min   max   obs
+#>   <chr> <chr>  <dbl>  <dbl> <dbl> <dbl>
+#> 1 x1    y1     6.52   3.49   9.28   123
+#> 2 x1    y2     0.498 -2.05   3.67   123
+#> 3 x2    y1     7.80   5.89   9.58   123
+#> 4 x2    y2     1.29  -0.258  2.91   123
 ```
 
 We can then use the function `plot_specs()` to produce a typical
@@ -136,23 +136,29 @@ plot_specs(results)
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 Furthermore, we can estimate how much variance in the specification
-curve is related to which analytical decisions. Therefore, we can use
-the function `variance_specs()` to calculate a respective table or
-`plot_variance()`to visualize the distribution.
+curve is related to which analytical decisions. Therefore, we have to
+estimate a basic multilevel model without predictors and the analytical
+decisions as random effects (interaction could be included too). We then
+use the function `icc_specs()` to calculate a respective table or
+`plot_variance()` to visualize the distribution.
 
 ``` r
-# Decompose variance of the specification curve
-variance_specs(results)
-#>        grp        vcov         icc    percent
-#> 1  subsets  0.79559770 0.036197590  3.6197590
-#> 2 controls  0.04954707 0.002254261  0.2254261
-#> 3    model  0.00000000 0.000000000  0.0000000
-#> 4        y 19.74075311 0.898152033 89.8152033
-#> 5        x  0.43091262 0.019605384  1.9605384
-#> 6 Residual  0.96248965 0.043790732  4.3790732
+# Estimate multilevel model 
+library(lme4)
+model <- lmer(estimate ~ 1 + (1|x)  + (1|y) + (1|controls) + (1|subsets), data = results)
+
+# Get intra-class correlation
+icc_specs(model) %>%
+  mutate_if(is.numeric, round, 2)
+#>        grp  vcov  icc percent
+#> 1  subsets  0.79 0.04    3.62
+#> 2 controls  0.05 0.00    0.23
+#> 3        y 19.74 0.90   89.83
+#> 4        x  0.43 0.02    1.95
+#> 5 Residual  0.96 0.04    4.38
 
 # Plot decomposition
-plot_variance(results)
+plot_variance(model)
 ```
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
