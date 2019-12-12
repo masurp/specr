@@ -12,6 +12,23 @@
 #' @export
 #'
 #' @examples
+#' # Run specification curve analysis
+#' results <- run_specs(df = example_data,
+#'                      y = c("y1", "y2"),
+#'                      x = c("x1", "x2"),
+#'                      model = c("lm", "lm_gauss"),
+#'                      controls = c("c1", "c2"),
+#'                      subsets = list(group1 = unique(example_data$group1),
+#'                                     group2 = unique(example_data$group2)))
+#'
+#' # Basic example
+#' summarise_specs(results)
+#'
+#' # Summary of specific analytical choices
+#' summarise_specs(results, group = c("subsets", "x"))
+#'
+#' # Summare of other estimates
+#' summarise_specs(results, var = "p.value", group = "controls")
 summarise_specs <- function(df,
                             var = estimate,
                             stats = lst(median, mad, min, max,

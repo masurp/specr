@@ -11,16 +11,10 @@
 #' @export
 #'
 #' @examples
-#' # Setup results frame with specifications
-#' setup_specs(x = c("tv_use", "smartphone_use"),
-#'             y = c("depression", "loneliness"),
-#'             model = c("lm", "glm"))
-#'
-#'
 setup_specs <- function(x,
                         y,
                         model,
-                        controls) {
+                        controls = NULL) {
   # dependencies
   require(dplyr)
 
