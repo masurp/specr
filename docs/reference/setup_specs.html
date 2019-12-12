@@ -109,7 +109,7 @@
     <p>This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with <code><a href='run_specs.html'>run_specs()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup_specs</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>model</span>, <span class='no'>controls</span>)</pre>
+    <pre class="usage"><span class='fu'>setup_specs</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>model</span>, <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -133,19 +133,11 @@
     </table>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Setup results frame with specifications</span>
-<span class='fu'>setup_specs</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"tv_use"</span>, <span class='st'>"smartphone_use"</span>),
-            <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"depression"</span>, <span class='st'>"loneliness"</span>),
-            <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>, <span class='st'>"glm"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in is_null(controls): argument "controls" is missing, with no default</span></div><div class='input'>
-
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
