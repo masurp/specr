@@ -7,7 +7,7 @@
 
 </div>
 
-# specr
+# specr - Statistical Functions for Specification Curve Analyses
 
 <!-- badges: start -->
 
@@ -17,15 +17,28 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
 <!-- badges: end -->
 
-The goal of specr is to facilitate specification curve analyses as
-described by Simonson, Simmons & Nelson (2019). It provides functions to
-setup, run, and plot all specifications.
+## Overview
 
-**Disclaimer:** Running a specification curve analysis does not make
-your findings any more reliable, valid or generalizable than a single
-analyis. The method is meant to inform about the effects of analytical
-choices on results, and not a better way to estimate a correlation or
-effect.
+The goal of specr is to facilitate specification curve analyses as
+described by Simonson, Simmons & Nelson (2019). It can be used to
+investigate how different (e.g., theoretical defensible) analytical
+choices affect outcome statistics within the universe of one single data
+set.
+
+It provides functions to setup, run, evaluate, and plot the multiverse
+of specifications. A simple usage example is provided below. For more
+information about the various functions and specific use cases, visit
+the documentation at <https://masurp.github.io/specr/index.html>.
+
+## Disclaimer
+
+We do see a lot of value in investigating how analytical choices affect
+a statistical outcome of interest. However, we strongly caution against
+using `specr` as a tool to somehow arrive at a better estimate. Running
+a specification curve analysis does not make your findings any more
+reliable, valid or generalizable than a single analyis. The method is
+only meant to inform about the effects of analytical choices on results,
+and not a better way to estimate a correlation or effect.
 
 ## Installation
 
@@ -37,13 +50,13 @@ You can install the development version from
 devtools::install_github("masurp/specr")
 ```
 
-## Example
+## A Simple Usage Example
 
 This is a basic example of how to use the major functions in this
-package. In a first step, check the data (here a simulated data set).
+package. In a first step, check the data (here a simulated data set that
+is provided within the package).
 
 ``` r
-# Load library
 library(specr)
 head(example_data)
 #>         x1         x2         c1        c2        y1         y2 group1
@@ -62,55 +75,36 @@ head(example_data)
 #> 6      C
 ```
 
-In a second step, we only need to use the function `run_specs()` and
-include our analytical choices as arguments. The resulting data frame
-includes relevant statistics of all models that were estimated.
+In a second step, use the function `run_specs()` and include your
+analytical choices as arguments. The resulting data frame includes
+relevant statistics of all models that were estimated.
 
 ``` r
-# Self-made functions can be used too
-lm_gauss <- function(formula, data) {
-  glm(formula = formula, data = data, family = gaussian(link = "identity"))
-}
-
-# Run specification curve analysis
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
-                     model = c("lm", "lm_gauss"), 
+                     model = c("lm"), 
                      controls = c("c1", "c2"), 
                      subsets = list(group1 = unique(example_data$group1),
                                    group2 = unique(example_data$group2)))
-# Check results
-results
-#> # A tibble: 384 x 12
-#>    x     y     model controls estimate std.error statistic  p.value
-#>    <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>
-#>  1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18
-#>  2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57
-#>  3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1
-#>  4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3
-#>  5 x1    y1    lm_g… c1 + c2     4.95      0.525     9.43  3.11e-18
-#>  6 x2    y1    lm_g… c1 + c2     6.83      0.321    21.3   1.20e-57
-#>  7 x1    y2    lm_g… c1 + c2    -0.227     0.373    -0.607 5.44e- 1
-#>  8 x2    y2    lm_g… c1 + c2     0.985     0.324     3.04  2.62e- 3
-#>  9 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11
-#> 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35
-#> # … with 374 more rows, and 4 more variables: conf.low <dbl>,
-#> #   conf.high <dbl>, obs <int>, subsets <chr>
+head(results)
+#> # A tibble: 6 x 12
+#>   x     y     model controls estimate std.error statistic  p.value conf.low
+#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
+#> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
+#> 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57    6.20 
+#> 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   -0.961
+#> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347
+#> 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 
+#> 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 
+#> # … with 3 more variables: conf.high <dbl>, obs <int>, subsets <chr>
 ```
 
-We can use the function `summarise_specs()` to get a first summary of
-our results.
+Use the function `summarise_specs()` to get a first summary of your
+results (you can specify what type of statistics should be computed as
+well as what grouping factors should be used).
 
 ``` r
-# basic use
-summarise_specs(results)
-#> # A tibble: 1 x 7
-#>   median   mad   min   max   q25   q75   obs
-#>    <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
-#> 1   3.59  4.56 -2.05  9.58  1.03  7.63   123
-
-# grouping and specific statistics
 summarise_specs(results, 
                 stats = lst(median, min, max), 
                 group = c("x", "y"))
@@ -124,44 +118,20 @@ summarise_specs(results,
 #> 4 x2    y2     1.29  -0.258  2.91   123
 ```
 
-We can then use the function `plot_specs()` to produce a typical
-visualization of the specification curve and how the analytical choices
-affected the obtained results.
+Use the function `plot_specs()` to produce a typical visualization of
+the specification curve and how the analytical choices affected the
+obtained results.
 
 ``` r
 # Plot specification curve analysis
-plot_specs(results)
+plot_specs(results, choices = c("x", "y", "controls", "subsets"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
-Furthermore, we can estimate how much variance in the specification
-curve is related to which analytical decisions. Therefore, we have to
-estimate a basic multilevel model without predictors and the analytical
-decisions as random effects (interaction could be included too). We then
-use the function `icc_specs()` to calculate a respective table or
-`plot_variance()` to visualize the distribution.
-
-``` r
-# Estimate multilevel model 
-library(lme4)
-model <- lmer(estimate ~ 1 + (1|x)  + (1|y) + (1|controls) + (1|subsets), data = results)
-
-# Get intra-class correlation
-icc_specs(model) %>%
-  mutate_if(is.numeric, round, 2)
-#>        grp  vcov  icc percent
-#> 1  subsets  0.79 0.04    3.62
-#> 2 controls  0.05 0.00    0.23
-#> 3        y 19.74 0.90   89.83
-#> 4        x  0.43 0.02    1.95
-#> 5 Residual  0.96 0.04    4.38
-
-# Plot decomposition
-plot_variance(model)
-```
-
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+For a more comprehensive example, check out the page “Getting started”.
+For specific uses and additional functions, have a look at the
+vignettes.
 
 ## How to cite this package
 
