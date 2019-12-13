@@ -19,12 +19,15 @@ setup_specs <- function(x,
   require(dplyr)
 
   # create controls variables
-  if (!is_null(controls)) {
+
+  if (!rlang::is_null(controls)) {
     controls <- list(controls %>%
                      paste(collapse = " + "),
                      purrr::map(1:length(controls),
                                ~ controls[[.x]]), "no covariates") %>%
       unlist
+  } else {
+    controls <- "no covariates"
   }
   # Expand to all possible combinations
   expand.grid(x = x,
@@ -34,3 +37,4 @@ setup_specs <- function(x,
     tbl_df %>%
     mutate_all(as.character)
 }
+
