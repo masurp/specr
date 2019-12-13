@@ -7,6 +7,7 @@
 #' @export
 #'
 #' @examples
+#' #+ setup, echo = F, message = F, warning = F
 #' # Step 1: Run spec curve analysis
 #' results <- run_specs(df = example_data,
 #'                      y = c("y1", "y2"),
