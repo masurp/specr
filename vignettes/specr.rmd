@@ -12,14 +12,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-## How to use specr
+
 
 The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. 
 
-### Step 1: Check the data
+## Step 1: Check the data
 
 In order to understand what type of analytical choices exists, you need to understand your data set. In a first step, you should hence investigate your data closely.
-
 
 ```{r, message=F, warning = F}
 # Load library
@@ -34,7 +33,7 @@ summary(example_data)
 
 There are several numeric variables. For this use case, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
 
-### Step 2: Define analytical choices
+## Step 2: Define analytical choices
 
 The next steps involves identifying possible analytical choices. This step involves an in-depth understanding of the research question and the model(s) that will be specified. In this case, we assume simply that `x` should be positively correlated with `y`. We can use the additional function `setup_specs()` to check how different analytical decisions create varying factorial designs.
 
@@ -47,7 +46,7 @@ setup_specs(y = c("y1"),               # We choose only one dependent variale
 The resulting data frame creates six different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
 
 
-### Step 3: Define final analytical choices and run the analysis
+## Step 3: Define final analytical choices and run the analysis
 
 The main function of the package is `run_specs()`. Similar to `setup_specs` we need to include our analytical choices as arguments. Additionally however, we also need to provide the data and we can also specify subsets that should be evaluated. 
 
@@ -73,7 +72,7 @@ results
 
 The result data frame includes relevant statistics for each of the estiamted models. 
 
-### Step 4: Investigate the specification curve
+## Step 4: Investigate the specification curve
 
 The package includes a simple function `summarise_specs()` that allows to get a first summary of the results.
 
@@ -101,7 +100,7 @@ However, in order to grasp how the different analytical choices affect the outco
 plot_specs(results)
 ```
 
-### Step 5: Decompose the variance in the specification curve
+## Step 5: Decompose the variance in the specification curve
 
 Finally, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we have to estimate a basic multilevel model without predictors and the analytical decisions as random effects (interactions could be included too). We then use the function `icc_specs()` to calculate a respective table or `plot_variance()` to visualize the distribution.
 
