@@ -1,9 +1,6 @@
 #' Plot specification curve and analytical choices
 #'
-#' This function plots an entire visualization of the specification curve analysis. It can be used in two ways:
-#'
-#' 1. The results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically.
-#' 2. The ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
+#' This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
 #'
 #'
 #' @param df data frame resulting from \code{run_specs()}.
@@ -30,7 +27,8 @@
 #' # plot results directly
 #' plot_specs(results)
 #'
-#' # customize each part and then combine
+#' # Customize each part and then
+#'  combine
 #' p1 <- plot_curve(results) +
 #'   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
 #'   ylim(-3, 12) +

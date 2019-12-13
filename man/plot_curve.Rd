@@ -18,5 +18,23 @@ plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE, null = 0)
 \item{null}{Indicate what value represents the null hypothesis (Defaults to zero)}
 }
 \description{
-This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible.
+This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function \code{plot_specs()} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
+}
+\examples{
+# Run specification curve analysis
+results <- run_specs(df = example_data,
+                     y = c("y1", "y2"),
+                     x = c("x1", "x2"),
+                     model = c("lm"),
+                     controls = c("c1", "c2"),
+                     subsets = list(group1 = unique(example_data$group1),
+                                    group2 = unique(example_data$group2)))
+# Plot simple specification curve
+plot_curve(results, ci = FALSE)
+
+# With confidence intervals and customize further
+plot_curve(results) +
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
+  theme_bw()
 }

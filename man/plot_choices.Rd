@@ -19,3 +19,23 @@ plot_choices(df, choices = c("x", "y", "model", "controls", "subsets"),
 \description{
 This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.
 }
+\examples{
+# Run specification curve analysis
+results <- run_specs(df = example_data,
+                     y = c("y1", "y2"),
+                     x = c("x1", "x2"),
+                     model = c("lm"),
+                     controls = c("c1", "c2"),
+                     subsets = list(group1 = unique(example_data$group1),
+                                    group2 = unique(example_data$group2)))
+
+# Plot simple table of choices
+plot_choices(results)
+
+# Plot only specific choices
+plot_choices(results, choices = c("x", "y", "controls"))
+
+# Customized plot
+plot_choices(results, choices = c("subsets", "controls")) +
+   theme_bw()
+}

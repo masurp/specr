@@ -18,3 +18,9 @@ setup_specs(x, y, model, controls = NULL)
 \description{
 This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{run_specs()}.
 }
+\examples{
+setup_specs(y = c("y1"),               # We choose only one dependent variale
+            x = c("x1", "x2"),         # We are not sure which independent variable is better
+            model = c("lm"),           # We only estimate one type of model (linear model)
+            controls = c("c1", "c2"))  # We include two control variable
+}
