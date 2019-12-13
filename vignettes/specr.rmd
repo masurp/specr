@@ -1,30 +1,120 @@
 ---
-title: "specr"
-author: "Anonymized - Reviewer"
-date: "12/12/2019"
-output: html_document
+output: github_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
 ```
 
-## R Markdown
+## How to use specr
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. 
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### Step 1: Check the data
 
-```{r cars}
-summary(cars)
+In order to understand what type of analytical choices exists, you need to understand your data set. In a first step, you should hence investigate your data closely.
+
+
+```{r, message=F, warning = F}
+# Load library
+library(specr)
+
+# We have a look at the simulated data set that is included in the package
+head(example_data)
+
+# Summary of the data set
+summary(example_data)
 ```
 
-## Including Plots
+There are several numeric variables. For this use case, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
 
-You can also embed plots, for example:
+### Step 2: Define analytical choices
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+The next steps involves identifying possible analytical choices. This step involves an in-depth understanding of the research question and the model(s) that will be specified. In this case, we assume simply that `x` should be positively correlated with `y`. We can use the additional function `setup_specs()` to check how different analytical decisions create varying factorial designs.
+
+```{r, message=F, warning = F}
+setup_specs(y = c("y1"),               # We choose only one dependent variale
+            x = c("x1", "x2"),         # We are not sure which independent variable is better
+            model = c("lm"))  # We include two control variable
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+The resulting data frame creates six different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
+
+
+### Step 3: Define final analytical choices and run the analysis
+
+The main function of the package is `run_specs()`. Similar to `setup_specs` we need to include our analytical choices as arguments. Additionally however, we also need to provide the data and we can also specify subsets that should be evaluated. 
+
+One type of analytical choice that could additionally affect the results refers to the type of model that is estimated. The function runs traditional linear regression models by default (i.e. when `model = "lm"`is provided as argument). However, customized model functions can be passed to the function. The only requirement is that the customized functions requires a (regression) formula and the data. 
+
+```{r, message=F, warning = F}
+# Self-made function
+lm_gauss <- function(formula, data) {
+  glm(formula = formula, data = data, family = gaussian(link = "identity"))
+}
+
+# Run specification curve analysis
+results <- run_specs(df = example_data, 
+                     y = c("y1", "y2"), 
+                     x = c("x1", "x2"), 
+                     model = c("lm", "lm_gauss"), 
+                     controls = c("c1", "c2"), 
+                     subsets = list(group1 = unique(example_data$group1),
+                                   group2 = unique(example_data$group2)))
+# Check results
+results
+```
+
+The result data frame includes relevant statistics for each of the estiamted models. 
+
+### Step 4: Investigate the specification curve
+
+The package includes a simple function `summarise_specs()` that allows to get a first summary of the results.
+
+```{r, message=F, warning = F}
+# basic summary of the entire specification curve
+summarise_specs(results)
+
+# summary by specific groups and  statistics
+summarise_specs(results, 
+                stats = lst(median, min, max), 
+                group = c("x", "y"))
+
+# summary of another statistic
+summarise_specs(results, 
+                var = "p.value",
+                group = "subsets")
+```
+
+The output contains summary statistics such as the median, the median absolute deviation, ... as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results (e.g., the p-value).
+
+However, in order to grasp how the different analytical choices affect the outcome of interest (in this case, the estimate refers to the unstandarized regression coefficient *b*), it is reasonable to plot a specification curve. The function `plot_specs()` to produces the typical visualization of the specification curve and how the analytical choices affected the obtained results. 
+
+```{r, fig.height=10, fig.width=10, message=F, warning = F}
+# Plot specification curve analysis
+plot_specs(results)
+```
+
+### Step 5: Decompose the variance in the specification curve
+
+Finally, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we have to estimate a basic multilevel model without predictors and the analytical decisions as random effects (interactions could be included too). We then use the function `icc_specs()` to calculate a respective table or `plot_variance()` to visualize the distribution.
+
+```{r, fig.height=3.5, fig.width=8, message=F, warning = F}
+# Estimate multilevel model 
+library(lme4)
+model <- lmer(estimate ~ 1 + (1|x)  + (1|y) + (1|controls) + (1|subsets), data = results)
+
+# Get intra-class correlation
+icc_specs(model) %>%
+  mutate_if(is.numeric, round, 2)
+
+# Plot decomposition
+plot_variance(model)
+```
+
