@@ -15,6 +15,7 @@ Authors@R: c(
            )
 Description: The goal of specr is to facilitate specification curve analyses as described by Simonson, Simmons & Nelson (2015). It provides functions to setup, run, and plot all specifications.
 License: GPL-3
+URL: https://masurp.github.io/specr/index.html
 Imports:
     dplyr,
     tidyr,
