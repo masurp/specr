@@ -172,21 +172,21 @@
                                     <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
 
 <span class='co'># Check results frame</span>
-<span class='no'>results</span></div><div class='output co'>#&gt; # A tibble: 192 x 12
+<span class='no'>results</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 192 x 12</span><span>
 #&gt;    x     y     model controls estimate std.error statistic  p.value conf.low
-#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
-#&gt;  1 x1    y1    lm    c1 + c2    4.95       0.525    9.43   3.11e-18    3.92 
-#&gt;  2 x2    y1    lm    c1 + c2    6.83       0.321   21.3    1.20e-57    6.20 
-#&gt;  3 x1    y2    lm    c1 + c2   -0.227      0.373   -0.607  5.44e- 1   -0.961
-#&gt;  4 x2    y2    lm    c1 + c2    0.985      0.324    3.04   2.62e- 3    0.347
-#&gt;  5 x1    y1    lm    c1         5.53       0.794    6.97   2.95e-11    3.96 
-#&gt;  6 x2    y1    lm    c1         8.07       0.557   14.5    6.90e-35    6.98 
-#&gt;  7 x1    y2    lm    c1         0.0461     0.466    0.0989 9.21e- 1   -0.872
-#&gt;  8 x2    y2    lm    c1         1.61       0.394    4.10   5.72e- 5    0.837
-#&gt;  9 x1    y1    lm    c2         5.15       0.625    8.24   9.95e-15    3.92 
-#&gt; 10 x2    y1    lm    c2         6.50       0.466   13.9    5.38e-33    5.58 
-#&gt; # … with 182 more rows, and 3 more variables: conf.high &lt;dbl&gt;, obs &lt;int&gt;,
-#&gt; #   subsets &lt;chr&gt;</div></pre>
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> x1    y1    lm    c1 + c2    4.95       0.525    9.43   3.11</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-18</span><span>    3.92 
+#&gt; </span><span style='color: #555555;'> 2</span><span> x2    y1    lm    c1 + c2    6.83       0.321   21.3    1.20</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-57</span><span>    6.20 
+#&gt; </span><span style='color: #555555;'> 3</span><span> x1    y2    lm    c1 + c2   -</span><span style='color: #BB0000;'>0.227</span><span>      0.373   -</span><span style='color: #BB0000;'>0.607</span><span>  5.44</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.961</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> x2    y2    lm    c1 + c2    0.985      0.324    3.04   2.62</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 3</span><span>    0.347
+#&gt; </span><span style='color: #555555;'> 5</span><span> x1    y1    lm    c1         5.53       0.794    6.97   2.95</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-11</span><span>    3.96 
+#&gt; </span><span style='color: #555555;'> 6</span><span> x2    y1    lm    c1         8.07       0.557   14.5    6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-35</span><span>    6.98 
+#&gt; </span><span style='color: #555555;'> 7</span><span> x1    y2    lm    c1         0.046</span><span style='text-decoration: underline;'>1</span><span>     0.466    0.098</span><span style='text-decoration: underline;'>9</span><span> 9.21</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.872</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> x2    y2    lm    c1         1.61       0.394    4.10   5.72</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 5</span><span>    0.837
+#&gt; </span><span style='color: #555555;'> 9</span><span> x1    y1    lm    c2         5.15       0.625    8.24   9.95</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-15</span><span>    3.92 
+#&gt; </span><span style='color: #555555;'>10</span><span> x2    y1    lm    c2         6.50       0.466   13.9    5.38</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-33</span><span>    5.58 
+#&gt; </span><span style='color: #555555;'># … with 182 more rows, and 3 more variables: conf.high </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, obs </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
+#&gt; #   subsets </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
