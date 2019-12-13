@@ -44,7 +44,7 @@ summarise_specs <- function(df,
       summarize_at(vars(!!var), stats)
   }
 
-  if (is_null(group)) {
+  if (rlang::is_null(group)) {
      bind_cols(
        df %>%
          summary_specs,

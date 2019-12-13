@@ -54,7 +54,7 @@ plot_specs <- function(df = NULL,
                        ci = TRUE) {
 
 
-  if (!is_null(df)) {
+  if (!rlang::is_null(df)) {
   plot_a <- plot_curve(df, ci = ci, desc = desc, null = null)
   plot_b <- plot_choices(df, choices = choices, desc = desc, null = null)
 
