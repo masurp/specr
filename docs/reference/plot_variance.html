@@ -129,12 +129,14 @@
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,
                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
                      <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
-                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in if (controls != "no covariates") {    controls &lt;- list(controls %&gt;% paste(collapse = " + "), purrr::map(1:length(controls),         ~controls[[.x]]), "no covariates") %&gt;% unlist}: argument is of length zero</span></div><div class='input'>
+                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>))
+
 <span class='co'># Step 2: Estimate multilevel model</span>
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lme4</span>)
-<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error: 'data' not found, and some variables missing from formula environment</span></div><div class='input'>
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)
+
 <span class='co'># Step 3: Plot model</span>
-<span class='fu'>plot_variance</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt; <span class='error'>Error in eval(lhs, parent, parent): object 'model' not found</span></div></pre>
+<span class='fu'>plot_variance</span>(<span class='no'>model</span>)</div><div class='img'><img src='plot_variance-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

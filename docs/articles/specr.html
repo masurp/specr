@@ -125,19 +125,12 @@
 <p>The next steps involves identifying possible analytical choices. This step involves an in-depth understanding of the research question and the model(s) that will be specified. In this case, we assume simply that <code>x</code> should be positively correlated with <code>y</code>. We can use the additional function <code><a href="../reference/setup_specs.html">setup_specs()</a></code> to check how different analytical decisions create varying factorial designs.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/setup_specs.html">setup_specs</a></span>(<span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>),               <span class="co"># We choose only one dependent variale</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>            <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),         <span class="co"># We are not sure which independent variable is better</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>),           <span class="co"># We only estimate a linear model</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>            <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>))  <span class="co"># We include two control variable</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; # A tibble: 8 x 4</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   x     y     model controls     </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2      </span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2      </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 3 x1    y1    lm    c1           </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 4 x2    y1    lm    c1           </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 5 x1    y1    lm    c2           </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 6 x2    y1    lm    c2           </span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 7 x1    y1    lm    no covariates</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 8 x2    y1    lm    no covariates</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>))  <span class="co"># We include two control variable</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;   x     y     model controls     </span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 1 x1    y1    lm    no covariates</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 2 x2    y1    lm    no covariates</span></span></code></pre></div>
 <p>The resulting data frame creates six different specifications. <code><a href="../reference/setup_specs.html">setup_specs()</a></code> can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis.</p>
 </div>
 <div id="step-3-define-final-analytical-choices-and-run-the-analysis" class="section level3">
@@ -229,7 +222,7 @@
 <div id="step-5-decompose-the-variance-in-the-specification-curve" class="section level3">
 <h3 class="hasAnchor">
 <a href="#step-5-decompose-the-variance-in-the-specification-curve" class="anchor"></a>Step 5: Decompose the variance in the specification curve</h3>
-<p>Finally, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we have to estimate a basic multilevel model without predictors and the analytical decisions as random effects (interaction could be included too). We then use the function <code><a href="../reference/icc_specs.html">icc_specs()</a></code> to calculate a respective table or <code><a href="../reference/plot_variance.html">plot_variance()</a></code> to visualize the distribution.</p>
+<p>Finally, we can estimate how much variance in the specification curve is related to which analytical decisions. Therefore, we have to estimate a basic multilevel model without predictors and the analytical decisions as random effects (interactions could be included too). We then use the function <code><a href="../reference/icc_specs.html">icc_specs()</a></code> to calculate a respective table or <code><a href="../reference/plot_variance.html">plot_variance()</a></code> to visualize the distribution.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Estimate multilevel model </span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lme4)</span>
 <span id="cb6-3"><a href="#cb6-3"></a>model &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(estimate <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>x)  <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>y) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>controls) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span><span class="op">|</span>subsets), <span class="dt">data =</span> results)</span>
