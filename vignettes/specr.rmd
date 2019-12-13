@@ -1,4 +1,5 @@
 ---
+title: "How to use SPECR"
 output: github_document
 ---
 
@@ -40,7 +41,8 @@ The next steps involves identifying possible analytical choices. This step invol
 ```{r, message=F, warning = F}
 setup_specs(y = c("y1"),               # We choose only one dependent variale
             x = c("x1", "x2"),         # We are not sure which independent variable is better
-            model = c("lm"))  # We include two control variable
+            model = c("lm"),           # We only estimate one type of model (linear model)
+            controls = c("c1", "c2"))  # We include two control variable
 ```
 
 The resulting data frame creates six different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 

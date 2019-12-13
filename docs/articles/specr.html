@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title> • specr</title>
+<title>How to use SPECR • specr</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="">
+<script src="../pkgdown.js"></script><meta property="og:title" content="How to use SPECR">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -49,6 +49,18 @@
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../articles/custom-plot.html">Customize Specification Curve Plot</a>
+    </li>
+  </ul>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
 </div>
@@ -63,7 +75,7 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1></h1>
+      <h1>How to use SPECR</h1>
             
       
       
@@ -122,12 +134,19 @@
 <p>The next steps involves identifying possible analytical choices. This step involves an in-depth understanding of the research question and the model(s) that will be specified. In this case, we assume simply that <code>x</code> should be positively correlated with <code>y</code>. We can use the additional function <code><a href="../reference/setup_specs.html">setup_specs()</a></code> to check how different analytical decisions create varying factorial designs.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/setup_specs.html">setup_specs</a></span>(<span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>),               <span class="co"># We choose only one dependent variale</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>            <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),         <span class="co"># We are not sure which independent variable is better</span></span>
-<span id="cb2-3"><a href="#cb2-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>))  <span class="co"># We include two control variable</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; # A tibble: 2 x 4</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;   x     y     model controls     </span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 1 x1    y1    lm    no covariates</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 2 x2    y1    lm    no covariates</span></span></code></pre></div>
+<span id="cb2-3"><a href="#cb2-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>),           <span class="co"># We only estimate one type of model (linear model)</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>            <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>))  <span class="co"># We include two control variable</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; # A tibble: 8 x 4</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   x     y     model controls     </span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2      </span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2      </span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 3 x1    y1    lm    c1           </span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 4 x2    y1    lm    c1           </span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 5 x1    y1    lm    c2           </span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 6 x2    y1    lm    c2           </span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 7 x1    y1    lm    no covariates</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 8 x2    y1    lm    no covariates</span></span></code></pre></div>
 <p>The resulting data frame creates six different specifications. <code><a href="../reference/setup_specs.html">setup_specs()</a></code> can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis.</p>
 </div>
 <div id="step-3-define-final-analytical-choices-and-run-the-analysis" class="section level2">
