@@ -47,44 +47,33 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("masurp/specr")
 ```
 
-## A Simple Usage Example
+## Simple example
 
-This is a basic example of how to use the major functions in this package. In a first step, check the data (here a simulated data set that is provided within the package).
+Using `specr` is comparatively simple. The main function is `run_specs()` in which analytical choices are specified as arguments. The function `plot_specs()` can then be used to visualize the results.
 
-```{r, message=F, warning = F}
+```{r, message=F, warning = F, fig.height=10, fig.width=10}
 library(specr)
-head(example_data)
-```
 
-In a second step, use the function `run_specs()` and include your analytical choices as arguments. The resulting data frame includes relevant statistics of all models that were estimated.
-
-```{r, message=F, warning = F}
+# Run specs
 results <- run_specs(df = example_data, 
                      y = c("y1", "y2"), 
                      x = c("x1", "x2"), 
                      model = c("lm"), 
                      controls = c("c1", "c2"), 
                      subsets = list(group1 = unique(example_data$group1),
-                                   group2 = unique(example_data$group2)))
+                                    group2 = unique(example_data$group2)))
+# Result frame
 head(results)
-```
 
-Use the function `summarise_specs()` to get a first summary of your results (you can specify what type of statistics should be computed as well as what grouping factors should be used).
-
-```{r, message=F, warning = F}
-summarise_specs(results, 
-                stats = lst(median, min, max), 
-                group = c("x", "y"))
-```
-
-Use the function `plot_specs()` to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results. 
-
-```{r, fig.height=10, fig.width=10, message=F, warning = F}
-# Plot specification curve analysis
+# Plot
 plot_specs(results, choices = c("x", "y", "controls", "subsets"))
 ```
 
-For a more comprehensive example, check out the page "Getting started". For specific uses and additional functions, have a look at the vignettes.
+For a more comprehensive examples and descriptions of how to use the various functions of the package, check out the following pages:
+
+- [Getting started](https://masurp.github.io/specr/articles/specr.html): A comprehensive example. 
+- [How to Customize the Specification Curve Plot](https://masurp.github.io/specr/articles/custom-plot.html): This vignette exemplifies various ways to plot the specification curve. 
+- [How to Decompose the Variance of the Specification Curve](https://masurp.github.io/specr/articles/decompose_var.html): This vignette explains how to investigate variance components of the specification curve.
 
 
 ## How to cite this package
