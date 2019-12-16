@@ -27,13 +27,7 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 }
 \description{
-This function plots an entire visualization of the specification curve analysis. It can be used in two ways:
-}
-\details{
-\enumerate{
-\item The results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically.
-\item The ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
-}
+This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
 }
 \examples{
 # run spec analysis
@@ -47,7 +41,8 @@ results <- run_specs(example_data,
 # plot results directly
 plot_specs(results)
 
-# Customize each part and then combine
+# Customize each part and then
+ combine
 p1 <- plot_curve(results) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-3, 12) +

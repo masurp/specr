@@ -1,5 +1,5 @@
 ---
-title: "Customize Specification Curve Plot"
+title: "How to Customize the Specification Curve Plot"
 output: github_document
 ---
 
