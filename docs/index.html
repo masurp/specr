@@ -60,7 +60,7 @@
       <a href="articles/custom-plot.html">How to Customize the Specification Curve Plot</a>
     </li>
     <li>
-      <a href="articles/decompose_var.html">Hot to Decompose the Variance of the Specification Curve</a>
+      <a href="articles/decompose_var.html">How to Decompose the Variance of the Specification Curve</a>
     </li>
   </ul>
 </li>
@@ -105,84 +105,67 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># install.packages("devtools")</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a>devtools<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/devtools/man/reexports.html">install_github</a></span>(<span class="st">"masurp/specr"</span>)</span></code></pre></div>
 </div>
-<div id="a-simple-usage-example" class="section level2">
+<div id="simple-example" class="section level2">
 <h2 class="hasAnchor">
-<a href="#a-simple-usage-example" class="anchor"></a>A Simple Usage Example</h2>
-<p>This is a basic example of how to use the major functions in this package. In a first step, check the data (here a simulated data set that is provided within the package).</p>
+<a href="#simple-example" class="anchor"></a>Simple example</h2>
+<p>Using <code>specr</code> is comparatively simple. The main function is <code><a href="reference/run_specs.html">run_specs()</a></code> in which analytical choices are specified as arguments. The function <code><a href="reference/plot_specs.html">plot_specs()</a></code> can then be used to visualize the results.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(example_data)</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="co">#&gt;         x1         x2         c1        c2        y1         y2 group1</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="co">#&gt; 1 1.533913  1.3697122  0.5424902 3.8924435 23.500543 10.4269278      0</span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; 2 1.680639  1.5163745 -1.2415868 3.3377268 17.017955  0.5733467      1</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 3 1.223941 -0.2381044  0.1405891 0.8911959 -3.678272  4.2303190      0</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 4 1.765276  0.9524049  4.0397943 1.8567454 21.668684 14.8865252      1</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 5 1.907134  0.6282816  3.1002518 5.5840574 32.713106 20.5251920      0</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 6 1.710695  1.1898467  0.4648824 4.0239483 20.422171  4.3471236      1</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   group2</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 1      A</span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 2      C</span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 3      B</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 4      B</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 5      A</span></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; 6      C</span></span></code></pre></div>
-<p>In a second step, use the function <code><a href="reference/run_specs.html">run_specs()</a></code> and include your analytical choices as arguments. The resulting data frame includes relevant statistics of all models that were estimated.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="reference/run_specs.html">run_specs</a></span>(<span class="dt">df =</span> example_data, </span>
-<span id="cb3-2"><a href="#cb3-2"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>), </span>
-<span id="cb3-3"><a href="#cb3-3"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>), </span>
-<span id="cb3-4"><a href="#cb3-4"></a>                     <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>), </span>
-<span id="cb3-5"><a href="#cb3-5"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>), </span>
-<span id="cb3-6"><a href="#cb3-6"></a>                     <span class="dt">subsets =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
-<span id="cb3-7"><a href="#cb3-7"></a>                                   <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)))</span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(results)</span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; # A tibble: 6 x 12</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt;   x     y     model controls estimate std.error statistic  p.value conf.low</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 </span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57    6.20 </span></span>
-<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   -0.961</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347</span></span>
-<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt; 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 </span></span>
-<span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 </span></span>
-<span id="cb3-18"><a href="#cb3-18"></a><span class="co">#&gt; # … with 3 more variables: conf.high &lt;dbl&gt;, obs &lt;int&gt;, subsets &lt;chr&gt;</span></span></code></pre></div>
-<p>Use the function <code><a href="reference/summarise_specs.html">summarise_specs()</a></code> to get a first summary of your results (you can specify what type of statistics should be computed as well as what grouping factors should be used).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="reference/summarise_specs.html">summarise_specs</a></span>(results, </span>
-<span id="cb4-2"><a href="#cb4-2"></a>                <span class="dt">stats =</span> <span class="kw">lst</span>(median, min, max), </span>
-<span id="cb4-3"><a href="#cb4-3"></a>                <span class="dt">group =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>))</span>
-<span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; # A tibble: 4 x 6</span></span>
-<span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; # Groups:   x [2]</span></span>
-<span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt;   x     y     median    min   max   obs</span></span>
-<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
-<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; 1 x1    y1     6.52   3.49   9.28   123</span></span>
-<span id="cb4-9"><a href="#cb4-9"></a><span class="co">#&gt; 2 x1    y2     0.498 -2.05   3.67   123</span></span>
-<span id="cb4-10"><a href="#cb4-10"></a><span class="co">#&gt; 3 x2    y1     7.80   5.89   9.58   123</span></span>
-<span id="cb4-11"><a href="#cb4-11"></a><span class="co">#&gt; 4 x2    y2     1.29  -0.258  2.91   123</span></span></code></pre></div>
-<p>Use the function <code><a href="reference/plot_specs.html">plot_specs()</a></code> to produce a typical visualization of the specification curve and how the analytical choices affected the obtained results.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Plot specification curve analysis</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a><span class="kw"><a href="reference/plot_specs.html">plot_specs</a></span>(results, <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>))</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
-<p>For a more comprehensive example, check out the page “Getting started”. For specific uses and additional functions, have a look at the vignettes.</p>
+<span id="cb2-2"><a href="#cb2-2"></a></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="co"># Run specs</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="reference/run_specs.html">run_specs</a></span>(<span class="dt">df =</span> example_data, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>), </span>
+<span id="cb2-6"><a href="#cb2-6"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>), </span>
+<span id="cb2-7"><a href="#cb2-7"></a>                     <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>), </span>
+<span id="cb2-8"><a href="#cb2-8"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>), </span>
+<span id="cb2-9"><a href="#cb2-9"></a>                     <span class="dt">subsets =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>                                    <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)))</span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Result frame</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(results)</span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; # A tibble: 6 x 12</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt;   x     y     model controls estimate std.error statistic  p.value conf.low</span></span>
+<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb2-16"><a href="#cb2-16"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 </span></span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57    6.20 </span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt; 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   -0.961</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a><span class="co">#&gt; 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co">#&gt; 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 </span></span>
+<span id="cb2-21"><a href="#cb2-21"></a><span class="co">#&gt; 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 </span></span>
+<span id="cb2-22"><a href="#cb2-22"></a><span class="co">#&gt; # … with 3 more variables: conf.high &lt;dbl&gt;, obs &lt;int&gt;, subsets &lt;chr&gt;</span></span>
+<span id="cb2-23"><a href="#cb2-23"></a></span>
+<span id="cb2-24"><a href="#cb2-24"></a><span class="co"># Plot</span></span>
+<span id="cb2-25"><a href="#cb2-25"></a><span class="kw"><a href="reference/plot_specs.html">plot_specs</a></span>(results, <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>))</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
+<p>For a more comprehensive examples and descriptions of how to use the various functions of the package, check out the following pages:</p>
+<ul>
+<li>
+<a href="https://masurp.github.io/specr/articles/specr.html">Getting started</a>: A comprehensive example.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/custom-plot.html">How to Customize the Specification Curve Plot</a>: This vignette exemplifies various ways to plot the specification curve.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/decompose_var.html">How to Decompose the Variance of the Specification Curve</a>: This vignette explains how to investigate variance components of the specification curve.</li>
+</ul>
 </div>
 <div id="how-to-cite-this-package" class="section level2">
 <h2 class="hasAnchor">
 <a href="#how-to-cite-this-package" class="anchor"></a>How to cite this package</h2>
 <p>Developing and maintaining open source software is an important yet often underappreciated contribution to scientific progress. Thus, whenever you are using open source software (or software in general), please make sure to cite it appropriately so that developers get credit for their work.</p>
 <p>When using <code>specr</code>, please cite it as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"specr"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="co">#&gt; </span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co">#&gt; To cite parameters in publications use:</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#&gt; </span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#&gt;   Masur, Philipp K. &amp; Scharkow, M. (2019). specr: Statistical</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt;   functions for conducting specification curve analyses. Available</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="co">#&gt;   from https://github.com/masurp/specr.</span></span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="co">#&gt; </span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="co">#&gt; </span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="co">#&gt;   @Misc{,</span></span>
-<span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt;     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.0)},</span></span>
-<span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt;     author = {Philipp K. Masur and Michael Scharkow},</span></span>
-<span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;     year = {2019},</span></span>
-<span id="cb6-15"><a href="#cb6-15"></a><span class="co">#&gt;     url = {https://github.com/masurp/specr},</span></span>
-<span id="cb6-16"><a href="#cb6-16"></a><span class="co">#&gt;   }</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw"><a href="https://rdrr.io/r/utils/citation.html">citation</a></span>(<span class="st">"specr"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#&gt; </span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; To cite parameters in publications use:</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt; </span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;   Masur, Philipp K. &amp; Scharkow, M. (2019). specr: Statistical</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   functions for conducting specification curve analyses. Available</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;   from https://github.com/masurp/specr.</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; </span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; A BibTeX entry for LaTeX users is</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt;   @Misc{,</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt;     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.0)},</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt;     author = {Philipp K. Masur and Michael Scharkow},</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt;     year = {2019},</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt;     url = {https://github.com/masurp/specr},</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a><span class="co">#&gt;   }</span></span></code></pre></div>
 </div>
 <div id="references" class="section level2">
 <h2 class="hasAnchor">

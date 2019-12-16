@@ -1,5 +1,5 @@
 ---
-title: "Hot to Decompose the Variance of the Specification Curve"
+title: "How to Decompose the Variance of the Specification Curve"
 output: github_document
 ---
 
