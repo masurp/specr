@@ -49,12 +49,13 @@ We can further customize that function, e.g., by removing unnecessary informatio
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 plot_specs(results, 
            choices = c("x", "y", "controls", "subsets"),  # model is not plotted
-           rel_heights = c(0.5, 2)) # changing relative heights of the two parts
+           rel_heights = c(0.75, 2)) # changing relative heights of the two parts
 
+# Investigating specific contrasts
 results %>%
   mutate(group1 = ifelse(grepl("group1 = 0", subsets), "0", "1"),
          group2 = ifelse(grepl("group2 = A", subsets), "A", "B & C")) %>%
-  plot_specs(choices = c("x", "y", "controls", "group1", "group2"))
+  plot_specs(choices = c("x", "y", "controls", "group1", "group2"), rel_heights = c(2.4, 1.9))
 ```
 
 
@@ -68,12 +69,13 @@ p1 <- plot_curve(results) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-8, 12) +
   labs(x = "", y = "unstandarized regression coefficient") +
-  theme_grey()
+  theme_classic()
 
 # Plot choices (p2)
 p2 <- plot_choices(results) +
   labs(x = "specifications (ranked)") +
-  theme_grey()
+  theme_classic() +
+  theme(strip.text.x = element_blank())
 
 # Combine plots
 plot_specs(plot_a = p1,
@@ -88,7 +90,7 @@ The additional function `plot_samplesizes()` provides and additional panel that 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 p3 <- plot_samplesizes(results) +
-  theme_grey()
+  theme_classic()
 
 # Combine via cowplot
 cowplot::plot_grid(p1, p2, p3,
