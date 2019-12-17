@@ -156,7 +156,8 @@
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'>
 <span class='co'># Step 2: Estimate multilevel model</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lme4</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: Matrix</span></div><div class='input'><span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>lme4</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)
 
 <span class='co'># Step 3: Estimate intra-class correlation</span>
 <span class='fu'>icc_specs</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;        grp        vcov         icc    percent

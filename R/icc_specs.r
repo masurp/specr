@@ -15,13 +15,15 @@
 #'                      model = c("lm"))
 #'
 #' # Step 2: Estimate multilevel model
-#' library(lme4)
+#' library(lme4, quietly = TRUE)
 #' model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 #'
 #' # Step 3: Estimate intra-class correlation
 #' icc_specs(model)
 icc_specs <- function(model,
                       percent = TRUE) {
+
+    require(dplyr, quietly = TRUE)
 
     # get variance components
     var <- model %>%
@@ -34,11 +36,11 @@ icc_specs <- function(model,
 
     # estimate icc
     var <- var %>%
-      dplyr::mutate(icc = vcov/sum_var)
+      mutate(icc = vcov/sum_var)
 
     if (isTRUE(percent)) {
       var <- var %>%
-        dplyr::mutate(percent = icc*100)
+        mutate(percent = icc*100)
     }
 
     return(var)

@@ -23,7 +23,7 @@ results <- run_specs(df = example_data,
                      model = c("lm"))
 
 # Step 2: Estimate multilevel model
-library(lme4)
+library(lme4, quietly = TRUE)
 model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 
 # Step 3: Estimate intra-class correlation
