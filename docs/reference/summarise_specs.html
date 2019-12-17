@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarise the specification curve results — summarise_specs • specr</title>
+<title>Summarise specification curve results — summarise_specs • specr</title>
 
 
 <!-- jquery -->
@@ -35,7 +35,7 @@
 
 
 
-<meta property="og:title" content="Summarise the specification curve results — summarise_specs" />
+<meta property="og:title" content="Summarise specification curve results — summarise_specs" />
 <meta property="og:description" content="This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices." />
 <meta name="twitter:card" content="summary" />
 
@@ -118,7 +118,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarise the specification curve results</h1>
+    <h1>Summarise specification curve results</h1>
     
     <div class="hidden name"><code>summarise_specs.Rd</code></div>
     </div>
@@ -169,7 +169,7 @@
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span>   3.59  4.56 -</span><span style='color: #BB0000;'>2.05</span><span>  9.58  1.03  7.63   123</div><div class='input'>
 <span class='co'># Summary of specific analytical choices</span>
-<span class='fu'>summarise_specs</span>(<span class='no'>results</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"subsets"</span>, <span class='st'>"x"</span>))</div><div class='output co'>#&gt; <span class='message'>Joining, by = c("subsets", "x")</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 9</span><span>
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='fu'>summarise_specs</span>(<span class='no'>results</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"subsets"</span>, <span class='st'>"x"</span>)), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>24</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 24 x 9</span><span>
 #&gt; </span><span style='color: #555555;'># Groups:   subsets [12]</span><span>
 #&gt;    subsets                 x     median   mad     min   max     q25   q75   obs
 #&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
@@ -183,9 +183,22 @@
 #&gt; </span><span style='color: #555555;'> 8</span><span> group1 = 0 &amp; group2 = B x2      4.21 4.50   0.603   8.75  1.33    7.40    76
 #&gt; </span><span style='color: #555555;'> 9</span><span> group1 = 0 &amp; group2 = C x1      1.41 4.72  -</span><span style='color: #BB0000;'>1.92</span><span>    4.92 -</span><span style='color: #BB0000;'>1.76</span><span>    4.61   102
 #&gt; </span><span style='color: #555555;'>10</span><span> group1 = 0 &amp; group2 = C x2      3.72 4.58   0.299   7.57  0.753   6.58   102
-#&gt; </span><span style='color: #555555;'># … with 14 more rows</span><span></div><div class='input'>
+#&gt; </span><span style='color: #555555;'>11</span><span> group1 = 1              x1      4.20 5.59   0.153   8.27  0.584   7.84   250
+#&gt; </span><span style='color: #555555;'>12</span><span> group1 = 1              x2      4.91 5.09   1.03    9.03  1.74    8.26   250
+#&gt; </span><span style='color: #555555;'>13</span><span> group1 = 1 &amp; group2 = A x1      5.89 3.98   2.79    9.20  3.44    8.44    72
+#&gt; </span><span style='color: #555555;'>14</span><span> group1 = 1 &amp; group2 = A x2      5.14 4.27   2.05    8.81  2.34    8.05    72
+#&gt; </span><span style='color: #555555;'>15</span><span> group1 = 1 &amp; group2 = B x1      4.88 5.96   0.608   9.28  1.09    8.85    86
+#&gt; </span><span style='color: #555555;'>16</span><span> group1 = 1 &amp; group2 = B x2      5.48 4.78   1.19    9.58  2.38    8.38    86
+#&gt; </span><span style='color: #555555;'>17</span><span> group1 = 1 &amp; group2 = C x1      2.38 6.26  -</span><span style='color: #BB0000;'>2.05</span><span>    6.86 -</span><span style='color: #BB0000;'>1.76</span><span>    6.58    92
+#&gt; </span><span style='color: #555555;'>18</span><span> group1 = 1 &amp; group2 = C x2      4.19 5.93  -</span><span style='color: #BB0000;'>0.258</span><span>   8.65  0.326   8.11    92
+#&gt; </span><span style='color: #555555;'>19</span><span> group2 = A              x1      4.56 2.33   2.52    6.67  3.11    5.90   144
+#&gt; </span><span style='color: #555555;'>20</span><span> group2 = A              x2      4.89 4.49   1.64    8.25  1.98    7.78   144
+#&gt; </span><span style='color: #555555;'>21</span><span> group2 = B              x1      4.35 5.16   0.474   8.92  0.972   7.97   162
+#&gt; </span><span style='color: #555555;'>22</span><span> group2 = B              x2      4.48 4.65   1.05    8.27  1.62    7.65   162
+#&gt; </span><span style='color: #555555;'>23</span><span> group2 = C              x1      1.79 5.38  -</span><span style='color: #BB0000;'>1.99</span><span>    5.71 -</span><span style='color: #BB0000;'>1.79</span><span>    5.44   194
+#&gt; </span><span style='color: #555555;'>24</span><span> group2 = C              x2      4.03 5.14   0.207   8.11  0.582   7.49   194</div><div class='input'>
 <span class='co'># Summare of other estimates</span>
-<span class='fu'>summarise_specs</span>(<span class='no'>results</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"p.value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"controls"</span>)</div><div class='output co'>#&gt; <span class='message'>Joining, by = "controls"</span></div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 8</span><span>
+<span class='fu'>summarise_specs</span>(<span class='no'>results</span>, <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"p.value"</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"controls"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 8</span><span>
 #&gt;   controls             median          mad      min   max      q25     q75   obs
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>                 </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>        </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
 #&gt; </span><span style='color: #555555;'>1</span><span> c1            0.000</span><span style='text-decoration: underline;'>028</span><span>7          4.25</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-5</span><span> 9.94</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-47</span><span> 0.921 1.55</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 8</span><span> 0.009</span><span style='text-decoration: underline;'>97</span><span>   123
