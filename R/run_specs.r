@@ -28,8 +28,8 @@
 run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95) {
 
   # dependencies
-  require(dplyr)
-  require(purrr)
+  require(dplyr, quietly = TRUE)
+  require(purrr, quietly = TRUE)
 
 
 

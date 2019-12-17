@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarise_specs.r
 \name{summarise_specs}
 \alias{summarise_specs}
-\title{Summarise the specification curve results}
+\title{Summarise specification curve results}
 \usage{
 summarise_specs(df, var = estimate, stats = lst(median, mad, min, max,
   q25 = function(x) quantile(x, prob = 0.25), q75 = function(x) quantile(x,
@@ -34,7 +34,7 @@ results <- run_specs(df = example_data,
 summarise_specs(results)
 
 # Summary of specific analytical choices
-summarise_specs(results, group = c("subsets", "x"))
+print(summarise_specs(results, group = c("subsets", "x")), n = 24)
 
 # Summare of other estimates
 summarise_specs(results, var = "p.value", group = "controls")

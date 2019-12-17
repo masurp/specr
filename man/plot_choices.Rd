@@ -34,8 +34,4 @@ plot_choices(results)
 
 # Plot only specific choices
 plot_choices(results, choices = c("x", "y", "controls"))
-
-# Customized plot
-plot_choices(results, choices = c("subsets", "controls")) +
-   theme_bw()
 }

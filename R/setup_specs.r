@@ -20,7 +20,7 @@ setup_specs <- function(x,
                         model,
                         controls = NULL) {
   # dependencies
-  require(dplyr)
+  require(dplyr, quietly = TRUE)
 
   # create controls variables
 

@@ -25,17 +25,13 @@
 #'
 #' # Plot only specific choices
 #' plot_choices(results, choices = c("x", "y", "controls"))
-#'
-#' # Customized plot
-#' plot_choices(results, choices = c("subsets", "controls")) +
-#'    theme_bw()
 plot_choices <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets"),
                          desc = FALSE,
                          null = 0) {
 
-  require(ggplot2)
-  require(dplyr)
+  require(ggplot2, quietly = TRUE)
+  require(dplyr, quietly = TRUE)
 
   df %>%
     format_results(desc = desc, null = null) %>%

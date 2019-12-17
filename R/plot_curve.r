@@ -34,8 +34,8 @@ plot_curve <- function(df,
                        legend = FALSE,
                        null = 0){
 
-  require(ggplot2)
-  require(dplyr)
+  require(ggplot2, quietly = TRUE)
+  require(dplyr, quietly = TRUE)
 
   # Create basic plot
   plot <- df %>%

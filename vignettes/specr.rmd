@@ -45,7 +45,7 @@ setup_specs(y = c("y1"),               # We choose only one dependent variale
             controls = c("c1", "c2"))  # We include two control variable
 ```
 
-The resulting data frame creates six different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
+The resulting data frame creates eight different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
 
 
 ## Step 3: Define final analytical choices and run the analysis

@@ -41,8 +41,7 @@ results <- run_specs(example_data,
 # plot results directly
 plot_specs(results)
 
-# Customize each part and then
- combine
+# Customize each part and then combine
 p1 <- plot_curve(results) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-3, 12) +

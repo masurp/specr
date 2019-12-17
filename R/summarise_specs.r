@@ -1,4 +1,4 @@
-#' Summarise the specification curve results
+#' Summarise specification curve results
 #'
 #' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices.
 #'
@@ -25,7 +25,7 @@
 #' summarise_specs(results)
 #'
 #' # Summary of specific analytical choices
-#' summarise_specs(results, group = c("subsets", "x"))
+#' print(summarise_specs(results, group = c("subsets", "x")), n = 24)
 #'
 #' # Summare of other estimates
 #' summarise_specs(results, var = "p.value", group = "controls")
@@ -36,7 +36,7 @@ summarise_specs <- function(df,
                                         q75 = function(x) quantile(x, prob = .75)),
                             group = NULL) {
 
-  require(dplyr)
+  require(dplyr, quietly = TRUE)
 
   summary_specs <- function(df) {
     var <- enquo(var)
@@ -53,6 +53,8 @@ summarise_specs <- function(df,
      )
   } else {
     group <- lapply(group, as.symbol)
+    suppressWarnings(
+    suppressMessages(
     left_join(
       df %>%
         group_by_(.dots = group) %>%
@@ -60,6 +62,6 @@ summarise_specs <- function(df,
       df %>%
         group_by_(.dots = group) %>%
         summarize(obs = median(obs))
-    )
+    )))
   }
 }
