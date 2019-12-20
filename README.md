@@ -35,14 +35,15 @@ various functions of the package, check out the following pages:
 
   - [Getting
     started](https://masurp.github.io/specr/articles/specr.html): A
-    comprehensive example.
-  - [How to Customize the Specification Curve
-    Plot](https://masurp.github.io/specr/articles/custom-plot.html):
+    comprehensive example. This vignette illustrates the major functions
+    of the package.
+  - [Customizing specification curve
+    plots](https://masurp.github.io/specr/articles/custom-plot.html):
     This vignette exemplifies various ways to plot the specification
     curve.
-  - [How to Decompose the Variance of the Specification
-    Curve](https://masurp.github.io/specr/articles/decompose_var.html):
-    This vignette explains how to investigate variance components of the
+  - [Decomposing the variance of the specification
+    curve](https://masurp.github.io/specr/articles/decompose_var.html):
+    An example of how to investigate variance components of the
     specification curve.
   - [Visualizing progress during
     estimation](https://masurp.github.io/specr/articles/progress.html):
