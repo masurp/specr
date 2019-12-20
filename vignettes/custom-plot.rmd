@@ -1,12 +1,12 @@
 ---
-title: "How to Customize the Specification Curve Plot"
+title: "How to customize plots"
 output: github_document
 ---
 
-This vignette exemplifies two ways to plot the specification curve.
+This vignette exemplifies different ways to plot the specification curve. In general, the function `plot_specs()` takes care of the overall process. However, more specific customizations are possible once we use the more specific functions `plot_curve()`, `plot_choices`, and `plot_samplesizes()`. These function produce regular ggplot-objects that can be customized further.
 
 
-## Run the specification curve analysis
+## 1. Run the specification curve analysis
 
 In order to have some data to work with, we run the minimal example contained in the package.
 
@@ -26,17 +26,13 @@ results <- run_specs(example_data,
 Let's quickly get some ideas about the specification curve by using `summarise_specs()`
 
 ```{r, message = F, warnings = F}
-# Overall median
-summarise_specs(results)
-
-# By choices
 summarise_specs(results, group = c("x", "controls"))
 ```
 
 We see that it makes quite a difference whether `x1` or `x2` is used as independent variable. 
 
 
-## A simple way to visualize the results 
+## 2. A simple way to visualize the results 
 
 The simplest way to visualize most of the information contained in the results data frame is by using the `plot_specs()` function. 
 
@@ -59,8 +55,9 @@ results %>%
 ```
 
 
-## A more customizable way to visualize the results
+## 3. An alternative way to visualize the results
 
+### 3.1. Plot curve and choices seperately
 Alternatively, we can also plot the curve and the choice panel individually and bind them together afterwards.
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
@@ -84,7 +81,7 @@ plot_specs(plot_a = p1,
            rel_height = c(2, 2.5))
 ```
 
-## Include sample size histogram
+### 3.2. Include sample size histogram
 
 The additional function `plot_samplesizes()` provides and additional panel that can be added via the `cowplot::plot_grid()`
 

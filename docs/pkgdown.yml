@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   custom-plot: custom-plot.html
   decompose_var: decompose_var.html
+  progress: progress.html
   specr: specr.html
 

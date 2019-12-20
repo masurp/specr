@@ -57,10 +57,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/custom-plot.html">How to Customize the Specification Curve Plot</a>
+      <a href="articles/custom-plot.html">How to customize plots</a>
     </li>
     <li>
       <a href="articles/decompose_var.html">How to Decompose the Variance of the Specification Curve</a>
+    </li>
+    <li>
+      <a href="articles/progress.html">Visualizing progress during estimation</a>
     </li>
   </ul>
 </li>
@@ -92,6 +95,17 @@
 <a href="#overview" class="anchor"></a>Overview</h2>
 <p>The goal of specr is to facilitate specification curve analyses as described by Simonson, Simmons &amp; Nelson (2019). It can be used to investigate how different (e.g., theoretical defensible) analytical choices affect outcome statistics within the universe of one single data set.</p>
 <p>It provides functions to setup, run, evaluate, and plot the multiverse of specifications. A simple usage example is provided below. For more information about the various functions and specific use cases, visit the documentation at <a href="https://masurp.github.io/specr/index.html" class="uri">https://masurp.github.io/specr/index.html</a>.</p>
+<p>For a more comprehensive examples and vignettes on how to use the various functions of the package, check out the following pages:</p>
+<ul>
+<li>
+<a href="https://masurp.github.io/specr/articles/specr.html">Getting started</a>: A comprehensive example.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/custom-plot.html">How to Customize the Specification Curve Plot</a>: This vignette exemplifies various ways to plot the specification curve.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/decompose_var.html">How to Decompose the Variance of the Specification Curve</a>: This vignette explains how to investigate variance components of the specification curve.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/progress.html">Visualizing progress during estimation</a>: This vignette explains how to create a customizable progress bar for longer computations.</li>
+</ul>
 </div>
 <div id="disclaimer" class="section level2">
 <h2 class="hasAnchor">
@@ -135,15 +149,6 @@
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co"># Plot</span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="kw"><a href="reference/plot_specs.html">plot_specs</a></span>(results, <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>))</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="100%"></p>
-<p>For a more comprehensive examples and descriptions of how to use the various functions of the package, check out the following pages:</p>
-<ul>
-<li>
-<a href="https://masurp.github.io/specr/articles/specr.html">Getting started</a>: A comprehensive example.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/custom-plot.html">How to Customize the Specification Curve Plot</a>: This vignette exemplifies various ways to plot the specification curve.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/decompose_var.html">How to Decompose the Variance of the Specification Curve</a>: This vignette explains how to investigate variance components of the specification curve.</li>
-</ul>
 </div>
 <div id="how-to-cite-this-package" class="section level2">
 <h2 class="hasAnchor">
