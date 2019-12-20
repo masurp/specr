@@ -30,6 +30,25 @@ of specifications. A simple usage example is provided below. For more
 information about the various functions and specific use cases, visit
 the documentation at <https://masurp.github.io/specr/index.html>.
 
+For a more comprehensive examples and vignettes on how to use the
+various functions of the package, check out the following pages:
+
+  - [Getting
+    started](https://masurp.github.io/specr/articles/specr.html): A
+    comprehensive example.
+  - [How to Customize the Specification Curve
+    Plot](https://masurp.github.io/specr/articles/custom-plot.html):
+    This vignette exemplifies various ways to plot the specification
+    curve.
+  - [How to Decompose the Variance of the Specification
+    Curve](https://masurp.github.io/specr/articles/decompose_var.html):
+    This vignette explains how to investigate variance components of the
+    specification curve.
+  - [Visualizing progress during
+    estimation](https://masurp.github.io/specr/articles/progress.html):
+    This vignette explains how to create a customizable progress bar for
+    longer computations.
+
 ## Disclaimer
 
 We do see a lot of value in investigating how analytical choices affect
@@ -85,21 +104,6 @@ plot_specs(results, choices = c("x", "y", "controls", "subsets"))
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
-
-For a more comprehensive examples and descriptions of how to use the
-various functions of the package, check out the following pages:
-
-  - [Getting
-    started](https://masurp.github.io/specr/articles/specr.html): A
-    comprehensive example.
-  - [How to Customize the Specification Curve
-    Plot](https://masurp.github.io/specr/articles/custom-plot.html):
-    This vignette exemplifies various ways to plot the specification
-    curve.
-  - [How to Decompose the Variance of the Specification
-    Curve](https://masurp.github.io/specr/articles/decompose_var.html):
-    This vignette explains how to investigate variance components of the
-    specification curve.
 
 ## How to cite this package
 
