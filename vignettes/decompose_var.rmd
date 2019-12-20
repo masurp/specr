@@ -1,12 +1,12 @@
 ---
-title: "How to Decompose the Variance of the Specification Curve"
+title: "Decomposing the variance of the specification curve"
 output: github_document
 ---
 
 This vignette exemplifies ways to decompose and identify variance components in any statistic obtained by running a specification curve analysis.
 
 
-## Run the specification curve analysis
+## 1. Run the specification curve analysis
 
 In order to have some data to work with, we run the minimal example contained in the package.
 
@@ -37,7 +37,7 @@ summarise_specs(results,
 We see that it makes quite a difference whether `y1` or `y2` is used as independent variable. 
 
 
-## Estimate a simple multilevel model without predictors
+## 2. Estimate a simple multilevel model
 
 We can think of the specification curve analysis as a factorial design in which we investigate the influence of different types of analytical choices on a resulting coefficient or test statistic.
 One way to investigate these effects is to ask how much variance in the specification curve is explained by what (or which combination of) analytical choices.
@@ -57,7 +57,7 @@ summary(m1)
 
 We have now stored the random effects in the object `m`. We can already see that most variance is related to the random effect `y|intercept`. Yet, how much exactly?
 
-## Estimate intraclass correlations
+## 3. Estimate intraclass correlations
 
 Specr offers to ways to decompose the variance of the specification curve. First, we can simply compute the intraclass correlations using the function `icc_specs()`.
 
@@ -68,6 +68,8 @@ icc_specs(m1) %>%
 
 We can see that 89.83\% of the variance in the obtained results is related to choosing different dependent variables. Only small parts of the variance are explained by other analytical choices. 
 
+## 4. Plot variance components
+
 Second, we can alternatively use the function `plot_variance()` to obtain a visualization. The function calls `icc_specs()` automatically. We can hence pass the multilevel results object directly. Further customizations via the ggplot2-syntax is possible.
 
 ```{r, message = F, warnings = F}
@@ -76,7 +78,7 @@ plot_variance(m1) +
 ```
 
 
-## Further investigating variance components
+## 5. Further investigating variance components
 
 You might ask yourself why we did not include the multilevel model estimation in the `icc_specs()` function. The reason is straight-forward: In many cases, it might be of interest to decompose the variance in different ways (e.g., including interactions between the analytical choices). In this case, we only need to specify the respective multilevel model (with alternative random effects) and we can again obtain a result table of a plot.
 
@@ -93,7 +95,7 @@ plot_variance(m2)
 
 We can see that the interaction between analytical choices relating to subsets and dependent variables explains 3.49\%. 
 
-## Investigating other statistics
+## 6. Investigating other statistics
 
 Finally it should be noted that other obtained statistics can be investigated as well (not only the main estimate, e.g., a regression coefficient). 
 
