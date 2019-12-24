@@ -14,7 +14,7 @@ plot_choices(df, choices = c("x", "y", "model", "controls", "subsets"),
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
-\item{null}{Indicate what value represents the null hypothesis (Defaults to zero)}
+\item{null}{Indicate what value represents the null hypothesis (Defaults to zero).}
 }
 \description{
 This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.

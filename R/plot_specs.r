@@ -11,6 +11,8 @@
 #' @param rel_heights vector indicating the relative heights of the plot.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
+#' @param null Indicate what value represents the null hypothesis (Defaults to zero).
+#' @param sample_perc numeric value denoting what percentage of the specifications should be plotted. Needs to be > 0, but and not > 1. Defaults to 1 (= all specifications). Drawing a sample from all specification usually makes only sense of the number of specifications is very large and one wants to simplify the visualization.
 #'
 #' @return
 #' @export
@@ -48,16 +50,22 @@ plot_specs <- function(df = NULL,
                        rel_heights = c(2, 3),
                        desc = FALSE,
                        null = 0,
-                       ci = TRUE) {
+                       ci = TRUE,
+                       sample_perc = 1) {
 
 
   if (!rlang::is_null(df)) {
+
+  # Draw sample
+  df <- sample_n(df, size = sample_perc*nrow(df))
+
+  # Create both plots
   plot_a <- plot_curve(df, ci = ci, desc = desc, null = null)
   plot_b <- plot_choices(df, choices = choices, desc = desc, null = null)
 
   }
 
-
+  # Combine plots
   cowplot::plot_grid(plot_a,
                      plot_b,
                      labels = labels,

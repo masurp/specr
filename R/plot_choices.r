@@ -5,7 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
-#' @param null Indicate what value represents the null hypothesis (Defaults to zero)
+#' @param null Indicate what value represents the null hypothesis (Defaults to zero).
 #'
 #' @return
 #' @export

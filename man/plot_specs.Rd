@@ -7,7 +7,7 @@
 plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"), rel_heights = c(2, 3), desc = FALSE,
-  null = 0, ci = TRUE)
+  null = 0, ci = TRUE, sample_perc = 1)
 }
 \arguments{
 \item{df}{data frame resulting from \code{run_specs()}.}
@@ -24,7 +24,11 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
+\item{null}{Indicate what value represents the null hypothesis (Defaults to zero).}
+
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
+
+\item{sample_perc}{numeric value denoting what percentage of the specifications should be plotted. Needs to be > 0, but and not > 1. Defaults to 1 (= all specifications). Drawing a sample from all specification usually makes only sense of the number of specifications is very large and one wants to simplify the visualization.}
 }
 \description{
 This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
