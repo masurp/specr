@@ -27,7 +27,7 @@
 #'
 #' # All combined
 #' plot_decisions(results, label = TRUE, legend = TRUE)
-plot_decisions <- function(df,
+plot_decisiontree <- function(df,
                            label = FALSE,
                            legend = FALSE) {
   library(ggraph)
