@@ -77,7 +77,7 @@ The result data frame includes relevant statistics for each of the estiamted mod
 
 We can plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.
 
-```{r, fig.height=8, fig.width=8, message=F, warning = F}
+```{r, fig.height=6, fig.width=10, message=F, warning = F}
 plot_decisiontree(results, legend = TRUE)
 ```
 
@@ -112,7 +112,7 @@ plot_specs(results)
 
 Sometimes, it can be useful to check the influence of specific choices on the estimate of interest more precisely. We can use the function `plot_summary()` to produce respective boxplots.
 
-```{r, fig.height=10, fig.width=8, message=F, warning = F}
+```{r, fig.height=7, fig.width=7, message=F, warning = F}
 plot_summary(results)
 ```
 
