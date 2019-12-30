@@ -28,7 +28,7 @@ set.
 It provides functions to setup, run, evaluate, and plot the multiverse
 of specifications. A simple usage example is provided below. For more
 information about the various functions and specific use cases, visit
-the documentation at <https://masurp.github.io/specr/index.html>.
+the [documentation](https://masurp.github.io/specr/index.html).
 
 For a more comprehensive examples and vignettes on how to use the
 various functions of the package, check out the following pages:
@@ -128,7 +128,7 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.0)},
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.1)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2019},
 #>     url = {https://github.com/masurp/specr},
