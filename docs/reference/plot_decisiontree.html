@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot how analytical choices affect results — plot_choices • specr</title>
+<title>Plot the decision tree — plot_decisiontree • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot how analytical choices affect results — plot_choices" />
-<meta property="og:description" content="This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible." />
+<meta property="og:title" content="Plot the decision tree — plot_decisiontree" />
+<meta property="og:description" content="This function plots a simple decision tree that can be used to understand how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,54 +121,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot how analytical choices affect results</h1>
+    <h1>Plot the decision tree</h1>
     
-    <div class="hidden name"><code>plot_choices.Rd</code></div>
+    <div class="hidden name"><code>plot_decisiontree.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.</p>
+    <p>This function plots a simple decision tree that can be used to understand how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_choices</span>(<span class='no'>df</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>),
-  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_decisiontree</span>(<span class='no'>df</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code>run_specs</code>).</p></td>
+      <td><p>data frame resulting from <code><a href='run_specs.html'>run_specs()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>choices</th>
-      <td><p>a vector specifying which analytical choices should be plotted. By default, all choices are plotted.</p></td>
+      <th>label</th>
+      <td><p>Logical. Should labels be included? Defaults to FALSE. Produces only a reasonable plot if number of specifications is low.</p></td>
     </tr>
     <tr>
-      <th>desc</th>
-      <td><p>logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.</p></td>
-    </tr>
-    <tr>
-      <th>null</th>
-      <td><p>Indicate what value represents the null hypothesis (Defaults to zero).</p></td>
+      <th>legend</th>
+      <td><p>Logical. Should specific decisions be identifiable. Defaults to FALSE.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Run specification curve analysis</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,
-                     <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
-                     <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
-                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>),
-                     <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>),
-                     <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>group1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group1</span>),
-                                    <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
+    <pre class="examples"><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,
+                    <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
+                    <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
+                    <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>),
+                    <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>))
 
-<span class='co'># Plot simple table of choices</span>
-<span class='fu'>plot_choices</span>(<span class='no'>results</span>)</div><div class='img'><img src='plot_choices-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Plot only specific choices</span>
-<span class='fu'>plot_choices</span>(<span class='no'>results</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"controls"</span>))</div><div class='img'><img src='plot_choices-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># Basic, non-labelled decisions tree</span>
+<span class='fu'>plot_decisions</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_decisions(results): could not find function "plot_decisions"</span></div><div class='input'>
+<span class='co'># Labelled decisions tree</span>
+<span class='fu'>plot_decisions</span>(<span class='no'>results</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_decisions(results, label = TRUE): could not find function "plot_decisions"</span></div><div class='input'>
+<span class='co'># Identify choices</span>
+<span class='fu'>plot_decisions</span>(<span class='no'>results</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_decisions(results, legend = TRUE): could not find function "plot_decisions"</span></div><div class='input'>
+<span class='co'># All combined</span>
+<span class='fu'>plot_decisions</span>(<span class='no'>results</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='error'>Error in plot_decisions(results, label = TRUE, legend = TRUE): could not find function "plot_decisions"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
