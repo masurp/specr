@@ -17,16 +17,16 @@
 #'                     controls = c("c1", "c2"))
 #'
 #' # Basic, non-labelled decisions tree
-#' plot_decisions(results)
+#' plot_decisiontree(results)
 #'
 #' # Labelled decisions tree
-#' plot_decisions(results, label = TRUE)
+#' plot_decisiontree(results, label = TRUE)
 #'
 #' # Identify choices
-#' plot_decisions(results, legend = TRUE)
+#' plot_decisiontree(results, legend = TRUE)
 #'
 #' # All combined
-#' plot_decisions(results, label = TRUE, legend = TRUE)
+#' plot_decisiontree(results, label = TRUE, legend = TRUE)
 plot_decisiontree <- function(df,
                            label = FALSE,
                            legend = FALSE) {
