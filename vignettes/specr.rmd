@@ -42,7 +42,7 @@ The next steps involves identifying possible analytical choices. This step invol
 setup_specs(y = c("y1"),               # We choose only one dependent variale
             x = c("x1", "x2"),         # We are not sure which independent variable is better
             model = c("lm"),           # We only estimate one type of model (linear model)
-            controls = c("c1", "c2"))  # We include two control variable
+            controls = c("c1", "c2"))  # We include two control variable 
 ```
 
 The resulting data frame creates eight different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
@@ -68,11 +68,18 @@ results <- run_specs(df = example_data,
                      controls = c("c1", "c2"), 
                      subsets = list(group1 = unique(example_data$group1),
                                     group2 = unique(example_data$group2)))
-# Check results
+
+# Check
 results
 ```
 
 The result data frame includes relevant statistics for each of the estiamted models. 
+
+We can plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+plot_decisiontree(results, legend = TRUE)
+```
 
 ## 4. Investigate the specification curve
 
@@ -102,6 +109,14 @@ However, in order to grasp how the different analytical choices affect the outco
 # Plot specification curve analysis
 plot_specs(results)
 ```
+
+Sometimes, it can be useful to check the influence of specific choices on the estimate of interest more precisely. We can use the function `plot_summary()` to produce respective boxplots.
+
+```{r, fig.height=10, fig.width=8, message=F, warning = F}
+plot_summary(results)
+```
+
+Here, we can see clearly that the dependent variable (`y`) produces the largest differences in the obtained estimates.
 
 ## 5. Decompose the variance in the specification curve
 
