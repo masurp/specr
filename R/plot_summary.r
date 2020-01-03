@@ -29,6 +29,8 @@ plot_summary <- function(df,
       facet_grid(key~1, scales = "free_y", space = "free") +
       theme_minimal() +
       theme(legend.position = "none",
+            axis.line = element_line("black", size = .5),
+            axis.text = element_text(colour = "black"),
             strip.text.x = element_blank())
 }
 
