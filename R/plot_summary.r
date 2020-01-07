@@ -19,7 +19,8 @@
 #' plot_summary(results, choices = c("subsets", "controls", "y"))
 plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
-  require(ggplot2)
+
+  require(ggplot2, quietly = TRUE)
 
   df %>%
     mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
