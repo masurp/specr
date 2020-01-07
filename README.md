@@ -19,8 +19,9 @@ status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/
 
 ## Overview
 
-The goal of specr is to facilitate specification curve analyses as
-described by Simonson, Simmons & Nelson (2019). It can be used to
+The goal of specr is to facilitate specification curve analyses
+(Simonson, Simmons & Nelson, 2019; also known as multiverse analyses,
+see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). It can be used to
 investigate how different (e.g., theoretical defensible) analytical
 choices affect outcome statistics within the universe of one single data
 set.
@@ -141,3 +142,8 @@ Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
 Curve: Descriptive and Inferential Statistics for all Plausible
 Specifications Available at:
 <http://urisohn.com/sohn_files/wp/wordpress/wp-content/uploads/Paper-Specification-curve-2019-11-16.pdf>
+
+Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016).
+Increasing Transparency Through a Multiverse Analysis. Perspectives on
+Psychological Science, 11(5), 702-712. Available at:
+<http://www.stat.columbia.edu/~gelman/research/published/multiverse_published.pdf>
