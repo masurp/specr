@@ -20,7 +20,7 @@ status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/
 ## Overview
 
 The goal of specr is to facilitate specification curve analyses
-(Simonson, Simmons & Nelson, 2019; also known as multiverse analyses,
+(Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
 see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). It can be used to
 investigate how different (e.g., theoretical defensible) analytical
 choices affect outcome statistics within the universe of one single data
