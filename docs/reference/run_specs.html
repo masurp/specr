@@ -101,6 +101,9 @@
       <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
     </li>
     <li>
+      <a href="../articles/invest-spec.html">Investigating specific models</a>
+    </li>
+    <li>
       <a href="../articles/progress.html">Visualizing progress during estimation</a>
     </li>
   </ul>
@@ -131,7 +134,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>run_specs</span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='no'>x</span>, <span class='no'>model</span>, <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>)</pre>
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>keep.results</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,7 +149,7 @@
     </tr>
     <tr>
       <th>x</th>
-      <td><p>a vevtor of the dependent variables</p></td>
+      <td><p>a vector of the dependent variables</p></td>
     </tr>
     <tr>
       <th>model</th>
@@ -163,6 +166,10 @@
     <tr>
       <th>conf.level</th>
       <td><p>the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td>
+    </tr>
+    <tr>
+      <th>keep.results</th>
+      <td><p>a logical value indicating whether the complete model object should be kept.</p></td>
     </tr>
     </table>
 

@@ -4,7 +4,8 @@
 \alias{plot_curve}
 \title{Plot specification curve}
 \usage{
-plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE, null = 0)
+plot_curve(df, estimate = "estimate", desc = FALSE, ci = TRUE,
+  legend = FALSE, null = 0)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
