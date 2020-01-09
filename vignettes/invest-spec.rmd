@@ -1,0 +1,105 @@
+---
+title: "Investigating specific models"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+Per default, `run_specs()` summarizes individual specifications by using `broom::tidy()`. For most cases, this provides reasonable summaries of the relationship of interest. Sometimes, however, it is reasonable to investigate specific models in more detail or to investigate a specific statistic (e.g., r-square, AIC). This vignette shows how to access individual models.
+
+## 1. Run specification curve analysis with `keep.results = TRUE`
+
+If you want to investigate individual models and particularly all aspects of that model, use `run_specs()` with the additional argument `keep.results = TRUE`. 
+
+```{r, message=F, warning = F}
+library(specr)
+
+# Run specification curve analysis
+results <- run_specs(df = example_data, 
+                     y = c("y1", "y2"), 
+                     x = c("x1", "x2"), 
+                     model = c("lm"), 
+                     controls = c("c1", "c2"), 
+                     subsets = list(group1 = unique(example_data$group1),
+                                    group2 = unique(example_data$group2)),
+                     keep.results = TRUE)
+```
+
+
+## 2. Identify model(s) of interest
+
+For this example, we are going to look at two specific models (same independent variables, all controls, all participants). Their only difference is the dependent variable `y`. 
+
+```{r}
+y_models <- results %>%
+  filter(x == "x1", 
+         controls == "c1 + c2",
+         subsets == "all")
+```
+
+As you can see, the result data frame includes an additional column called "res". This column includes the entire "model object" and we can use it to further investigate each model. 
+
+
+## 3. Investigate models
+
+For example, we can now easily get a full summary of the models and compare individual coefficients and statistics. 
+
+```{r}
+y_models %>%
+  pull(res) %>%
+  map(summary) %>%
+  map(coef)
+```
+
+Or we could get r-squared values for both models.
+
+```{r}
+y_models %>%
+  pull(res) %>% 
+  map(performance::r2)
+```
+
+
+## 4. Some more examples
+
+This way, we can analyze for compare such statistics across several models.
+
+```{r, fig.height=8, fig.width=10, message=F, warning = F}
+# 
+r2_results <- results %>%
+  filter(subsets == "all") %>%
+  mutate(r2 = map(res, performance::r2), 
+         r2 = map_dbl(r2, 1)) %>%
+  arrange(r2)
+
+r2_results %>%
+  select(x:controls, r2)
+```
+
+
+And we can of course use this result and plot comparisons.
+
+```{r}
+# Plot r2 curve
+library(ggplot2)
+
+r2_results %>%
+  arrange(r2) %>%
+  mutate(rank = 1:n()) %>%
+  ggplot(aes(x = rank, 
+             y = r2)) +
+  geom_point() +
+  theme_minimal() +
+  theme(strip.text = element_blank(),
+        axis.line = element_line("black", size = .5),
+        axis.text = element_text(colour = "black"))
+```
+
