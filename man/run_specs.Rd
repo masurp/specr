@@ -5,7 +5,7 @@
 \title{Run specification curve analysis}
 \usage{
 run_specs(df, y, x, model, controls = NULL, subsets = NULL,
-  conf.level = 0.95)
+  conf.level = 0.95, keep.results = FALSE)
 }
 \arguments{
 \item{df}{a data frame that includes all relevant variables}

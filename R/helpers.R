@@ -6,13 +6,13 @@ create_formula <- function(x, y, controls, ...) {
 }
 
 # run individual specification
-run_spec <- function(specs, df, conf.level) {
+run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
 
   # dependencies
   require(dplyr)
   require(purrr)
 
-  specs %>%
+  results <- specs %>%
     mutate(formula = pmap(., create_formula)) %>%
     tidyr::unnest(formula) %>%
     mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
@@ -21,7 +21,14 @@ run_spec <- function(specs, df, conf.level) {
     tidyr::unnest(coefs) %>%
     tidyr::unnest(obs) %>%
     filter(term == x) %>%
-    select(-formula, -res, -term)
+    select(-formula, -term)
+
+  if (isFALSE(keep.results)) {
+    results <- results %>%
+      select(-res)
+  }
+
+  return(results)
 }
 
 # create subsets

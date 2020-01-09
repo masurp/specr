@@ -25,7 +25,7 @@
 #'
 #' # Check results frame
 #' results
-run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95) {
+run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95, keep.results = FALSE) {
 
   # dependencies
   require(dplyr, quietly = TRUE)
@@ -62,12 +62,12 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
 
   }
 
-  map_df(df_all, ~ run_spec(specs, .x, conf.level) %>%
+  map_df(df_all, ~ run_spec(specs, .x, conf.level = conf.level, keep.results = keep.results) %>%
            mutate(subsets = unique(.x$filter)))
 
   } else {
 
-  run_spec(specs, df, conf.level) %>%
+  run_spec(specs, df, conf.level = conf.level, keep.results = keep.results) %>%
     mutate(subsets = "all")
 
   }
