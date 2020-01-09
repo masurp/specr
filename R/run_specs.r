@@ -4,11 +4,12 @@
 #'
 #' @param df a data frame that includes all relevant variables
 #' @param y a vector of the dependent variables
-#' @param x a vevtor of the dependent variables
+#' @param x a vector of the dependent variables
 #' @param model a vector of the type of models that should be estimated.
 #' @param controls a vector of the control variables that should be included. Defaults to none.
 #' @param subsets a list that includes named vectors
 #' @param conf.level the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.
+#' @param keep.results a logical value indicating whether the complete model object should be kept.
 #'
 #' @return
 #' @export
