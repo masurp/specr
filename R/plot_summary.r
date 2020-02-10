@@ -28,6 +28,7 @@ plot_summary <- function(df,
     ggplot(aes(x = value, y = estimate, fill = key)) +
       geom_boxplot(outlier.color = "red") +
       coord_flip() +
+      scale_fill_brewer(palette = "Blues") +
       facet_grid(key~1, scales = "free_y", space = "free") +
       theme_minimal() +
       theme(legend.position = "none",
