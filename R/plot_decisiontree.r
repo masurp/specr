@@ -28,8 +28,8 @@
 #' # All combined
 #' plot_decisiontree(results, label = TRUE, legend = TRUE)
 plot_decisiontree <- function(df,
-                           label = FALSE,
-                           legend = FALSE) {
+                              label = FALSE,
+                              legend = FALSE) {
 
   library(ggraph, quietly = TRUE)
   library(igraph, quietly = TRUE)
@@ -89,7 +89,8 @@ plot_decisiontree <- function(df,
   # Check if legend should be plotted
   if(isTRUE(legend)) {
     plot <- plot +
-      geom_edge_diagonal(aes(color = decisions))
+      geom_edge_diagonal(aes(color = decisions)) +
+      scale_edge_color_brewer(palette = "Blues")
   }
 
   # Check if labels should be plotted
