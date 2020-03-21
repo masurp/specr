@@ -133,7 +133,14 @@
     <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function <code><a href='plot_specs.html'>plot_specs()</a></code> uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_curve</span>(<span class='no'>df</span>, <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_curve</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +158,10 @@
       <td><p>logical value indicating whether confidence intervals should be plotted.</p></td>
     </tr>
     <tr>
+      <th>ribbon</th>
+      <td><p>logical value indicating whether a ribbon instead should be plotted.</p></td>
+    </tr>
+    <tr>
       <th>legend</th>
       <td><p>logical value indicating whether the legend should be plotted Defaults to FALSE.</p></td>
     </tr>
@@ -159,6 +170,11 @@
       <td><p>Indicate what value represents the null hypothesis (Defaults to zero)</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -170,18 +186,20 @@
                      <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>),
                      <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>group1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group1</span>),
                                     <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
+
 <span class='co'># Plot simple specification curve</span>
-<span class='fu'>plot_curve</span>(<span class='no'>results</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='plot_curve-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># With confidence intervals and customize further</span>
-<span class='fu'>plot_curve</span>(<span class='no'>results</span>) +
+<span class='fu'>plot_curve</span>(<span class='no'>results</span>)</div><div class='img'><img src='plot_curve-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Ribbon instead of CIs and customize further</span>
+<span class='fu'>plot_curve</span>(<span class='no'>results</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ribbon</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
   <span class='fu'>geom_hline</span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fl'>0</span>) +
   <span class='fu'>geom_hline</span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>results</span>$<span class='no'>estimate</span>), <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>) +
-  <span class='fu'>theme_bw</span>()</div><div class='img'><img src='plot_curve-2.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>theme_linedraw</span>()</div><div class='img'><img src='plot_curve-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

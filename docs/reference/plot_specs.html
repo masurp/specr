@@ -36,7 +36,12 @@
 
 
 <meta property="og:title" content="Plot specification curve and analytical choices — plot_specs" />
-<meta property="og:description" content="This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by run_specs() is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from plot_curve() and plot_choices() are passed to the function. In this case, the function simply arranges them above each other." />
+<meta property="og:description" content="This function plots an entire visualization of the specification curve
+analysis. It can be used in two ways: First, the results frame returned by
+run_specs() is passed directly. In this case, the function plots the
+entire visualization automatically. Second, the ggplot objects returned from
+plot_curve() and plot_choices() are passed to the function. In
+this case, the function simply arranges them above each other." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,13 +135,28 @@
     </div>
 
     <div class="ref-description">
-    <p>This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by <code><a href='run_specs.html'>run_specs()</a></code> is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from <code><a href='plot_curve.html'>plot_curve()</a></code> and <code><a href='plot_choices.html'>plot_choices()</a></code> are passed to the function. In this case, the function simply arranges them above each other.</p>
+    <p>This function plots an entire visualization of the specification curve
+analysis. It can be used in two ways: First, the results frame returned by
+<code><a href='run_specs.html'>run_specs()</a></code> is passed directly. In this case, the function plots the
+entire visualization automatically. Second, the ggplot objects returned from
+<code><a href='plot_curve.html'>plot_curve()</a></code> and <code><a href='plot_choices.html'>plot_choices()</a></code> are passed to the function. In
+this case, the function simply arranges them above each other.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_specs</span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>plot_specs</span>(
+  <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>), <span class='kw'>rel_heights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sample_perc</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>),
+  <span class='kw'>rel_heights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>),
+  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>sample_perc</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -155,7 +175,8 @@
     </tr>
     <tr>
       <th>choices</th>
-      <td><p>a vector specifying which analytical choices should be plotted. By default, all choices are plotted.</p></td>
+      <td><p>a vector specifying which analytical choices should be
+plotted. By default, all choices are plotted.</p></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -167,21 +188,42 @@
     </tr>
     <tr>
       <th>desc</th>
-      <td><p>logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.</p></td>
+      <td><p>logical value indicating whether the curve should the arranged in
+a descending order. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>null</th>
-      <td><p>Indicate what value represents the null hypothesis (Defaults to zero).</p></td>
+      <td><p>Indicate what value represents the null hypothesis (Defaults to
+zero).</p></td>
     </tr>
     <tr>
       <th>ci</th>
-      <td><p>logical value indicating whether confidence intervals should be plotted.</p></td>
+      <td><p>logical value indicating whether confidence intervals should be
+plotted.</p></td>
+    </tr>
+    <tr>
+      <th>ribbon</th>
+      <td><p>logical value indicating whether a ribbon instead should be
+plotted.</p></td>
     </tr>
     <tr>
       <th>sample_perc</th>
-      <td><p>numeric value denoting what percentage of the specifications should be plotted. Needs to be &gt; 0, but and not &gt; 1. Defaults to 1 (= all specifications). Drawing a sample from all specification usually makes only sense of the number of specifications is very large and one wants to simplify the visualization.</p></td>
+      <td><p>numeric value denoting what percentage of the
+specifications should be plotted. Needs to be &gt; 0, but and not &gt; 1.
+Defaults to 1 (= all specifications). Drawing a sample from all
+specification usually makes only sense of the number of specifications is
+very large and one wants to simplify the visualization.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments that can be passed to <code>plot_grid()</code>.</p></td>
     </tr>
     </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -201,18 +243,17 @@
   <span class='fu'><a href='https://rdrr.io/r/graphics/plot.window.html'>ylim</a></span>(-<span class='fl'>3</span>, <span class='fl'>12</span>) +
   <span class='fu'>labs</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unstandarized regression coefficient"</span>)
 
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span>(<span class='no'>results</span>)
-
+<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span>(<span class='no'>results</span>) +
+  <span class='fu'>labs</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"specifications (ranked)"</span>, <span class='no'>y</span> )</div><div class='output co'>#&gt; <span class='error'>Error in list2(..., title = title, subtitle = subtitle, caption = caption,     tag = tag): object 'y' not found</span></div><div class='input'>
 <span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,
            <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='no'>p2</span>,
-           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='img'><img src='plot_specs-2.png' alt='' width='700' height='433' /></div><div class='input'>
-
-</div></pre>
+           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cowplot::plot_grid(plot_a, plot_b, labels = labels, align = "v",     axis = "rbl", rel_heights = rel_heights, ncol = 1, ...): object 'p2' not found</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

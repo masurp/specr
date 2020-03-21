@@ -133,8 +133,12 @@
     <p>This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_choices</span>(<span class='no'>df</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>),
-  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_choices</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>),
+  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +161,11 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Run specification curve analysis</span>
@@ -177,6 +186,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

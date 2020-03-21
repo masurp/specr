@@ -133,8 +133,16 @@
     <p>This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factorial variables.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>run_specs</span>(<span class='no'>df</span>, <span class='no'>y</span>, <span class='no'>x</span>, <span class='no'>model</span>, <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>keep.results</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>run_specs</span>(
+  <span class='no'>df</span>,
+  <span class='no'>y</span>,
+  <span class='no'>x</span>,
+  <span class='no'>model</span>,
+  <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>conf.level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>,
+  <span class='kw'>keep.results</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -173,6 +181,11 @@
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># run specification curve analysis</span>
@@ -205,6 +218,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
