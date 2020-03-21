@@ -22,10 +22,8 @@
 #' # Labelled decisions tree
 #' plot_decisiontree(results, label = TRUE)
 #'
-#' # Identify choices
-#' plot_decisiontree(results, legend = TRUE)
 #'
-#' # All combined
+#' # Add legend
 #' plot_decisiontree(results, label = TRUE, legend = TRUE)
 plot_decisiontree <- function(df,
                               label = FALSE,
