@@ -72,6 +72,7 @@ plot_curve <- function(df,
                       fatten = 1)
   }
 
+  # add Ribbon if necessary
   if (isTRUE(ribbon)) {
     plot <- plot +
       geom_ribbon(aes(ymin = conf.low,
