@@ -1,8 +1,10 @@
 
-# Create regression formula based on setup_specs
+# create regression formula based on setup_specs
 create_formula <- function(x, y, controls, ...) {
+
   if (controls == "no covariates") controls <- 1
   paste(y, "~", x, "+", controls)
+
 }
 
 # run individual specification
@@ -48,6 +50,7 @@ format_results <- function(df, null = 0, desc = FALSE) {
 
   # dependencies
   require(dplyr)
+
   # rank specs
   if (isFALSE(desc)) {
     df <- df %>%
@@ -61,7 +64,6 @@ format_results <- function(df, null = 0, desc = FALSE) {
            color = case_when(conf.low > null ~ "#377eb8",
                              conf.high < null ~ "#e41a1c",
                              TRUE ~ "darkgrey"))
-
   return(df)
 }
 
