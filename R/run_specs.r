@@ -32,15 +32,12 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
   require(dplyr, quietly = TRUE)
   require(purrr, quietly = TRUE)
 
-
-
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
   if (!is.null(subsets)) {
 
   subsets = map(subsets, as.character)
 
-  # Create subsets and full data set, but no combination
   df_list <- create_subsets(df, subsets)
   df_list[[length(df_list)+1]] <- df %>% mutate(filter = "all")
 
