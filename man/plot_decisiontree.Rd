@@ -32,9 +32,7 @@ plot_decisiontree(results)
 # Labelled decisions tree
 plot_decisiontree(results, label = TRUE)
 
-# Identify choices
-plot_decisiontree(results, legend = TRUE)
 
-# All combined
+# Add legend
 plot_decisiontree(results, label = TRUE, legend = TRUE)
 }

@@ -15,7 +15,7 @@ plot_samplesizes(df, desc = FALSE)
 
 }
 \description{
-Plot sample sizes
+This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation).
 }
 \examples{
 # Run specification curve analysis
