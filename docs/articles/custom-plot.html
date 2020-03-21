@@ -151,16 +151,16 @@
 <a href="#plot-curve-and-choices-seperately" class="anchor"></a>3.1. Plot curve and choices seperately</h3>
 <p>Alternatively, we can also plot the curve and the choice panel individually and bind them together afterwards.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot specification curve (p1)</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(results) <span class="op">+</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(results, <span class="dt">ci =</span> <span class="ot">FALSE</span>, <span class="dt">ribbon =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
 <span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>, <span class="dt">color =</span> <span class="st">"grey"</span>) <span class="op">+</span></span>
 <span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/graphics/plot.window.html">ylim</a></span>(<span class="op">-</span><span class="dv">8</span>, <span class="dv">12</span>) <span class="op">+</span></span>
 <span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"unstandarized regression coefficient"</span>) <span class="op">+</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span>
+<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw">theme_linedraw</span>()</span>
 <span id="cb7-7"><a href="#cb7-7"></a></span>
 <span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Plot choices (p2)</span></span>
 <span id="cb7-9"><a href="#cb7-9"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_choices.html">plot_choices</a></span>(results) <span class="op">+</span></span>
 <span id="cb7-10"><a href="#cb7-10"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"specifications (ranked)"</span>) <span class="op">+</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw">theme_classic</span>() <span class="op">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw">theme_linedraw</span>() <span class="op">+</span></span>
 <span id="cb7-12"><a href="#cb7-12"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_blank</span>())</span>
 <span id="cb7-13"><a href="#cb7-13"></a></span>
 <span id="cb7-14"><a href="#cb7-14"></a><span class="co"># Combine plots</span></span>
@@ -175,7 +175,7 @@
 <a href="#include-sample-size-histogram" class="anchor"></a>3.2. Include sample size histogram</h3>
 <p>The additional function <code><a href="../reference/plot_samplesizes.html">plot_samplesizes()</a></code> provides and additional panel that can be added via the <code><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">cowplot::plot_grid()</a></code></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_samplesizes.html">plot_samplesizes</a></span>(results) <span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">theme_classic</span>()</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw">theme_linedraw</span>()</span>
 <span id="cb8-3"><a href="#cb8-3"></a></span>
 <span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Combine via cowplot</span></span>
 <span id="cb8-5"><a href="#cb8-5"></a>cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, p3,</span>

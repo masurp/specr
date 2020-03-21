@@ -62,16 +62,16 @@ Alternatively, we can also plot the curve and the choice panel individually and 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 # Plot specification curve (p1)
-p1 <- plot_curve(results) +
+p1 <- plot_curve(results, ci = FALSE, ribbon = TRUE) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-8, 12) +
   labs(x = "", y = "unstandarized regression coefficient") +
-  theme_classic()
+  theme_linedraw()
 
 # Plot choices (p2)
 p2 <- plot_choices(results) +
   labs(x = "specifications (ranked)") +
-  theme_classic() +
+  theme_linedraw() +
   theme(strip.text.x = element_blank())
 
 # Combine plots
@@ -87,7 +87,7 @@ The additional function `plot_samplesizes()` provides and additional panel that 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 p3 <- plot_samplesizes(results) +
-  theme_classic()
+  theme_linedraw()
 
 # Combine via cowplot
 cowplot::plot_grid(p1, p2, p3,
