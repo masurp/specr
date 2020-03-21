@@ -1,5 +1,7 @@
 #' Plot sample sizes
 #'
+#' This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation).
+#'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
@@ -22,7 +24,8 @@
 #' plot_samplesizes(results) +
 #'   geom_hline(yintercept = median(results$obs), color = "darkgrey", linetype = "dashed") +
 #'   theme_linedraw()
-plot_samplesizes <- function(df, desc = FALSE) {
+plot_samplesizes <- function(df,
+                             desc = FALSE) {
 
   require(ggplot2, quietly = TRUE)
 
