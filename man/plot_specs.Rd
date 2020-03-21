@@ -4,10 +4,20 @@
 \alias{plot_specs}
 \title{Plot specification curve and analytical choices}
 \usage{
-plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
+plot_specs(
+  df = NULL,
+  plot_a = NULL,
+  plot_b = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
-  labels = c("A", "B"), rel_heights = c(2, 3), desc = FALSE,
-  null = 0, ci = TRUE, sample_perc = 1)
+  labels = c("A", "B"),
+  rel_heights = c(2, 3),
+  desc = FALSE,
+  null = 0,
+  ci = TRUE,
+  ribbon = FALSE,
+  sample_perc = 1,
+  ...
+)
 }
 \arguments{
 \item{df}{data frame resulting from \code{run_specs()}.}
@@ -16,22 +26,43 @@ plot_specs(df = NULL, plot_a = NULL, plot_b = NULL,
 
 \item{plot_b}{a ggplot object resulting from \code{plot_choices()}.}
 
-\item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
+\item{choices}{a vector specifying which analytical choices should be
+plotted. By default, all choices are plotted.}
 
 \item{labels}{labels for the two parts of the plot}
 
 \item{rel_heights}{vector indicating the relative heights of the plot.}
 
-\item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
+\item{desc}{logical value indicating whether the curve should the arranged in
+a descending order. Defaults to FALSE.}
 
-\item{null}{Indicate what value represents the null hypothesis (Defaults to zero).}
+\item{null}{Indicate what value represents the null hypothesis (Defaults to
+zero).}
 
-\item{ci}{logical value indicating whether confidence intervals should be plotted.}
+\item{ci}{logical value indicating whether confidence intervals should be
+plotted.}
 
-\item{sample_perc}{numeric value denoting what percentage of the specifications should be plotted. Needs to be > 0, but and not > 1. Defaults to 1 (= all specifications). Drawing a sample from all specification usually makes only sense of the number of specifications is very large and one wants to simplify the visualization.}
+\item{ribbon}{logical value indicating whether a ribbon instead should be
+plotted.}
+
+\item{sample_perc}{numeric value denoting what percentage of the
+specifications should be plotted. Needs to be > 0, but and not > 1.
+Defaults to 1 (= all specifications). Drawing a sample from all
+specification usually makes only sense of the number of specifications is
+very large and one wants to simplify the visualization.}
+
+\item{...}{Additional arguments that can be passed to \code{plot_grid()}.}
+}
+\value{
+
 }
 \description{
-This function plots an entire visualization of the specification curve analysis. It can be used in two ways: First, the results frame returned by \code{run_specs()} is passed directly. In this case, the function plots the entire visualization automatically. Second, the ggplot objects returned from \code{plot_curve()} and \code{plot_choices()} are passed to the function. In this case, the function simply arranges them above each other.
+This function plots an entire visualization of the specification curve
+analysis. It can be used in two ways: First, the results frame returned by
+\code{run_specs()} is passed directly. In this case, the function plots the
+entire visualization automatically. Second, the ggplot objects returned from
+\code{plot_curve()} and \code{plot_choices()} are passed to the function. In
+this case, the function simply arranges them above each other.
 }
 \examples{
 # run spec analysis
@@ -51,11 +82,10 @@ p1 <- plot_curve(results) +
   ylim(-3, 12) +
   labs(x = "", y = "unstandarized regression coefficient")
 
-p2 <- plot_choices(results)
+p2 <- plot_choices(results) +
+  labs(x = "specifications (ranked)", y )
 
 plot_specs(plot_a = p1,
            plot_b = p2,
            rel_height = c(2, 2))
-
-
 }

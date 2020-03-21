@@ -5,6 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
+#' @param ribbon logical value indicating whether a ribbon instead should be plotted.
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
@@ -20,17 +21,19 @@
 #'                      controls = c("c1", "c2"),
 #'                      subsets = list(group1 = unique(example_data$group1),
 #'                                     group2 = unique(example_data$group2)))
-#' # Plot simple specification curve
-#' plot_curve(results, ci = FALSE)
 #'
-#' # With confidence intervals and customize further
-#' plot_curve(results) +
+#' # Plot simple specification curve
+#' plot_curve(results)
+#'
+#' # Ribbon instead of CIs and customize further
+#' plot_curve(results, ci = FALSE, ribbon = TRUE) +
 #'   geom_hline(yintercept = 0) +
 #'   geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-#'   theme_bw()
+#'   theme_linedraw()
 plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
+                       ribbon = FALSE,
                        legend = FALSE,
                        null = 0){
 
@@ -69,5 +72,12 @@ plot_curve <- function(df,
                       fatten = 1)
   }
 
+  if (isTRUE(ribbon)) {
+    plot <- plot +
+      geom_ribbon(aes(ymin = conf.low,
+                      ymax = conf.high,
+                      color = "lightgrey"),
+                      alpha = 0.25)
+  }
   return(plot)
 }

@@ -4,7 +4,14 @@
 \alias{plot_curve}
 \title{Plot specification curve}
 \usage{
-plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE, null = 0)
+plot_curve(
+  df,
+  desc = FALSE,
+  ci = TRUE,
+  ribbon = FALSE,
+  legend = FALSE,
+  null = 0
+)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
@@ -13,9 +20,14 @@ plot_curve(df, desc = FALSE, ci = TRUE, legend = FALSE, null = 0)
 
 \item{ci}{logical value indicating whether confidence intervals should be plotted.}
 
+\item{ribbon}{logical value indicating whether a ribbon instead should be plotted.}
+
 \item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
 
 \item{null}{Indicate what value represents the null hypothesis (Defaults to zero)}
+}
+\value{
+
 }
 \description{
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function \code{plot_specs()} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
@@ -29,12 +41,13 @@ results <- run_specs(df = example_data,
                      controls = c("c1", "c2"),
                      subsets = list(group1 = unique(example_data$group1),
                                     group2 = unique(example_data$group2)))
-# Plot simple specification curve
-plot_curve(results, ci = FALSE)
 
-# With confidence intervals and customize further
-plot_curve(results) +
+# Plot simple specification curve
+plot_curve(results)
+
+# Ribbon instead of CIs and customize further
+plot_curve(results, ci = FALSE, ribbon = TRUE) +
   geom_hline(yintercept = 0) +
   geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-  theme_bw()
+  theme_linedraw()
 }
