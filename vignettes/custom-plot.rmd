@@ -1,5 +1,5 @@
 ---
-title: "Customizing specification curve plots"
+title: "Customizing plots"
 output: github_document
 ---
 
@@ -13,6 +13,8 @@ In order to have some data to work with, we run the minimal example contained in
 ```{r, message = F, warnings = F}
 library(specr)
 library(dplyr)
+library(cowplot)
+
 # run spec analysis
 results <- run_specs(example_data,
                      y = c("y1", "y2"),
@@ -45,13 +47,13 @@ We can further customize that function, e.g., by removing unnecessary informatio
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 plot_specs(results, 
            choices = c("x", "y", "controls", "subsets"),  # model is not plotted
-           rel_heights = c(0.75, 2)) # changing relative heights of the two parts
+           rel_heights = c(1, 2)) # changing relative heights of the two parts
 
 # Investigating specific contrasts
 results %>%
   mutate(group1 = ifelse(grepl("group1 = 0", subsets), "0", "1"),
          group2 = ifelse(grepl("group2 = A", subsets), "A", "B & C")) %>%
-  plot_specs(choices = c("x", "y", "controls", "group1", "group2"), rel_heights = c(2.4, 1.9))
+  plot_specs(choices = c("x", "y", "controls", "group1", "group2"))
 ```
 
 
@@ -66,12 +68,13 @@ p1 <- plot_curve(results, ci = FALSE, ribbon = TRUE) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-8, 12) +
   labs(x = "", y = "unstandarized regression coefficient") +
-  theme_linedraw()
+  theme_half_open()
 
 # Plot choices (p2)
-p2 <- plot_choices(results) +
+p2 <- plot_choices(results, 
+                   choices = c("x", "y", "controls", "subsets")) +
   labs(x = "specifications (ranked)") +
-  theme_linedraw() +
+  theme_half_open() +
   theme(strip.text.x = element_blank())
 
 # Combine plots
@@ -87,14 +90,14 @@ The additional function `plot_samplesizes()` provides and additional panel that 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 p3 <- plot_samplesizes(results) +
-  theme_linedraw()
+  theme_half_open()
 
 # Combine via cowplot
-cowplot::plot_grid(p1, p2, p3,
-                   ncol = 1,
-                   align = "v",
-                   rel_heights = c(1.5, 2, 0.8),
-                   axis = "rbl")
+plot_grid(p1, p2, p3,
+          ncol = 1,
+          align = "v",
+          rel_heights = c(1.5, 2, 0.8),
+          axis = "rbl")
 ```
 
 
