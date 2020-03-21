@@ -4,8 +4,16 @@
 \alias{run_specs}
 \title{Run specification curve analysis}
 \usage{
-run_specs(df, y, x, model, controls = NULL, subsets = NULL,
-  conf.level = 0.95, keep.results = FALSE)
+run_specs(
+  df,
+  y,
+  x,
+  model,
+  controls = NULL,
+  subsets = NULL,
+  conf.level = 0.95,
+  keep.results = FALSE
+)
 }
 \arguments{
 \item{df}{a data frame that includes all relevant variables}
@@ -23,6 +31,9 @@ run_specs(df, y, x, model, controls = NULL, subsets = NULL,
 \item{conf.level}{the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.}
 
 \item{keep.results}{a logical value indicating whether the complete model object should be kept.}
+}
+\value{
+
 }
 \description{
 This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factorial variables.

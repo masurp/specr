@@ -11,6 +11,9 @@ icc_specs(model, percent = TRUE)
 
 \item{percent}{a logical value indicating whether the icc should also be printed as percentage.}
 }
+\value{
+
+}
 \description{
 Get variance component of the specification curve
 }

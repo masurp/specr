@@ -11,6 +11,9 @@ plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 }
+\value{
+
+}
 \description{
 This function provides a convenient way to investigate the influence of individual choices on the estimate of interest. Similar to \code{summarise_specs}), it can be used to investigate individual choices.
 }

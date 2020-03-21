@@ -4,7 +4,9 @@
 \name{example_data}
 \alias{example_data}
 \title{Simulated data set}
-\format{A tibble}
+\format{
+A tibble
+}
 \usage{
 data(example_data)
 }

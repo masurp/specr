@@ -9,6 +9,9 @@ plot_variance(model)
 \arguments{
 \item{model}{a multilevel model that captures the variances of the specification curve (resulting from \code{run_specs}).}
 }
+\value{
+
+}
 \description{
 Plot variance components of the specification curve
 }

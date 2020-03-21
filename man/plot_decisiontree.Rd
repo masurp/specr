@@ -13,6 +13,9 @@ plot_decisiontree(df, label = FALSE, legend = FALSE)
 
 \item{legend}{Logical. Should specific decisions be identifiable. Defaults to FALSE.}
 }
+\value{
+
+}
 \description{
 This function plots a simple decision tree that can be used to understand how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.
 }

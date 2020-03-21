@@ -15,6 +15,9 @@ setup_specs(x, y, model, controls = NULL)
 
 \item{controls}{a vector of the control variables that should be included. Defaults to none.}
 }
+\value{
+
+}
 \description{
 This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{run_specs()}.
 }

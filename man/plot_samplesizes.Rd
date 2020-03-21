@@ -11,6 +11,9 @@ plot_samplesizes(df, desc = FALSE)
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
+\value{
+
+}
 \description{
 Plot sample sizes
 }

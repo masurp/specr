@@ -4,9 +4,13 @@
 \alias{summarise_specs}
 \title{Summarise specification curve results}
 \usage{
-summarise_specs(df, var = estimate, stats = lst(median, mad, min, max,
-  q25 = function(x) quantile(x, prob = 0.25), q75 = function(x) quantile(x,
-  prob = 0.75)), group = NULL)
+summarise_specs(
+  df,
+  var = estimate,
+  stats = lst(median, mad, min, max, q25 = function(x) quantile(x, prob = 0.25), q75 =
+    function(x) quantile(x, prob = 0.75)),
+  group = NULL
+)
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
@@ -16,6 +20,9 @@ summarise_specs(df, var = estimate, stats = lst(median, mad, min, max,
 \item{stats}{list object (\code{lst()}) of summary functions.}
 
 \item{group}{a grouping factor (e.g., "subsets"). Several grouping variables can be passed. Defaults to NULL.}
+}
+\value{
+
 }
 \description{
 This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices.
