@@ -32,14 +32,14 @@
 #' # Summary of other estimates with specific functions
 #' summarise_specs(results,
 #'                 var = "p.value",
-#'                 stats = list(q05 = function(x) quantile(x, prob = .05),
-#'                              q95 = function(x) quantile(x, prob = .95)),
+#'                 stats = lst(q05 = function(x) quantile(x, prob = .05),
+#'                             q95 = function(x) quantile(x, prob = .95)),
 #'                 group = "controls")
 summarise_specs <- function(df,
                             var = estimate,
                             stats = lst(median, mad, min, max,
-                                        q25 = function(x) quantile(x, prob = .25),
-                                        q75 = function(x) quantile(x, prob = .75)),
+                                         q25 = function(x) quantile(x, prob = .25),
+                                         q75 = function(x) quantile(x, prob = .75)),
                             group = NULL) {
 
   summary_specs <- function(df) {
