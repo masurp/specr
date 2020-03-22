@@ -242,13 +242,14 @@ very large and one wants to simplify the visualization.</p></td>
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_curve.html'>plot_curve</a></span>(<span class='no'>results</span>) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"grey"</span>) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(-<span class='fl'>3</span>, <span class='fl'>12</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"unstandarized regression coefficient"</span>)
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"regression coefficient"</span>)
 
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span>(<span class='no'>results</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"specifications (ranked)"</span>, <span class='no'>y</span> )</div><div class='output co'>#&gt; <span class='error'>Error in list2(..., title = title, subtitle = subtitle, caption = caption,     tag = tag): object 'y' not found</span></div><div class='input'>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"specifications (ranked)"</span>)
+
 <span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,
            <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='no'>p2</span>,
-           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='output co'>#&gt; <span class='error'>Error in cowplot::plot_grid(plot_a, plot_b, labels = labels, align = "v",     axis = "rbl", rel_heights = rel_heights, ncol = 1, ...): object 'p2' not found</span></div></pre>
+           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='img'><img src='plot_specs-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

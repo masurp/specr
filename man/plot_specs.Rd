@@ -81,10 +81,10 @@ library(ggplot2)
 p1 <- plot_curve(results) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-3, 12) +
-  labs(x = "", y = "unstandarized regression coefficient")
+  labs(x = "", y = "regression coefficient")
 
 p2 <- plot_choices(results) +
-  labs(x = "specifications (ranked)", y )
+  labs(x = "specifications (ranked)")
 
 plot_specs(plot_a = p1,
            plot_b = p2,
