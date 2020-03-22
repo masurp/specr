@@ -72,7 +72,7 @@ plot_specs <- function(df = NULL,
   if (!rlang::is_null(df)) {
 
   # Draw sample
-  df <- sample_n(df, size = sample_perc*nrow(df))
+  df <- dplyr::sample_n(df, size = sample_perc*nrow(df))
 
   # Create both plots
   plot_a <- plot_curve(df, ci = ci, ribbon = ribbon, desc = desc, null = null)
