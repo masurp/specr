@@ -178,9 +178,9 @@
                                     <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
 
 <span class='co'># Plot simple table of choices</span>
-<span class='fu'>plot_choices</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in n(): could not find function "n"</span></div><div class='input'>
+<span class='fu'>plot_choices</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in case_when(conf.low &gt; null ~ "#377eb8", conf.high &lt; null ~ "#e41a1c",     TRUE ~ "darkgrey"): could not find function "case_when"</span></div><div class='input'>
 <span class='co'># Plot only specific choices</span>
-<span class='fu'>plot_choices</span>(<span class='no'>results</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"controls"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in n(): could not find function "n"</span></div></pre>
+<span class='fu'>plot_choices</span>(<span class='no'>results</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"controls"</span>))</div><div class='output co'>#&gt; <span class='error'>Error in case_when(conf.low &gt; null ~ "#377eb8", conf.high &lt; null ~ "#e41a1c",     TRUE ~ "darkgrey"): could not find function "case_when"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
