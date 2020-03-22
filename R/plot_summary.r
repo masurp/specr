@@ -17,7 +17,7 @@
 #'                      controls = c("c1", "c2"),
 #'                      subset = list(group1 = unique(example_data$group1)))
 #'
-#' # plot boxplot comparingƒ specific choices
+#' # plot boxplot comparing specific choices
 #' plot_summary(results, choices = c("subsets", "controls", "y"))
 plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
