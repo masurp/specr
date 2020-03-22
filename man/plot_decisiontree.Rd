@@ -17,7 +17,7 @@ plot_decisiontree(df, label = FALSE, legend = FALSE)
 
 }
 \description{
-This function plots a simple decision tree that can be used to understand how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.
+This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.
 }
 \examples{
 results <- run_specs(df = example_data,
@@ -31,7 +31,6 @@ plot_decisiontree(results)
 
 # Labelled decisions tree
 plot_decisiontree(results, label = TRUE)
-
 
 # Add legend
 plot_decisiontree(results, label = TRUE, legend = TRUE)

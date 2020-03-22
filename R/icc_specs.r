@@ -7,7 +7,6 @@
 #' @export
 #'
 #' @examples
-#' #+ setup, echo = F, message = F, warning = F
 #' # Step 1: Run spec curve analysis
 #' results <- run_specs(df = example_data,
 #'                      y = c("y1", "y2"),
@@ -15,32 +14,30 @@
 #'                      model = c("lm"))
 #'
 #' # Step 2: Estimate multilevel model
-#' library(lme4, quietly = TRUE)
-#' model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
+#' model <- lme4::lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 #'
 #' # Step 3: Estimate intra-class correlation
 #' icc_specs(model)
 icc_specs <- function(model,
                       percent = TRUE) {
 
-    require(dplyr, quietly = TRUE)
-
     # get variance components
     var <- model %>%
       VarCorr %>%
       as.data.frame %>%
-      select(grp, vcov)
+      dplyr::select(grp, vcov)
 
     # sum all variance components
     sum_var <- sum(var$vcov)
 
     # estimate icc
     var <- var %>%
-      mutate(icc = vcov/sum_var)
+      dplyr::mutate(icc = vcov/sum_var)
 
+    # include percentage
     if (isTRUE(percent)) {
       var <- var %>%
-        mutate(percent = icc*100)
+        dplyr::mutate(percent = icc*100)
     }
 
     return(var)

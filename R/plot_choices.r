@@ -6,7 +6,6 @@
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero).
-#'
 #' @return
 #' @export
 #'
@@ -31,13 +30,12 @@ plot_choices <- function(df,
                          null = 0) {
 
   require(ggplot2, quietly = TRUE)
-  require(dplyr, quietly = TRUE)
 
   df %>%
     format_results(desc = desc, null = null) %>%
-    mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
+    dplyr::mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
     tidyr::gather(key, value, choices) %>%
-    mutate(key = factor(key, levels=choices)) %>%
+    dplyr::mutate(key = factor(key, levels = choices)) %>%
     ggplot(aes(x = specifications,
                y = value,
                color = color)) +

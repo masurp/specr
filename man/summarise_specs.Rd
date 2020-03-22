@@ -41,8 +41,14 @@ results <- run_specs(df = example_data,
 summarise_specs(results)
 
 # Summary of specific analytical choices
-print(summarise_specs(results, group = c("subsets", "x")), n = 24)
+print(summarise_specs(results,
+                      group = c("subsets", "x")),
+                      n = 24)
 
-# Summare of other estimates
-summarise_specs(results, var = "p.value", group = "controls")
+# Summary of other estimates with specific functions
+summarise_specs(results,
+                var = "p.value",
+                stats = list(q05 = function(x) quantile(x, prob = .05),
+                             q95 = function(x) quantile(x, prob = .95)),
+                group = "controls")
 }

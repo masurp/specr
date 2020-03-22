@@ -25,10 +25,16 @@
 #' summarise_specs(results)
 #'
 #' # Summary of specific analytical choices
-#' print(summarise_specs(results, group = c("subsets", "x")), n = 24)
+#' print(summarise_specs(results,
+#'                       group = c("subsets", "x")),
+#'                       n = 24)
 #'
-#' # Summare of other estimates
-#' summarise_specs(results, var = "p.value", group = "controls")
+#' # Summary of other estimates with specific functions
+#' summarise_specs(results,
+#'                 var = "p.value",
+#'                 stats = list(q05 = function(x) quantile(x, prob = .05),
+#'                              q95 = function(x) quantile(x, prob = .95)),
+#'                 group = "controls")
 summarise_specs <- function(df,
                             var = estimate,
                             stats = lst(median, mad, min, max,
@@ -36,12 +42,11 @@ summarise_specs <- function(df,
                                         q75 = function(x) quantile(x, prob = .75)),
                             group = NULL) {
 
-  require(dplyr, quietly = TRUE)
-
   summary_specs <- function(df) {
+
     var <- enquo(var)
     df %>%
-      summarize_at(vars(!!var), stats)
+      dplyr::summarize_at(vars(!!var), stats)
   }
 
   if (rlang::is_null(group)) {
@@ -49,19 +54,19 @@ summarise_specs <- function(df,
        df %>%
          summary_specs,
        df %>%
-         summarize(obs = median(obs))
+         dplyr::summarize(obs = median(obs))
      )
   } else {
     group <- lapply(group, as.symbol)
     suppressWarnings(
     suppressMessages(
-    left_join(
+    dplyr::left_join(
       df %>%
-        group_by_(.dots = group) %>%
+        dplyr::group_by_(.dots = group) %>%
         summary_specs,
       df %>%
-        group_by_(.dots = group) %>%
-        summarize(obs = median(obs))
+        dplyr::group_by_(.dots = group) %>%
+        dplyr::summarize(obs = median(obs))
     )))
   }
 }

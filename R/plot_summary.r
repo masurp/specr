@@ -23,7 +23,7 @@ plot_summary <- function(df,
   require(ggplot2, quietly = TRUE)
 
   df %>%
-    mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
+    dplyr::mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
     tidyr::gather(key, value, choices) %>%
     ggplot(aes(x = value, y = estimate, fill = key)) +
       geom_boxplot(outlier.color = "red") +
