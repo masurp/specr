@@ -32,7 +32,7 @@ plot_decisiontree <- function(df,
     dplyr::select(model, x, y, controls, subsets) %>%
     dplyr::arrange(model, x, y, controls, subsets) %>%
     dplyr::mutate(start = "raw data") %>%
-    dplyr::select(start, everything()) %>%
+    dplyr::select(start, dplyr::everything()) %>%
     dplyr::mutate(x = paste0(x, " & ", model),
                   y = paste0(y, " & ", x),
                   controls = paste0(controls, " & ", y),
