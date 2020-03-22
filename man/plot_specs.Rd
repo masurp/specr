@@ -77,6 +77,7 @@ results <- run_specs(example_data,
 plot_specs(results)
 
 # Customize each part and then combine
+library(ggplot2)
 p1 <- plot_curve(results) +
   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
   ylim(-3, 12) +

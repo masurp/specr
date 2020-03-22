@@ -22,8 +22,8 @@
 #'
 #' # Customize
 #' plot_samplesizes(results) +
-#'   geom_hline(yintercept = median(results$obs), color = "darkgrey", linetype = "dashed") +
-#'   theme_linedraw()
+#'   ggplot2::geom_hline(yintercept = median(results$obs), color = "darkgrey", linetype = "dashed") +
+#'   ggplot2::theme_linedraw()
 plot_samplesizes <- function(df,
                              desc = FALSE) {
 

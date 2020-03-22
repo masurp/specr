@@ -88,7 +88,7 @@ plot_decisiontree <- function(df,
   # Check if labels should be plotted
   if(isTRUE(label)) {
     plot <- plot +
-      geom_node_text(aes(label=name,
+      ggraph::geom_node_text(aes(label=name,
                          filter = leaf),
                      angle=90 ,
                      hjust=1,
