@@ -24,6 +24,7 @@ In order to understand what type of analytical choices exists, you need to under
 ```{r, message=F, warning = F}
 # Load library
 library(specr)
+library(dplyr)
 
 # We have a look at the simulated data set that is included in the package
 head(example_data)

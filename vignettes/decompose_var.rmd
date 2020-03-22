@@ -12,7 +12,9 @@ In order to have some data to work with, we run the minimal example contained in
 
 ```{r, message = F, warnings = F}
 library(specr)
+library(ggplot2)
 library(dplyr)
+
 # run spec analysis
 results <- run_specs(example_data,
                      y = c("y1", "y2"),

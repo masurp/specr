@@ -21,6 +21,9 @@ If you want to investigate individual models and particularly all aspects of tha
 
 ```{r, message=F, warning = F}
 library(specr)
+library(dplyr)
+library(purrr)
+library(ggplot2)
 
 # Run specification curve analysis
 results <- run_specs(df = example_data, 
@@ -89,8 +92,6 @@ And we can of course use this result and plot comparisons.
 
 ```{r}
 # Plot r2 curve
-library(ggplot2)
-
 r2_results %>%
   arrange(r2) %>%
   mutate(rank = 1:n()) %>%

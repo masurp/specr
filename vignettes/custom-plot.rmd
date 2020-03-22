@@ -13,6 +13,7 @@ In order to have some data to work with, we run the minimal example contained in
 ```{r, message = F, warnings = F}
 library(specr)
 library(dplyr)
+library(ggplot2)
 library(cowplot)
 
 # run spec analysis
