@@ -29,11 +29,9 @@
 #'                       group = c("subsets", "x")),
 #'                       n = 24)
 #'
-#' # Summary of other estimates with specific functions
+#' # Summary of other estimates
 #' summarise_specs(results,
 #'                 var = "p.value",
-#'                 stats = lst(q05 = function(x) quantile(x, prob = .05),
-#'                             q95 = function(x) quantile(x, prob = .95)),
 #'                 group = "controls")
 summarise_specs <- function(df,
                             var = estimate,
