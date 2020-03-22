@@ -101,23 +101,26 @@
 </h2>
 <p>If you want to investigate individual models and particularly all aspects of that model, use <code><a href="../reference/run_specs.html">run_specs()</a></code> with the additional argument <code>keep.results = TRUE</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Run specification curve analysis</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_specs.html">run_specs</a></span>(<span class="dt">df =</span> example_data, </span>
-<span id="cb1-5"><a href="#cb1-5"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>), </span>
-<span id="cb1-6"><a href="#cb1-6"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>), </span>
-<span id="cb1-7"><a href="#cb1-7"></a>                     <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>), </span>
-<span id="cb1-8"><a href="#cb1-8"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>), </span>
-<span id="cb1-9"><a href="#cb1-9"></a>                     <span class="dt">subsets =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
-<span id="cb1-10"><a href="#cb1-10"></a>                                    <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)),</span>
-<span id="cb1-11"><a href="#cb1-11"></a>                     <span class="dt">keep.results =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Run specification curve analysis</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_specs.html">run_specs</a></span>(<span class="dt">df =</span> example_data, </span>
+<span id="cb1-8"><a href="#cb1-8"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>), </span>
+<span id="cb1-9"><a href="#cb1-9"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>), </span>
+<span id="cb1-10"><a href="#cb1-10"></a>                     <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>), </span>
+<span id="cb1-11"><a href="#cb1-11"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>), </span>
+<span id="cb1-12"><a href="#cb1-12"></a>                     <span class="dt">subsets =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
+<span id="cb1-13"><a href="#cb1-13"></a>                                    <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)),</span>
+<span id="cb1-14"><a href="#cb1-14"></a>                     <span class="dt">keep.results =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 </div>
 <div id="identify-models-of-interest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-models-of-interest" class="anchor"></a>2. Identify model(s) of interest</h2>
 <p>For this example, we are going to look at two specific models (same independent variables, all controls, all participants). Their only difference is the dependent variable <code>y</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>y_models &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(x <span class="op">==</span><span class="st"> "x1"</span>, </span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(x <span class="op">==</span><span class="st"> "x1"</span>, </span>
 <span id="cb2-3"><a href="#cb2-3"></a>         controls <span class="op">==</span><span class="st"> "c1 + c2"</span>,</span>
 <span id="cb2-4"><a href="#cb2-4"></a>         subsets <span class="op">==</span><span class="st"> "all"</span>)</span></code></pre></div>
 <p>As you can see, the result data frame includes an additional column called “res”. This column includes the entire “model object” and we can use it to further investigate each model.</p>
@@ -127,9 +130,9 @@
 <a href="#investigate-models" class="anchor"></a>3. Investigate models</h2>
 <p>For example, we can now easily get a full summary of the models and compare individual coefficients and statistics.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>y_models <span class="op">%&gt;%</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw">pull</span>(res) <span class="op">%&gt;%</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw">map</span>(summary) <span class="op">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw">map</span>(coef)</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(res) <span class="op">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(summary) <span class="op">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(coef)</span>
 <span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; [[1]]</span></span>
 <span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;               Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
 <span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; (Intercept) -13.155786  1.2877892 -10.21579 2.305561e-22</span></span>
@@ -145,8 +148,8 @@
 <span id="cb3-17"><a href="#cb3-17"></a><span class="co">#&gt; c2           2.3954736  0.1342259 17.8465776 2.162445e-55</span></span></code></pre></div>
 <p>Or we could get r-squared values for both models.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>y_models <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">pull</span>(res) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw">map</span>(performance<span class="op">::</span>r2)</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(res) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(performance<span class="op">::</span>r2)</span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; [[1]]</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; # R2 for Linear Regression</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; </span></span>
@@ -165,13 +168,13 @@
 <p>This way, we can analyze for compare such statistics across several models.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># </span></span>
 <span id="cb5-2"><a href="#cb5-2"></a>r2_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(subsets <span class="op">==</span><span class="st"> "all"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">r2 =</span> <span class="kw">map</span>(res, performance<span class="op">::</span>r2), </span>
-<span id="cb5-5"><a href="#cb5-5"></a>         <span class="dt">r2 =</span> <span class="kw">map_dbl</span>(r2, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw">arrange</span>(r2)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(subsets <span class="op">==</span><span class="st"> "all"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(res, performance<span class="op">::</span>r2), </span>
+<span id="cb5-5"><a href="#cb5-5"></a>         <span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span>(r2, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2)</span>
 <span id="cb5-7"><a href="#cb5-7"></a></span>
 <span id="cb5-8"><a href="#cb5-8"></a>r2_results <span class="op">%&gt;%</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw">select</span>(x<span class="op">:</span>controls, r2)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(x<span class="op">:</span>controls, r2)</span>
 <span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; # A tibble: 16 x 5</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    x     y     model controls           r2</span></span>
 <span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
@@ -193,18 +196,16 @@
 <span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 16 x2    y1    lm    c1 + c2       0.807</span></span></code></pre></div>
 <p>And we can of course use this result and plot comparisons.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Plot r2 curve</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
-<span id="cb6-3"><a href="#cb6-3"></a></span>
-<span id="cb6-4"><a href="#cb6-4"></a>r2_results <span class="op">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw">arrange</span>(r2) <span class="op">%&gt;%</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">rank =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> rank, </span>
-<span id="cb6-8"><a href="#cb6-8"></a>             <span class="dt">y =</span> r2)) <span class="op">+</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></span>
-<span id="cb6-10"><a href="#cb6-10"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() <span class="op">+</span></span>
-<span id="cb6-11"><a href="#cb6-11"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>(),</span>
-<span id="cb6-12"><a href="#cb6-12"></a>        <span class="dt">axis.line =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span>(<span class="st">"black"</span>, <span class="dt">size =</span> <span class="fl">.5</span>),</span>
-<span id="cb6-13"><a href="#cb6-13"></a>        <span class="dt">axis.text =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">colour =</span> <span class="st">"black"</span>))</span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2"></a>r2_results <span class="op">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2) <span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rank =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> rank, </span>
+<span id="cb6-6"><a href="#cb6-6"></a>             <span class="dt">y =</span> r2)) <span class="op">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() <span class="op">+</span></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>(),</span>
+<span id="cb6-10"><a href="#cb6-10"></a>        <span class="dt">axis.line =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span>(<span class="st">"black"</span>, <span class="dt">size =</span> <span class="fl">.5</span>),</span>
+<span id="cb6-11"><a href="#cb6-11"></a>        <span class="dt">axis.text =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span>(<span class="dt">colour =</span> <span class="st">"black"</span>))</span></code></pre></div>
 <p><img src="invest-spec_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
 </div>
   </div>

@@ -101,16 +101,17 @@
 <p>In order to have some data to work with, we run the minimal example contained in the package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(cowplot)</span>
-<span id="cb1-4"><a href="#cb1-4"></a></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="co"># run spec analysis</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_specs.html">run_specs</a></span>(example_data,</span>
-<span id="cb1-7"><a href="#cb1-7"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>),</span>
-<span id="cb1-8"><a href="#cb1-8"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),</span>
-<span id="cb1-9"><a href="#cb1-9"></a>                     <span class="dt">model =</span> <span class="st">"lm"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>),</span>
-<span id="cb1-11"><a href="#cb1-11"></a>                     <span class="dt">subset =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
-<span id="cb1-12"><a href="#cb1-12"></a>                                   <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)))</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(cowplot)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># run spec analysis</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>results &lt;-<span class="st"> </span><span class="kw"><a href="../reference/run_specs.html">run_specs</a></span>(example_data,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>                     <span class="dt">y =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"y1"</span>, <span class="st">"y2"</span>),</span>
+<span id="cb1-9"><a href="#cb1-9"></a>                     <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),</span>
+<span id="cb1-10"><a href="#cb1-10"></a>                     <span class="dt">model =</span> <span class="st">"lm"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11"></a>                     <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>),</span>
+<span id="cb1-12"><a href="#cb1-12"></a>                     <span class="dt">subset =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
+<span id="cb1-13"><a href="#cb1-13"></a>                                   <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)))</span></code></pre></div>
 <p>Let’s quickly get some ideas about the specification curve by using <code><a href="../reference/summarise_specs.html">summarise_specs()</a></code></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results, <span class="dt">group =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"controls"</span>))</span></code></pre></div>
 <pre><code>## # A tibble: 8 x 9
@@ -154,17 +155,17 @@
 <p>Alternatively, we can also plot the curve and the choice panel individually and bind them together afterwards.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot specification curve (p1)</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(results, <span class="dt">ci =</span> <span class="ot">FALSE</span>, <span class="dt">ribbon =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>, <span class="dt">color =</span> <span class="st">"grey"</span>) <span class="op">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/r/graphics/plot.window.html">ylim</a></span>(<span class="op">-</span><span class="dv">8</span>, <span class="dv">12</span>) <span class="op">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"unstandarized regression coefficient"</span>) <span class="op">+</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>, <span class="dt">color =</span> <span class="st">"grey"</span>) <span class="op">+</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span>(<span class="op">-</span><span class="dv">8</span>, <span class="dv">12</span>) <span class="op">+</span></span>
+<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"unstandarized regression coefficient"</span>) <span class="op">+</span></span>
 <span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>()</span>
 <span id="cb7-7"><a href="#cb7-7"></a></span>
 <span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Plot choices (p2)</span></span>
 <span id="cb7-9"><a href="#cb7-9"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_choices.html">plot_choices</a></span>(results, </span>
 <span id="cb7-10"><a href="#cb7-10"></a>                   <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>)) <span class="op">+</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">"specifications (ranked)"</span>) <span class="op">+</span></span>
+<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"specifications (ranked)"</span>) <span class="op">+</span></span>
 <span id="cb7-12"><a href="#cb7-12"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>() <span class="op">+</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.text.x =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())</span>
 <span id="cb7-14"><a href="#cb7-14"></a></span>
 <span id="cb7-15"><a href="#cb7-15"></a><span class="co"># Combine plots</span></span>
 <span id="cb7-16"><a href="#cb7-16"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(<span class="dt">plot_a =</span> p1,</span>
