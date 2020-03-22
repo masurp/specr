@@ -47,7 +47,7 @@ plot_curve(results)
 
 # Ribbon instead of CIs and customize further
 plot_curve(results, ci = FALSE, ribbon = TRUE) +
-  geom_hline(yintercept = 0) +
-  geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-  theme_linedraw()
+  ggplot2::geom_hline(yintercept = 0) +
+  ggplot2::geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
+  ggplot2::theme_linedraw()
 }
