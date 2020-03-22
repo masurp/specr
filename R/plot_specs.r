@@ -69,7 +69,6 @@ plot_specs <- function(df = NULL,
                        sample_perc = 1,
                        ...) {
 
-
   if (!rlang::is_null(df)) {
 
   # Draw sample

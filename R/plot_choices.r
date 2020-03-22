@@ -29,8 +29,6 @@ plot_choices <- function(df,
                          desc = FALSE,
                          null = 0) {
 
-  require(ggplot2, quietly = TRUE)
-
   df %>%
     format_results(desc = desc, null = null) %>%
     dplyr::mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%

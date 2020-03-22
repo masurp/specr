@@ -20,9 +20,6 @@
 #' plot_variance(model)
 plot_variance <- function(model) {
 
-  # dependencies
-  require(ggplot2, quietly = TRUE)
-
   icc_specs(model) %>%
     ggplot(aes(x = grp,
                y = percent)) +

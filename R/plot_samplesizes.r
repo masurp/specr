@@ -27,8 +27,6 @@
 plot_samplesizes <- function(df,
                              desc = FALSE) {
 
-  require(ggplot2, quietly = TRUE)
-
   df %>%
     format_results(desc = desc) %>%
     ggplot(aes(x = specifications,

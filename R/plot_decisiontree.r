@@ -27,9 +27,6 @@ plot_decisiontree <- function(df,
                               label = FALSE,
                               legend = FALSE) {
 
-  require(ggraph, quietly = TRUE)
-  require(igraph, quietly = TRUE)
-
   # Create data set for graph transformation
   df <- df %>%
     dplyr::select(model, x, y, controls, subsets) %>%
@@ -76,16 +73,16 @@ plot_decisiontree <- function(df,
   # Plot edges
   plot <- edge_list %>%
     graph_from_data_frame %>%
-    ggraph(layout = 'dendrogram',
-           circular = FALSE) +
-    geom_edge_diagonal() +
+    ggraph::ggraph(layout = 'dendrogram',
+                   circular = FALSE) +
+    ggraph::geom_edge_diagonal() +
     theme_void()
 
   # Check if legend should be plotted
   if(isTRUE(legend)) {
     plot <- plot +
-      geom_edge_diagonal(aes(color = decisions)) +
-      scale_edge_color_brewer(palette = "Blues")
+      ggraph::geom_edge_diagonal(aes(color = decisions)) +
+      ggraph::scale_edge_color_brewer(palette = "Blues")
   }
 
   # Check if labels should be plotted

@@ -28,18 +28,14 @@
 #' results
 run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95, keep.results = FALSE) {
 
-  # dependencies
-  require(dplyr, quietly = TRUE)
-  require(purrr, quietly = TRUE)
-
   specs <- setup_specs(y = y, x = x, model = model, controls = controls)
 
   if (!is.null(subsets)) {
 
-  subsets = map(subsets, as.character)
+  subsets <- map(subsets, as.character)
 
   df_list <- create_subsets(df, subsets)
-  df_list[[length(df_list)+1]] <- df %>% mutate(filter = "all")
+  df_list[[length(df_list)+1]] <- df %>% dplyr::mutate(filter = "all")
 
   if (length(subsets) > 1) {
 
@@ -47,9 +43,9 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
   df_comb <- subsets %>%
     cross %>%
     map(~ create_subsets(subsets = .x, df = df) %>%
-          map(~select(.x, -filter)) %>%
-          reduce(inner_join) %>%
-          mutate(filter = paste(names(.x), .x, collapse = " & ", sep = " = ")))
+          map(~ dplyr::select(.x, -filter)) %>%
+          reduce(dplyr::inner_join) %>%
+          dplyr::mutate(filter = paste(names(.x), .x, collapse = " & ", sep = " = ")))
 
   df_all <- append(df_list, df_comb)
   })
@@ -61,12 +57,12 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
   }
 
   map_df(df_all, ~ run_spec(specs, .x, conf.level = conf.level, keep.results = keep.results) %>%
-           mutate(subsets = unique(.x$filter)))
+                dplyr::mutate(subsets = unique(.x$filter)))
 
   } else {
 
   run_spec(specs, df, conf.level = conf.level, keep.results = keep.results) %>%
-    mutate(subsets = "all")
+    dplyr::mutate(subsets = "all")
 
   }
 

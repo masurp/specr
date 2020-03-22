@@ -50,7 +50,7 @@ summarise_specs <- function(df,
   }
 
   if (rlang::is_null(group)) {
-     bind_cols(
+     dplyr::bind_cols(
        df %>%
          summary_specs,
        df %>%

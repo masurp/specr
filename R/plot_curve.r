@@ -27,17 +27,15 @@
 #'
 #' # Ribbon instead of CIs and customize further
 #' plot_curve(results, ci = FALSE, ribbon = TRUE) +
-#'   geom_hline(yintercept = 0) +
-#'   geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-#'   theme_linedraw()
+#'   ggplot2::geom_hline(yintercept = 0) +
+#'   ggplot2::geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
+#'   ggplot2::theme_linedraw()
 plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
                        ribbon = FALSE,
                        legend = FALSE,
                        null = 0){
-
-  require(ggplot2, quietly = TRUE)
 
   # Create basic plot
   plot <- df %>%
@@ -58,6 +56,7 @@ plot_curve <- function(df,
           axis.text = element_text(colour = "black")) +
     labs(x = "")
 
+  # add legends if necessary
   if (isFALSE(legend)) {
     plot <- plot +
       theme(legend.position = "none")
@@ -71,7 +70,7 @@ plot_curve <- function(df,
                       fatten = 1)
   }
 
-  # add Ribbon if necessary
+  # add ribbon if necessary
   if (isTRUE(ribbon)) {
     plot <- plot +
       geom_ribbon(aes(ymin = conf.low,
