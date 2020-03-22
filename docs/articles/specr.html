@@ -138,17 +138,15 @@
 <span id="cb2-2"><a href="#cb2-2"></a>            <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),         <span class="co"># We are not sure which independent variable is better</span></span>
 <span id="cb2-3"><a href="#cb2-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>),           <span class="co"># We only estimate one type of model (linear model)</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a>            <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>))  <span class="co"># We include two control variable </span></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; # A tibble: 8 x 4</span></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   x     y     model controls     </span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2      </span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2      </span></span>
-<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 3 x1    y1    lm    c1           </span></span>
-<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 4 x2    y1    lm    c1           </span></span>
-<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 5 x1    y1    lm    c2           </span></span>
-<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 6 x2    y1    lm    c2           </span></span>
-<span id="cb2-14"><a href="#cb2-14"></a><span class="co">#&gt; 7 x1    y1    lm    no covariates</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a><span class="co">#&gt; 8 x2    y1    lm    no covariates</span></span></code></pre></div>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt;    x  y model      controls</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt; 1 x1 y1    lm       c1 + c2</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt; 2 x2 y1    lm       c1 + c2</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 3 x1 y1    lm            c1</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 4 x2 y1    lm            c1</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; 5 x1 y1    lm            c2</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; 6 x2 y1    lm            c2</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a><span class="co">#&gt; 7 x1 y1    lm no covariates</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a><span class="co">#&gt; 8 x2 y1    lm no covariates</span></span></code></pre></div>
 <p>The resulting data frame creates eight different specifications. <code><a href="../reference/setup_specs.html">setup_specs()</a></code> can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis.</p>
 </div>
 <div id="define-final-analytical-choices-and-run-the-analysis" class="section level2">
