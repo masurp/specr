@@ -23,7 +23,8 @@ Imports:
     purrr,
     ggplot2,
     cowplot,
-    broom
+    broom,
+    igraph
 Suggests: 
     testthat
 Encoding: UTF-8
