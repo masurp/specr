@@ -164,11 +164,11 @@
                      <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>group1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group1</span>),
                                     <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
 <span class='co'># Plot ranked bar chart of sample sizes</span>
-<span class='fu'>plot_samplesizes</span>(<span class='no'>results</span>)</div><div class='output co'>#&gt; <span class='error'>Error in case_when(conf.low &gt; null ~ "#377eb8", conf.high &lt; null ~ "#e41a1c",     TRUE ~ "darkgrey"): could not find function "case_when"</span></div><div class='input'>
+<span class='fu'>plot_samplesizes</span>(<span class='no'>results</span>)</div><div class='img'><img src='plot_samplesizes-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Customize</span>
 <span class='fu'>plot_samplesizes</span>(<span class='no'>results</span>) +
   <span class='fu'>geom_hline</span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span>(<span class='no'>results</span>$<span class='no'>obs</span>), <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"darkgrey"</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>) +
-  <span class='fu'>theme_linedraw</span>()</div><div class='output co'>#&gt; <span class='error'>Error in case_when(conf.low &gt; null ~ "#377eb8", conf.high &lt; null ~ "#e41a1c",     TRUE ~ "darkgrey"): could not find function "case_when"</span></div></pre>
+  <span class='fu'>theme_linedraw</span>()</div><div class='output co'>#&gt; <span class='error'>Error in geom_hline(yintercept = median(results$obs), color = "darkgrey",     linetype = "dashed"): could not find function "geom_hline"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

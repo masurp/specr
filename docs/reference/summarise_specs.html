@@ -217,15 +217,9 @@
 <span class='co'># Summary of other estimates with specific functions</span>
 <span class='fu'>summarise_specs</span>(<span class='no'>results</span>,
                 <span class='kw'>var</span> <span class='kw'>=</span> <span class='st'>"p.value"</span>,
-                <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>q05</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>.05</span>),
-                             <span class='kw'>q95</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>.95</span>)),
-                <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"controls"</span>)</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 4 x 4</span><span>
-#&gt;   controls           q05   q95   obs
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>            </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> c1            9.23</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-22</span><span> 0.744   123
-#&gt; </span><span style='color: #555555;'>2</span><span> c1 + c2       1.64</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-42</span><span> 0.660   123
-#&gt; </span><span style='color: #555555;'>3</span><span> c2            2.35</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-33</span><span> 0.575   123
-#&gt; </span><span style='color: #555555;'>4</span><span> no covariates 1.65</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-19</span><span> 0.334   123</div></span></pre>
+                <span class='kw'>stats</span> <span class='kw'>=</span> <span class='fu'>lst</span>(<span class='kw'>q05</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>.05</span>),
+                            <span class='kw'>q95</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://rdrr.io/r/stats/quantile.html'>quantile</a></span>(<span class='no'>x</span>, <span class='kw'>prob</span> <span class='kw'>=</span> <span class='fl'>.95</span>)),
+                <span class='kw'>group</span> <span class='kw'>=</span> <span class='st'>"controls"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in lst(q05 = function(x) quantile(x, prob = 0.05), q95 = function(x) quantile(x,     prob = 0.95)): could not find function "lst"</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
