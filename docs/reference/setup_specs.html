@@ -101,10 +101,10 @@
       <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific models</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/progress.html">Visualizing progress during estimation</a>
+      <a href="../articles/progress.html">Visualizing progress</a>
     </li>
   </ul>
 </li>
@@ -158,23 +158,23 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-
-
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>setup_specs</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>),               <span class='co'># We choose only one dependent variale</span>
-            <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),         <span class='co'># We are not sure which independent variable is better</span>
-            <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>),           <span class='co'># We only estimate one type of model (linear model)</span>
-            <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>))  <span class='co'># We include two control variable</span></div><div class='output co'>#&gt;    x  y model      controls
-#&gt; 1 x1 y1    lm       c1 + c2
-#&gt; 2 x2 y1    lm       c1 + c2
-#&gt; 3 x1 y1    lm            c1
-#&gt; 4 x2 y1    lm            c1
-#&gt; 5 x1 y1    lm            c2
-#&gt; 6 x2 y1    lm            c2
-#&gt; 7 x1 y1    lm no covariates
-#&gt; 8 x2 y1    lm no covariates</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>setup_specs</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>),
+            <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
+            <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>),
+            <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>))</div><div class='output co'>#&gt; # A tibble: 8 x 4
+#&gt;   x     y     model controls     
+#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        
+#&gt; 1 x1    y1    lm    c1 + c2      
+#&gt; 2 x2    y1    lm    c1 + c2      
+#&gt; 3 x1    y1    lm    c1           
+#&gt; 4 x2    y1    lm    c1           
+#&gt; 5 x1    y1    lm    c2           
+#&gt; 6 x2    y1    lm    c2           
+#&gt; 7 x1    y1    lm    no covariates
+#&gt; 8 x2    y1    lm    no covariates</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

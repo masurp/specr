@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Get variance component of the specification curve — icc_specs" />
-<meta property="og:description" content="Get variance component of the specification curve" />
+<meta property="og:description" content="Can be used to extract intraclass correlation coefficients from a multilevel model." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -101,10 +101,10 @@
       <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific models</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/progress.html">Visualizing progress during estimation</a>
+      <a href="../articles/progress.html">Visualizing progress</a>
     </li>
   </ul>
 </li>
@@ -130,7 +130,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Get variance component of the specification curve</p>
+    <p>Can be used to extract intraclass correlation coefficients from a multilevel model.</p>
     </div>
 
     <pre class="usage"><span class='fu'>icc_specs</span>(<span class='no'>model</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -150,8 +150,13 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a></p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
+    
+<ul>
+<li><p>Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.</p></li>
+</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -159,7 +164,8 @@
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,
                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
                      <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
-                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>))</div><div class='output co'>#&gt; <span class='message'>Loading required package: purrr</span></div><div class='input'>
+                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>))
+
 <span class='co'># Step 2: Estimate multilevel model</span>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)
 
@@ -174,6 +180,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#references">References</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

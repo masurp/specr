@@ -63,10 +63,10 @@
       <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific models</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/progress.html">Visualizing progress during estimation</a>
+      <a href="../articles/progress.html">Visualizing progress</a>
     </li>
   </ul>
 </li>
@@ -138,15 +138,17 @@
 <span id="cb3-2"><a href="#cb3-2"></a>            <span class="dt">x =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x1"</span>, <span class="st">"x2"</span>),         <span class="co"># We are not sure which independent variable is better</span></span>
 <span id="cb3-3"><a href="#cb3-3"></a>            <span class="dt">model =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"lm"</span>),           <span class="co"># We only estimate one type of model (linear model)</span></span>
 <span id="cb3-4"><a href="#cb3-4"></a>            <span class="dt">controls =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"c1"</span>, <span class="st">"c2"</span>))  <span class="co"># We include two control variable </span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;    x  y model      controls</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 1 x1 y1    lm       c1 + c2</span></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 2 x2 y1    lm       c1 + c2</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 3 x1 y1    lm            c1</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 4 x2 y1    lm            c1</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 5 x1 y1    lm            c2</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 6 x2 y1    lm            c2</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 7 x1 y1    lm no covariates</span></span>
-<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 8 x2 y1    lm no covariates</span></span></code></pre></div>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt; # A tibble: 8 x 4</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt;   x     y     model controls     </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;        </span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2      </span></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="co">#&gt; 2 x2    y1    lm    c1 + c2      </span></span>
+<span id="cb3-10"><a href="#cb3-10"></a><span class="co">#&gt; 3 x1    y1    lm    c1           </span></span>
+<span id="cb3-11"><a href="#cb3-11"></a><span class="co">#&gt; 4 x2    y1    lm    c1           </span></span>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="co">#&gt; 5 x1    y1    lm    c2           </span></span>
+<span id="cb3-13"><a href="#cb3-13"></a><span class="co">#&gt; 6 x2    y1    lm    c2           </span></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">#&gt; 7 x1    y1    lm    no covariates</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="co">#&gt; 8 x2    y1    lm    no covariates</span></span></code></pre></div>
 <p>The resulting data frame creates eight different specifications. <code><a href="../reference/setup_specs.html">setup_specs()</a></code> can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. This helper function is used within the next function <code><a href="../reference/run_specs.html">run_specs()</a></code> that actually runs the specification analysis.</p>
 </div>
 <div id="define-final-analytical-choices-and-run-the-analysis" class="section level2">
@@ -205,9 +207,9 @@
 <span id="cb6-6"><a href="#cb6-6"></a><span class="co">#&gt; 1   3.59  4.56 -2.05  9.58  1.03  7.63   123</span></span>
 <span id="cb6-7"><a href="#cb6-7"></a></span>
 <span id="cb6-8"><a href="#cb6-8"></a><span class="co"># summary by specific groups and  statistics</span></span>
-<span id="cb6-9"><a href="#cb6-9"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results, </span>
-<span id="cb6-10"><a href="#cb6-10"></a>                <span class="dt">stats =</span> <span class="kw">lst</span>(median, min, max), </span>
-<span id="cb6-11"><a href="#cb6-11"></a>                <span class="dt">group =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>))</span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results,                         <span class="co"># result data frame</span></span>
+<span id="cb6-10"><a href="#cb6-10"></a>                x, y,                            <span class="co"># grouping variables</span></span>
+<span id="cb6-11"><a href="#cb6-11"></a>                <span class="dt">stats =</span> <span class="kw">lst</span>(median, min, max))   <span class="co"># specific functions</span></span>
 <span id="cb6-12"><a href="#cb6-12"></a><span class="co">#&gt; # A tibble: 4 x 6</span></span>
 <span id="cb6-13"><a href="#cb6-13"></a><span class="co">#&gt; # Groups:   x [2]</span></span>
 <span id="cb6-14"><a href="#cb6-14"></a><span class="co">#&gt;   x     y     median    min   max   obs</span></span>
@@ -219,8 +221,8 @@
 <span id="cb6-20"><a href="#cb6-20"></a></span>
 <span id="cb6-21"><a href="#cb6-21"></a><span class="co"># summary of another statistic</span></span>
 <span id="cb6-22"><a href="#cb6-22"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results, </span>
-<span id="cb6-23"><a href="#cb6-23"></a>                <span class="dt">var =</span> <span class="st">"p.value"</span>,</span>
-<span id="cb6-24"><a href="#cb6-24"></a>                <span class="dt">group =</span> <span class="st">"subsets"</span>)</span>
+<span id="cb6-23"><a href="#cb6-23"></a>                subsets,</span>
+<span id="cb6-24"><a href="#cb6-24"></a>                <span class="dt">var =</span> p.value)</span>
 <span id="cb6-25"><a href="#cb6-25"></a><span class="co">#&gt; # A tibble: 12 x 8</span></span>
 <span id="cb6-26"><a href="#cb6-26"></a><span class="co">#&gt;    subsets              median       mad      min    max      q25      q75   obs</span></span>
 <span id="cb6-27"><a href="#cb6-27"></a><span class="co">#&gt;    &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;</span></span>
