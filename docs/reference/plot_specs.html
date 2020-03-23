@@ -227,7 +227,10 @@ very large and one wants to simplify the visualization.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># run spec analysis</span>
+    <pre class="examples"><div class='input'><span class='co'># load additional library</span>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>) <span class='co'># for further customization of the plots</span>
+
+<span class='co'># run spec analysis</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='no'>example_data</span>,
                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
                      <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
@@ -238,7 +241,6 @@ very large and one wants to simplify the visualization.</p></td>
 <span class='co'># plot results directly</span>
 <span class='fu'>plot_specs</span>(<span class='no'>results</span>)</div><div class='img'><img src='plot_specs-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Customize each part and then combine</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>)
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_curve.html'>plot_curve</a></span>(<span class='no'>results</span>) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"grey"</span>) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(-<span class='fl'>3</span>, <span class='fl'>12</span>) +
