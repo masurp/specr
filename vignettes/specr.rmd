@@ -15,17 +15,20 @@ knitr::opts_chunk$set(
 
 
 
-The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. 
+The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. Although using `specr` strictly speaking does not require any other package, we recommend to also load the `tidyverse` as it provides valuable functions for data wrangling and adapting outputs from `specr`-functions. Furthermore, the `tidyverse` includes `ggplot2` which can be used to modify the layout of the plot outputs. 
+
+```{r, message=F, warning = F}
+# Load libraries
+library(specr)
+library(tidyverse)
+```
+
 
 ## 1. Check the data
 
 In order to understand what type of analytical choices exists, you need to understand your data set. In a first step, you should hence investigate your data closely.
 
 ```{r, message=F, warning = F}
-# Load library
-library(specr)
-library(dplyr)
-
 # We have a look at the simulated data set that is included in the package
 head(example_data)
 
@@ -46,19 +49,21 @@ setup_specs(y = c("y1"),               # We choose only one dependent variale
             controls = c("c1", "c2"))  # We include two control variable 
 ```
 
-The resulting data frame creates eight different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. It is used within the next function that actually runs the specification analysis. 
+The resulting data frame creates eight different specifications. `setup_specs()` can be used to check and understand how different analytical choices create specific combinations. Yet, this step is not mandatory. This helper function is used within the next function `run_specs()` that actually runs the specification analysis. 
 
 
 ## 3. Define final analytical choices and run the analysis
 
-The main function of the package is `run_specs()`. Similar to `setup_specs` we need to include our analytical choices as arguments. Additionally however, we also need to provide the data and we can also specify subsets that should be evaluated. 
+The main function of the package is `run_specs()`. We need to include our analytical choices as arguments (as they will be passed to `setup_specs()`.) Additionally, we need to provide the data and, if needed, we can also specify subsets that should be evaluated. 
 
-One type of analytical choice that could additionally affect the results refers to the type of model that is estimated. The function runs traditional linear regression models by default (i.e. when `model = "lm"`is provided as argument). However, customized model functions can be passed to the function. The only requirement is that the customized functions requires a (regression) formula and the data. 
+One type of analytical choice that could additionally affect the results refers to the type of model that is estimated. The function runs traditional linear regression models by default (i.e. when `model = "lm"` is provided as argument). However, customized model functions can be passed to the function, too. The only requirement is that the customized function has `formula` and `data` as argument names. The self-made function needs to be a model estimation function, that takes the formula and estimates the model based on the data. In `run_specs()`, the resulting object is passed to `broom::tidy()`, which can deal with a variety of model classes.
 
 ```{r, message=F, warning = F}
-# Self-made function
+# specific model fitting function
 lm_gauss <- function(formula, data) {
-  glm(formula = formula, data = data, family = gaussian(link = "identity"))
+  glm(formula = formula, 
+      data = data, 
+      family = gaussian(link = "identity"))
 }
 
 # Run specification curve analysis
@@ -74,12 +79,13 @@ results <- run_specs(df = example_data,
 results
 ```
 
-The result data frame includes relevant statistics for each of the estiamted models. 
+The resulting data frame includes relevant statistics for each of the estiamted models. 
 
-We can plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.
+We can now plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.
 
 ```{r, fig.height=6, fig.width=10, message=F, warning = F}
-plot_decisiontree(results, legend = TRUE)
+plot_decisiontree(results, 
+                  legend = TRUE)
 ```
 
 ## 4. Investigate the specification curve
@@ -98,8 +104,7 @@ summarise_specs(results,
 # summary of another statistic
 summarise_specs(results, 
                 var = "p.value",
-                group = "subsets") %>% 
-  mutate_if(is.numeric, round, 3)
+                group = "subsets")
 ```
 
 The output contains summary statistics such as the median, the median absolute deviation, ... as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results (e.g., the p-value).
@@ -111,13 +116,15 @@ However, in order to grasp how the different analytical choices affect the outco
 plot_specs(results)
 ```
 
+The resulting plot includes the ranked specification curve (A) and an overview about how the different analytical choices affect the estimate of interest (B). Red represents negative and significant effects (based on the chosen significance level, by default $\alpha = .05$). Blue represents positive and significant effects. Grey refers to non-significant effects. 
+
 Sometimes, it can be useful to check the influence of specific choices on the estimate of interest more precisely. We can use the function `plot_summary()` to produce respective boxplots.
 
 ```{r, fig.height=7, fig.width=7, message=F, warning = F}
 plot_summary(results)
 ```
 
-Here, we can see clearly that the dependent variable (`y`) produces the largest differences in the obtained estimates.
+We can see that the dependent variable (`y`) produces the largest differences in the obtained estimates.
 
 ## 5. Decompose the variance in the specification curve
 
