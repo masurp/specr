@@ -18,7 +18,10 @@ plot_samplesizes(df, desc = FALSE)
 This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation).
 }
 \examples{
-# Run specification curve analysis
+# load additional library
+library(ggplot2) # for further customization of the plots
+
+# run specification curve analysis
 results <- run_specs(df = example_data,
                      y = c("y1", "y2"),
                      x = c("x1", "x2"),
@@ -26,11 +29,13 @@ results <- run_specs(df = example_data,
                      controls = c("c1", "c2"),
                      subsets = list(group1 = unique(example_data$group1),
                                     group2 = unique(example_data$group2)))
-# Plot ranked bar chart of sample sizes
+# plot ranked bar chart of sample sizes
 plot_samplesizes(results)
 
-# Customize
+# customize
 plot_samplesizes(results) +
-  ggplot2::geom_hline(yintercept = median(results$obs), color = "darkgrey", linetype = "dashed") +
-  ggplot2::theme_linedraw()
+  geom_hline(yintercept = median(results$obs),
+             color = "darkgrey",
+             linetype = "dashed") +
+  theme_linedraw()
 }

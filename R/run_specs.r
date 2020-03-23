@@ -26,9 +26,19 @@
 #'
 #' # Check results frame
 #' results
-run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.level = 0.95, keep.results = FALSE) {
+run_specs <- function(df,
+                      y,
+                      x,
+                      model,
+                      controls = NULL,
+                      subsets = NULL,
+                      conf.level = 0.95,
+                      keep.results = FALSE) {
 
-  specs <- setup_specs(y = y, x = x, model = model, controls = controls)
+  specs <- setup_specs(y = y,
+                       x = x,
+                       model = model,
+                       controls = controls)
 
   if (!is.null(subsets)) {
 
@@ -45,7 +55,10 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
     map(~ create_subsets(subsets = .x, df = df) %>%
           map(~ dplyr::select(.x, -filter)) %>%
           reduce(dplyr::inner_join) %>%
-          dplyr::mutate(filter = paste(names(.x), .x, collapse = " & ", sep = " = ")))
+          dplyr::mutate(filter = paste(names(.x),
+                                       .x,
+                                       collapse = " & ",
+                                       sep = " = ")))
 
   df_all <- append(df_list, df_comb)
   })
@@ -56,12 +69,18 @@ run_specs <- function(df, y, x, model, controls = NULL, subsets = NULL, conf.lev
 
   }
 
-  map_df(df_all, ~ run_spec(specs, .x, conf.level = conf.level, keep.results = keep.results) %>%
+  map_df(df_all, ~ run_spec(specs,
+                            .x,
+                            conf.level = conf.level,
+                            keep.results = keep.results) %>%
                 dplyr::mutate(subsets = unique(.x$filter)))
 
   } else {
 
-  run_spec(specs, df, conf.level = conf.level, keep.results = keep.results) %>%
+  run_spec(specs,
+           df,
+           conf.level = conf.level,
+           keep.results = keep.results) %>%
     dplyr::mutate(subsets = "all")
 
   }

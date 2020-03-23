@@ -33,6 +33,9 @@
 #' @export
 #'
 #' @examples
+#' # load additional library
+#' library(ggplot2) # for further customization of the plots
+#'
 #' # run spec analysis
 #' results <- run_specs(example_data,
 #'                      y = c("y1", "y2"),
@@ -45,7 +48,6 @@
 #' plot_specs(results)
 #'
 #' # Customize each part and then combine
-#' library(ggplot2)
 #' p1 <- plot_curve(results) +
 #'   geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
 #'   ylim(-3, 12) +

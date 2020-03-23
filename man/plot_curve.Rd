@@ -33,6 +33,9 @@ plot_curve(
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function \code{plot_specs()} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
 }
 \examples{
+# load additional library
+library(ggplot2) # for further customization of the plots
+
 # Run specification curve analysis
 results <- run_specs(df = example_data,
                      y = c("y1", "y2"),
@@ -47,7 +50,8 @@ plot_curve(results)
 
 # Ribbon instead of CIs and customize further
 plot_curve(results, ci = FALSE, ribbon = TRUE) +
-  ggplot2::geom_hline(yintercept = 0) +
-  ggplot2::geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-  ggplot2::theme_linedraw()
+  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = median(results$estimate),
+             linetype = "dashed") +
+  theme_linedraw()
 }

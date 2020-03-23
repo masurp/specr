@@ -23,7 +23,8 @@
 #' plot_choices(results)
 #'
 #' # Plot only specific choices
-#' plot_choices(results, choices = c("x", "y", "controls"))
+#' plot_choices(results,
+#'              choices = c("x", "y", "controls"))
 plot_choices <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets"),
                          desc = FALSE,

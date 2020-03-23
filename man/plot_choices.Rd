@@ -40,5 +40,6 @@ results <- run_specs(df = example_data,
 plot_choices(results)
 
 # Plot only specific choices
-plot_choices(results, choices = c("x", "y", "controls"))
+plot_choices(results,
+             choices = c("x", "y", "controls"))
 }

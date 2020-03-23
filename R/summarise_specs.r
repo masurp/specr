@@ -36,8 +36,8 @@
 summarise_specs <- function(df,
                             var = estimate,
                             stats = lst(median, mad, min, max,
-                                         q25 = function(x) quantile(x, prob = .25),
-                                         q75 = function(x) quantile(x, prob = .75)),
+                                        q25 = function(x) quantile(x, prob = .25),
+                                        q75 = function(x) quantile(x, prob = .75)),
                             group = NULL) {
 
   summary_specs <- function(df) {

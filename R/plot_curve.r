@@ -13,6 +13,9 @@
 #' @export
 #'
 #' @examples
+#' # load additional library
+#' library(ggplot2) # for further customization of the plots
+#'
 #' # Run specification curve analysis
 #' results <- run_specs(df = example_data,
 #'                      y = c("y1", "y2"),
@@ -27,9 +30,10 @@
 #'
 #' # Ribbon instead of CIs and customize further
 #' plot_curve(results, ci = FALSE, ribbon = TRUE) +
-#'   ggplot2::geom_hline(yintercept = 0) +
-#'   ggplot2::geom_hline(yintercept = median(results$estimate), linetype = "dashed") +
-#'   ggplot2::theme_linedraw()
+#'   geom_hline(yintercept = 0) +
+#'   geom_hline(yintercept = median(results$estimate),
+#'              linetype = "dashed") +
+#'   theme_linedraw()
 plot_curve <- function(df,
                        desc = FALSE,
                        ci = TRUE,
