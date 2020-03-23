@@ -5,7 +5,8 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #'
-#' @return
+#' @return a \link[ggplot2]{ggplot} object
+#'
 #' @export
 #'
 #' @examples
@@ -21,15 +22,16 @@
 #' plot_summary(results, choices = c("subsets", "controls", "y"))
 plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
+  value <- key <- NULL
 
   df %>%
-    dplyr::mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
+    dplyr::mutate(controls = ifelse(grepl("[+]", .data$controls), "all covariates", .data$controls)) %>%
     tidyr::gather(key, value, choices) %>%
-    ggplot(aes(x = value, y = estimate, fill = key)) +
+    ggplot(aes(x = .data$value, y = .data$estimate, fill = .data$key)) +
       geom_boxplot(outlier.color = "red") +
       coord_flip() +
       scale_fill_brewer(palette = "Blues") +
-      facet_grid(key~1, scales = "free_y", space = "free") +
+      facet_grid(.data$key~1, scales = "free_y", space = "free") +
       theme_minimal() +
       theme(legend.position = "none",
             axis.line = element_line("black", size = .5),

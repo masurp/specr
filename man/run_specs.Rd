@@ -33,10 +33,10 @@ run_specs(
 \item{keep.results}{a logical value indicating whether the complete model object should be kept.}
 }
 \value{
-
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
-This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factorial variables.
+This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factor variables.
 }
 \examples{
 # run specification curve analysis

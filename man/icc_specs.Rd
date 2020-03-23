@@ -12,10 +12,10 @@ icc_specs(model, percent = TRUE)
 \item{percent}{a logical value indicating whether the icc should also be printed as percentage.}
 }
 \value{
-
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
-Get variance component of the specification curve
+Can be used to extract intraclass correlation coefficients from a multilevel model.
 }
 \examples{
 # Step 1: Run spec curve analysis
@@ -29,4 +29,9 @@ model <- lme4::lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 
 # Step 3: Estimate intra-class correlation
 icc_specs(model)
+}
+\references{
+\itemize{
+\item Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.
+}
 }

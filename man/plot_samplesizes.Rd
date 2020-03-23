@@ -12,7 +12,7 @@ plot_samplesizes(df, desc = FALSE)
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
 \value{
-
+a \link[ggplot2]{ggplot} object
 }
 \description{
 This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation).

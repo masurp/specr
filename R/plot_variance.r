@@ -1,8 +1,9 @@
 #' Plot variance components of the specification curve
 #'
-#' @param model a multilevel model that captures the variances of the specification curve (resulting from \code{run_specs}).
+#' @param model a multilevel model that captures the variances of the specification curve (based on the data frame resulting from \code{run_specs}).
 #'
-#' @return
+#' @return a \link[ggplot2]{ggplot} object
+#'
 #' @export
 #'
 #' @examples
@@ -13,7 +14,7 @@
 #'                      model = c("lm"))
 #'
 #' # Step 2: Estimate multilevel model
-#' library(lme4)
+#' library(lme4, quietly = TRUE)
 #' model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 #'
 #' # Step 3: Plot model
@@ -21,8 +22,8 @@
 plot_variance <- function(model) {
 
   icc_specs(model) %>%
-    ggplot(aes(x = grp,
-               y = percent)) +
+    ggplot(aes(x = .data$grp,
+               y = .data$percent)) +
     geom_bar(stat = "identity", fill = "#377eb8") +
     theme_minimal() +
     theme(axis.text = element_text(colour = "black"),

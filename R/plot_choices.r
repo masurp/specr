@@ -6,7 +6,8 @@
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero).
-#' @return
+#'
+#' @return a \link[ggplot2]{ggplot} object
 #' @export
 #'
 #' @examples
@@ -30,21 +31,23 @@ plot_choices <- function(df,
                          desc = FALSE,
                          null = 0) {
 
+  value <- key <- NULL
+
   df %>%
     format_results(desc = desc, null = null) %>%
-    dplyr::mutate(controls = ifelse(grepl("[+]", controls), "all covariates", controls)) %>%
+    dplyr::mutate(controls = ifelse(grepl("[+]", .data$controls), "all covariates", .data$controls)) %>%
     tidyr::gather(key, value, choices) %>%
-    dplyr::mutate(key = factor(key, levels = choices)) %>%
-    ggplot(aes(x = specifications,
-               y = value,
-               color = color)) +
-    geom_point(aes(x = specifications,
-                   y = value),
+    dplyr::mutate(key = factor(.data$key, levels = choices)) %>%
+    ggplot(aes(x = .data$specifications,
+               y = .data$value,
+               color = .data$color)) +
+    geom_point(aes(x = .data$specifications,
+                   y = .data$value),
                shape = 124,
                size = 3.35) +
     scale_color_identity() +
     theme_minimal() +
-    facet_grid(key~1, scales = "free_y", space = "free_y") +
+    facet_grid(.data$key~1, scales = "free_y", space = "free_y") +
     theme(
           axis.line = element_line("black", size = .5),
           legend.position = "none",

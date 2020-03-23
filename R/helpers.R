@@ -10,22 +10,26 @@ create_formula <- function(x, y, controls, ...) {
 # run individual specification
 run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
 
-  require(purrr)
-
   results <- specs %>%
     dplyr::mutate(formula = pmap(., create_formula)) %>%
     tidyr::unnest(formula) %>%
-    dplyr::mutate(res = map2(model, formula, ~ do.call(.x, list(data = df, formula = .y)))) %>%
-    dplyr::mutate(coefs = map(res, broom::tidy, conf.int = TRUE, conf.level = conf.level),
-                  obs = map(res, nobs)) %>%
-    tidyr::unnest(coefs) %>%
-    tidyr::unnest(obs) %>%
-    dplyr::filter(term == x) %>%
-    dplyr::select(-formula, -term)
+    dplyr::mutate(res = map2(.data$model,
+                             formula,
+                             ~ do.call(.x, list(data = df,
+                                                formula = .y)))) %>%
+    dplyr::mutate(coefs = map(.data$res,
+                              broom::tidy,
+                              conf.int = TRUE,
+                              conf.level = conf.level),
+                  obs = map(.data$res, nobs)) %>%
+    tidyr::unnest(.data$coefs) %>%
+    tidyr::unnest(.data$obs) %>%
+    dplyr::filter(.data$term == .data$x) %>%
+    dplyr::select(-.data$formula, -.data$term)
 
   if (isFALSE(keep.results)) {
     results <- results %>%
-      dplyr::select(-res)
+      dplyr::select(-.data$res)
   }
 
   return(results)
@@ -36,8 +40,8 @@ create_subsets <- function(df, subsets) {
 
   subsets %>%
     stack %>%
-    purrr::pmap(~ dplyr::filter(df, get(as.character(..2)) == ..1) %>%
-                  dplyr::mutate(filter = paste(..2, "=", ..1)))
+    pmap(~ dplyr::filter(df, get(as.character(..2)) == ..1) %>%
+    dplyr::mutate(filter = paste(..2, "=", ..1)))
 }
 
 
@@ -47,10 +51,10 @@ format_results <- function(df, null = 0, desc = FALSE) {
   # rank specs
   if (isFALSE(desc)) {
     df <- df %>%
-      dplyr::arrange(estimate)
+      dplyr::arrange(.data$estimate)
   } else {
     df <- df %>%
-      dplyr::arrange(desc(estimate))
+      dplyr::arrange(desc(.data$estimate))
   }
 
   # create rank variable and color significance
@@ -62,3 +66,9 @@ format_results <- function(df, null = 0, desc = FALSE) {
   return(df)
 }
 
+# get names from dots
+names_from_dots <- function(...) {
+
+  sapply(substitute(list(...))[-1], deparse)
+
+}

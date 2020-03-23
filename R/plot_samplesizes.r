@@ -5,7 +5,8 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
-#' @return
+#' @return a \link[ggplot2]{ggplot} object
+#'
 #' @export
 #'
 #' @examples
@@ -34,8 +35,8 @@ plot_samplesizes <- function(df,
 
   df %>%
     format_results(desc = desc) %>%
-    ggplot(aes(x = specifications,
-               y = obs)) +
+    ggplot(aes(x = .data$specifications,
+               y = .data$obs)) +
     geom_bar(stat = "identity",
              fill = "grey",
              size = .2) +

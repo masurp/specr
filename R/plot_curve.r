@@ -9,7 +9,7 @@
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
-#' @return
+#' @return a \link[ggplot2]{ggplot} object
 #' @export
 #'
 #' @examples
@@ -44,12 +44,12 @@ plot_curve <- function(df,
   # Create basic plot
   plot <- df %>%
     format_results(desc = desc, null = null) %>%
-    ggplot(aes(x = specifications,
-               y = estimate,
-               ymin = conf.low,
-               ymax = conf.high,
-               color = color)) +
-    geom_point(aes(color = color),
+    ggplot(aes(x = .data$specifications,
+               y = .data$estimate,
+               ymin = .data$conf.low,
+               ymax = .data$conf.high,
+               color = .data$color)) +
+    geom_point(aes(color = .data$color),
                size = 1) +
     theme_minimal() +
     scale_color_identity() +
@@ -77,8 +77,8 @@ plot_curve <- function(df,
   # add ribbon if necessary
   if (isTRUE(ribbon)) {
     plot <- plot +
-      geom_ribbon(aes(ymin = conf.low,
-                      ymax = conf.high,
+      geom_ribbon(aes(ymin = .data$conf.low,
+                      ymax = .data$conf.high,
                       color = "lightgrey"),
                       alpha = 0.25)
   }

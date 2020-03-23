@@ -7,14 +7,14 @@
 #' @param model a vector of the type of models that should be estimated
 #' @param controls a vector of the control variables that should be included. Defaults to none.
 #'
-#' @return
+#' @return a [tibble][tibble::tibble-package]
 #' @export
 #'
 #' @examples
-#' setup_specs(y = c("y1"),               # We choose only one dependent variale
-#'             x = c("x1", "x2"),         # We are not sure which independent variable is better
-#'             model = c("lm"),           # We only estimate one type of model (linear model)
-#'             controls = c("c1", "c2"))  # We include two control variable
+#' setup_specs(y = c("y1"),
+#'             x = c("x1", "x2"),
+#'             model = c("lm"),
+#'             controls = c("c1", "c2"))
 setup_specs <- function(x,
                         y,
                         model,
@@ -38,6 +38,7 @@ setup_specs <- function(x,
               y = y,
               model = model,
               controls = controls) %>%
-    dplyr::mutate_all(as.character)
+    dplyr::mutate_all(as.character) %>%
+    as_tibble
 }
 

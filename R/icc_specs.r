@@ -1,9 +1,15 @@
 #' Get variance component of the specification curve
 #'
+#' Can be used to extract intraclass correlation coefficients from a multilevel model.
+#'
 #' @param model a multilevel model that captures the variances of the specification curve (resulting from \code{run_specs}).
 #' @param percent a logical value indicating whether the icc should also be printed as percentage.
 #'
-#' @return
+#' @return a [tibble][tibble::tibble-package]
+#'
+#' @references \itemize{
+#'  \item Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.
+#' }
 #' @export
 #'
 #' @examples
@@ -25,7 +31,7 @@ icc_specs <- function(model,
     var <- model %>%
       VarCorr %>%
       as.data.frame %>%
-      dplyr::select(grp, vcov)
+      dplyr::select(.data$grp, .data$vcov)
 
     # sum all variance components
     sum_var <- sum(var$vcov)
@@ -37,7 +43,7 @@ icc_specs <- function(model,
     # include percentage
     if (isTRUE(percent)) {
       var <- var %>%
-        dplyr::mutate(percent = icc*100)
+        dplyr::mutate(percent = .data$icc*100)
     }
 
     return(var)

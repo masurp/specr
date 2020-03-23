@@ -1,14 +1,14 @@
 #' Summarise specification curve results
 #'
-#' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices.
+#' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices.
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
-#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}). No need to use closures.
-#' @param stats list object (\code{lst()}) of summary functions.
-#' @param group a grouping factor (e.g., "subsets"). Several grouping variables can be passed. Defaults to NULL.
-
+#' @param ... one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.
+#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).
+#' @param stats named list object of summary functions (customized summary functions can used).
 #'
-#' @return
+#' @return a [tibble][tibble::tibble-package]
+#'
 #' @export
 #'
 #' @examples
@@ -21,50 +21,60 @@
 #'                      subsets = list(group1 = unique(example_data$group1),
 #'                                     group2 = unique(example_data$group2)))
 #'
-#' # Basic example
+#' # overall summary
 #' summarise_specs(results)
 #'
 #' # Summary of specific analytical choices
-#' print(summarise_specs(results,
-#'                       group = c("subsets", "x")),
-#'                       n = 24)
+#' summarise_specs(results,    # data frame
+#'                 x, y)       # analytical choices
 #'
-#' # Summary of other estimates
+#' # Summary of other parameters across several analytical choices
 #' summarise_specs(results,
-#'                 var = "p.value",
-#'                 group = "controls")
+#'                 subsets, controls,
+#'                 var = p.value,
+#'                 stats = list(median = median,
+#'                              min = min,
+#'                              max = min))
 summarise_specs <- function(df,
-                            var = estimate,
-                            stats = lst(median, mad, min, max,
-                                        q25 = function(x) quantile(x, prob = .25),
-                                        q75 = function(x) quantile(x, prob = .75)),
-                            group = NULL) {
+                            ...,
+                            var = .data$estimate,
+                            stats = list(median = median, mad = mad, min = min, max = max,
+                                         q25 = function(x) quantile(x, prob = .25),
+                                         q75 = function(x) quantile(x, prob = .75))) {
 
+  group_var <- enquos(...)
+
+  # internal function
   summary_specs <- function(df) {
 
     var <- enquo(var)
+
     df %>%
-      dplyr::summarize_at(vars(!!var), stats)
+      dplyr::summarize_at(vars(!! var), stats)
   }
 
-  if (rlang::is_null(group)) {
-     dplyr::bind_cols(
+  # is grouping variable provided?
+  if (length(group_var) == 0) {
+
+    dplyr::bind_cols(
        df %>%
          summary_specs,
        df %>%
-         dplyr::summarize(obs = median(obs))
+         dplyr::summarize(obs = median(.data$obs))
      )
+
   } else {
-    group <- lapply(group, as.symbol)
-    suppressWarnings(
-    suppressMessages(
+
     dplyr::left_join(
       df %>%
-        dplyr::group_by_(.dots = group) %>%
+        dplyr::group_by(!!! group_var) %>%
         summary_specs,
       df %>%
-        dplyr::group_by_(.dots = group) %>%
-        dplyr::summarize(obs = median(obs))
-    )))
+        dplyr::group_by(!!! group_var) %>%
+        dplyr::summarize(obs = median(.data$obs)),
+      by = names_from_dots(...)
+    )
   }
 }
+
+

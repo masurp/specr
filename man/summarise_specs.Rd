@@ -6,26 +6,26 @@
 \usage{
 summarise_specs(
   df,
-  var = estimate,
-  stats = lst(median, mad, min, max, q25 = function(x) quantile(x, prob = 0.25), q75 =
-    function(x) quantile(x, prob = 0.75)),
-  group = NULL
+  ...,
+  var = .data$estimate,
+  stats = list(median = median, mad = mad, min = min, max = max, q25 = function(x)
+    quantile(x, prob = 0.25), q75 = function(x) quantile(x, prob = 0.75))
 )
 }
 \arguments{
 \item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
 
-\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}). No need to use closures.}
+\item{...}{one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.}
 
-\item{stats}{list object (\code{lst()}) of summary functions.}
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).}
 
-\item{group}{a grouping factor (e.g., "subsets"). Several grouping variables can be passed. Defaults to NULL.}
+\item{stats}{named list object of summary functions (customized summary functions can used).}
 }
 \value{
-
+a \link[tibble:tibble-package]{tibble}
 }
 \description{
-This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. These results can be returned for specific analytical choices.
+This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices.
 }
 \examples{
 # Run specification curve analysis
@@ -37,16 +37,18 @@ results <- run_specs(df = example_data,
                      subsets = list(group1 = unique(example_data$group1),
                                     group2 = unique(example_data$group2)))
 
-# Basic example
+# overall summary
 summarise_specs(results)
 
 # Summary of specific analytical choices
-print(summarise_specs(results,
-                      group = c("subsets", "x")),
-                      n = 24)
+summarise_specs(results,    # data frame
+                x, y)       # analytical choices
 
-# Summary of other estimates
+# Summary of other parameters across several analytical choices
 summarise_specs(results,
-                var = "p.value",
-                group = "controls")
+                subsets, controls,
+                var = p.value,
+                stats = list(median = median,
+                             min = min,
+                             max = min))
 }

@@ -1,6 +1,6 @@
 #' Run specification curve analysis
 #'
-#' This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factorial variables.
+#' This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factor variables.
 #'
 #' @param df a data frame that includes all relevant variables
 #' @param y a vector of the dependent variables
@@ -11,7 +11,8 @@
 #' @param conf.level the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.
 #' @param keep.results a logical value indicating whether the complete model object should be kept.
 #'
-#' @return
+#' @return a [tibble][tibble::tibble-package]
+#'
 #' @export
 #'
 #' @examples

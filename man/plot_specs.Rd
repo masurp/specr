@@ -54,7 +54,7 @@ very large and one wants to simplify the visualization.}
 \item{...}{Additional arguments that can be passed to \code{plot_grid()}.}
 }
 \value{
-
+a \link[ggplot2]{ggplot} object
 }
 \description{
 This function plots an entire visualization of the specification curve
@@ -90,5 +90,5 @@ p2 <- plot_choices(results) +
 
 plot_specs(plot_a = p1,
            plot_b = p2,
-           rel_height = c(2, 2))
+           rel_height = c(2, 2)) \%>\% class
 }

@@ -29,7 +29,9 @@
 #'   specification usually makes only sense of the number of specifications is
 #'   very large and one wants to simplify the visualization.
 #' @param ... Additional arguments that can be passed to \code{plot_grid()}.
-#' @return
+#'
+#' @return a \link[ggplot2]{ggplot} object
+#'
 #' @export
 #'
 #' @examples
@@ -58,7 +60,7 @@
 #'
 #' plot_specs(plot_a = p1,
 #'            plot_b = p2,
-#'            rel_height = c(2, 2))
+#'            rel_height = c(2, 2)) %>% class
 plot_specs <- function(df = NULL,
                        plot_a = NULL,
                        plot_b = NULL,
