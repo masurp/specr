@@ -1,6 +1,10 @@
 ---
-title: "Visualizing progress during estimation"
-output: github_document
+title: "Visualizing progress"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Visualizing progress}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}

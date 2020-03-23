@@ -1,6 +1,10 @@
 ---
 title: "An introduction to specr"
-output: github_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An introduction to specr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
@@ -97,14 +101,14 @@ The package includes a simple function `summarise_specs()` that allows to get a 
 summarise_specs(results)
 
 # summary by specific groups and  statistics
-summarise_specs(results, 
-                stats = lst(median, min, max), 
-                group = c("x", "y"))
+summarise_specs(results,                         # result data frame
+                x, y,                            # grouping variables
+                stats = lst(median, min, max))   # specific functions
 
 # summary of another statistic
 summarise_specs(results, 
-                var = "p.value",
-                group = "subsets")
+                subsets,
+                var = p.value)
 ```
 
 The output contains summary statistics such as the median, the median absolute deviation, ... as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results (e.g., the p-value).

@@ -1,6 +1,10 @@
 ---
 title: "Customizing plots"
-output: github_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Customizing plots}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 This vignette exemplifies different ways to plot the specification curve. In general, the function `plot_specs()` takes care of the overall process. However, more specific customizations are possible once we use the more specific functions `plot_curve()`, `plot_choices`, and `plot_samplesizes()`. These function produce regular ggplot-objects that can be customized further.
@@ -29,7 +33,7 @@ results <- run_specs(example_data,
 Let's quickly get some ideas about the specification curve by using `summarise_specs()`
 
 ```{r, message = F, warnings = F}
-summarise_specs(results, group = c("x", "controls"))
+summarise_specs(results, x, controls)
 ```
 
 We see that it makes quite a difference whether `x1` or `x2` is used as independent variable. 

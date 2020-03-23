@@ -1,6 +1,10 @@
 ---
 title: "Decomposing the variance of the specification curve"
-output: github_document
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Decomposing the variance of the specification curve}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 This vignette exemplifies ways to decompose and identify variance components in any statistic obtained by running a specification curve analysis.
@@ -32,8 +36,8 @@ Let's quickly get some ideas about the specification curve by using `summarise_s
 summarise_specs(results)
 
 # By choices
-summarise_specs(results, 
-                group = c("y", "controls"))
+summarise_specs(results,     
+                y, controls)
 ```
 
 We see that it makes quite a difference whether `y1` or `y2` is used as independent variable. 

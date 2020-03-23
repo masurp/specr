@@ -1,6 +1,10 @@
 ---
-title: "Investigating specific models"
-output: github_document
+title: "Investigating specific specifications"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Investigating specific specifications}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include=FALSE}
@@ -24,6 +28,7 @@ library(specr)
 library(dplyr)
 library(purrr)
 library(ggplot2)
+library(performance)
 
 # Run specification curve analysis
 results <- run_specs(df = example_data, 
@@ -67,7 +72,7 @@ Or we could get r-squared values for both models.
 ```{r}
 y_models %>%
   pull(res) %>% 
-  map(performance::r2)
+  map(r2)
 ```
 
 
@@ -79,7 +84,7 @@ This way, we can analyze for compare such statistics across several models.
 # 
 r2_results <- results %>%
   filter(subsets == "all") %>%
-  mutate(r2 = map(res, performance::r2), 
+  mutate(r2 = map(res, r2), 
          r2 = map_dbl(r2, 1)) %>%
   arrange(r2)
 
