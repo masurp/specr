@@ -5,7 +5,7 @@
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param ... one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).
-#' @param stats named list object of summary functions (customized summary functions can used).
+#' @param stats named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #'
@@ -34,13 +34,19 @@
 #'                 var = p.value,
 #'                 stats = list(median = median,
 #'                              min = min,
-#'                              max = min))
+#'                              max = max))
+#'
+#' # Unnamed vector instead of named list passed to `stats`
+#' summarise_specs(results,
+#'                 controls,
+#'                 stats = c(mean, median))
 summarise_specs <- function(df,
                             ...,
                             var = .data$estimate,
                             stats = list(median = median, mad = mad, min = min, max = max,
                                          q25 = function(x) quantile(x, prob = .25),
                                          q75 = function(x) quantile(x, prob = .75))) {
+
 
   group_var <- enquos(...)
 

@@ -19,7 +19,7 @@ summarise_specs(
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).}
 
-\item{stats}{named list object of summary functions (customized summary functions can used).}
+\item{stats}{named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble}
@@ -50,5 +50,10 @@ summarise_specs(results,
                 var = p.value,
                 stats = list(median = median,
                              min = min,
-                             max = min))
+                             max = max))
+
+# Unnamed vector instead of named list passed to `stats`
+summarise_specs(results,
+                controls,
+                stats = c(mean, median))
 }
