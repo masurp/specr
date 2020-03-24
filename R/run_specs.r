@@ -1,18 +1,22 @@
 #' Run specification curve analysis
 #'
-#' This is the central function of the package. It can be used to run the specification curve analyses. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factor variables.
+#' This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factor variables.
 #'
 #' @param df a data frame that includes all relevant variables
 #' @param y a vector of the dependent variables
 #' @param x a vector of the dependent variables
 #' @param model a vector of the type of models that should be estimated.
 #' @param controls a vector of the control variables that should be included. Defaults to none.
-#' @param subsets a list that includes named vectors
+#' @param subsets a list that includes named vectors.
 #' @param conf.level the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.
 #' @param keep.results a logical value indicating whether the complete model object should be kept.
 #'
 #' @return a [tibble][tibble::tibble-package]
 #'
+#' @references \itemize{
+#'  \item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications. Available at: http://dx.doi.org/10.2139/ssrn.2694998
+#'  \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. Perspectives on Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+#' }
 #' @export
 #'
 #' @examples
@@ -30,11 +34,19 @@
 run_specs <- function(df,
                       y,
                       x,
-                      model,
+                      model = "lm",
                       controls = NULL,
                       subsets = NULL,
                       conf.level = 0.95,
                       keep.results = FALSE) {
+
+  if (rlang::is_missing(x)) {
+    stop("You must specify at least one independent variable `x`.")
+  }
+
+  if (rlang::is_missing(y)) {
+    stop("You must specify at least one dependent variable `y`.")
+  }
 
   specs <- setup_specs(y = y,
                        x = x,
@@ -42,6 +54,11 @@ run_specs <- function(df,
                        controls = controls)
 
   if (!is.null(subsets)) {
+
+    if (class(subsets) != "list") {
+      wrong_class <- class(subsets)
+      stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
+    }
 
   subsets <- map(subsets, as.character)
 
@@ -68,6 +85,10 @@ run_specs <- function(df,
 
   df_all <- df_list
 
+  }
+
+  if (conf.level > 1 | conf.level < 0) {
+    stop("The confidence level must be strictly greater than 0 and less than 1.")
   }
 
   map_df(df_all, ~ run_spec(specs,
