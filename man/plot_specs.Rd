@@ -46,12 +46,12 @@ plotted.}
 plotted.}
 
 \item{sample_perc}{numeric value denoting what percentage of the
-specifications should be plotted. Needs to be > 0, but and not > 1.
+specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
 Defaults to 1 (= all specifications). Drawing a sample from all
 specification usually makes only sense of the number of specifications is
 very large and one wants to simplify the visualization.}
 
-\item{...}{Additional arguments that can be passed to \code{plot_grid()}.}
+\item{...}{additional arguments that can be passed to \code{plot_grid()}.}
 }
 \value{
 a \link[ggplot2]{ggplot} object
@@ -88,7 +88,7 @@ p1 <- plot_curve(results) +
 p2 <- plot_choices(results) +
   labs(x = "specifications (ranked)")
 
-plot_specs(plot_a = p1,
+plot_specs(plot_a = p1,    # arguments must be called directly!
            plot_b = p2,
            rel_height = c(2, 2)) \%>\% class
 }
