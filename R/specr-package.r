@@ -1,6 +1,7 @@
 ## usethis namespace: start
 #' @import ggplot2
 #' @importFrom lme4 VarCorr
+#' @importFrom glue glue
 #' @importFrom dplyr case_when n
 #' @importFrom rlang enquo enquos .data
 #' @importFrom tibble tibble as_tibble lst
