@@ -13,7 +13,7 @@ Authors@R: c(
            email = "michael@underused.org",
            comment = c(ORCID = "YOUR-ORCID-ID"))
            )
-Description: The goal of specr is to facilitate specification curve analyses as described by Simonson, Simmons & Nelson (2015). It provides functions to setup, run, and plot all specifications.
+Description: The goal of specr is to facilitate specification curve analyses (Simonson, Simmons & Nelson (2015, <doi: 10.2139/ssrn.2694998>) or multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi: 10.1177/1745691616658637>). It provides functions to setup, run, and plot all specifications.
 License: GPL-3
 URL: https://masurp.github.io/specr/
 BugReports: https://github.com/masurp/specr/issues
@@ -29,7 +29,8 @@ Imports:
     cowplot,
     broom,
     igraph,
-    ggraph
+    ggraph,
+    glue
 Suggests: 
     testthat,
     knitr,
