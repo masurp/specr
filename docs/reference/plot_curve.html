@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Plot specification curve — plot_curve" />
-<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function plot_specs() uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically." />
+<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using ggplot syntax is possible. The function plot_specs() uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,7 +130,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function <code><a href='plot_specs.html'>plot_specs()</a></code> uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.</p>
+    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible. The function <code><a href='plot_specs.html'>plot_specs()</a></code> uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_curve</span>(
@@ -147,7 +147,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code>run_specs</code>).</p></td>
+      <td><p>a data frame containing the choices and results of each specification (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
     </tr>
     <tr>
       <th>desc</th>
@@ -173,7 +173,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object</p>
+    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load additional library</span>

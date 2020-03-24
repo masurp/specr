@@ -94,7 +94,7 @@
 
     
     
-<p>The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. Although using <code>specr</code> strictly speaking does not require any other package, we recommend to also load the <code>tidyverse</code> as it provides valuable functions for data wrangling and adapting outputs from <code>specr</code>-functions. Furthermore, the <code>tidyverse</code> includes <code>ggplot2</code> which can be used to modify the layout of the plot outputs.</p>
+<p>The following vignette is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. Although using <code>specr</code> strictly speaking does not require any other package, we recommend to also load the <code>tidyverse</code> as it provides valuable functions for data wrangling and adapting outputs from <code>specr</code> functions. Furthermore, the <code>tidyverse</code> includes <code>ggplot2</code> which can be used to modify the layout of the plots.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyverse)</span></code></pre></div>
@@ -128,7 +128,7 @@
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt;  Mean   : 23.89   Mean   : 11.200   Mean   :0.5          </span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt;  3rd Qu.: 34.04   3rd Qu.: 17.966   3rd Qu.:1.0          </span></span>
 <span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt;  Max.   : 94.13   Max.   : 46.341   Max.   :1.0</span></span></code></pre></div>
-<p>There are several numeric variables. For this use case, we assume that <code>x</code> represents independent variables, <code>y</code> represents dependent variables, <code>c</code> represents control variables, and <code>group</code> denotes potential grouping variables that can be used for subsetting the data.</p>
+<p>There are several numeric variables. In this exampkle, we assume that <code>x</code> represents independent variables, <code>y</code> represents dependent variables, <code>c</code> represents control variables, and <code>group</code> denotes potential grouping variables that can be used for subsetting the data.</p>
 </div>
 <div id="define-analytical-choices" class="section level2">
 <h2 class="hasAnchor">
@@ -189,7 +189,7 @@
 <span id="cb4-31"><a href="#cb4-31"></a><span class="co">#&gt; 10 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 </span></span>
 <span id="cb4-32"><a href="#cb4-32"></a><span class="co">#&gt; # … with 374 more rows, and 3 more variables: conf.high &lt;dbl&gt;, obs &lt;int&gt;,</span></span>
 <span id="cb4-33"><a href="#cb4-33"></a><span class="co">#&gt; #   subsets &lt;chr&gt;</span></span></code></pre></div>
-<p>The resulting data frame includes relevant statistics for each of the estiamted models.</p>
+<p>The resulting data frame includes relevant statistics for each of the estimated models.</p>
 <p>We can now plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../reference/plot_decisiontree.html">plot_decisiontree</a></span>(results, </span>
 <span id="cb5-2"><a href="#cb5-2"></a>                  <span class="dt">legend =</span> <span class="ot">TRUE</span>)</span></code></pre></div>

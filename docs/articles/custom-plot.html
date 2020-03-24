@@ -94,11 +94,11 @@
 
     
     
-<p>This vignette exemplifies different ways to plot the specification curve. In general, the function <code><a href="../reference/plot_specs.html">plot_specs()</a></code> takes care of the overall process. However, more specific customizations are possible once we use the more specific functions <code><a href="../reference/plot_curve.html">plot_curve()</a></code>, <code>plot_choices</code>, and <code><a href="../reference/plot_samplesizes.html">plot_samplesizes()</a></code>. These function produce regular ggplot-objects that can be customized further.</p>
+<p>This vignette exemplifies different ways to plot the specification curve. For most casces, the function <code><a href="../reference/plot_specs.html">plot_specs()</a></code> takes care of the overall process. However, more specific customizations are possible if we use the more specific functions <code><a href="../reference/plot_curve.html">plot_curve()</a></code> and <code>plot_choices</code>. Furthermore, we can extend the overall plot with the additional function <code><a href="../reference/plot_samplesizes.html">plot_samplesizes()</a></code>. All of these functions produce objects of the class <a href="https://ggplot2.tidyverse.org/index.html">ggplot</a> that can be customized further using the grammar of graphics provided by the package <a href="https://ggplot2.tidyverse.org/index.html">ggplot2</a>.</p>
 <div id="run-the-specification-curve-analysis" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-the-specification-curve-analysis" class="anchor"></a>1. Run the specification curve analysis</h2>
-<p>In order to have some data to work with, we run the minimal example contained in the package.</p>
+<p>In order to have some data to work with, we run the minimal example included in the package.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggplot2)</span>
@@ -113,37 +113,35 @@
 <span id="cb1-12"><a href="#cb1-12"></a>                     <span class="dt">subset =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group1),</span>
 <span id="cb1-13"><a href="#cb1-13"></a>                                   <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(example_data<span class="op">$</span>group2)))</span></code></pre></div>
 <p>Let’s quickly get some ideas about the specification curve by using <code><a href="../reference/summarise_specs.html">summarise_specs()</a></code></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results, x, controls)</span></code></pre></div>
-<pre><code>## # A tibble: 8 x 9
-## # Groups:   x [2]
-##   x     controls      median   mad     min   max   q25   q75   obs
-##   &lt;chr&gt; &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-## 1 x1    c1              3.16  4.50 -2.05    8.96 0.581  6.39   123
-## 2 x1    c1 + c2         3.16  4.46 -1.94    8.49 0.228  6.25   123
-## 3 x1    c2              3.79  4.51 -1.61    9.14 0.632  6.48   123
-## 4 x1    no covariates   3.95  4.21 -1.80    9.28 1.13   6.73   123
-## 5 x2    c1              4.75  4.77 -0.258   8.75 1.36   7.79   123
-## 6 x2    c1 + c2         4.35  4.74 -0.0841  8.71 1.08   7.14   123
-## 7 x2    c2              4.40  4.78  0.373   9.58 1.18   7.61   123
-## 8 x2    no covariates   4.81  4.92  0.463   9.22 1.57   8.12   123</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results)</span></code></pre></div>
+<pre><code>## # A tibble: 1 x 7
+##   median   mad   min   max   q25   q75   obs
+##    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1   3.59  4.56 -2.05  9.58  1.03  7.63   123</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../reference/summarise_specs.html">summarise_specs</a></span>(results, x)</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 8
+##   x     median   mad    min   max   q25   q75   obs
+##   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+## 1 x1      3.59  4.42 -2.05   9.28 0.510  6.51   123
+## 2 x2      4.40  4.84 -0.258  9.58 1.31   7.79   123</code></pre>
 <p>We see that it makes quite a difference whether <code>x1</code> or <code>x2</code> is used as independent variable.</p>
 </div>
 <div id="a-simple-way-to-visualize-the-results" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-simple-way-to-visualize-the-results" class="anchor"></a>2. A simple way to visualize the results</h2>
 <p>The simplest way to visualize most of the information contained in the results data frame is by using the <code><a href="../reference/plot_specs.html">plot_specs()</a></code> function.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(results)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(results)</span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-3-1.png" width="960"></p>
-<p>We can further customize that function, e.g., by removing unnecessary information or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(results, </span>
-<span id="cb5-2"><a href="#cb5-2"></a>           <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>),  <span class="co"># model is not plotted</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a>           <span class="dt">rel_heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># changing relative heights of the two parts</span></span></code></pre></div>
+<p>We can further customize that function, e.g., by removing unnecessary information (in this case we only specified one model, this analytical choice is hence useless) or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(results, </span>
+<span id="cb7-2"><a href="#cb7-2"></a>           <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>),  <span class="co"># "model is not plotted</span></span>
+<span id="cb7-3"><a href="#cb7-3"></a>           <span class="dt">rel_heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">1</span>, <span class="dv">2</span>))                         <span class="co"># changing relative heights</span></span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-4-1.png" width="960"></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Investigating specific contrasts</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>results <span class="op">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"group1 = 0"</span>, subsets), <span class="st">"0"</span>, <span class="st">"1"</span>),</span>
-<span id="cb6-4"><a href="#cb6-4"></a>         <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"group2 = A"</span>, subsets), <span class="st">"A"</span>, <span class="st">"B &amp; C"</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(<span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"group1"</span>, <span class="st">"group2"</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Investigating specific contrasts</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>results <span class="op">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">group1 =</span> <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"group1 = 0"</span>, subsets), <span class="st">"0"</span>, <span class="st">"1"</span>),</span>
+<span id="cb8-4"><a href="#cb8-4"></a>         <span class="dt">group2 =</span> <span class="kw"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/grep.html">grepl</a></span>(<span class="st">"group2 = A"</span>, subsets), <span class="st">"A"</span>, <span class="st">"B &amp; C"</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5"></a><span class="st">  </span><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(<span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"group1"</span>, <span class="st">"group2"</span>))</span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-4-2.png" width="960"></p>
 </div>
 <div id="an-alternative-way-to-visualize-the-results" class="section level2">
@@ -152,41 +150,45 @@
 <div id="plot-curve-and-choices-seperately" class="section level3">
 <h3 class="hasAnchor">
 <a href="#plot-curve-and-choices-seperately" class="anchor"></a>3.1. Plot curve and choices seperately</h3>
-<p>Alternatively, we can also plot the curve and the choice panel individually and bind them together afterwards.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot specification curve (p1)</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(results, <span class="dt">ci =</span> <span class="ot">FALSE</span>, <span class="dt">ribbon =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, <span class="dt">linetype =</span> <span class="st">"dashed"</span>, <span class="dt">color =</span> <span class="st">"grey"</span>) <span class="op">+</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span>(<span class="op">-</span><span class="dv">8</span>, <span class="dv">12</span>) <span class="op">+</span></span>
-<span id="cb7-5"><a href="#cb7-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"unstandarized regression coefficient"</span>) <span class="op">+</span></span>
-<span id="cb7-6"><a href="#cb7-6"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>()</span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="co"># Plot choices (p2)</span></span>
-<span id="cb7-9"><a href="#cb7-9"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_choices.html">plot_choices</a></span>(results, </span>
-<span id="cb7-10"><a href="#cb7-10"></a>                   <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>)) <span class="op">+</span></span>
-<span id="cb7-11"><a href="#cb7-11"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"specifications (ranked)"</span>) <span class="op">+</span></span>
-<span id="cb7-12"><a href="#cb7-12"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>() <span class="op">+</span></span>
-<span id="cb7-13"><a href="#cb7-13"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())</span>
-<span id="cb7-14"><a href="#cb7-14"></a></span>
-<span id="cb7-15"><a href="#cb7-15"></a><span class="co"># Combine plots</span></span>
-<span id="cb7-16"><a href="#cb7-16"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(<span class="dt">plot_a =</span> p1,</span>
-<span id="cb7-17"><a href="#cb7-17"></a>           <span class="dt">plot_b =</span> p2,</span>
-<span id="cb7-18"><a href="#cb7-18"></a>           <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>, <span class="st">""</span>),</span>
-<span id="cb7-19"><a href="#cb7-19"></a>           <span class="dt">rel_height =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="fl">2.5</span>))</span></code></pre></div>
+<p>The overall function <code><a href="../reference/plot_specs.html">plot_specs()</a></code> is not very flexible. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Plot specification curve</span></span>
+<span id="cb9-2"><a href="#cb9-2"></a>p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_curve.html">plot_curve</a></span>(results, </span>
+<span id="cb9-3"><a href="#cb9-3"></a>                 <span class="dt">ci =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb9-4"><a href="#cb9-4"></a>                 <span class="dt">ribbon =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html">geom_hline</a></span>(<span class="dt">yintercept =</span> <span class="dv">0</span>, </span>
+<span id="cb9-6"><a href="#cb9-6"></a>             <span class="dt">linetype =</span> <span class="st">"dashed"</span>, </span>
+<span id="cb9-7"><a href="#cb9-7"></a>             <span class="dt">color =</span> <span class="st">"black"</span>) <span class="op">+</span></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span>(<span class="op">-</span><span class="dv">8</span>, <span class="dv">12</span>) <span class="op">+</span></span>
+<span id="cb9-9"><a href="#cb9-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">""</span>, <span class="dt">y =</span> <span class="st">"unstandarized regression coefficient"</span>) <span class="op">+</span></span>
+<span id="cb9-10"><a href="#cb9-10"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>()</span>
+<span id="cb9-11"><a href="#cb9-11"></a></span>
+<span id="cb9-12"><a href="#cb9-12"></a><span class="co"># Plot choices</span></span>
+<span id="cb9-13"><a href="#cb9-13"></a>p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_choices.html">plot_choices</a></span>(results, </span>
+<span id="cb9-14"><a href="#cb9-14"></a>                   <span class="dt">choices =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span>)) <span class="op">+</span></span>
+<span id="cb9-15"><a href="#cb9-15"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x =</span> <span class="st">"specifications (ranked)"</span>) <span class="op">+</span></span>
+<span id="cb9-16"><a href="#cb9-16"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>() <span class="op">+</span></span>
+<span id="cb9-17"><a href="#cb9-17"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text.x =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())</span>
+<span id="cb9-18"><a href="#cb9-18"></a></span>
+<span id="cb9-19"><a href="#cb9-19"></a><span class="co"># Combine plots</span></span>
+<span id="cb9-20"><a href="#cb9-20"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(<span class="dt">plot_a =</span> p1,</span>
+<span id="cb9-21"><a href="#cb9-21"></a>           <span class="dt">plot_b =</span> p2,</span>
+<span id="cb9-22"><a href="#cb9-22"></a>           <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">""</span>, <span class="st">""</span>),      <span class="co"># remove plot labels</span></span>
+<span id="cb9-23"><a href="#cb9-23"></a>           <span class="dt">rel_height =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>, <span class="fl">2.5</span>))  <span class="co"># adjust relative heights</span></span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-5-1.png" width="960"></p>
 </div>
 <div id="include-sample-size-histogram" class="section level3">
 <h3 class="hasAnchor">
 <a href="#include-sample-size-histogram" class="anchor"></a>3.2. Include sample size histogram</h3>
-<p>The additional function <code><a href="../reference/plot_samplesizes.html">plot_samplesizes()</a></code> provides and additional panel that can be added via the <code><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">cowplot::plot_grid()</a></code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_samplesizes.html">plot_samplesizes</a></span>(results) <span class="op">+</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>()</span>
-<span id="cb8-3"><a href="#cb8-3"></a></span>
-<span id="cb8-4"><a href="#cb8-4"></a><span class="co"># Combine via cowplot</span></span>
-<span id="cb8-5"><a href="#cb8-5"></a><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, p3,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>          <span class="dt">ncol =</span> <span class="dv">1</span>,</span>
-<span id="cb8-7"><a href="#cb8-7"></a>          <span class="dt">align =</span> <span class="st">"v"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8"></a>          <span class="dt">rel_heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.5</span>, <span class="dv">2</span>, <span class="fl">0.8</span>),</span>
-<span id="cb8-9"><a href="#cb8-9"></a>          <span class="dt">axis =</span> <span class="st">"rbl"</span>)</span></code></pre></div>
+<p>By default, we do not know how many participants were included in each specification. If you remove missing values listwise, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. The function <code><a href="../reference/plot_samplesizes.html">plot_samplesizes()</a></code> provides an additional panel that can then be added to the overall plot using <code><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">cowplot::plot_grid()</a></code></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_samplesizes.html">plot_samplesizes</a></span>(results) <span class="op">+</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/theme_cowplot.html">theme_half_open</a></span>()</span>
+<span id="cb10-3"><a href="#cb10-3"></a></span>
+<span id="cb10-4"><a href="#cb10-4"></a><span class="co"># Combine via cowplot</span></span>
+<span id="cb10-5"><a href="#cb10-5"></a><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, p3,</span>
+<span id="cb10-6"><a href="#cb10-6"></a>          <span class="dt">ncol =</span> <span class="dv">1</span>,</span>
+<span id="cb10-7"><a href="#cb10-7"></a>          <span class="dt">align =</span> <span class="st">"v"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8"></a>          <span class="dt">rel_heights =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1.5</span>, <span class="dv">2</span>, <span class="fl">0.8</span>),</span>
+<span id="cb10-9"><a href="#cb10-9"></a>          <span class="dt">axis =</span> <span class="st">"rbl"</span>)</span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-6-1.png" width="960"></p>
 </div>
 </div>

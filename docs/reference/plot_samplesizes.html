@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Plot sample sizes — plot_samplesizes" />
-<meta property="og:description" content="This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation)." />
+<meta property="og:description" content="This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using ggplot syntax is possible." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,7 +130,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function plots a histogram of the sample sizes per specification. It can be added to the overall specification curve plot (see documentation).</p>
+    <p>This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_samplesizes</span>(<span class='no'>df</span>, <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -140,7 +140,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code>run_specs</code>).</p></td>
+      <td><p>a data frame or tibble containing the choices and results of each specification (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
     </tr>
     <tr>
       <th>desc</th>
@@ -150,7 +150,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object</p>
+    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load additional library</span>

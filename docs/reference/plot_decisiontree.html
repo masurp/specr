@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the decision tree — plot_decisiontree • specr</title>
+<title>Plot decision tree — plot_decisiontree • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot the decision tree — plot_decisiontree" />
-<meta property="og:description" content="This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high." />
+<meta property="og:title" content="Plot decision tree — plot_decisiontree" />
+<meta property="og:description" content="This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high. Further customization using ggplot syntax is possible." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,13 +124,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the decision tree</h1>
+    <h1>Plot decision tree</h1>
     
     <div class="hidden name"><code>plot_decisiontree.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.</p>
+    <p>This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_decisiontree</span>(<span class='no'>df</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>legend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -154,7 +154,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object</p>
+    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,

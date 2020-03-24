@@ -37,11 +37,7 @@
 
 <meta property="og:title" content="Plot specification curve and analytical choices — plot_specs" />
 <meta property="og:description" content="This function plots an entire visualization of the specification curve
-analysis. It can be used in two ways: First, the results frame returned by
-run_specs() is passed directly. In this case, the function plots the
-entire visualization automatically. Second, the ggplot objects returned from
-plot_curve() and plot_choices() are passed to the function. In
-this case, the function simply arranges them above each other." />
+analysis." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -136,11 +132,7 @@ this case, the function simply arranges them above each other." />
 
     <div class="ref-description">
     <p>This function plots an entire visualization of the specification curve
-analysis. It can be used in two ways: First, the results frame returned by
-<code><a href='run_specs.html'>run_specs()</a></code> is passed directly. In this case, the function plots the
-entire visualization automatically. Second, the ggplot objects returned from
-<code><a href='plot_curve.html'>plot_curve()</a></code> and <code><a href='plot_choices.html'>plot_choices()</a></code> are passed to the function. In
-this case, the function simply arranges them above each other.</p>
+analysis.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_specs</span>(
@@ -193,7 +185,7 @@ a descending order. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>null</th>
-      <td><p>Indicate what value represents the null hypothesis (Defaults to
+      <td><p>Indicate what value represents the null hypothesis (defaults to
 zero).</p></td>
     </tr>
     <tr>
@@ -222,7 +214,16 @@ very large and one wants to simplify the visualization.</p></td>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object</p>
+    <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='plot_curve.html'>plot_curve()</a></code> to plot only the specification curve.</p></li>
+<li><p><code><a href='plot_choices.html'>plot_choices()</a></code> to plot only the choices panel.</p></li>
+<li><p><code><a href='plot_samplesizes.html'>plot_samplesizes()</a></code> to plot a histogram of sample sizes per specification.</p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load additional library</span>
@@ -249,13 +250,15 @@ very large and one wants to simplify the visualization.</p></td>
 
 <span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,    <span class='co'># arguments must be called directly!</span>
            <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='no'>p2</span>,
-           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span> <span class='no'>class</span></div><div class='output co'>#&gt; [1] "gg"     "ggplot"</div></pre>
+           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span> <span class='no'>class</span></div><div class='output co'>#&gt; [1] "gg"     "ggplot"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

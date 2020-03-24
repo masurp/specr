@@ -94,12 +94,11 @@
 
     
     
-<p>Per default, <code><a href="../reference/run_specs.html">run_specs()</a></code> summarizes individual specifications by using <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code>. For most cases, this provides reasonable summaries of the relationship of interest. Sometimes, however, it is reasonable to investigate specific models in more detail or to investigate a specific statistic (e.g., r-square, AIC). This vignette shows how to access individual models.</p>
-<div id="run-specification-curve-analysis-with-keep-results-true" class="section level2">
+<p>Per default, <code><a href="../reference/run_specs.html">run_specs()</a></code> summarizes individual specifications by using <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code>. For most cases, this provides “good-enough” summaries of the relationship of interest. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by <code><a href="https://rdrr.io/pkg/broom/man/reexports.html">broom::tidy()</a></code> (e.g., r-square, AIC). This vignette shows how to access individual models.</p>
+<div id="run-specification-curve-analysis" class="section level2">
 <h2 class="hasAnchor">
-<a href="#run-specification-curve-analysis-with-keep-results-true" class="anchor"></a>1. Run specification curve analysis with <code>keep.results = TRUE</code>
-</h2>
-<p>If you want to investigate individual models and particularly all aspects of that model, use <code><a href="../reference/run_specs.html">run_specs()</a></code> with the additional argument <code>keep.results = TRUE</code>.</p>
+<a href="#run-specification-curve-analysis" class="anchor"></a>1. Run specification curve analysis</h2>
+<p>If we want to investigate individual models and particularly all aspects of that model, we need to use <code><a href="../reference/run_specs.html">run_specs()</a></code> with the additional argument <code>keep.results = TRUE</code>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(specr)</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</span>
@@ -119,12 +118,19 @@
 <div id="identify-models-of-interest" class="section level2">
 <h2 class="hasAnchor">
 <a href="#identify-models-of-interest" class="anchor"></a>2. Identify model(s) of interest</h2>
-<p>For this example, we are going to look at two specific models (same independent variables, all controls, all participants). Their only difference is the dependent variable <code>y</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>y_models &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
+<p>For this example, we are going to look at two specific models (same independent variables, all controls, all participants, but different dependent variables).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>(y_models &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(x <span class="op">==</span><span class="st"> "x1"</span>, </span>
 <span id="cb2-3"><a href="#cb2-3"></a>         controls <span class="op">==</span><span class="st"> "c1 + c2"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4"></a>         subsets <span class="op">==</span><span class="st"> "all"</span>)</span></code></pre></div>
-<p>As you can see, the result data frame includes an additional column called “res”. This column includes the entire “model object” and we can use it to further investigate each model.</p>
+<span id="cb2-4"><a href="#cb2-4"></a>         subsets <span class="op">==</span><span class="st"> "all"</span>))</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="co">#&gt; # A tibble: 2 x 13</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a><span class="co">#&gt;   x     y     model controls res   estimate std.error statistic  p.value</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;lis&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a><span class="co">#&gt; 1 x1    y1    lm    c1 + c2  &lt;lm&gt;    6.17       0.412    15.0   4.70e-42</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; 2 x1    y2    lm    c1 + c2  &lt;lm&gt;   -0.0545     0.267    -0.204 8.38e- 1</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt; # … with 4 more variables: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, obs &lt;int&gt;,</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co">#&gt; #   subsets &lt;chr&gt;</span></span></code></pre></div>
+<p>As you can see, the resulting tibble includes an additional column called “res”. This column includes the entire “model object” and we can use it to further investigate each model.</p>
 </div>
 <div id="investigate-models" class="section level2">
 <h2 class="hasAnchor">
@@ -150,7 +156,7 @@
 <p>Or we could get r-squared values for both models.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>y_models <span class="op">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span>(res) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(r2)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="st">  </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(r2)       <span class="co"># r2 is include in the package "performance"</span></span>
 <span id="cb4-4"><a href="#cb4-4"></a><span class="co">#&gt; [[1]]</span></span>
 <span id="cb4-5"><a href="#cb4-5"></a><span class="co">#&gt; # R2 for Linear Regression</span></span>
 <span id="cb4-6"><a href="#cb4-6"></a><span class="co">#&gt; </span></span>
@@ -166,43 +172,42 @@
 <div id="some-more-examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#some-more-examples" class="anchor"></a>4. Some more examples</h2>
-<p>This way, we can analyze for compare such statistics across several models.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># </span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>r2_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
-<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(subsets <span class="op">==</span><span class="st"> "all"</span>) <span class="op">%&gt;%</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(res, r2), </span>
-<span id="cb5-5"><a href="#cb5-5"></a>         <span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span>(r2, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2)</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a>r2_results <span class="op">%&gt;%</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(x<span class="op">:</span>controls, r2)</span>
-<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt; # A tibble: 16 x 5</span></span>
-<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    x     y     model controls           r2</span></span>
-<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
-<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  1 x1    y2    lm    no covariates 0.00263</span></span>
-<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  2 x2    y2    lm    no covariates 0.0317 </span></span>
-<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  3 x1    y1    lm    no covariates 0.170  </span></span>
-<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  4 x1    y2    lm    c2            0.257  </span></span>
-<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  5 x2    y2    lm    c2            0.277  </span></span>
-<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  6 x2    y1    lm    no covariates 0.296  </span></span>
-<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  7 x1    y1    lm    c1            0.343  </span></span>
-<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  8 x1    y2    lm    c1            0.440  </span></span>
-<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt;  9 x2    y2    lm    c1            0.461  </span></span>
-<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 10 x2    y1    lm    c1            0.468  </span></span>
-<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 11 x1    y1    lm    c2            0.557  </span></span>
-<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 12 x1    y2    lm    c1 + c2       0.659  </span></span>
-<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 13 x2    y1    lm    c2            0.661  </span></span>
-<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 14 x2    y2    lm    c1 + c2       0.673  </span></span>
-<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 15 x1    y1    lm    c1 + c2       0.702  </span></span>
-<span id="cb5-28"><a href="#cb5-28"></a><span class="co">#&gt; 16 x2    y1    lm    c1 + c2       0.807</span></span></code></pre></div>
-<p>And we can of course use this result and plot comparisons.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Plot r2 curve</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a>r2_results <span class="op">%&gt;%</span></span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2) <span class="op">%&gt;%</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rank =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> rank, </span>
-<span id="cb6-6"><a href="#cb6-6"></a>             <span class="dt">y =</span> r2)) <span class="op">+</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></span>
+<p>This way, we can analyze or compare such statistics across several models.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>r2_results &lt;-<span class="st"> </span>results <span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(subsets <span class="op">==</span><span class="st"> "all"</span>) <span class="op">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(res, r2), </span>
+<span id="cb5-4"><a href="#cb5-4"></a>         <span class="dt">r2 =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span>(r2, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2)</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>r2_results <span class="op">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(x<span class="op">:</span>controls, r2)</span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co">#&gt; # A tibble: 16 x 5</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a><span class="co">#&gt;    x     y     model controls           r2</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;</span></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co">#&gt;  1 x1    y2    lm    no covariates 0.00263</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co">#&gt;  2 x2    y2    lm    no covariates 0.0317 </span></span>
+<span id="cb5-14"><a href="#cb5-14"></a><span class="co">#&gt;  3 x1    y1    lm    no covariates 0.170  </span></span>
+<span id="cb5-15"><a href="#cb5-15"></a><span class="co">#&gt;  4 x1    y2    lm    c2            0.257  </span></span>
+<span id="cb5-16"><a href="#cb5-16"></a><span class="co">#&gt;  5 x2    y2    lm    c2            0.277  </span></span>
+<span id="cb5-17"><a href="#cb5-17"></a><span class="co">#&gt;  6 x2    y1    lm    no covariates 0.296  </span></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co">#&gt;  7 x1    y1    lm    c1            0.343  </span></span>
+<span id="cb5-19"><a href="#cb5-19"></a><span class="co">#&gt;  8 x1    y2    lm    c1            0.440  </span></span>
+<span id="cb5-20"><a href="#cb5-20"></a><span class="co">#&gt;  9 x2    y2    lm    c1            0.461  </span></span>
+<span id="cb5-21"><a href="#cb5-21"></a><span class="co">#&gt; 10 x2    y1    lm    c1            0.468  </span></span>
+<span id="cb5-22"><a href="#cb5-22"></a><span class="co">#&gt; 11 x1    y1    lm    c2            0.557  </span></span>
+<span id="cb5-23"><a href="#cb5-23"></a><span class="co">#&gt; 12 x1    y2    lm    c1 + c2       0.659  </span></span>
+<span id="cb5-24"><a href="#cb5-24"></a><span class="co">#&gt; 13 x2    y1    lm    c2            0.661  </span></span>
+<span id="cb5-25"><a href="#cb5-25"></a><span class="co">#&gt; 14 x2    y2    lm    c1 + c2       0.673  </span></span>
+<span id="cb5-26"><a href="#cb5-26"></a><span class="co">#&gt; 15 x1    y1    lm    c1 + c2       0.702  </span></span>
+<span id="cb5-27"><a href="#cb5-27"></a><span class="co">#&gt; 16 x2    y1    lm    c1 + c2       0.807</span></span></code></pre></div>
+<p>And we can plot comparisons.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>r2_results <span class="op">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(r2) <span class="op">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a><span class="st">  </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">rank =</span> <span class="dv">1</span><span class="op">:</span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/n.html">n</a></span>()) <span class="op">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(<span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> rank, </span>
+<span id="cb6-5"><a href="#cb6-5"></a>             <span class="dt">y =</span> r2)) <span class="op">+</span></span>
+<span id="cb6-6"><a href="#cb6-6"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span>() <span class="op">+</span></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span>() <span class="op">+</span></span>
 <span id="cb6-8"><a href="#cb6-8"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span>() <span class="op">+</span></span>
 <span id="cb6-9"><a href="#cb6-9"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">strip.text =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>(),</span>
 <span id="cb6-10"><a href="#cb6-10"></a>        <span class="dt">axis.line =</span> <span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span>(<span class="st">"black"</span>, <span class="dt">size =</span> <span class="fl">.5</span>),</span>
@@ -217,7 +222,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#run-specification-curve-analysis-with-keep-results-true">1. Run specification curve analysis with <code>keep.results = TRUE</code></a></li>
+<li><a href="#run-specification-curve-analysis">1. Run specification curve analysis</a></li>
       <li><a href="#identify-models-of-interest">2. Identify model(s) of interest</a></li>
       <li><a href="#investigate-models">3. Investigate models</a></li>
       <li><a href="#some-more-examples">4. Some more examples</a></li>

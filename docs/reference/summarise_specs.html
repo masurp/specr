@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Summarise specification curve results — summarise_specs" />
-<meta property="og:description" content="This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices." />
+<meta property="og:description" content="This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -130,7 +130,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices.</p>
+    <p>This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>summarise_specs</span>(
@@ -146,7 +146,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code>run_specs</code>).</p></td>
+      <td><p>a data frame containing the choices and results of each specification (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -154,7 +154,7 @@
     </tr>
     <tr>
       <th>var</th>
-      <td><p>which variable should be evaluated? Defaults to estimate (the effect sizes computed by <code>run_specs</code>).</p></td>
+      <td><p>which variable should be evaluated? Defaults to estimate (the effect sizes computed by <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
     </tr>
     <tr>
       <th>stats</th>
@@ -164,7 +164,10 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a></p>
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot_summary.html'>plot_summary()</a></code> to visually investigate the affect of analytical choices.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Run specification curve analysis</span>
@@ -221,13 +224,15 @@
 #&gt; </span><span style='color: #555555;'>1</span><span> c1             4.07  3.16   123
 #&gt; </span><span style='color: #555555;'>2</span><span> c1 + c2        3.79  3.16   123
 #&gt; </span><span style='color: #555555;'>3</span><span> c2             4.08  3.79   123
-#&gt; </span><span style='color: #555555;'>4</span><span> no covariates  4.38  3.95   123</div></span></pre>
+#&gt; </span><span style='color: #555555;'>4</span><span> no covariates  4.38  3.95   123</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

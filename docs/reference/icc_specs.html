@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get variance component of the specification curve — icc_specs • specr</title>
+<title>Compute intraclass correlation coefficient — icc_specs • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Get variance component of the specification curve — icc_specs" />
-<meta property="og:description" content="Can be used to extract intraclass correlation coefficients from a multilevel model." />
+<meta property="og:title" content="Compute intraclass correlation coefficient — icc_specs" />
+<meta property="og:description" content="This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -124,13 +124,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get variance component of the specification curve</h1>
+    <h1>Compute intraclass correlation coefficient</h1>
     
     <div class="hidden name"><code>icc_specs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Can be used to extract intraclass correlation coefficients from a multilevel model.</p>
+    <p>This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).</p>
     </div>
 
     <pre class="usage"><span class='fu'>icc_specs</span>(<span class='no'>model</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -140,7 +140,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>a multilevel model that captures the variances of the specification curve (resulting from <code>run_specs</code>).</p></td>
+      <td><p>a multilevel model that captures the variances of the specification curve (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
     </tr>
     <tr>
       <th>percent</th>
@@ -150,7 +150,7 @@
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a></p>
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -158,6 +158,9 @@
 <li><p>Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.</p></li>
 </ul>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='plot_variance.html'>plot_variance()</a></code> to plot the variance decomposition.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Step 1: Run spec curve analysis</span>
@@ -166,14 +169,15 @@
                      <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
                      <span class='kw'>model</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"lm"</span>))
 
-<span class='co'># Step 2: Estimate multilevel model</span>
+<span class='co'># Step 2: Estimate a multilevel model without predictors</span>
 <span class='no'>model</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>lme4</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/lme4/man/lmer.html'>lmer</a></span>(<span class='no'>estimate</span> ~ <span class='fl'>1</span> + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>x</span>)  + (<span class='fl'>1</span><span class='kw'>|</span><span class='no'>y</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>results</span>)
 
 <span class='co'># Step 3: Estimate intra-class correlation</span>
 <span class='fu'>icc_specs</span>(<span class='no'>model</span>)</div><div class='output co'>#&gt;        grp        vcov         icc    percent
 #&gt; 1        x  0.66910475 0.031027891  3.1027891
 #&gt; 2        y 20.89139147 0.968780785 96.8780785
-#&gt; 3 Residual  0.00412583 0.000191324  0.0191324</div></pre>
+#&gt; 3 Residual  0.00412583 0.000191324  0.0191324</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -181,6 +185,7 @@
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#references">References</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
