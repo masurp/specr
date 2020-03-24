@@ -122,9 +122,9 @@ citation("specr")
 #> 
 #> To cite parameters in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical
-#>   functions for conducting specification curve analyses. Available
-#>   from https://github.com/masurp/specr.
+#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
+#>   for conducting specification curve analyses. Available from
+#>   https://github.com/masurp/specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
@@ -138,12 +138,11 @@ citation("specr")
 
 ## References
 
-Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
+Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification
 Curve: Descriptive and Inferential Statistics for all Plausible
-Specifications Available at:
-<http://urisohn.com/sohn_files/wp/wordpress/wp-content/uploads/Paper-Specification-curve-2019-11-16.pdf>
+Specifications.* Available at: <http://dx.doi.org/10.2139/ssrn.2694998>
 
 Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016).
-Increasing Transparency Through a Multiverse Analysis. Perspectives on
-Psychological Science, 11(5), 702-712. Available at:
-<http://www.stat.columbia.edu/~gelman/research/published/multiverse_published.pdf>
+Increasing Transparency Through a Multiverse Analysis. *Perspectives on
+Psychological Science*, 11(5), 702-712.
+<https://doi.org/10.1177/1745691616658637>
