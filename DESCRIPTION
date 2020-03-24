@@ -15,29 +15,29 @@ Authors@R: c(
            )
 Description: The goal of specr is to facilitate specification curve analyses (Simonson, Simmons & Nelson (2015, <doi: 10.2139/ssrn.2694998>) or multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi: 10.1177/1745691616658637>). It provides functions to setup, run, and plot all specifications.
 License: GPL-3
-URL: https://masurp.github.io/specr/
+URL: https://masurp.github.io/specr/, https://github.com/masurp/specr
 BugReports: https://github.com/masurp/specr/issues
 Imports:
+    broom,
+    cowplot,
     dplyr,
-    tidyr,
-    purrr,
+    ggplot2,
+    ggraph,
+    glue,
+    igraph,
     lme4,
     magrittr,
+    purrr,
     rlang, 
     tibble,
-    ggplot2,
-    cowplot,
-    broom,
-    igraph,
-    ggraph,
-    glue
+    tidyr
 Suggests: 
-    testthat,
     knitr,
-    rmarkdown,
+    testthat,
     tidyverse,
-    progress,
     performance
+    progress,
+    rmarkdown
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
