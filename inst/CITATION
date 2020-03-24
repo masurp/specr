@@ -11,5 +11,5 @@ bibentry(
   	paste("Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions for conducting specification curve analyses.",
 		"Available from https://github.com/masurp/specr."
 		),
-	mheader = "To cite parameters in publications use:"
+	mheader = "To cite 'specr' in publications use:"
 )
