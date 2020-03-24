@@ -1,15 +1,15 @@
 #' Plot specification curve
 #'
-#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function \code{plot_specs()} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
+#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. The function [plot_specs()] uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
 #'
-#' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
+#' @param df a data frame containing the choices and results of each specification (resulting from [run_specs()]).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be plotted.
 #' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
-#' @return a \link[ggplot2]{ggplot} object
+#' @return a \link[ggplot2]{ggplot} object.
 #' @export
 #'
 #' @examples

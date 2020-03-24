@@ -1,13 +1,13 @@
 #' Plot how analytical choices affect results
 #'
-#' This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.
+#' This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero).
 #'
-#' @return a \link[ggplot2]{ggplot} object
+#' @return a \link[ggplot2]{ggplot} object.
 #' @export
 #'
 #' @examples

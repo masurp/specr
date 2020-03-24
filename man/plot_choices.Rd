@@ -21,10 +21,10 @@ plot_choices(
 \item{null}{Indicate what value represents the null hypothesis (Defaults to zero).}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions plots how the analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization via ggplot2 is possible.
+This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 # Run specification curve analysis

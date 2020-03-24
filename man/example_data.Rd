@@ -3,7 +3,7 @@
 \docType{data}
 \name{example_data}
 \alias{example_data}
-\title{Simulated data set}
+\title{Example data set}
 \format{
 A tibble
 }
@@ -11,7 +11,7 @@ A tibble
 data(example_data)
 }
 \description{
-This data set can be used to illustrate the major function of "specr".
+This simulated data set can be used to explore the major function of 'specr'.
 }
 \examples{
 data(example_data)

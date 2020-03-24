@@ -1,13 +1,13 @@
 #' Create result frame with all specifications
 #'
-#' This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{run_specs()}.
+#' This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with [run_specs()].
 #'
 #' @param x a vector of the independent variables
 #' @param y a vector of the dependent variables
 #' @param model a vector of the type of models that should be estimated
 #' @param controls a vector of the control variables that should be included. Defaults to none.
 #'
-#' @return a [tibble][tibble::tibble-package]
+#' @return a [tibble][tibble::tibble-package] that includes all combinations of determined analytical choices.
 #' @export
 #'
 #' @examples
@@ -15,6 +15,8 @@
 #'             x = c("x1", "x2"),
 #'             model = c("lm"),
 #'             controls = c("c1", "c2"))
+#'
+#'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,
                         y,
                         model,

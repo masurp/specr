@@ -36,7 +36,7 @@ plotted. By default, all choices are plotted.}
 \item{desc}{logical value indicating whether the curve should the arranged in
 a descending order. Defaults to FALSE.}
 
-\item{null}{Indicate what value represents the null hypothesis (Defaults to
+\item{null}{Indicate what value represents the null hypothesis (defaults to
 zero).}
 
 \item{ci}{logical value indicating whether confidence intervals should be
@@ -54,15 +54,11 @@ very large and one wants to simplify the visualization.}
 \item{...}{additional arguments that can be passed to \code{plot_grid()}.}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
 This function plots an entire visualization of the specification curve
-analysis. It can be used in two ways: First, the results frame returned by
-\code{run_specs()} is passed directly. In this case, the function plots the
-entire visualization automatically. Second, the ggplot objects returned from
-\code{plot_curve()} and \code{plot_choices()} are passed to the function. In
-this case, the function simply arranges them above each other.
+analysis.
 }
 \examples{
 # load additional library
@@ -91,4 +87,12 @@ p2 <- plot_choices(results) +
 plot_specs(plot_a = p1,    # arguments must be called directly!
            plot_b = p2,
            rel_height = c(2, 2)) \%>\% class
+
+}
+\seealso{
+\itemize{
+\item \code{\link[=plot_curve]{plot_curve()}} to plot only the specification curve.
+\item \code{\link[=plot_choices]{plot_choices()}} to plot only the choices panel.
+\item \code{\link[=plot_samplesizes]{plot_samplesizes()}} to plot a histogram of sample sizes per specification.
+}
 }

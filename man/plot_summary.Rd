@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_summary.r
 \name{plot_summary}
 \alias{plot_summary}
-\title{A boxplot summarizing statistics per analytical choice}
+\title{A boxplot summarizing parameters per analytical choice}
 \usage{
 plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 }
@@ -12,10 +12,10 @@ plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function provides a convenient way to investigate the influence of individual choices on the estimate of interest. Similar to \code{summarise_specs}), it can be used to investigate individual choices.
+This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to \code{summarise_specs}, it can be used to investigate individual choices (but visually). Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 # run spec analysis

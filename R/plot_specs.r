@@ -1,12 +1,7 @@
 #' Plot specification curve and analytical choices
 #'
 #' This function plots an entire visualization of the specification curve
-#' analysis. It can be used in two ways: First, the results frame returned by
-#' \code{run_specs()} is passed directly. In this case, the function plots the
-#' entire visualization automatically. Second, the ggplot objects returned from
-#' \code{plot_curve()} and \code{plot_choices()} are passed to the function. In
-#' this case, the function simply arranges them above each other.
-#'
+#' analysis.
 #'
 #' @param df data frame resulting from \code{run_specs()}.
 #' @param plot_a a ggplot object resulting from \code{plot_curve()}.
@@ -21,7 +16,7 @@
 #'   plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be
 #'   plotted.
-#' @param null Indicate what value represents the null hypothesis (Defaults to
+#' @param null Indicate what value represents the null hypothesis (defaults to
 #'   zero).
 #' @param sample_perc numeric value denoting what percentage of the
 #'   specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
@@ -30,7 +25,7 @@
 #'   very large and one wants to simplify the visualization.
 #' @param ... additional arguments that can be passed to \code{plot_grid()}.
 #'
-#' @return a \link[ggplot2]{ggplot} object
+#' @return a \link[ggplot2]{ggplot} object.
 #'
 #' @export
 #'
@@ -61,6 +56,12 @@
 #' plot_specs(plot_a = p1,    # arguments must be called directly!
 #'            plot_b = p2,
 #'            rel_height = c(2, 2)) %>% class
+#'
+#'@seealso \itemize{
+#'  \item [plot_curve()] to plot only the specification curve.
+#'  \item [plot_choices()] to plot only the choices panel.
+#'  \item [plot_samplesizes()] to plot a histogram of sample sizes per specification.
+#'}
 plot_specs <- function(df = NULL,
                        plot_a = NULL,
                        plot_b = NULL,

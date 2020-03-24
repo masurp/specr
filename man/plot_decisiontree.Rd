@@ -2,22 +2,22 @@
 % Please edit documentation in R/plot_decisiontree.r
 \name{plot_decisiontree}
 \alias{plot_decisiontree}
-\title{Plot the decision tree}
+\title{Plot decision tree}
 \usage{
 plot_decisiontree(df, label = FALSE, legend = FALSE)
 }
 \arguments{
-\item{df}{data frame resulting from \code{run_specs()}.}
+\item{df}{data frame resulting from \code{\link[=run_specs]{run_specs()}}.}
 
 \item{label}{Logical. Should labels be included? Defaults to FALSE. Produces only a reasonable plot if number of specifications is low.}
 
 \item{legend}{Logical. Should specific decisions be identifiable. Defaults to FALSE.}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.
+This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 results <- run_specs(df = example_data,

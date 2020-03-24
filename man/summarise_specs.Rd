@@ -13,19 +13,19 @@ summarise_specs(
 )
 }
 \arguments{
-\item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
+\item{df}{a data frame containing the choices and results of each specification (resulting from \code{\link[=run_specs]{run_specs()}}).}
 
 \item{...}{one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.}
 
-\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).}
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
 
 \item{stats}{named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble}.
 }
 \description{
-This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices.
+This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.
 }
 \examples{
 # Run specification curve analysis
@@ -56,4 +56,8 @@ summarise_specs(results,
 summarise_specs(results,
                 controls,
                 stats = c(mean, median))
+
+}
+\seealso{
+\code{\link[=plot_summary]{plot_summary()}} to visually investigate the affect of analytical choices.
 }

@@ -14,7 +14,7 @@ plot_curve(
 )
 }
 \arguments{
-\item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs}).}
+\item{df}{a data frame containing the choices and results of each specification (resulting from \code{\link[=run_specs]{run_specs()}}).}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
@@ -27,10 +27,10 @@ plot_curve(
 \item{null}{Indicate what value represents the null hypothesis (Defaults to zero)}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization with ggplot2 is possible. The function \code{plot_specs()} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
+This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. The function \code{\link[=plot_specs]{plot_specs()}} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
 }
 \examples{
 # load additional library

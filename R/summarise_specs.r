@@ -1,13 +1,13 @@
 #' Summarise specification curve results
 #'
-#' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices.
+#' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.
 #'
-#' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
+#' @param df a data frame containing the choices and results of each specification (resulting from [run_specs()]).
 #' @param ... one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.
-#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{run_specs}).
+#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
 #' @param stats named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.
 #'
-#' @return a [tibble][tibble::tibble-package]
+#' @return a [tibble][tibble::tibble-package].
 #'
 #' @export
 #'
@@ -40,6 +40,8 @@
 #' summarise_specs(results,
 #'                 controls,
 #'                 stats = c(mean, median))
+#'
+#' @seealso [plot_summary()] to visually investigate the affect of analytical choices.
 summarise_specs <- function(df,
                             ...,
                             var = .data$estimate,

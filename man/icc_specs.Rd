@@ -2,20 +2,20 @@
 % Please edit documentation in R/icc_specs.r
 \name{icc_specs}
 \alias{icc_specs}
-\title{Get variance component of the specification curve}
+\title{Compute intraclass correlation coefficient}
 \usage{
 icc_specs(model, percent = TRUE)
 }
 \arguments{
-\item{model}{a multilevel model that captures the variances of the specification curve (resulting from \code{run_specs}).}
+\item{model}{a multilevel model that captures the variances of the specification curve (resulting from \code{\link[=run_specs]{run_specs()}}).}
 
 \item{percent}{a logical value indicating whether the icc should also be printed as percentage.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble} including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.
 }
 \description{
-Can be used to extract intraclass correlation coefficients from a multilevel model.
+This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).
 }
 \examples{
 # Step 1: Run spec curve analysis
@@ -24,14 +24,18 @@ results <- run_specs(df = example_data,
                      x = c("x1", "x2"),
                      model = c("lm"))
 
-# Step 2: Estimate multilevel model
+# Step 2: Estimate a multilevel model without predictors
 model <- lme4::lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 
 # Step 3: Estimate intra-class correlation
 icc_specs(model)
+
 }
 \references{
 \itemize{
 \item Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.
 }
+}
+\seealso{
+\code{\link[=plot_variance]{plot_variance()}} to plot the variance decomposition.
 }

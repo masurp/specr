@@ -10,10 +10,10 @@ plot_variance(model)
 \item{model}{a multilevel model that captures the variances of the specification curve (based on the data frame resulting from \code{run_specs}).}
 }
 \value{
-a \link[ggplot2]{ggplot} object
+a \link[ggplot2]{ggplot} object.
 }
 \description{
-Plot variance components of the specification curve
+This functions plots a simple bar plot that visually displays how much variance each analytical choice explains in the specification curve. It uses \code{\link[=icc_specs]{icc_specs()}} to compute the intraclass correlation coefficient (ICC) and then creates the bar plot (see examples and vignettes). Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 # Step 1: Run spec curve analysis
@@ -28,4 +28,8 @@ model <- lmer(estimate ~ 1 + (1|x)  + (1|y), data = results)
 
 # Step 3: Plot model
 plot_variance(model)
+
+}
+\seealso{
+\code{\link[=icc_specs]{icc_specs()}} to produce a tibble that details the variance decomposion.
 }

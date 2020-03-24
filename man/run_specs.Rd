@@ -33,10 +33,10 @@ run_specs(
 \item{keep.results}{a logical value indicating whether the complete model object should be kept.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble} that includes all specifications and respective parameters created by \link[broom]{tidy}.
 }
 \description{
-This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant statistics for each model as well as the analytical choices as factor variables.
+This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant parameters for each model as well as the analytical choices as factor variables.
 }
 \examples{
 # run specification curve analysis
@@ -50,10 +50,14 @@ results <- run_specs(df = example_data,
 
 # Check results frame
 results
+
 }
 \references{
 \itemize{
 \item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications. Available at: http://dx.doi.org/10.2139/ssrn.2694998
 \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. Perspectives on Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
 }
+}
+\seealso{
+\code{\link[=plot_specs]{plot_specs()}} to visualize the results of the specification curve analysis.
 }

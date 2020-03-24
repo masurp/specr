@@ -1,6 +1,6 @@
-#' Simulated data set
+#' Example data set
 #'
-#' This data set can be used to illustrate the major function of "specr".
+#' This simulated data set can be used to explore the major function of 'specr'.
 #'
 #' @docType data
 #'

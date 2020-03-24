@@ -1,12 +1,12 @@
-#' Plot the decision tree
+#' Plot decision tree
 #'
-#' This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high.
+#' This function plots a simple decision tree that is meant to help understanding how analytical choices produce a certain number of specifications. It is somewhat useless if the number of specifications is very high. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 #'
-#' @param df data frame resulting from \code{run_specs()}.
+#' @param df data frame resulting from [run_specs()].
 #' @param label Logical. Should labels be included? Defaults to FALSE. Produces only a reasonable plot if number of specifications is low.
 #' @param legend Logical. Should specific decisions be identifiable. Defaults to FALSE.
 #'
-#' @return a \link[ggplot2]{ggplot} object
+#' @return a \link[ggplot2]{ggplot} object.
 #'
 #' @export
 #'

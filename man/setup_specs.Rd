@@ -16,14 +16,18 @@ setup_specs(x, y, model, controls = NULL)
 \item{controls}{a vector of the control variables that should be included. Defaults to none.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble}
+a \link[tibble:tibble-package]{tibble} that includes all combinations of determined analytical choices.
 }
 \description{
-This function creates a data frame that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{run_specs()}.
+This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{\link[=run_specs]{run_specs()}}.
 }
 \examples{
 setup_specs(y = c("y1"),
             x = c("x1", "x2"),
             model = c("lm"),
             controls = c("c1", "c2"))
+
+}
+\seealso{
+\code{\link[=run_specs]{run_specs()}} to run the specification curve analysis.
 }

@@ -1,11 +1,11 @@
-#' A boxplot summarizing statistics per analytical choice
+#' A boxplot summarizing parameters per analytical choice
 #'
-#' This function provides a convenient way to investigate the influence of individual choices on the estimate of interest. Similar to \code{summarise_specs}), it can be used to investigate individual choices.
+#' This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to \code{summarise_specs}, it can be used to investigate individual choices (but visually). Further customization using \link[ggplot2]{ggplot} syntax is possible.
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #'
-#' @return a \link[ggplot2]{ggplot} object
+#' @return a \link[ggplot2]{ggplot} object.
 #'
 #' @export
 #'
