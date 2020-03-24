@@ -22,17 +22,16 @@ status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/
 The goal of specr is to facilitate specification curve analyses
 (Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
 see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). It can be used to
-investigate how different (e.g., theoretical defensible) analytical
-choices affect outcome statistics within the universe of one single data
-set.
+investigate how different (theoretically plausible) analytical choices
+affect outcome statistics within the universe of one single data set.
 
 It provides functions to setup, run, evaluate, and plot the multiverse
 of specifications. A simple usage example is provided below. For more
 information about the various functions and specific use cases, visit
 the [documentation](https://masurp.github.io/specr/index.html).
 
-For a more comprehensive examples and vignettes on how to use the
-various functions of the package, check out the following pages:
+There are also some vignettes that exemplify and explain specific
+aspects and functions of the package:
 
   - [Getting
     started](https://masurp.github.io/specr/articles/specr.html): A
@@ -109,18 +108,10 @@ plot_specs(results, choices = c("x", "y", "controls", "subsets"))
 
 ## How to cite this package
 
-Developing and maintaining open source software is an important yet
-often underappreciated contribution to scientific progress. Thus,
-whenever you are using open source software (or software in general),
-please make sure to cite it appropriately so that developers get credit
-for their work.
-
-When using `specr`, please cite it as follows:
-
 ``` r
 citation("specr")
 #> 
-#> To cite parameters in publications use:
+#> To cite 'specr' in publications use:
 #> 
 #>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
 #>   for conducting specification curve analyses. Available from
