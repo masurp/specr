@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 
 
-The following example is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. Although using `specr` strictly speaking does not require any other package, we recommend to also load the `tidyverse` as it provides valuable functions for data wrangling and adapting outputs from `specr`-functions. Furthermore, the `tidyverse` includes `ggplot2` which can be used to modify the layout of the plot outputs. 
+The following vignette is a more comprehensive version of the example on the homepage and exemplifies how to use the major functions of this package. Although using `specr` strictly speaking does not require any other package, we recommend to also load the `tidyverse` as it provides valuable functions for data wrangling and adapting outputs from `specr` functions. Furthermore, the `tidyverse` includes `ggplot2` which can be used to modify the layout of the plots. 
 
 ```{r, message=F, warning = F}
 # Load libraries
@@ -40,7 +40,7 @@ head(example_data)
 summary(example_data)
 ```
 
-There are several numeric variables. For this use case, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
+There are several numeric variables. In this exampkle, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
 
 ## 2. Define analytical choices
 
@@ -83,7 +83,7 @@ results <- run_specs(df = example_data,
 results
 ```
 
-The resulting data frame includes relevant statistics for each of the estiamted models. 
+The resulting data frame includes relevant statistics for each of the estimated models. 
 
 We can now plot a simple decision tree to understand how our analytical choices lead to a large number of specifications.
 

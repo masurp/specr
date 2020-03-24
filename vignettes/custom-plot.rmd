@@ -7,12 +7,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette exemplifies different ways to plot the specification curve. In general, the function `plot_specs()` takes care of the overall process. However, more specific customizations are possible once we use the more specific functions `plot_curve()`, `plot_choices`, and `plot_samplesizes()`. These function produce regular ggplot-objects that can be customized further.
+This vignette exemplifies different ways to plot the specification curve. For most casces, the function `plot_specs()` takes care of the overall process. However, more specific customizations are possible if we use the more specific functions `plot_curve()` and `plot_choices`. Furthermore, we can extend the overall plot with the additional function `plot_samplesizes()`. All of these functions produce objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html) that can be customized further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html).
 
 
 ## 1. Run the specification curve analysis
 
-In order to have some data to work with, we run the minimal example contained in the package.
+In order to have some data to work with, we run the minimal example included in the package.
 
 ```{r, message = F, warnings = F}
 library(specr)
@@ -33,7 +33,9 @@ results <- run_specs(example_data,
 Let's quickly get some ideas about the specification curve by using `summarise_specs()`
 
 ```{r, message = F, warnings = F}
-summarise_specs(results, x, controls)
+summarise_specs(results)
+
+summarise_specs(results, x)
 ```
 
 We see that it makes quite a difference whether `x1` or `x2` is used as independent variable. 
@@ -47,12 +49,12 @@ The simplest way to visualize most of the information contained in the results d
 plot_specs(results)
 ```
 
-We can further customize that function, e.g., by removing unnecessary information or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).
+We can further customize that function, e.g., by removing unnecessary information (in this case we only specified one model, this analytical choice is hence useless) or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 plot_specs(results, 
-           choices = c("x", "y", "controls", "subsets"),  # model is not plotted
-           rel_heights = c(1, 2)) # changing relative heights of the two parts
+           choices = c("x", "y", "controls", "subsets"),  # "model is not plotted
+           rel_heights = c(1, 2))                         # changing relative heights
 
 # Investigating specific contrasts
 results %>%
@@ -65,17 +67,22 @@ results %>%
 ## 3. An alternative way to visualize the results
 
 ### 3.1. Plot curve and choices seperately
-Alternatively, we can also plot the curve and the choice panel individually and bind them together afterwards.
+
+The overall function `plot_specs()` is not very flexible. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots. 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
-# Plot specification curve (p1)
-p1 <- plot_curve(results, ci = FALSE, ribbon = TRUE) +
-  geom_hline(yintercept = 0, linetype = "dashed", color = "grey") +
+# Plot specification curve
+p1 <- plot_curve(results, 
+                 ci = FALSE, 
+                 ribbon = TRUE) +
+  geom_hline(yintercept = 0, 
+             linetype = "dashed", 
+             color = "black") +
   ylim(-8, 12) +
   labs(x = "", y = "unstandarized regression coefficient") +
   theme_half_open()
 
-# Plot choices (p2)
+# Plot choices
 p2 <- plot_choices(results, 
                    choices = c("x", "y", "controls", "subsets")) +
   labs(x = "specifications (ranked)") +
@@ -85,13 +92,14 @@ p2 <- plot_choices(results,
 # Combine plots
 plot_specs(plot_a = p1,
            plot_b = p2,
-           labels = c("", ""),
-           rel_height = c(2, 2.5))
+           labels = c("", ""),      # remove plot labels
+           rel_height = c(2, 2.5))  # adjust relative heights
 ```
 
 ### 3.2. Include sample size histogram
 
-The additional function `plot_samplesizes()` provides and additional panel that can be added via the `cowplot::plot_grid()`
+By default, we do not know how many participants were included in each specification. If you remove missing values listwise, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. 
+The function `plot_samplesizes()` provides an additional panel that can then be added to the overall plot using `cowplot::plot_grid()`
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 p3 <- plot_samplesizes(results) +

@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-Per default, `run_specs()` summarizes individual specifications by using `broom::tidy()`. For most cases, this provides reasonable summaries of the relationship of interest. Sometimes, however, it is reasonable to investigate specific models in more detail or to investigate a specific statistic (e.g., r-square, AIC). This vignette shows how to access individual models.
+Per default, `run_specs()` summarizes individual specifications by using `broom::tidy()`. For most cases, this provides "good-enough" summaries of the relationship of interest. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by `broom::tidy()` (e.g., r-square, AIC). This vignette shows how to access individual models.
 
-## 1. Run specification curve analysis with `keep.results = TRUE`
+## 1. Run specification curve analysis
 
-If you want to investigate individual models and particularly all aspects of that model, use `run_specs()` with the additional argument `keep.results = TRUE`. 
+If we want to investigate individual models and particularly all aspects of that model, we need to use `run_specs()` with the additional argument `keep.results = TRUE`. 
 
 ```{r, message=F, warning = F}
 library(specr)
@@ -44,17 +44,16 @@ results <- run_specs(df = example_data,
 
 ## 2. Identify model(s) of interest
 
-For this example, we are going to look at two specific models (same independent variables, all controls, all participants). Their only difference is the dependent variable `y`. 
+For this example, we are going to look at two specific models (same independent variables, all controls, all participants, but different dependent variables).
 
 ```{r}
-y_models <- results %>%
+(y_models <- results %>%
   filter(x == "x1", 
          controls == "c1 + c2",
-         subsets == "all")
+         subsets == "all"))
 ```
 
-As you can see, the result data frame includes an additional column called "res". This column includes the entire "model object" and we can use it to further investigate each model. 
-
+As you can see, the resulting tibble includes an additional column called "res". This column includes the entire "model object" and we can use it to further investigate each model. 
 
 ## 3. Investigate models
 
@@ -72,16 +71,15 @@ Or we could get r-squared values for both models.
 ```{r}
 y_models %>%
   pull(res) %>% 
-  map(r2)
+  map(r2)       # r2 is include in the package "performance"
 ```
 
 
 ## 4. Some more examples
 
-This way, we can analyze for compare such statistics across several models.
+This way, we can analyze or compare such statistics across several models.
 
 ```{r, fig.height=8, fig.width=10, message=F, warning = F}
-# 
 r2_results <- results %>%
   filter(subsets == "all") %>%
   mutate(r2 = map(res, r2), 
@@ -92,17 +90,16 @@ r2_results %>%
   select(x:controls, r2)
 ```
 
-
-And we can of course use this result and plot comparisons.
+And we can plot comparisons.
 
 ```{r}
-# Plot r2 curve
 r2_results %>%
   arrange(r2) %>%
   mutate(rank = 1:n()) %>%
   ggplot(aes(x = rank, 
              y = r2)) +
   geom_point() +
+  geom_line() +
   theme_minimal() +
   theme(strip.text = element_blank(),
         axis.line = element_line("black", size = .5),

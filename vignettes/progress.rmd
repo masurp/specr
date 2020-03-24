@@ -30,7 +30,7 @@ linear <- function(formula, data) {
 
 ## 2. Provide number of ticks
 
-Next, we can use the function `progress_bar()` from the package `progress`. The only thing we need to due is provide the number of ticks (i.e., operations) that will be computed
+Next, we can use the function `progress_bar()` from the package [progress](https://github.com/r-lib/progress). The only thing we need to due is provide the number of ticks (i.e., operations) that will be computed. Attention: If you want to rerun the analysis, you also need to reinitialize this `pb` object.
 
 ```{r, message = F, warnings = F}
 library(progress)
@@ -43,7 +43,7 @@ pb <- progress_bar$new(format = "[:bar] | :percent (:current/:total) | Finished 
 
 ## 3. Run analysis
 
-```{r, message = F, warning = F}
+```{r}
 # run spec analysis
 results <- run_specs(example_data,
                      y = c("y1", "y2"),
@@ -55,14 +55,10 @@ results <- run_specs(example_data,
 
 ```
 
-The console will now show a progress bar during estimation. For more information and additional customizations see: https://github.com/r-lib/progress. 
+The console will show a progress bar during estimation. For more information and additional customizations of the progress bar, see the [documentation](https://github.com/r-lib/progress) of the package `progress`. 
 
-
-```{r}
-summarise_specs(results)
+```{r, eval=F}
+[==========================================================-------------]  81% (156/192) Finished in 1s
 ```
-
-
-
 
 
