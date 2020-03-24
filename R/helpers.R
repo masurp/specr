@@ -11,7 +11,7 @@ create_formula <- function(x, y, controls, ...) {
 run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
 
   results <- specs %>%
-    dplyr::mutate(formula = pmap(., create_formula)) %>%
+    dplyr::mutate(formula = pmap(specs, create_formula)) %>%
     tidyr::unnest(formula) %>%
     dplyr::mutate(res = map2(.data$model,
                              formula,
