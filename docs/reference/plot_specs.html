@@ -209,14 +209,14 @@ plotted.</p></td>
     <tr>
       <th>sample_perc</th>
       <td><p>numeric value denoting what percentage of the
-specifications should be plotted. Needs to be &gt; 0, but and not &gt; 1.
+specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
 Defaults to 1 (= all specifications). Drawing a sample from all
 specification usually makes only sense of the number of specifications is
 very large and one wants to simplify the visualization.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Additional arguments that can be passed to <code>plot_grid()</code>.</p></td>
+      <td><p>additional arguments that can be passed to <code>plot_grid()</code>.</p></td>
     </tr>
     </table>
 
@@ -247,7 +247,7 @@ very large and one wants to simplify the visualization.</p></td>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span>(<span class='no'>results</span>) +
   <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"specifications (ranked)"</span>)
 
-<span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,
+<span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,    <span class='co'># arguments must be called directly!</span>
            <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='no'>p2</span>,
            <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>)) <span class='kw'>%&gt;%</span> <span class='no'>class</span></div><div class='output co'>#&gt; [1] "gg"     "ggplot"</div></pre>
   </div>

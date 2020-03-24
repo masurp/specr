@@ -24,11 +24,11 @@
 #' @param null Indicate what value represents the null hypothesis (Defaults to
 #'   zero).
 #' @param sample_perc numeric value denoting what percentage of the
-#'   specifications should be plotted. Needs to be > 0, but and not > 1.
+#'   specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
 #'   Defaults to 1 (= all specifications). Drawing a sample from all
 #'   specification usually makes only sense of the number of specifications is
 #'   very large and one wants to simplify the visualization.
-#' @param ... Additional arguments that can be passed to \code{plot_grid()}.
+#' @param ... additional arguments that can be passed to \code{plot_grid()}.
 #'
 #' @return a \link[ggplot2]{ggplot} object
 #'
@@ -58,7 +58,7 @@
 #' p2 <- plot_choices(results) +
 #'   labs(x = "specifications (ranked)")
 #'
-#' plot_specs(plot_a = p1,
+#' plot_specs(plot_a = p1,    # arguments must be called directly!
 #'            plot_b = p2,
 #'            rel_height = c(2, 2)) %>% class
 plot_specs <- function(df = NULL,
@@ -74,7 +74,11 @@ plot_specs <- function(df = NULL,
                        sample_perc = 1,
                        ...) {
 
-  if (!rlang::is_null(df)) {
+  if (!is.null(df)) {
+
+    if (sample_perc > 1 | sample_perc < 0) {
+      stop("`sample_n` must be greater than 0 and less than 1!")
+    }
 
   # Draw sample
   df <- dplyr::sample_n(df, size = sample_perc*nrow(df))
