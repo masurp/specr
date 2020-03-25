@@ -10,10 +10,9 @@ Authors@R: c(
     person(given = "Michael",
            family = "Scharkow",
            role = c("aut"),
-           email = "michael@underused.org",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+           email = "michael@underused.org")
            )
-Description: The goal of specr is to facilitate specification curve analyses (Simonson, Simmons & Nelson (2015, <doi: 10.2139/ssrn.2694998>) or multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi: 10.1177/1745691616658637>). It provides functions to setup, run, and plot all specifications.
+Description: The goal of specr is to facilitate specification curve analyses (Simonsohn, Simmons & Nelson (2015, <doi: 10.2139/ssrn.2694998>) or multiverse analysis (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi: 10.1177/1745691616658637>). It provides functions to setup, run, evaluate, and plot all specifications.
 License: GPL-3
 URL: https://masurp.github.io/specr/, https://github.com/masurp/specr
 BugReports: https://github.com/masurp/specr/issues
