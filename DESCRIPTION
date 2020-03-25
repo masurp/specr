@@ -35,7 +35,7 @@ Suggests:
     knitr,
     testthat,
     tidyverse,
-    performance
+    performance,
     progress,
     rmarkdown
 Encoding: UTF-8
