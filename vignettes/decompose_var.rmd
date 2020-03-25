@@ -1,8 +1,8 @@
 ---
-title: "Decomposing the variance of the specification curve"
+title: "Identifying variance components"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Decomposing the variance of the specification curve}
+  %\VignetteIndexEntry{Identifying variance components}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

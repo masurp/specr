@@ -1,8 +1,8 @@
 ---
-title: "Investigating specific specifications"
+title: "Investigating selected specifications"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Investigating specific specifications}
+  %\VignetteIndexEntry{Investigating selected specifications}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
