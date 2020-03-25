@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -135,7 +135,7 @@
 <span id="cb2-24"><a href="#cb2-24"></a><span class="co">#&gt;  Mean   : 23.89   Mean   : 11.200   Mean   :0.5          </span></span>
 <span id="cb2-25"><a href="#cb2-25"></a><span class="co">#&gt;  3rd Qu.: 34.04   3rd Qu.: 17.966   3rd Qu.:1.0          </span></span>
 <span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt;  Max.   : 94.13   Max.   : 46.341   Max.   :1.0</span></span></code></pre></div>
-<p>There are several numeric variables. In this exampkle, we assume that <code>x</code> represents independent variables, <code>y</code> represents dependent variables, <code>c</code> represents control variables, and <code>group</code> denotes potential grouping variables that can be used for subsetting the data.</p>
+<p>There are several numeric variables. In this example, we assume that <code>x</code> represents independent variables, <code>y</code> represents dependent variables, <code>c</code> represents control variables, and <code>group</code> denotes potential grouping variables that can be used for subsetting the data.</p>
 </div>
 <div id="define-analytical-choices" class="section level2">
 <h2 class="hasAnchor">
@@ -246,7 +246,7 @@
 <span id="cb6-38"><a href="#cb6-38"></a><span class="co">#&gt; 11 group2 = B          2.87e-5   4.25e-5 2.05e-28 0.231  1.13e-15  8.32e-3   162</span></span>
 <span id="cb6-39"><a href="#cb6-39"></a><span class="co">#&gt; 12 group2 = C          3.03e-7   4.49e-7 2.45e-35 0.487  1.07e-15  3.48e-2   194</span></span></code></pre></div>
 <p>The output contains summary statistics such as the median, the median absolute deviation, … as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results (e.g., the p-value).</p>
-<p>However, in order to grasp how the different analytical choices affect the outcome of interest (in this case, the estimate refers to the unstandarized regression coefficient <em>b</em>), it is reasonable to plot a specification curve. The function <code><a href="../reference/plot_specs.html">plot_specs()</a></code> to produces the typical visualization of the specification curve and how the analytical choices affected the obtained results.</p>
+<p>However, in order to grasp how the different analytical choices affect the outcome of interest (in this case, the estimate refers to the unstandardized regression coefficient <em>b</em>), it is reasonable to plot a specification curve. The function <code><a href="../reference/plot_specs.html">plot_specs()</a></code> to produces the typical visualization of the specification curve and how the analytical choices affected the obtained results.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Plot specification curve analysis</span></span>
 <span id="cb7-2"><a href="#cb7-2"></a><span class="kw"><a href="../reference/plot_specs.html">plot_specs</a></span>(results)</span></code></pre></div>
 <p><img src="specr_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>

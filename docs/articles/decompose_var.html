@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -173,7 +173,7 @@
 <div id="plot-variance-components" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plot-variance-components" class="anchor"></a>4. Plot variance components</h2>
-<p>Second, we can alternatively use the function <code><a href="../reference/plot_variance.html">plot_variance()</a></code> to obtain a visualization. The function calls <code><a href="../reference/icc_specs.html">icc_specs()</a></code> automatically. We can hence pass the multilevel results object directly. Further customizations via the ggplot2 is possible.</p>
+<p>Second, we can alternatively use the function <code><a href="../reference/plot_variance.html">plot_variance()</a></code> to obtain a visualization. The function calls <code><a href="../reference/icc_specs.html">icc_specs()</a></code> automatically. We can hence pass the multilevel results object directly. Further customization via ggplot2 is possible.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw"><a href="../reference/plot_variance.html">plot_variance</a></span>(m1) <span class="op">+</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/lims.html">ylim</a></span>(<span class="dv">0</span>, <span class="dv">100</span>)</span></code></pre></div>
 <p><img src="decompose_var_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
