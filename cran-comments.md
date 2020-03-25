@@ -1,6 +1,6 @@
 ## Test environments
 * local OS X install, R 3.6.1
-* Ubuntu Linux 16.04 LTS, R-devel, GCC (via rhub)
+* Ubuntu Linux 16.04 LTS (devel and release)
 * win-builder (devel and release)
 
 ## R CMD check results
