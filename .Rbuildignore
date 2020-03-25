@@ -8,4 +8,4 @@
 ^\.github$
 ^doc$
 ^_pkgdown\.yml$
-
+^Meta$
