@@ -1,0 +1,25 @@
+destination: docs
+url: https://masurp.github.io/specr/index.html
+
+template:
+  params:
+  bootswatch: lumen
+
+reference:
+  - title: "Specification curve analyses"
+    contents:
+      - setup_specs
+      - run_specs
+  - title: "Summarize results"
+    contents:
+      - summarise_specs
+      - icc_specs
+  - title: "Plot results"
+    contents:
+      - plot_specs
+      - plot_curve
+      - plot_choices
+      - plot_samplesizes
+      - plot_summary
+      - plot_variance
+      - plot_decisiontree
