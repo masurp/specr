@@ -7,4 +7,7 @@ articles:
   invest-spec: invest-spec.html
   progress: progress.html
   specr: specr.html
+urls:
+  reference: https://masurp.github.io/specr/index.html/reference
+  article: https://masurp.github.io/specr/index.html/articles
 

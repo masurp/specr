@@ -96,10 +96,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -108,7 +108,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -136,22 +141,62 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-specification-curve-analyses" class="hasAnchor"><a href="#section-specification-curve-analyses" class="anchor"></a>Specification curve analyses</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="example_data.html">example_data</a></code> </p>
+          <p><code><a href="setup_specs.html">setup_specs()</a></code> </p>
         </td>
-        <td><p>Example data set</p></td>
+        <td><p>Set up specifications</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="run_specs.html">run_specs()</a></code> </p>
+        </td>
+        <td><p>Estimate all specifications</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-summarize-results" class="hasAnchor"><a href="#section-summarize-results" class="anchor"></a>Summarize results</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="summarise_specs.html">summarise_specs()</a></code> </p>
+        </td>
+        <td><p>Summarise specifications</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="icc_specs.html">icc_specs()</a></code> </p>
         </td>
         <td><p>Compute intraclass correlation coefficient</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-plot-results" class="hasAnchor"><a href="#section-plot-results" class="anchor"></a>Plot results</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="plot_specs.html">plot_specs()</a></code> </p>
+        </td>
+        <td><p>Plot specification curve and analytical choices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_curve.html">plot_curve()</a></code> </p>
+        </td>
+        <td><p>Plot ranked specification curve</p></td>
       </tr><tr>
         
         <td>
@@ -161,57 +206,27 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="plot_curve.html">plot_curve()</a></code> </p>
-        </td>
-        <td><p>Plot specification curve</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_decisiontree.html">plot_decisiontree()</a></code> </p>
-        </td>
-        <td><p>Plot decision tree</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_samplesizes.html">plot_samplesizes()</a></code> </p>
         </td>
         <td><p>Plot sample sizes</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="plot_specs.html">plot_specs()</a></code> </p>
-        </td>
-        <td><p>Plot specification curve and analytical choices</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plot_summary.html">plot_summary()</a></code> </p>
         </td>
-        <td><p>A boxplot summarizing parameters per analytical choice</p></td>
+        <td><p>Create box plots for given analytical choices</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="plot_variance.html">plot_variance()</a></code> </p>
         </td>
-        <td><p>Plot variance components of the specification curve</p></td>
+        <td><p>Plot variance decomposition</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="run_specs.html">run_specs()</a></code> </p>
+          <p><code><a href="plot_decisiontree.html">plot_decisiontree()</a></code> </p>
         </td>
-        <td><p>Run specification curve analysis</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="setup_specs.html">setup_specs()</a></code> </p>
-        </td>
-        <td><p>Create result frame with all specifications</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="summarise_specs.html">summarise_specs()</a></code> </p>
-        </td>
-        <td><p>Summarise specification curve results</p></td>
+        <td><p>Plot decision tree</p></td>
       </tr>
     </tbody>
     </table>
@@ -220,7 +235,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-specification-curve-analyses">Specification curve analyses</a></li>
+      <li><a href="#section-summarize-results">Summarize results</a></li>
+      <li><a href="#section-plot-results">Plot results</a></li>
     </ul>
   </div>
 </div>

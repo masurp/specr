@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot variance components of the specification curve — plot_variance • specr</title>
+<title>Plot variance decomposition — plot_variance • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot variance components of the specification curve — plot_variance" />
-<meta property="og:description" content="This functions plots a simple bar plot that visually displays how much variance each analytical choice explains in the specification curve. It uses icc_specs() to compute the intraclass correlation coefficient (ICC) and then creates the bar plot (see examples and vignettes). Further customization using ggplot syntax is possible." />
+<meta property="og:title" content="Plot variance decomposition — plot_variance" />
+<meta property="og:description" content="This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coeficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses icc_specs() to compute the intraclass correlation coefficients (ICCs) which provides the data basis for the plot (see examples and vignettes). Further customization using ggplot syntax is possible." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,10 +98,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot variance components of the specification curve</h1>
-    
+    <h1>Plot variance decomposition</h1>
+    <small class="dont-index">Source: <a href='https://github.com/masurp/specr/blob/master/R/plot_variance.r'><code>R/plot_variance.r</code></a></small>
     <div class="hidden name"><code>plot_variance.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This functions plots a simple bar plot that visually displays how much variance each analytical choice explains in the specification curve. It uses <code><a href='icc_specs.html'>icc_specs()</a></code> to compute the intraclass correlation coefficient (ICC) and then creates the bar plot (see examples and vignettes). Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
+    <p>This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coeficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses <code><a href='icc_specs.html'>icc_specs()</a></code> to compute the intraclass correlation coefficients (ICCs) which provides the data basis for the plot (see examples and vignettes). Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_variance</span>(<span class='no'>model</span>)</pre>

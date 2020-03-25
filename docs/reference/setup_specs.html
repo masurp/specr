@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create result frame with all specifications — setup_specs • specr</title>
+<title>Set up specifications — setup_specs • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Create result frame with all specifications — setup_specs" />
-<meta property="og:description" content="This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with run_specs()." />
+<meta property="og:title" content="Set up specifications — setup_specs" />
+<meta property="og:description" content="This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within run_specs()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,10 +98,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create result frame with all specifications</h1>
-    
+    <h1>Set up specifications</h1>
+    <small class="dont-index">Source: <a href='https://github.com/masurp/specr/blob/master/R/setup_specs.r'><code>R/setup_specs.r</code></a></small>
     <div class="hidden name"><code>setup_specs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with <code><a href='run_specs.html'>run_specs()</a></code>.</p>
+    <p>This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within <code><a href='run_specs.html'>run_specs()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>setup_specs</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>model</span>, <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>

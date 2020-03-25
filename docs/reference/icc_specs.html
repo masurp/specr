@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Compute intraclass correlation coefficient — icc_specs" />
-<meta property="og:description" content="This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes)." />
+<meta property="og:description" content="This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,10 +98,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -125,12 +130,12 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Compute intraclass correlation coefficient</h1>
-    
+    <small class="dont-index">Source: <a href='https://github.com/masurp/specr/blob/master/R/icc_specs.r'><code>R/icc_specs.r</code></a></small>
     <div class="hidden name"><code>icc_specs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).</p>
+    <p>This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).</p>
     </div>
 
     <pre class="usage"><span class='fu'>icc_specs</span>(<span class='no'>model</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>

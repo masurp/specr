@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot specification curve — plot_curve • specr</title>
+<title>Plot ranked specification curve — plot_curve • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Plot specification curve — plot_curve" />
-<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using ggplot syntax is possible. The function plot_specs() uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically." />
+<meta property="og:title" content="Plot ranked specification curve — plot_curve" />
+<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using ggplot syntax is possible. This plot represents the upper panel in plot_specs()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,10 +98,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot specification curve</h1>
-    
+    <h1>Plot ranked specification curve</h1>
+    <small class="dont-index">Source: <a href='https://github.com/masurp/specr/blob/master/R/plot_curve.r'><code>R/plot_curve.r</code></a></small>
     <div class="hidden name"><code>plot_curve.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible. The function <code><a href='plot_specs.html'>plot_specs()</a></code> uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.</p>
+    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible. This plot represents the upper panel in <code><a href='plot_specs.html'>plot_specs()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_curve</span>(

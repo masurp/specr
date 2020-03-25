@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>A boxplot summarizing parameters per analytical choice — plot_summary • specr</title>
+<title>Create box plots for given analytical choices — plot_summary • specr</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="A boxplot summarizing parameters per analytical choice — plot_summary" />
-<meta property="og:description" content="This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to summarise_specs, it can be used to investigate individual choices (but visually). Further customization using ggplot syntax is possible." />
+<meta property="og:title" content="Create box plots for given analytical choices — plot_summary" />
+<meta property="og:description" content="This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using ggplot syntax is possible." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -98,10 +98,10 @@
       <a href="../articles/custom-plot.html">Customizing plots</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Decomposing the variance of the specification curve</a>
+      <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
@@ -110,7 +110,12 @@
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/masurp/specr">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
       </ul>
       
     </div><!--/.nav-collapse -->
@@ -124,13 +129,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>A boxplot summarizing parameters per analytical choice</h1>
-    
+    <h1>Create box plots for given analytical choices</h1>
+    <small class="dont-index">Source: <a href='https://github.com/masurp/specr/blob/master/R/plot_summary.r'><code>R/plot_summary.r</code></a></small>
     <div class="hidden name"><code>plot_summary.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to <code>summarise_specs</code>, it can be used to investigate individual choices (but visually). Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
+    <p>This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_summary</span>(<span class='no'>df</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>))</pre>
@@ -151,6 +156,9 @@
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> object.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='summarise_specs.html'>summarise_specs()</a></code> to investigate the affect of analytical choices in more detail.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># run spec analysis</span>
@@ -169,6 +177,7 @@
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
