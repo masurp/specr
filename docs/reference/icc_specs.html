@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Compute intraclass correlation coefficient — icc_specs" />
-<meta property="og:description" content="This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes)." />
+<meta property="og:description" content="This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,7 +135,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).</p>
+    <p>This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples).</p>
     </div>
 
     <pre class="usage"><span class='fu'>icc_specs</span>(<span class='no'>model</span>, <span class='kw'>percent</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -145,11 +145,11 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>model</th>
-      <td><p>a multilevel model that captures the variances of the specification curve (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
+      <td><p>a multilevel (i.e., mixed effects) model that captures the variances of the specification curve.</p></td>
     </tr>
     <tr>
       <th>percent</th>
-      <td><p>a logical value indicating whether the icc should also be printed as percentage.</p></td>
+      <td><p>a logical value indicating whether the icc should also be printed as percentage. Defaults to TRUE.</p></td>
     </tr>
     </table>
 

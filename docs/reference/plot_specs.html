@@ -37,7 +37,7 @@
 
 <meta property="og:title" content="Plot specification curve and analytical choices — plot_specs" />
 <meta property="og:description" content="This function plots an entire visualization of the specification curve
-analysis." />
+analysis. The function uses the entire tibble that is produced by run_specs() to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created ggplot objects to the function. In this case, it simply combines them using cowplot::plot_grid. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -137,7 +137,7 @@ analysis." />
 
     <div class="ref-description">
     <p>This function plots an entire visualization of the specification curve
-analysis.</p>
+analysis. The function uses the entire <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> that is produced by <code><a href='run_specs.html'>run_specs()</a></code> to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> objects to the function. In this case, it simply combines them using <code><a href='https://rdrr.io/pkg/cowplot/man/plot_grid.html'>cowplot::plot_grid</a></code>. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_specs</span>(
@@ -160,20 +160,19 @@ analysis.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>data frame resulting from <code><a href='run_specs.html'>run_specs()</a></code>.</p></td>
+      <td><p>a data frame resulting from <code><a href='run_specs.html'>run_specs()</a></code>.</p></td>
     </tr>
     <tr>
       <th>plot_a</th>
-      <td><p>a ggplot object resulting from <code><a href='plot_curve.html'>plot_curve()</a></code>.</p></td>
+      <td><p>a ggplot object resulting from <code><a href='plot_curve.html'>plot_curve()</a></code> (or <code><a href='plot_choices.html'>plot_choices()</a></code> respectively).</p></td>
     </tr>
     <tr>
       <th>plot_b</th>
-      <td><p>a ggplot object resulting from <code><a href='plot_choices.html'>plot_choices()</a></code>.</p></td>
+      <td><p>a ggplot object resulting from <code><a href='plot_choices.html'>plot_choices()</a></code> (or <code><a href='plot_curve.html'>plot_curve()</a></code> respectively).</p></td>
     </tr>
     <tr>
       <th>choices</th>
-      <td><p>a vector specifying which analytical choices should be
-plotted. By default, all choices are plotted.</p></td>
+      <td><p>a vector specifying which analytical choices should be plotted. By default, all choices are plotted.</p></td>
     </tr>
     <tr>
       <th>labels</th>
@@ -190,7 +189,7 @@ a descending order. Defaults to FALSE.</p></td>
     </tr>
     <tr>
       <th>null</th>
-      <td><p>Indicate what value represents the null hypothesis (defaults to
+      <td><p>Indicate what value represents the 'null' hypothesis (defaults to
 zero).</p></td>
     </tr>
     <tr>

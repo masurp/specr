@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Estimate all specifications — run_specs" />
-<meta property="og:description" content="This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a &quot;result frame&quot; which includes relevant parameters for each model as well as the analytical choices as factor variables." />
+<meta property="og:description" content="This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. The function returns a tidy tibble which includes relevant model parameters for each specification. The function tidy is used to extract relevant model parameters. Exactly what tidy considers to be a model component varies across models but is usually self-evident." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,13 +135,13 @@
     </div>
 
     <div class="ref-description">
-    <p>This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant parameters for each model as well as the analytical choices as factor variables.</p>
+    <p>This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. The function returns a tidy tibble which includes relevant model parameters for each specification. The function <a href='https://rdrr.io/pkg/broom/man/reexports.html'>tidy</a> is used to extract relevant model parameters. Exactly what tidy considers to be a model component varies across models but is usually self-evident.</p>
     </div>
 
     <pre class="usage"><span class='fu'>run_specs</span>(
   <span class='no'>df</span>,
-  <span class='no'>y</span>,
   <span class='no'>x</span>,
+  <span class='no'>y</span>,
   <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"lm"</span>,
   <span class='kw'>controls</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>subsets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -157,38 +157,38 @@
       <td><p>a data frame that includes all relevant variables</p></td>
     </tr>
     <tr>
-      <th>y</th>
-      <td><p>a vector of the dependent variables</p></td>
+      <th>x</th>
+      <td><p>a vector denoting independent variables</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>a vector of the dependent variables</p></td>
+      <th>y</th>
+      <td><p>a vector denoting the dependent variables</p></td>
     </tr>
     <tr>
       <th>model</th>
-      <td><p>a vector of the type of models that should be estimated.</p></td>
+      <td><p>a vector denoting the model(s) that should be estimated.</p></td>
     </tr>
     <tr>
       <th>controls</th>
-      <td><p>a vector of the control variables that should be included. Defaults to none.</p></td>
+      <td><p>a vector denoting which control variables should be included. Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>subsets</th>
-      <td><p>a list that includes named vectors.</p></td>
+      <td><p>a named list that includes potential subsets that should be evaluated (see examples). Defaults to NULL.</p></td>
     </tr>
     <tr>
       <th>conf.level</th>
-      <td><p>the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to 0.95, which corresponds to a 95 percent confidence interval.</p></td>
+      <td><p>the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to .95, which corresponds to a 95 percent confidence interval.</p></td>
     </tr>
     <tr>
       <th>keep.results</th>
-      <td><p>a logical value indicating whether the complete model object should be kept.</p></td>
+      <td><p>a logical value indicating whether the complete model object should be kept. Defaults to FALSE.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> that includes all specifications and respective parameters created by <a href='https://rdrr.io/pkg/broom/man/reexports.html'>tidy</a>.</p>
+    <p>a <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> that includes all specifications and a tidy summary of model components.</p>
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     
@@ -212,21 +212,21 @@
                                     <span class='kw'>group2</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group2</span>)))
 
 <span class='co'># Check results frame</span>
-<span class='no'>results</span></div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 192 x 12</span><span>
+<span class='no'>results</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 192 x 12</span><span>
 #&gt;    x     y     model controls estimate std.error statistic  p.value conf.low
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> x1    y1    lm    c1 + c2    4.95       0.525    9.43   3.11</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-18</span><span>    3.92 
-#&gt; </span><span style='color: #555555;'> 2</span><span> x2    y1    lm    c1 + c2    6.83       0.321   21.3    1.20</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-57</span><span>    6.20 
-#&gt; </span><span style='color: #555555;'> 3</span><span> x1    y2    lm    c1 + c2   -</span><span style='color: #BB0000;'>0.227</span><span>      0.373   -</span><span style='color: #BB0000;'>0.607</span><span>  5.44</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.961</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> x2    y2    lm    c1 + c2    0.985      0.324    3.04   2.62</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 3</span><span>    0.347
-#&gt; </span><span style='color: #555555;'> 5</span><span> x1    y1    lm    c1         5.53       0.794    6.97   2.95</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-11</span><span>    3.96 
-#&gt; </span><span style='color: #555555;'> 6</span><span> x2    y1    lm    c1         8.07       0.557   14.5    6.90</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-35</span><span>    6.98 
-#&gt; </span><span style='color: #555555;'> 7</span><span> x1    y2    lm    c1         0.046</span><span style='text-decoration: underline;'>1</span><span>     0.466    0.098</span><span style='text-decoration: underline;'>9</span><span> 9.21</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.872</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> x2    y2    lm    c1         1.61       0.394    4.10   5.72</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>- 5</span><span>    0.837
-#&gt; </span><span style='color: #555555;'> 9</span><span> x1    y1    lm    c2         5.15       0.625    8.24   9.95</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-15</span><span>    3.92 
-#&gt; </span><span style='color: #555555;'>10</span><span> x2    y1    lm    c2         6.50       0.466   13.9    5.38</span><span style='color: #555555;'>e</span><span style='color: #BB0000;'>-33</span><span>    5.58 
-#&gt; </span><span style='color: #555555;'># … with 182 more rows, and 3 more variables: conf.high </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #555555;'>, obs </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span style='color: #555555;'>,
-#&gt; #   subsets </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> x1    y1    lm    c1 + c2    4.95       0.525    9.43   3.11</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-18</span><span>    3.92 
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> x2    y1    lm    c1 + c2    6.83       0.321   21.3    1.20</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-57</span><span>    6.20 
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> x1    y2    lm    c1 + c2   -</span><span style='color: #BB0000;'>0.227</span><span>      0.373   -</span><span style='color: #BB0000;'>0.607</span><span>  5.44</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.961</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> x2    y2    lm    c1 + c2    0.985      0.324    3.04   2.62</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 3</span><span>    0.347
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> x1    y1    lm    c1         5.53       0.794    6.97   2.95</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-11</span><span>    3.96 
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> x2    y1    lm    c1         8.07       0.557   14.5    6.90</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-35</span><span>    6.98 
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> x1    y2    lm    c1         0.046</span><span style='text-decoration: underline;'>1</span><span>     0.466    0.098</span><span style='text-decoration: underline;'>9</span><span> 9.21</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 1</span><span>   -</span><span style='color: #BB0000;'>0.872</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> x2    y2    lm    c1         1.61       0.394    4.10   5.72</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 5</span><span>    0.837
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> x1    y1    lm    c2         5.15       0.625    8.24   9.95</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-15</span><span>    3.92 
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> x2    y1    lm    c2         6.50       0.466   13.9    5.38</span><span style='color: #949494;'>e</span><span style='color: #BB0000;'>-33</span><span>    5.58 
+#&gt; </span><span style='color: #949494;'># … with 182 more rows, and 3 more variables: conf.high </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span style='color: #949494;'>, obs </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span style='color: #949494;'>,
+#&gt; #   subsets </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span></div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

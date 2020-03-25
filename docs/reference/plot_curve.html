@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Plot ranked specification curve — plot_curve" />
-<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using ggplot syntax is possible. This plot represents the upper panel in plot_specs()." />
+<meta property="og:description" content="This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using ggplot is possible. This functions creates the upper panel in plot_specs()." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,7 +135,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible. This plot represents the upper panel in <code><a href='plot_specs.html'>plot_specs()</a></code>.</p>
+    <p>This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using <span class="pkg">ggplot</span> is possible. This functions creates the upper panel in <code><a href='plot_specs.html'>plot_specs()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_curve</span>(
@@ -152,7 +152,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code><a href='run_specs.html'>run_specs()</a></code>).</p></td>
+      <td><p>a data frame resulting from <code><a href='run_specs.html'>run_specs()</a></code>.</p></td>
     </tr>
     <tr>
       <th>desc</th>
@@ -182,8 +182,8 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load additional library</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>) <span class='co'># for further customization of the plots</span>
-
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>) <span class='co'># for further customization of the plots</span></div><div class='output co'>#&gt; <span class='message'>Want to understand how all the pieces fit together? Read R for Data</span>
+#&gt; <span class='message'>Science: https://r4ds.had.co.nz/</span></div><div class='input'>
 <span class='co'># Run specification curve analysis</span>
 <span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='kw'>df</span> <span class='kw'>=</span> <span class='no'>example_data</span>,
                      <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),

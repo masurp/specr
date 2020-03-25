@@ -36,7 +36,7 @@
 
 
 <meta property="og:title" content="Create box plots for given analytical choices — plot_summary" />
-<meta property="og:description" content="This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using ggplot syntax is possible." />
+<meta property="og:description" content="This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice. Further customization using ggplot is possible." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -135,7 +135,7 @@
     </div>
 
     <div class="ref-description">
-    <p>This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> syntax is possible.</p>
+    <p>This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice. Further customization using <span class="pkg">ggplot</span> is possible.</p>
     </div>
 
     <pre class="usage"><span class='fu'>plot_summary</span>(<span class='no'>df</span>, <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>))</pre>
@@ -145,7 +145,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>a data frame containing the choices and results of each specification (resulting from <code>run_specs</code>).</p></td>
+      <td><p>a data frame resulting from <code><a href='run_specs.html'>run_specs()</a></code>.</p></td>
     </tr>
     <tr>
       <th>choices</th>
