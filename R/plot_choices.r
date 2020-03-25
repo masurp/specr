@@ -1,6 +1,6 @@
 #' Plot how analytical choices affect results
 #'
-#' This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the lower panel in \code{plot_specs()}.
+#' This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.

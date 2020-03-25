@@ -15,7 +15,7 @@ plot_samplesizes(df, desc = FALSE)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using \pkg{ggplot} is possible.
+This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes).
 }
 \examples{
 # load additional library

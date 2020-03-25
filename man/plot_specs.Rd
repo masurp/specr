@@ -85,8 +85,7 @@ p2 <- plot_choices(results) +
 
 plot_specs(plot_a = p1,    # arguments must be called directly!
            plot_b = p2,
-           rel_height = c(2, 2)) \%>\% class
-
+           rel_height = c(2, 2))
 }
 \seealso{
 \itemize{

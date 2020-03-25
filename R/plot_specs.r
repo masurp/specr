@@ -54,8 +54,7 @@
 #'
 #' plot_specs(plot_a = p1,    # arguments must be called directly!
 #'            plot_b = p2,
-#'            rel_height = c(2, 2)) %>% class
-#'
+#'            rel_height = c(2, 2))
 #'@seealso \itemize{
 #'  \item [plot_curve()] to plot only the specification curve.
 #'  \item [plot_choices()] to plot only the choices panel.

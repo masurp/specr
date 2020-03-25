@@ -1,6 +1,6 @@
 #' Plot sample sizes
 #'
-#' This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using \pkg{ggplot} is possible.
+#' This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes).
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.

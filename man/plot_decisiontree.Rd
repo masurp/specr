@@ -17,7 +17,7 @@ plot_decisiontree(df, label = FALSE, legend = FALSE)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots a simple decision tree that is meant to help understanding how few analytical choices may results in a large number of specifications. It is somewhat useless if the final number of specifications is very high. Further customization using \pkg{ggplot} is possible.
+This function plots a simple decision tree that is meant to help understanding how few analytical choices may results in a large number of specifications. It is somewhat useless if the final number of specifications is very high.
 }
 \examples{
 results <- run_specs(df = example_data,

@@ -30,7 +30,7 @@ plot_curve(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the upper panel in \code{plot_specs()}.
+This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 }
 \examples{
 # load additional library

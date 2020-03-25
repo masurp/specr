@@ -15,7 +15,7 @@ plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice. Further customization using \pkg{ggplot} is possible.
+This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice.
 }
 \examples{
 # run spec analysis

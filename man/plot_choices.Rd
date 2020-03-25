@@ -24,7 +24,7 @@ plot_choices(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the lower panel in \code{plot_specs()}.
+This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
 }
 \examples{
 # Run specification curve analysis

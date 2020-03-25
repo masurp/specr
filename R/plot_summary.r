@@ -1,6 +1,6 @@
 #' Create box plots for given analytical choices
 #'
-#' This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice. Further customization using \pkg{ggplot} is possible.
+#' This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
