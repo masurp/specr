@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_specs.r
 \name{run_specs}
 \alias{run_specs}
-\title{Run specification curve analysis}
+\title{Estimate all specifications}
 \usage{
 run_specs(
   df,

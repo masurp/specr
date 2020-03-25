@@ -2,7 +2,7 @@
 % Please edit documentation in R/summarise_specs.r
 \name{summarise_specs}
 \alias{summarise_specs}
-\title{Summarise specification curve results}
+\title{Summarise specifications}
 \usage{
 summarise_specs(
   df,

@@ -1,4 +1,4 @@
-#' Run specification curve analysis
+#' Estimate all specifications
 #'
 #' This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. It returns a "result frame" which includes relevant parameters for each model as well as the analytical choices as factor variables.
 #'

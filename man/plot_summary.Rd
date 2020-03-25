@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_summary.r
 \name{plot_summary}
 \alias{plot_summary}
-\title{A boxplot summarizing parameters per analytical choice}
+\title{Create box plots for given analytical choices}
 \usage{
 plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 }
@@ -15,7 +15,7 @@ plot_summary(df, choices = c("x", "y", "model", "controls", "subsets"))
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to \code{summarise_specs}, it can be used to investigate individual choices (but visually). Further customization using \link[ggplot2]{ggplot} syntax is possible.
+This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 # run spec analysis
@@ -28,4 +28,7 @@ results <- run_specs(example_data,
 
 # plot boxplot comparing specific choices
 plot_summary(results, choices = c("subsets", "controls", "y"))
+}
+\seealso{
+\code{\link[=summarise_specs]{summarise_specs()}} to investigate the affect of analytical choices in more detail.
 }

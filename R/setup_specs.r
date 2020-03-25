@@ -1,6 +1,6 @@
-#' Create result frame with all specifications
+#' Set up specifications
 #'
-#' This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with [run_specs()].
+#' This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within [run_specs()].
 #'
 #' @param x a vector of the independent variables
 #' @param y a vector of the dependent variables

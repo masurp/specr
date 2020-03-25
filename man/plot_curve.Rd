@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_curve.r
 \name{plot_curve}
 \alias{plot_curve}
-\title{Plot specification curve}
+\title{Plot ranked specification curve}
 \usage{
 plot_curve(
   df,
@@ -30,7 +30,7 @@ plot_curve(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. The function \code{\link[=plot_specs]{plot_specs()}} uses this function to create the overall plot. One can, however, use this function to customize parts of the overall specification curve plot more specifically.
+This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. This plot represents the upper panel in \code{plot_specs()}.
 }
 \examples{
 # load additional library

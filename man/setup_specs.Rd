@@ -2,7 +2,7 @@
 % Please edit documentation in R/setup_specs.r
 \name{setup_specs}
 \alias{setup_specs}
-\title{Create result frame with all specifications}
+\title{Set up specifications}
 \usage{
 setup_specs(x, y, model, controls = NULL)
 }
@@ -19,7 +19,7 @@ setup_specs(x, y, model, controls = NULL)
 a \link[tibble:tibble-package]{tibble} that includes all combinations of determined analytical choices.
 }
 \description{
-This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called with \code{\link[=run_specs]{run_specs()}}.
+This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within \code{\link[=run_specs]{run_specs()}}.
 }
 \examples{
 setup_specs(y = c("y1"),

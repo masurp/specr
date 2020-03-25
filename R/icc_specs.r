@@ -1,6 +1,6 @@
 #' Compute intraclass correlation coefficient
 #'
-#' This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It is included in this package because it can be interesting to decompose the variance of a specification curve. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).
+#' This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).
 #'
 #' @param model a multilevel model that captures the variances of the specification curve (resulting from [run_specs()]).
 #' @param percent a logical value indicating whether the icc should also be printed as percentage.

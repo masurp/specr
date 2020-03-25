@@ -1,4 +1,4 @@
-#' Summarise specification curve results
+#' Summarise specifications
 #'
 #' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.
 #'

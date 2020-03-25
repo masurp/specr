@@ -1,6 +1,6 @@
-#' A boxplot summarizing parameters per analytical choice
+#' Create box plots for given analytical choices
 #'
-#' This function provides a convenient way to investigate the effect of individual choices on the estimate of interest. Similar to \code{summarise_specs}, it can be used to investigate individual choices (but visually). Further customization using \link[ggplot2]{ggplot} syntax is possible.
+#' This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) of the given analytical choices. Further customization using \link[ggplot2]{ggplot} syntax is possible.
 #'
 #' @param df a data frame containing the choices and results of each specification (resulting from \code{run_specs}).
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
@@ -20,6 +20,7 @@
 #'
 #' # plot boxplot comparing specific choices
 #' plot_summary(results, choices = c("subsets", "controls", "y"))
+#' @seealso [summarise_specs()] to investigate the affect of analytical choices in more detail.
 plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
   value <- key <- NULL

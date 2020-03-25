@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_variance.r
 \name{plot_variance}
 \alias{plot_variance}
-\title{Plot variance components of the specification curve}
+\title{Plot variance decomposition}
 \usage{
 plot_variance(model)
 }
@@ -13,7 +13,7 @@ plot_variance(model)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions plots a simple bar plot that visually displays how much variance each analytical choice explains in the specification curve. It uses \code{\link[=icc_specs]{icc_specs()}} to compute the intraclass correlation coefficient (ICC) and then creates the bar plot (see examples and vignettes). Further customization using \link[ggplot2]{ggplot} syntax is possible.
+This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coeficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses \code{\link[=icc_specs]{icc_specs()}} to compute the intraclass correlation coefficients (ICCs) which provides the data basis for the plot (see examples and vignettes). Further customization using \link[ggplot2]{ggplot} syntax is possible.
 }
 \examples{
 # Step 1: Run spec curve analysis
