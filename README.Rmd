@@ -38,11 +38,11 @@ There are also some vignettes that exemplify and explain specific aspects and fu
 - [Getting started](https://masurp.github.io/specr/articles/specr.html): A comprehensive example. This vignette illustrates the major functions of the package. 
 - [Customizing specification curve plots](https://masurp.github.io/specr/articles/custom-plot.html): This vignette exemplifies various ways to plot the specification curve. 
 - [Decomposing the variance of the specification curve](https://masurp.github.io/specr/articles/decompose_var.html): An example of how to investigate variance components of the specification curve.
-- [Visualizing progress during estimation](https://masurp.github.io/specr/articles/progress.html): This vignette explains how to create a customizable progress bar for longer computations.
+- [Visualizing progress during estimation](https://masurp.github.io/specr/articles/progress.html): This vignette explains how to create a progress bar for longer computations.
 
 ## Disclaimer
 
-We do see a lot of value in investigating how analytical choices affect a statistical outcome of interest. However, we strongly caution against using `specr` as a tool to somehow arrive at a better estimate. Running a specification curve analysis does not make your findings any more reliable, valid or generalizable than a single analyis. The method is only meant to inform about the effects of analytical choices on results, and not a better way to estimate a correlation or effect.
+We do see a lot of value in investigating how analytical choices affect a statistical outcome of interest. However, we strongly caution against using `specr` as a tool to somehow arrive at a better estimate. Running a specification curve analysis does not make your findings any more reliable, valid or generalizable than a single analysis. The method is only meant to inform about the effects of analytical choices on results, and not a better way to estimate a correlation or effect.
 
 ## Installation
 
@@ -83,6 +83,6 @@ citation("specr")
 
 ## References
 
-Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications.* Available at: http://dx.doi.org/10.2139/ssrn.2694998
+Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications.* Available at: https://doi.org/10.2139/ssrn.2694998
 
 Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. *Perspectives on Psychological Science*, 11(5), 702-712. https://doi.org/10.1177/1745691616658637

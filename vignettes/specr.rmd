@@ -40,7 +40,7 @@ head(example_data)
 summary(example_data)
 ```
 
-There are several numeric variables. In this exampkle, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
+There are several numeric variables. In this example, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. 
 
 ## 2. Define analytical choices
 
@@ -113,7 +113,7 @@ summarise_specs(results,
 
 The output contains summary statistics such as the median, the median absolute deviation, ... as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results (e.g., the p-value).
 
-However, in order to grasp how the different analytical choices affect the outcome of interest (in this case, the estimate refers to the unstandarized regression coefficient *b*), it is reasonable to plot a specification curve. The function `plot_specs()` to produces the typical visualization of the specification curve and how the analytical choices affected the obtained results. 
+However, in order to grasp how the different analytical choices affect the outcome of interest (in this case, the estimate refers to the unstandardized regression coefficient *b*), it is reasonable to plot a specification curve. The function `plot_specs()` to produces the typical visualization of the specification curve and how the analytical choices affected the obtained results. 
 
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 # Plot specification curve analysis

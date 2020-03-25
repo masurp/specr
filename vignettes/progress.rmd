@@ -55,7 +55,7 @@ results <- run_specs(example_data,
 
 ```
 
-The console will show a progress bar during estimation. For more information and additional customizations of the progress bar, see the [documentation](https://github.com/r-lib/progress) of the package `progress`. 
+The console will show a progress bar during estimation. For more information, see the [documentation](https://github.com/r-lib/progress) of the package `progress`. 
 
 ```{r, eval=F}
 [==========================================================-------------]  81% (156/192) Finished in 1s

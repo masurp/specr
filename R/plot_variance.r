@@ -1,6 +1,6 @@
 #' Plot variance decomposition
 #'
-#' This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coeficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses [icc_specs()] to compute the intraclass correlation coefficients (ICCs), which provides the data basis for the plot (see examples).
+#' This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coefficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses [icc_specs()] to compute the intraclass correlation coefficients (ICCs), which provides the data basis for the plot (see examples).
 #'
 #' @param model a multilevel model that captures the variances of the specification curve (based on the data frame resulting from \code{run_specs}).
 #'
@@ -22,7 +22,7 @@
 #' # Step 3: Plot model
 #' plot_variance(model)
 #'
-#' @seealso [icc_specs()] to produce a tibble that details the variance decomposion.
+#' @seealso [icc_specs()] to produce a tibble that details the variance decomposition.
 plot_variance <- function(model) {
 
   icc_specs(model) %>%

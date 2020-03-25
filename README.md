@@ -47,8 +47,8 @@ aspects and functions of the package:
     specification curve.
   - [Visualizing progress during
     estimation](https://masurp.github.io/specr/articles/progress.html):
-    This vignette explains how to create a customizable progress bar for
-    longer computations.
+    This vignette explains how to create a progress bar for longer
+    computations.
 
 ## Disclaimer
 
@@ -56,7 +56,7 @@ We do see a lot of value in investigating how analytical choices affect
 a statistical outcome of interest. However, we strongly caution against
 using `specr` as a tool to somehow arrive at a better estimate. Running
 a specification curve analysis does not make your findings any more
-reliable, valid or generalizable than a single analyis. The method is
+reliable, valid or generalizable than a single analysis. The method is
 only meant to inform about the effects of analytical choices on results,
 and not a better way to estimate a correlation or effect.
 
@@ -120,7 +120,7 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.1.1)},
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2019},
 #>     url = {https://github.com/masurp/specr},
@@ -131,7 +131,7 @@ citation("specr")
 
 Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification
 Curve: Descriptive and Inferential Statistics for all Plausible
-Specifications.* Available at: <http://dx.doi.org/10.2139/ssrn.2694998>
+Specifications.* Available at: <https://doi.org/10.2139/ssrn.2694998>
 
 Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016).
 Increasing Transparency Through a Multiverse Analysis. *Perspectives on

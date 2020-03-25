@@ -9,7 +9,7 @@ icc_specs(model, percent = TRUE)
 \arguments{
 \item{model}{a multilevel (i.e., mixed effects) model that captures the variances of the specification curve.}
 
-\item{percent}{a logical value indicating whether the icc should also be printed as percentage. Defaults to TRUE.}
+\item{percent}{a logical value indicating whether the ICC should also be printed as percentage. Defaults to TRUE.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble} including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.
@@ -33,7 +33,7 @@ icc_specs(model)
 }
 \references{
 \itemize{
-\item Hox, J. J. (2010). Multilevel analysis: techniques and applications (2nd ed). New York: Routledge.
+\item Hox, J. J. (2010). Multilevel analysis: techniques and applications. New York: Routledge.
 }
 }
 \seealso{

@@ -13,7 +13,7 @@ plot_variance(model)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coeficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses \code{\link[=icc_specs]{icc_specs()}} to compute the intraclass correlation coefficients (ICCs), which provides the data basis for the plot (see examples).
+This functions creates a simple barplot that visually displays how much variance in the outcome (e.g., the regression coefficient) different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes). This function uses \code{\link[=icc_specs]{icc_specs()}} to compute the intraclass correlation coefficients (ICCs), which provides the data basis for the plot (see examples).
 }
 \examples{
 # Step 1: Run spec curve analysis
@@ -31,5 +31,5 @@ plot_variance(model)
 
 }
 \seealso{
-\code{\link[=icc_specs]{icc_specs()}} to produce a tibble that details the variance decomposion.
+\code{\link[=icc_specs]{icc_specs()}} to produce a tibble that details the variance decomposition.
 }

@@ -62,7 +62,7 @@ We can see that `r icc_specs(m1)[3,4] %>% round(1)`\% of the variance in the obt
 
 ## 4. Plot variance components
 
-Second, we can alternatively use the function `plot_variance()` to obtain a visualization. The function calls `icc_specs()` automatically. We can hence pass the multilevel results object directly. Further customizations via the ggplot2 is possible.
+Second, we can alternatively use the function `plot_variance()` to obtain a visualization. The function calls `icc_specs()` automatically. We can hence pass the multilevel results object directly. Further customization via ggplot2 is possible.
 
 ```{r, message = F, warnings = F}
 plot_variance(m1) +
