@@ -34,7 +34,7 @@ results <- run_specs(example_data,
 
 We can think of the specification curve analysis as a factorial design in which we investigate the influence of different types of analytical choices on a resulting coefficient or test statistic. One way to investigate these effects is to ask how much variance in the specification curve is explained by which analytical choice (or combination of analytical choices).
 
-In a first step, we estimate a simple multilevel model without predictors (a so-called null model) with specific random effects that represent the analytical choices. We can used the function `lmer()` from the package [lme4](https://cran.r-project.org/web/packages/lme4/index.html) for the estimation. 
+In a first step, we estimate a simple multilevel model without predictors (a so-called null model) with specific random effects that represent the analytical choices. We can used the function `lmer()` from the package [lme4](https://cran.r-project.org/package=lme4) for the estimation. 
 
 ```{r, message = F, warnings = F}
 # Package to estimate multilevel models
