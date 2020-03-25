@@ -20,14 +20,13 @@ plot_specs(
 )
 }
 \arguments{
-\item{df}{data frame resulting from \code{run_specs()}.}
+\item{df}{a data frame resulting from \code{run_specs()}.}
 
-\item{plot_a}{a ggplot object resulting from \code{plot_curve()}.}
+\item{plot_a}{a ggplot object resulting from \code{plot_curve()} (or \code{plot_choices()} respectively).}
 
-\item{plot_b}{a ggplot object resulting from \code{plot_choices()}.}
+\item{plot_b}{a ggplot object resulting from \code{plot_choices()} (or \code{plot_curve()} respectively).}
 
-\item{choices}{a vector specifying which analytical choices should be
-plotted. By default, all choices are plotted.}
+\item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 
 \item{labels}{labels for the two parts of the plot}
 
@@ -36,7 +35,7 @@ plotted. By default, all choices are plotted.}
 \item{desc}{logical value indicating whether the curve should the arranged in
 a descending order. Defaults to FALSE.}
 
-\item{null}{Indicate what value represents the null hypothesis (defaults to
+\item{null}{Indicate what value represents the 'null' hypothesis (defaults to
 zero).}
 
 \item{ci}{logical value indicating whether confidence intervals should be
@@ -58,7 +57,7 @@ a \link[ggplot2]{ggplot} object.
 }
 \description{
 This function plots an entire visualization of the specification curve
-analysis.
+analysis. The function uses the entire \link[tibble:tibble-package]{tibble} that is produced by \code{run_specs()} to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects to the function. In this case, it simply combines them using \code{cowplot::plot_grid}. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).
 }
 \examples{
 # load additional library

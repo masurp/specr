@@ -13,13 +13,13 @@ summarise_specs(
 )
 }
 \arguments{
-\item{df}{a data frame containing the choices and results of each specification (resulting from \code{\link[=run_specs]{run_specs()}}).}
+\item{df}{a data frame resulting from \code{run_specs()}.}
 
-\item{...}{one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.}
+\item{...}{one or more grouping variables (e.g., subsets, controls,...) that denote the available analytical choices.}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
 
-\item{stats}{named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.}
+\item{stats}{named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble}.

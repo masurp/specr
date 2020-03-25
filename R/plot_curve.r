@@ -1,8 +1,8 @@
 #' Plot ranked specification curve
 #'
-#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. This plot represents the upper panel in \code{plot_specs()}.
+#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the upper panel in \code{plot_specs()}.
 #'
-#' @param df a data frame containing the choices and results of each specification (resulting from [run_specs()]).
+#' @param df a data frame resulting from \code{run_specs()}.
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be plotted.

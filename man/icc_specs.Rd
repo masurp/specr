@@ -7,15 +7,15 @@
 icc_specs(model, percent = TRUE)
 }
 \arguments{
-\item{model}{a multilevel model that captures the variances of the specification curve (resulting from \code{\link[=run_specs]{run_specs()}}).}
+\item{model}{a multilevel (i.e., mixed effects) model that captures the variances of the specification curve.}
 
-\item{percent}{a logical value indicating whether the icc should also be printed as percentage.}
+\item{percent}{a logical value indicating whether the icc should also be printed as percentage. Defaults to TRUE.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble} including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.
 }
 \description{
-This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples and vignettes).
+This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples).
 }
 \examples{
 # Step 1: Run spec curve analysis

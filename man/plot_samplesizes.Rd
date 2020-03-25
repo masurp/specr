@@ -7,7 +7,7 @@
 plot_samplesizes(df, desc = FALSE)
 }
 \arguments{
-\item{df}{a data frame or tibble containing the choices and results of each specification (resulting from \code{\link[=run_specs]{run_specs()}}).}
+\item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
@@ -15,7 +15,7 @@ plot_samplesizes(df, desc = FALSE)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using \link[ggplot2]{ggplot} syntax is possible.
+This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes). Further customization using \pkg{ggplot} is possible.
 }
 \examples{
 # load additional library

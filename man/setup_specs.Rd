@@ -7,19 +7,19 @@
 setup_specs(x, y, model, controls = NULL)
 }
 \arguments{
-\item{x}{a vector of the independent variables}
+\item{x}{a vector denoting independent variables}
 
-\item{y}{a vector of the dependent variables}
+\item{y}{a vector denoting the dependent variables}
 
-\item{model}{a vector of the type of models that should be estimated}
+\item{model}{a vector denoting the model(s) that should be estimated.}
 
-\item{controls}{a vector of the control variables that should be included. Defaults to none.}
+\item{controls}{a vector of the control variables that should be included. Defaults to NULL.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble} that includes all combinations of determined analytical choices.
+a \link[tibble:tibble-package]{tibble} that includes all possible specifications based on combinations of the analytical choices.
 }
 \description{
-This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within \code{\link[=run_specs]{run_specs()}}.
+This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within \code{\link[=run_specs]{run_specs()}}, which estimates all specified models based on the data that are provided.
 }
 \examples{
 setup_specs(y = c("y1"),

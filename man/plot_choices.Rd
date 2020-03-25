@@ -12,19 +12,19 @@ plot_choices(
 )
 }
 \arguments{
-\item{df}{a data frame containing the choices and results of each specification (resulting from \code{run_specs()}).}
+\item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
-\item{null}{Indicate what value represents the null hypothesis (Defaults to zero).}
+\item{null}{Indicate what value represents the 'null' hypothesis (Defaults to zero).}
 }
 \value{
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. This plot represents the lower panel in \code{plot_specs()}.
+This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the lower panel in \code{plot_specs()}.
 }
 \examples{
 # Run specification curve analysis

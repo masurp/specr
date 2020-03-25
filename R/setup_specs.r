@@ -1,13 +1,13 @@
 #' Set up specifications
 #'
-#' This function creates a tibble that includes all possible specifications based on different dependent and independent variables, different types of models, and different control variables. This function can be used to check the combinations of analytical choices. Otherwise, the function is called within [run_specs()].
+#' This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within [run_specs()], which estimates all specified models based on the data that are provided.
 #'
-#' @param x a vector of the independent variables
-#' @param y a vector of the dependent variables
-#' @param model a vector of the type of models that should be estimated
-#' @param controls a vector of the control variables that should be included. Defaults to none.
+#' @param y a vector denoting the dependent variables
+#' @param x a vector denoting independent variables
+#' @param model a vector denoting the model(s) that should be estimated.
+#' @param controls a vector of the control variables that should be included. Defaults to NULL.
 #'
-#' @return a [tibble][tibble::tibble-package] that includes all combinations of determined analytical choices.
+#' @return a [tibble][tibble::tibble-package] that includes all possible specifications based on combinations of the analytical choices.
 #' @export
 #'
 #' @examples

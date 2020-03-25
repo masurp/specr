@@ -2,10 +2,10 @@
 #'
 #' This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.
 #'
-#' @param df a data frame containing the choices and results of each specification (resulting from [run_specs()]).
-#' @param ... one or more grouping variables (e.g., subsets, controls,...) that denote the avaibale analytical choices.
+#' @param df a data frame resulting from \code{run_specs()}.
+#' @param ... one or more grouping variables (e.g., subsets, controls,...) that denote the available analytical choices.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
-#' @param stats named vector or named list of summary functions (customized summary functions can used). If it is not named, placeholder (e.g., "fn1") will be used as column names.
+#' @param stats named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.
 #'
 #' @return a [tibble][tibble::tibble-package].
 #'

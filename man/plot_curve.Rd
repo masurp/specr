@@ -14,7 +14,7 @@ plot_curve(
 )
 }
 \arguments{
-\item{df}{a data frame containing the choices and results of each specification (resulting from \code{\link[=run_specs]{run_specs()}}).}
+\item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
@@ -30,7 +30,7 @@ plot_curve(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots the a ranked specification curve. Confidence intervals can be included. Significant specifications are highlighted. Further customization using \link[ggplot2]{ggplot} syntax is possible. This plot represents the upper panel in \code{plot_specs()}.
+This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). Further customization using \pkg{ggplot} is possible. This functions creates the upper panel in \code{plot_specs()}.
 }
 \examples{
 # load additional library

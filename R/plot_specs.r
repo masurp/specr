@@ -1,13 +1,12 @@
 #' Plot specification curve and analytical choices
 #'
 #' This function plots an entire visualization of the specification curve
-#' analysis.
+#' analysis. The function uses the entire [tibble][tibble::tibble-package] that is produced by \code{run_specs()} to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects to the function. In this case, it simply combines them using \code{cowplot::plot_grid}. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).
 #'
-#' @param df data frame resulting from \code{run_specs()}.
-#' @param plot_a a ggplot object resulting from \code{plot_curve()}.
-#' @param plot_b a ggplot object resulting from \code{plot_choices()}.
-#' @param choices a vector specifying which analytical choices should be
-#'   plotted. By default, all choices are plotted.
+#' @param df a data frame resulting from \code{run_specs()}.
+#' @param plot_a a ggplot object resulting from \code{plot_curve()} (or \code{plot_choices()} respectively).
+#' @param plot_b a ggplot object resulting from \code{plot_choices()} (or \code{plot_curve()} respectively).
+#' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param labels labels for the two parts of the plot
 #' @param rel_heights vector indicating the relative heights of the plot.
 #' @param desc logical value indicating whether the curve should the arranged in
@@ -16,7 +15,7 @@
 #'   plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be
 #'   plotted.
-#' @param null Indicate what value represents the null hypothesis (defaults to
+#' @param null Indicate what value represents the 'null' hypothesis (defaults to
 #'   zero).
 #' @param sample_perc numeric value denoting what percentage of the
 #'   specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
