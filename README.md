@@ -7,7 +7,9 @@
 
 </div>
 
-# specr - Statistical Functions for Specification Curve Analyses
+# specr
+
+#### Conducting and Visualizing Specification Curve Analyses
 
 <!-- badges: start -->
 
