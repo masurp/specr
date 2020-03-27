@@ -35,7 +35,6 @@ plot_choices <- function(df,
 
   df %>%
     format_results(desc = desc, null = null) %>%
-    dplyr::mutate(controls = ifelse(grepl("[+]", .data$controls), "all covariates", .data$controls)) %>%
     tidyr::gather(key, value, choices) %>%
     dplyr::mutate(key = factor(.data$key, levels = choices)) %>%
     ggplot(aes(x = .data$specifications,
