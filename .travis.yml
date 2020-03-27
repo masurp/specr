@@ -6,6 +6,6 @@ cache: packages
 matrix:
   include:
     - os: linux
-      dist: release
+      r: release
     - os: linux
-      dist: devel
+      r: devel
