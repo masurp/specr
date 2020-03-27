@@ -9,17 +9,17 @@
 
 # specr
 
-#### Conducting and Visualizing Specification Curve Analyses
-
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
+[![Travis build
+status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci.org/masurp/specr)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-## Overview
+### Conducting and Visualizing Specification Curve Analyses
 
 The goal of specr is to facilitate specification curve analyses
 (Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
@@ -52,7 +52,7 @@ aspects and functions of the package:
     This vignette explains how to create a progress bar for longer
     computations.
 
-## Disclaimer
+### Disclaimer
 
 We do see a lot of value in investigating how analytical choices affect
 a statistical outcome of interest. However, we strongly caution against
@@ -62,9 +62,15 @@ reliable, valid or generalizable than a single analysis. The method is
 only meant to inform about the effects of analytical choices on results,
 and not a better way to estimate a correlation or effect.
 
-## Installation
+### Installation
 
-You can install the development version from
+Install specr from CRAN:
+
+``` r
+install.packages("specr")
+```
+
+Or install the most recent development version from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -72,7 +78,7 @@ You can install the development version from
 devtools::install_github("masurp/specr")
 ```
 
-## Simple example
+### Usage
 
 Using `specr` is comparatively simple. The main function is
 `run_specs()` in which analytical choices are specified as arguments.
@@ -108,7 +114,7 @@ plot_specs(results, choices = c("x", "y", "controls", "subsets"))
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
 
-## How to cite this package
+### How to cite this package
 
 ``` r
 citation("specr")
@@ -122,14 +128,14 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.0)},
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1.9000)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2019},
 #>     url = {https://github.com/masurp/specr},
 #>   }
 ```
 
-## References
+### References
 
 Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification
 Curve: Descriptive and Inferential Statistics for all Plausible
