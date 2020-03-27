@@ -9,7 +9,3 @@ matrix:
       dist: release
     - os: linux
       dist: devel
-    - os: windos
-      dist: release
-    - os: windos
-      dist: devel
