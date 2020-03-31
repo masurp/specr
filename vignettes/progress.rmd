@@ -24,7 +24,7 @@ library(specr)
 # Set up specific lm function
 linear <- function(formula, data) {
   pb$tick()
-  glm(formula = formula, data = data, family = gaussian(link = "identity"))
+  lm(formula = formula, data = data)
 }
 ```
 
