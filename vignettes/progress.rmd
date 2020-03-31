@@ -18,7 +18,7 @@ When a specification curve analysis requires the estimation of several thousand 
 
 To run the specification curve with a progress bar, we need to include `pb$tick()` in the model function. 
 
-```{r}
+```{r, message = F, warning = F}
 library(specr)
 
 # Set up specific lm function
