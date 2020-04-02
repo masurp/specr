@@ -7,7 +7,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette exemplifies different ways to plot the specification curve. For most cases, the function `plot_specs()` takes care of the overall process. However, more specific customization is possible if we use the more specific functions `plot_curve()` and `plot_choices`. Furthermore, we can extend the overall plot with the additional function `plot_samplesizes()`. All of these functions produce objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html) that can be customized further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html).
+This vignette exemplifies different ways to plot the specification curve. For most cases, the function `plot_specs()` takes care of the overall process. However, more specific customization is possible if we use the more specific functions `plot_curve()` and `plot_choices`. Furthermore, we can extend the overall plot with the additional function `plot_samplesizes()`. All of these functions produce objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html) that can be customized further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html)..
 
 
 ## 1. Run the specification curve analysis
