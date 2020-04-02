@@ -1,11 +1,16 @@
 
 # create regression formula based on setup_specs
-create_formula <- function(x, y, controls, ...) {
+create_formula <- function(x, y, controls, random_groups, ...) {
 
   if (controls == "no covariates") controls <- 1
-  paste(y, "~", x, "+", controls)
+  formula <- paste(y, "~", x, "+", controls)
 
+  if (random_groups != "none") {
+    formula <- paste0(formula, " + (1|", random_groups, ")")
+  }
+  return(formula)
 }
+
 
 # run individual specification
 run_spec <- function(specs, df, conf.level, keep.results = FALSE) {

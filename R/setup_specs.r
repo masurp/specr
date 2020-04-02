@@ -6,6 +6,7 @@
 #' @param x a vector denoting independent variables
 #' @param model a vector denoting the model(s) that should be estimated.
 #' @param controls a vector of the control variables that should be included. Defaults to NULL.
+#' @param random_groups a character value denoting a potential grouping variable (e.g., when multilevel models should be specified). Works only when functions such as [lmer()] or [glmer()] are passed to [run_specs()].
 #'
 #' @return a [tibble][tibble::tibble-package] that includes all possible specifications based on combinations of the analytical choices.
 #' @export
@@ -20,7 +21,8 @@
 setup_specs <- function(x,
                         y,
                         model,
-                        controls = NULL) {
+                        controls = NULL,
+                        random_groups = NULL) {
 
   # create controls variables
   if (!rlang::is_null(controls)) {
@@ -35,10 +37,14 @@ setup_specs <- function(x,
     controls <- "no covariates"
 
   }
+
+  if (rlang::is_null(random_groups)) random_groups <- "none"
+
   # Expand to all possible combinations
   expand.grid(x = x,
               y = y,
               model = model,
+              random_groups = random_groups,
               controls = controls) %>%
     dplyr::mutate_all(as.character) %>%
     as_tibble

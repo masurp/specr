@@ -4,7 +4,7 @@
 \alias{setup_specs}
 \title{Set up specifications}
 \usage{
-setup_specs(x, y, model, controls = NULL)
+setup_specs(x, y, model, controls = NULL, random_groups = NULL)
 }
 \arguments{
 \item{x}{a vector denoting independent variables}
@@ -14,6 +14,8 @@ setup_specs(x, y, model, controls = NULL)
 \item{model}{a vector denoting the model(s) that should be estimated.}
 
 \item{controls}{a vector of the control variables that should be included. Defaults to NULL.}
+
+\item{random_groups}{a character value denoting a potential grouping variable (e.g., when multilevel models should be specified). Works only when functions such as \code{\link[=lmer]{lmer()}} or \code{\link[=glmer]{glmer()}} are passed to \code{\link[=run_specs]{run_specs()}}.}
 }
 \value{
 a \link[tibble:tibble-package]{tibble} that includes all possible specifications based on combinations of the analytical choices.

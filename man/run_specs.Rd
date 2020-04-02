@@ -10,6 +10,7 @@ run_specs(
   y,
   model = "lm",
   controls = NULL,
+  random_groups = NULL,
   subsets = NULL,
   conf.level = 0.95,
   keep.results = FALSE
@@ -25,6 +26,8 @@ run_specs(
 \item{model}{a vector denoting the model(s) that should be estimated.}
 
 \item{controls}{a vector denoting which control variables should be included. Defaults to NULL.}
+
+\item{random_groups}{a character value denoting a potential grouping variable (e.g., when multilevel models should be specified). Works only when functions such as \code{\link[=lmer]{lmer()}} or \code{\link[=glmer]{glmer()}} are passed to \code{\link[=run_specs]{run_specs()}}. Defaults to NULL.}
 
 \item{subsets}{a named list that includes potential subsets that should be evaluated (see examples). Defaults to NULL.}
 
