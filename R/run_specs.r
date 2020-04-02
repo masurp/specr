@@ -38,6 +38,7 @@ run_specs <- function(df,
                       y,
                       model = "lm",
                       controls = NULL,
+                      random_var_components = NULL,
                       subsets = NULL,
                       conf.level = 0.95,
                       keep.results = FALSE) {
@@ -53,7 +54,8 @@ run_specs <- function(df,
   specs <- setup_specs(y = y,
                        x = x,
                        model = model,
-                       controls = controls)
+                       controls = controls,
+                       random_var_components = random_var_components)
 
   if (!is.null(subsets)) {
 

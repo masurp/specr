@@ -20,7 +20,8 @@
 setup_specs <- function(x,
                         y,
                         model,
-                        controls = NULL) {
+                        controls = NULL,
+                        random_var_components = NULL) {
 
   # create controls variables
   if (!rlang::is_null(controls)) {
@@ -35,11 +36,27 @@ setup_specs <- function(x,
     controls <- "no covariates"
 
   }
+  
+  # create random var comp variables
+  if (!rlang::is_null(random_var_components)) {
+    random_var_components <- list(random_var_components %>%
+                                    paste(collapse = " + "),
+                                  purrr::map(1:length(random_var_components),
+                                             ~ random_var_components[[.x]])) %>%
+      unlist
+    
+  } else {
+    
+    random_var_components <- "no random variance components"
+    
+  }
+  
   # Expand to all possible combinations
   expand.grid(x = x,
               y = y,
               model = model,
-              controls = controls) %>%
+              controls = controls,
+              random_var_components = random_var_components) %>%
     dplyr::mutate_all(as.character) %>%
     as_tibble
 }

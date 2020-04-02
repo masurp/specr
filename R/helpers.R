@@ -1,10 +1,10 @@
 
 # create regression formula based on setup_specs
-create_formula <- function(x, y, controls, ...) {
-
+create_formula <- function(x, y, controls, random_var_components, ...) {
+  
   if (controls == "no covariates") controls <- 1
-  paste(y, "~", x, "+", controls)
-
+  if(random_var_components == "no random variance components") random_var_components <- 1
+  paste(y, "~", x, "+", controls, "+",random_var_components)
 }
 
 # run individual specification
