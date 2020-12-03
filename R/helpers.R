@@ -1,15 +1,21 @@
 
 # create regression formula based on setup_specs
-create_formula <- function(x, y, controls, ...) {
+create_formula <- function(x,
+                           y,
+                           controls,
+                           ...) {
 
   if (controls == "no covariates") controls <- 1
   paste(y, "~", x, "+", controls)
 
 }
 
-# run individual specification
-run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
-
+# run specifications
+run_spec <- function(specs,
+                     df,
+                     conf.level,
+                     keep.results = FALSE) {
+  require(broom)
   results <- specs %>%
     dplyr::mutate(formula = pmap(specs, create_formula)) %>%
     tidyr::unnest(formula) %>%
@@ -18,13 +24,22 @@ run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
                              ~ do.call(.x, list(data = df,
                                                 formula = .y)))) %>%
     dplyr::mutate(coefs = map(.data$res,
-                              broom::tidy,
+                              tidy,
                               conf.int = TRUE,
                               conf.level = conf.level),
-                  obs = map(.data$res, nobs)) %>%
+                  fit = map(res, glance)) %>%
     tidyr::unnest(.data$coefs) %>%
-    tidyr::unnest(.data$obs) %>%
-    dplyr::filter(.data$term == .data$x) %>%
+    tidyr::unnest(.data$fit, names_sep = "_")
+
+  if("op" %in% names(results)) {
+    results <- results %>%
+      dplyr::filter(.data$term == paste(.data$y, "~", .data$x))
+  } else {
+    results <- results %>%
+      dplyr::filter(.data$term == .data$x)
+    }
+
+  results <- results %>%
     dplyr::select(-.data$formula, -.data$term)
 
   if (isFALSE(keep.results)) {
@@ -36,7 +51,8 @@ run_spec <- function(specs, df, conf.level, keep.results = FALSE) {
 }
 
 # creates subsets
-create_subsets <- function(df, subsets) {
+create_subsets <- function(df,
+                           subsets) {
 
   subsets %>%
     stack %>%
@@ -46,20 +62,20 @@ create_subsets <- function(df, subsets) {
 
 
 # formats results
-format_results <- function(df, null = 0, desc = FALSE) {
+format_results <- function(df, var, null = 0, desc = FALSE) {
 
   # rank specs
   if (isFALSE(desc)) {
     df <- df %>%
-      dplyr::arrange(.data$estimate)
+      dplyr::arrange(!! var)
   } else {
     df <- df %>%
-      dplyr::arrange(desc(.data$estimate))
+      dplyr::arrange(desc(!! var))
   }
 
   # create rank variable and color significance
   df <- df %>%
-    dplyr::mutate(specifications = 1:n(),
+    dplyr::mutate(specifications = 1:nrow(df),
                   color = case_when(conf.low > null ~ "#377eb8",
                                     conf.high < null ~ "#e41a1c",
                                     TRUE ~ "darkgrey"))
@@ -72,3 +88,4 @@ names_from_dots <- function(...) {
   sapply(substitute(list(...))[-1], deparse)
 
 }
+
