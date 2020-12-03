@@ -25,6 +25,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
 [![Travis build status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci.org/masurp/specr)
+![](https://cranlogs.r-pkg.org/badges/grand-total/specr)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
@@ -38,7 +39,9 @@ There are also some vignettes that exemplify and explain specific aspects and fu
 
 - [Getting started](https://masurp.github.io/specr/articles/specr.html): A comprehensive example. This vignette illustrates the major functions of the package. 
 - [Customizing specification curve plots](https://masurp.github.io/specr/articles/custom-plot.html): This vignette exemplifies various ways to plot the specification curve. 
-- [Decomposing the variance of the specification curve](https://masurp.github.io/specr/articles/decompose_var.html): An example of how to investigate variance components of the specification curve.
+- [Decomposing the variance of the specification curve](https://masurp.github.io/specr/articles/decompose_var.html): Investigating variance components of the specification curve.
+- [Including latent measurement models](https://masurp.github.io/specr/articles/measurement_models.html): This vignette exemplifies how to include latent measurement models and estimate structural equations models using lavaan. 
+- [Including random effects/Estimate multilevel models](https://masurp.github.io/specr/articles/random_effects.html): This vignette exemplifies how to include random effects and estimate multilevel models using lme4.
 - [Visualizing progress during estimation](https://masurp.github.io/specr/articles/progress.html): This vignette explains how to create a progress bar for longer computations.
 
 ### Disclaimer
