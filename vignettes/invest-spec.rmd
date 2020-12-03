@@ -1,8 +1,8 @@
 ---
-title: "Investigating selected specifications"
+title: "Investigating specific specifications"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Investigating selected specifications}
+  %\VignetteIndexEntry{Investigating specific specifications}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Per default, `run_specs()` summarizes individual specifications by using `broom::tidy()`. For most cases, this provides "good-enough" summaries of the relationship of interest. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by `broom::tidy()` (e.g., r-square, AIC). This vignette shows how to access individual models.
+Per default, `run_specs()` summarizes individual specifications by using `broom.mixed::tidy()` and "broom::glance()". For most cases, this provides "sufficient" summary of the relationship of interest and model characteristics. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by the two functions (e.g., r-square). This vignette shows how to access individual models and extract further information from them.
 
 ## 1. Run specification curve analysis
 
