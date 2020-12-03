@@ -39,7 +39,8 @@
 #' # Unnamed vector instead of named list passed to `stats`
 #' summarise_specs(results,
 #'                 controls,
-#'                 stats = c(mean, median))
+#'                 stats = c(mean = mean,
+#'                           median = median))
 #'
 #' @seealso [plot_summary()] to visually investigate the affect of analytical choices.
 summarise_specs <- function(df,
@@ -68,7 +69,7 @@ summarise_specs <- function(df,
        df %>%
          summary_specs,
        df %>%
-         dplyr::summarize(obs = median(.data$obs))
+         dplyr::summarize(obs = median(.data$fit_nobs))
      )
 
   } else {
@@ -79,7 +80,7 @@ summarise_specs <- function(df,
         summary_specs,
       df %>%
         dplyr::group_by(!!! group_var) %>%
-        dplyr::summarize(obs = median(.data$obs)),
+        dplyr::summarize(obs = median(.data$fit_nobs)),
       by = names_from_dots(...)
     )
   }
