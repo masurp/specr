@@ -1,0 +1,194 @@
+---
+title: "Including latent measurement models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Including latent measurement models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+Sometimes, we may want to estimate relationships between latent variables and we are interested in the effect of different measurement models on the relationship of interest. Because specifically customized model-functions can be passed to `run_specs()` many different model types (including structural equation models, multilevel models...) can be estimated. This vignette exemplifies how to intergrate latent measurement models and estimate structural equations models (SEM).
+
+For this example, we will us the `HolzingerSwineford1939` data set that is included in the `lavaan`-package. We quickly dummy-code the sex variable as we want to include it as a control. 
+
+```{r, message=F, warning = F}
+library(specr)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+library(lavaan)
+
+# Load data and recode
+d <- HolzingerSwineford1939 %>% 
+  mutate(sex = factor(sex)) %>%
+  as_tibble
+
+# Check data
+head(d)
+```
+
+Let's quickly run a simple structural equation model with lavaan. Note that there are seperate regression formulas for the measurement models and the actual regression models in the string that represents the model. The regression formulas follows a similar pattern as formulas in linear models (e.g., using `lm()` or `glm()`) or multilevel models (e.g., using `lme4::lmer()`). This regression formula will automatically be built by the function `run_specs()`. The formulas denoting the measurement model (in this case only one), however, we need to actively paste into the formula string. 
+
+```{r}
+# Model syntax
+model <- "
+  # measures
+  visual  =~ x1 + x2 + x3
+
+  # regressions
+  visual ~ ageyr + grade
+"
+
+sem(model, d)
+```
+
+
+## 1. Defining the customized sem model function
+
+In a first step, we thus need to create a specific function that defines the latent measurement models for the latent measures specified as `x` and `y` in `run_specs()` and incoporate them into a formula that follows the lavaan-syntax. The function needs to have two arguments: a) formula and b) data. The exact function now depends on the purpose and goals of the particular question. 
+
+In this case, we want to include three different latent measurement models for dependent variables. First, we have to define a a *named list* with these measurement models. This is important as the function makes use of the "names". 
+In a second step, we need to exclude the "+ 1" placeholder the specr automatically adds to each formula if no covariates are included (in contrast to `lm()` or `lme4::lmer()`, `lavaan::sem()` does not support such a placeholder). Third, we need to make sure that only those measurement models are integrated which are actually used in the regression formula (it does not matter whether these are independent or control variables). Fourth, we need to paste the remaining measurment models into the formula. Finally, we run the structural equation model (here, additional arguments such as `estimator` could be used).  
+
+```{r}
+sem_custom <- function(formula, data) {
+  
+  require(lavaan)
+  
+  # 1) Define latent variables as a named list
+  latent <- list(visual =  "visual  =~ x1 + x2 + x3",
+                 textual = "textual =~ x4 + x5 + x6",
+                 speed =   "speed   =~ x7 + x8 + x9")
+  
+  # 2) Remove placeholder for no covariates (lavaan does not like "+ 1")
+  formula <- str_remove_all(formula, "\\+ 1")
+  
+  # 3) Check which of the additional measurement models are actually used in the formula
+  valid <- purrr::keep(names(latent), 
+                       ~ stringr::str_detect(formula, .x))
+  
+  # 4) Include measurement models in the formula using lavaan syntax
+  formula <- paste(formula, "\n",
+                   paste(latent[valid], 
+                         collapse = " \n "))
+  
+  # 5) Run SEM with sem function
+  sem(formula, data)
+}
+
+# In short:
+sem_custom <- function(formula, data) {
+  require(lavaan)
+  latent <- list(visual =  "visual  =~ x1 + x2 + x3",
+                 textual = "textual =~ x4 + x5 + x6",
+                 speed =   "speed   =~ x7 + x8 + x9")
+  formula <- stringr::str_remove_all(formula, "\\+ 1")
+  valid <- purrr::keep(names(latent), ~ stringr::str_detect(formula, .x))
+  formula <- paste(formula, "\n", paste(latent[valid], collapse = " \n "))
+  sem(formula, data)
+}
+
+```
+
+
+## 2. Run the specification curve analysis with additional parameters
+
+Now we set up `run_specs()` like we are used to. We only include the new function as model parameter and use the latent variables (see named list in the custom function) as depended variables. We further keep the results (keep.results = T) for the time being. Warning messages may appear if models do not converge or have other issues. 
+
+```{r}
+(results <- run_specs(df = d,
+                      y = c("textual", "visual", "speed"),
+                      x = c("ageyr"),
+                      model = c("sem_custom"),
+                      controls = c("grade"),
+                      subsets = list(sex = unique(d$sex),
+                                     school = unique(d$school)),
+                      keep.results = T))
+```
+
+We know can use the usual functions to plot or summarize the results. 
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Summary across the dependent variables
+summarise_specs(results, y)
+
+# Plot
+plot_specs(results)
+```
+
+## 3. More specific analyses
+
+Bear in mind that `run_specs()` has created entire lavaan objects. As we have kept these objects (by `keep.results = T`), we can retrieve them by looking at the column "res" and e.g., produce the standard summary of lavaan. 
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# First model summarized
+results$res[[1]] %>% 
+  summary(std = T, fit = T)
+```
+
+We can further map typical lavaan-functions onto all models.
+
+```{r}
+results %>%
+  pull(res) %>%
+  map(parameterEstimates) %>%
+  head(3) # first three models
+```
+
+Because the `broom::tidy()` functions also extracts standardized coefficients, we can plot them on top of the unstandarized coefficients with a little bit of extra code.
+
+```{r, fig.height=9, fig.width=9, message=F, warning = F}
+plot_specs(plot_a = plot_curve(results) + 
+           geom_point(aes(y = std.all, alpha = .1, size = 1.25)) +
+           geom_hline(yintercept = 0, linetype = "dashed"),
+           plot_b = plot_choices(results, choices = c("y", "controls", "subsets")))
+```
+
+Some fit indices are already included in the result data frame by default. But we can also extract more specific fit indices (e.g., chi-squared value, srmr...) with a few code lines and plot the distribution across all specifications.  
+
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Looking at included fit indices
+results %>%
+  dplyr::select(x, y, model, controls, subsets, 
+                fit_cfi, fit_tli, fit_rmsea)
+
+# Extract chisq from lavaan objects
+res_chisq <- results %>%
+  mutate(chisq = map(res, function(x) fitmeasures(x)[c("chisq")]),
+         chisq = map_dbl(chisq, 1))
+
+# Create curve plot
+p1 <- plot_curve(res_chisq, chisq, ci = F) +
+  geom_line(aes(x = specifications, y = chisq, color = "black")) +
+  geom_point(size = 2) + # increasing size of points
+  labs(y = "Chi-Squared")
+
+# Create choice panel with chisq arrangement
+p2 <- plot_choices(res_chisq, chisq, choices = c("y", "controls", "subsets"))
+
+# Bind together
+plot_specs(plot_a = p1,
+           plot_b = p2)
+```
+
+We can see that one model fits the data best. With a bit of filtering, we can than investigate this model more specifically. 
+
+```{r}
+results %>%
+  filter(y == "textual" & controls == "no covariates" & subsets == "sex = 1") %>%
+  pull(res) %>%
+  map(summary)
+```
+
+
