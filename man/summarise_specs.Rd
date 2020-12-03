@@ -55,7 +55,8 @@ summarise_specs(results,
 # Unnamed vector instead of named list passed to `stats`
 summarise_specs(results,
                 controls,
-                stats = c(mean, median))
+                stats = c(mean = mean,
+                          median = median))
 
 }
 \seealso{

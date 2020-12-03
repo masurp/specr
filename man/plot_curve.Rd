@@ -6,6 +6,7 @@
 \usage{
 plot_curve(
   df,
+  var = .data$estimate,
   desc = FALSE,
   ci = TRUE,
   ribbon = FALSE,
@@ -15,6 +16,8 @@ plot_curve(
 }
 \arguments{
 \item{df}{a data frame resulting from \code{run_specs()}.}
+
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 

@@ -15,7 +15,6 @@ plot_specs(
   null = 0,
   ci = TRUE,
   ribbon = FALSE,
-  sample_perc = 1,
   ...
 )
 }
@@ -43,12 +42,6 @@ plotted.}
 
 \item{ribbon}{logical value indicating whether a ribbon instead should be
 plotted.}
-
-\item{sample_perc}{numeric value denoting what percentage of the
-specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
-Defaults to 1 (= all specifications). Drawing a sample from all
-specification usually makes only sense of the number of specifications is
-very large and one wants to simplify the visualization.}
 
 \item{...}{additional arguments that can be passed to \code{plot_grid()}.}
 }
