@@ -5,10 +5,10 @@ bibentry(
     bibtype    = "misc",
     title    = title,
     author   = c(person("Philipp K.", "Masur"), person("Michael", "Scharkow")),
-    year     = "2019",
+    year     = "2020",
     url      = "https://CRAN.R-project.org/package=specr",
     textVersion =
-  	paste("Masur, Philipp K. & Scharkow, M. (2019). specr: Conducting and Visualizing Specification Curve Analyses.",
+  	paste("Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and Visualizing Specification Curve Analyses.",
 		"Available from https://CRAN.R-project.org/package=specr."
 		),
 	mheader = "To cite 'specr' in publications use:"
