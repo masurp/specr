@@ -15,7 +15,6 @@ run_spec <- function(specs,
                      df,
                      conf.level,
                      keep.results = FALSE) {
-  require(broom)
   results <- specs %>%
     dplyr::mutate(formula = pmap(specs, create_formula)) %>%
     tidyr::unnest(formula) %>%
@@ -24,10 +23,10 @@ run_spec <- function(specs,
                              ~ do.call(.x, list(data = df,
                                                 formula = .y)))) %>%
     dplyr::mutate(coefs = map(.data$res,
-                              tidy,
+                              broom::tidy,
                               conf.int = TRUE,
                               conf.level = conf.level),
-                  fit = map(res, glance)) %>%
+                  fit = map(.data$res, broom::glance)) %>%
     tidyr::unnest(.data$coefs) %>%
     tidyr::unnest(.data$fit, names_sep = "_")
 
