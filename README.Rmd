@@ -68,6 +68,7 @@ devtools::install_github("masurp/specr")
 Using `specr` is comparatively simple. The main function is `run_specs()` in which analytical choices are specified as arguments. The function `plot_specs()` can then be used to visualize the results.
 
 ```{r, message=F, warning = F, fig.height=10, fig.width=10}
+# Load package
 library(specr)
 
 # Run specs

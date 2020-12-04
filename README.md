@@ -92,6 +92,7 @@ Using `specr` is comparatively simple. The main function is
 The function `plot_specs()` can then be used to visualize the results.
 
 ``` r
+# Load package
 library(specr)
 
 # Run specs
@@ -139,7 +140,7 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.1)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.2)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2020},
 #>     url = {https://CRAN.R-project.org/package=specr},
