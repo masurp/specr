@@ -49,11 +49,11 @@ aspects and functions of the package:
   - [Including latent measurement
     models](https://masurp.github.io/specr/articles/measurement_models.html):
     This vignette exemplifies how to include latent measurement models
-    and estimate structural equations models using lavaan.
+    and estimate structural equations models using `lavaan`.
   - [Including random effects/Estimate multilevel
     models](https://masurp.github.io/specr/articles/random_effects.html):
     This vignette exemplifies how to include random effects and estimate
-    multilevel models using lme4.
+    multilevel models using `lme4`.
   - [Visualizing progress during
     estimation](https://masurp.github.io/specr/articles/progress.html):
     This vignette explains how to create a progress bar for longer
@@ -132,16 +132,16 @@ citation("specr")
 #> 
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Conducting and
+#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
 #>   Visualizing Specification Curve Analyses. Available from
 #>   https://CRAN.R-project.org/package=specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.2)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.1)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2019},
+#>     year = {2020},
 #>     url = {https://CRAN.R-project.org/package=specr},
 #>   }
 ```
