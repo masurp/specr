@@ -1,15 +1,15 @@
 
-title <- sprintf("specr: Statistical functions for conducting specification curve analyses (Version %s)", meta$Version)
+title <- sprintf("specr: Conducting and Visualizing Specification Curve Analyses (Version %s)", meta$Version)
 
 bibentry(
     bibtype    = "misc",
     title    = title,
     author   = c(person("Philipp K.", "Masur"), person("Michael", "Scharkow")),
-    year     = "2019",
-    url      = "https://github.com/masurp/specr",
+    year     = "2020",
+    url      = "https://CRAN.R-project.org/package=specr",
     textVersion =
-  	paste("Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions for conducting specification curve analyses.",
-		"Available from https://github.com/masurp/specr."
+  	paste("Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and Visualizing Specification Curve Analyses.",
+		"Available from https://CRAN.R-project.org/package=specr."
 		),
 	mheader = "To cite 'specr' in publications use:"
 )

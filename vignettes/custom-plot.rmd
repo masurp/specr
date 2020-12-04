@@ -14,7 +14,7 @@ This vignette exemplifies different ways to plot the specification curve. For mo
 
 In order to have some data to work with, we run the minimal example included in the package.
 
-```{r, message = F, warnings = F}
+```{r, message = F, warning = F}
 library(specr)
 library(dplyr)
 library(ggplot2)
@@ -78,7 +78,7 @@ p1 <- plot_curve(results,
   geom_hline(yintercept = 0, 
              linetype = "dashed", 
              color = "black") +
-  ylim(-8, 12) +
+  ylim(-8, 14) +
   labs(x = "", y = "unstandarized regression coefficient") +
   theme_half_open()
 

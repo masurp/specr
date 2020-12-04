@@ -3,6 +3,7 @@
 #' This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes).
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
+#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
 #' @return a \link[ggplot2]{ggplot} object.
@@ -24,19 +25,22 @@
 #' # plot ranked bar chart of sample sizes
 #' plot_samplesizes(results)
 #'
-#' # customize
+#' # add a horizontal line for the median sample size
 #' plot_samplesizes(results) +
-#'   geom_hline(yintercept = median(results$obs),
+#'   geom_hline(yintercept = median(results$fit_nobs),
 #'              color = "darkgrey",
 #'              linetype = "dashed") +
 #'   theme_linedraw()
 plot_samplesizes <- function(df,
+                             var = .data$estimate,
                              desc = FALSE) {
 
+  var <- enquo(var)
+
   df %>%
-    format_results(desc = desc) %>%
+    format_results(var = var, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
-               y = .data$obs)) +
+               y = .data$fit_nobs)) +
     geom_bar(stat = "identity",
              fill = "grey",
              size = .2) +

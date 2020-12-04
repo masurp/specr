@@ -1,0 +1,154 @@
+---
+title: "Including random effects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Including random effects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+Many data are hierarchical and we want to acknowledge the nested structure in our models. Specr can easily estimate such multilevel models. We again have to write a customized function and `run_specs()` will do the rest. 
+
+For this example, we will us the `gapminder` data set that is included in the `gapminder`-package. We quickly recode some variable to get more interpretable estiamtes 
+
+```{r, message=F, warning = F}
+library(specr)
+library(purrr)
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+
+# Recode some variables
+gapminder <- gapminder %>%
+  mutate(gdpPercap_log = log(gdpPercap),
+         pop = pop/1000)
+
+# Check data
+gapminder
+```
+
+## 1. Defining a customatized multilevel function
+
+For this example, we use the package `lme4` and more specifically the function `lmer()` to estimate the multilevel model (more complex models such as poisson or negative binomial multilevel models can likewise be estimated). 
+
+Based on the data set, we want to estimate the relationship between `gdpPercap` (GDP per capita) and `lifeExp` (life expectancy). Both variables are nested within both countries and years. We create several customized lmer-functions that account for different nesting strucrures. 
+
+Several aspects are important to take into account: 
+- You need to load `lavaan` within the function to be able to use `lmer()`
+- You need to load `broom.mixed` as the standard `broom::tidy` function does not work for merMod-objects.
+
+
+```{r}
+# Random intercept model (only country as grouping variable)
+lmer_ri_1 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  formula <- paste(formula, "+ (1|country)")
+  lmer(formula, data)
+}
+
+# Including random slopes (only country as grouping variable)
+lmer_rs_1 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  slopevars <- unlist(strsplit(formula, " ~ "))[2]
+  formula <- paste0(formula, "+ (1 + ", slopevars, "|country)" )
+  lmer(formula, data)
+}
+
+# Random intercept model (lifeExp is nested in both countries and years)
+lmer_ri_2 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  slopevars <- unlist(strsplit(formula, " ~ "))[2]
+  formula <- paste0(formula, "+ (1|country) + (1|year)")
+  lmer(formula, data)
+}
+
+# Including random slopes (intercept and slopes are nested in both countries and years)
+lmer_rs_2 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  slopevars <- unlist(strsplit(formula, " ~ "))[2]
+  formula <- paste0(formula, "+ (1 + ", slopevars, "|country) + (", slopevars, "|year)" )
+  lmer(formula, data)
+}
+```
+
+## 2. Estimate the models
+
+We can now use these function to estimate these models. In this example, we investigate the influence of differnet nesting structure on the fixed effect between GDP per capita and life expectancy.
+
+```{r, message=F, warning = F}
+(results <- run_specs(df = gapminder,
+                      y = c("lifeExp"),
+                      x = c("gdpPercap_log"), 
+                      model = c("lmer_ri_1", "lmer_ri_2", 
+                                "lmer_rs_1", "lmer_rs_2"),
+                      controls = "pop",
+                      keep.results = T))
+```
+
+Like always, we can now inspect the results and plot the specification curve. Unfortunately, the `broom.mixed::glance()` does not extract the number of observations automatically. If we want to use the `summarise_specs()`-function, we thus quickly need to add the observations manually. 
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Inspect results
+results %>%
+  mutate(fit_nobs = map_int(res, nobs)) %>%
+  summarise_specs(y, model, subsets)
+
+# Plot
+plot_specs(results)
+```
+
+## 3. More specific analyses
+
+Bear in mind that `run_specs()` has created entire merMod objects. As we have kept these objects (by `keep.results = T`), we can retrieve them by looking at the column "res" and e.g., produce the standard summary of lme4. 
+
+```{r}
+# First model
+results$res[[1]] %>% 
+  summary
+
+# Fixed effects for all models
+results %>%
+  pull(res) %>%
+  map(fixef) 
+```
+
+To spot difference between models, we can also use the `plot_summary()` function.
+
+```{r, fig.height=5, fig.width=7, message=F, warning = F}
+plot_summary(results, choices = "model")
+```
+
+
+Finally, we can investigate differences in the models by comparing fit indices (e.g., AIC, BIC, deviance...). 
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Create curve plot
+p1 <- plot_curve(results, fit_AIC, ci = F) +
+  geom_line(aes(x = specifications, y = fit_AIC, color = "black")) +
+  geom_point(size = 2) + # increasing size of points
+  labs(y = "AIC")+
+  ylim(6000, 12000)
+
+# Create choice panel with chisq arrangement
+p2 <- plot_choices(results, fit_AIC, choices = c("controls", "model"))
+
+# Bind together
+plot_specs(plot_a = p1,
+           plot_b = p2)
+```
+
+

@@ -4,10 +4,12 @@
 \alias{plot_samplesizes}
 \title{Plot sample sizes}
 \usage{
-plot_samplesizes(df, desc = FALSE)
+plot_samplesizes(df, var = .data$estimate, desc = FALSE)
 }
 \arguments{
 \item{df}{a data frame resulting from \code{run_specs()}.}
+
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
@@ -32,9 +34,9 @@ results <- run_specs(df = example_data,
 # plot ranked bar chart of sample sizes
 plot_samplesizes(results)
 
-# customize
+# add a horizontal line for the median sample size
 plot_samplesizes(results) +
-  geom_hline(yintercept = median(results$obs),
+  geom_hline(yintercept = median(results$fit_nobs),
              color = "darkgrey",
              linetype = "dashed") +
   theme_linedraw()

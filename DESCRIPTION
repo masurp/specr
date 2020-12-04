@@ -1,6 +1,6 @@
 Package: specr
 Title: Conducting and Visualizing Specification Curve Analyses
-Version: 0.2.1.9000
+Version: 0.2.2
 Authors@R: c(
     person(given = "Philipp K.",
            family = "Masur",
@@ -20,16 +20,20 @@ Depends:
     R (>= 3.5.0)
 Imports:
     broom,
+    broom.mixed,
     cowplot,
     dplyr,
+    gapminder,
     ggplot2,
     ggraph,
     glue,
     igraph,
+    lavaan,
     lme4,
     magrittr,
     purrr,
     rlang, 
+    stringr,
     tibble,
     tidyr
 Suggests: 
@@ -42,5 +46,5 @@ Suggests:
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr

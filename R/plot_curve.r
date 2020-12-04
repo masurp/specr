@@ -3,6 +3,7 @@
 #' This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
+#' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be plotted.
@@ -35,17 +36,20 @@
 #'              linetype = "dashed") +
 #'   theme_linedraw()
 plot_curve <- function(df,
+                       var = .data$estimate,
                        desc = FALSE,
                        ci = TRUE,
                        ribbon = FALSE,
                        legend = FALSE,
                        null = 0){
 
+  var <- enquo(var)
+
   # Create basic plot
   plot <- df %>%
-    format_results(desc = desc, null = null) %>%
+    format_results(var = var, null = null, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
-               y = .data$estimate,
+               y = !! var,
                ymin = .data$conf.low,
                ymax = .data$conf.high,
                color = .data$color)) +

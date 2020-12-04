@@ -37,7 +37,8 @@ plot_summary <- function(df,
       theme(legend.position = "none",
             axis.line = element_line("black", size = .5),
             axis.text = element_text(colour = "black"),
-            strip.text.x = element_blank())
+            strip.text.x = element_blank()) +
+    labs(x = "")
 }
 
 

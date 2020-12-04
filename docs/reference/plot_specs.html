@@ -10,23 +10,27 @@
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -38,7 +42,6 @@
 <meta property="og:title" content="Plot specification curve and analytical choices — plot_specs" />
 <meta property="og:description" content="This function plots an entire visualization of the specification curve
 analysis. The function uses the entire tibble that is produced by run_specs() to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created ggplot objects to the function. In this case, it simply combines them using cowplot::plot_grid. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant)." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -56,7 +59,7 @@ analysis. The function uses the entire tibble that is produced by run_specs() to
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -70,7 +73,7 @@ analysis. The function uses the entire tibble that is produced by run_specs() to
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -102,17 +105,23 @@ analysis. The function uses the entire tibble that is produced by run_specs() to
       <a href="../articles/decompose_var.html">Identifying variance components</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating selected specifications</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+    </li>
+    <li>
+      <a href="../articles/measurement_models.html">Including latent measurement models</a>
     </li>
     <li>
       <a href="../articles/progress.html">Visualizing progress</a>
+    </li>
+    <li>
+      <a href="../articles/random_effects.html">Including random effects</a>
     </li>
   </ul>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/masurp/specr">
+  <a href="https://github.com/masurp/specr/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -137,23 +146,22 @@ analysis. The function uses the entire tibble that is produced by run_specs() to
 
     <div class="ref-description">
     <p>This function plots an entire visualization of the specification curve
-analysis. The function uses the entire <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> that is produced by <code><a href='run_specs.html'>run_specs()</a></code> to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> objects to the function. In this case, it simply combines them using <code><a href='https://rdrr.io/pkg/cowplot/man/plot_grid.html'>cowplot::plot_grid</a></code>. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).</p>
+analysis. The function uses the entire <a href='https://tibble.tidyverse.org/reference/tibble-package.html'>tibble</a> that is produced by <code><a href='run_specs.html'>run_specs()</a></code> to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created <a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a> objects to the function. In this case, it simply combines them using <code><a href='https://wilkelab.org/cowplot/reference/plot_grid.html'>cowplot::plot_grid</a></code>. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_specs</span>(
-  <span class='kw'>df</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>choices</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>),
-  <span class='kw'>rel_heights</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>3</span>),
-  <span class='kw'>desc</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>null</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>ci</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>ribbon</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>sample_perc</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>plot_specs</span><span class='op'>(</span>
+  df <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot_a <span class='op'>=</span> <span class='cn'>NULL</span>,
+  plot_b <span class='op'>=</span> <span class='cn'>NULL</span>,
+  choices <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"model"</span>, <span class='st'>"controls"</span>, <span class='st'>"subsets"</span><span class='op'>)</span>,
+  labels <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span><span class='op'>)</span>,
+  rel_heights <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>3</span><span class='op'>)</span>,
+  desc <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  null <span class='op'>=</span> <span class='fl'>0</span>,
+  ci <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  ribbon <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,14 +211,6 @@ plotted.</p></td>
 plotted.</p></td>
     </tr>
     <tr>
-      <th>sample_perc</th>
-      <td><p>numeric value denoting what percentage of the
-specifications should be plotted. Needs to be strictly greater than 0 and smalle than 1.
-Defaults to 1 (= all specifications). Drawing a sample from all
-specification usually makes only sense of the number of specifications is
-very large and one wants to simplify the visualization.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>additional arguments that can be passed to <code>plot_grid()</code>.</p></td>
     </tr>
@@ -231,40 +231,37 @@ very large and one wants to simplify the visualization.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># load additional library</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggplot2</span>) <span class='co'># for further customization of the plots</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='http://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span> <span class='co'># for further customization of the plots</span>
 
 <span class='co'># run spec analysis</span>
-<span class='no'>results</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span>(<span class='no'>example_data</span>,
-                     <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"y1"</span>, <span class='st'>"y2"</span>),
-                     <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"x1"</span>, <span class='st'>"x2"</span>),
-                     <span class='kw'>model</span> <span class='kw'>=</span> <span class='st'>"lm"</span>,
-                     <span class='kw'>controls</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"c1"</span>, <span class='st'>"c2"</span>),
-                     <span class='kw'>subset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>group1</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span>(<span class='no'>example_data</span>$<span class='no'>group1</span>)))
+<span class='va'>results</span> <span class='op'>&lt;-</span> <span class='fu'><a href='run_specs.html'>run_specs</a></span><span class='op'>(</span><span class='va'>example_data</span>,
+                     y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y1"</span>, <span class='st'>"y2"</span><span class='op'>)</span>,
+                     x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x1"</span>, <span class='st'>"x2"</span><span class='op'>)</span>,
+                     model <span class='op'>=</span> <span class='st'>"lm"</span>,
+                     controls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c1"</span>, <span class='st'>"c2"</span><span class='op'>)</span>,
+                     subset <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>group1 <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>example_data</span><span class='op'>$</span><span class='va'>group1</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># plot results directly</span>
-<span class='fu'>plot_specs</span>(<span class='no'>results</span>)</div><div class='img'><img src='plot_specs-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'>plot_specs</span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_specs-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Customize each part and then combine</span>
-<span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_curve.html'>plot_curve</a></span>(<span class='no'>results</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span>(<span class='kw'>yintercept</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>linetype</span> <span class='kw'>=</span> <span class='st'>"dashed"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"grey"</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span>(-<span class='fl'>3</span>, <span class='fl'>12</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"regression coefficient"</span>)
+<span class='va'>p1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='plot_curve.html'>plot_curve</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_abline.html'>geom_hline</a></span><span class='op'>(</span>yintercept <span class='op'>=</span> <span class='fl'>0</span>, linetype <span class='op'>=</span> <span class='st'>"dashed"</span>, color <span class='op'>=</span> <span class='st'>"grey"</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/lims.html'>ylim</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>3</span>, <span class='fl'>12</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>""</span>, y <span class='op'>=</span> <span class='st'>"regression coefficient"</span><span class='op'>)</span>
 
-<span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span>(<span class='no'>results</span>) +
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"specifications (ranked)"</span>)
+<span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='plot_choices.html'>plot_choices</a></span><span class='op'>(</span><span class='va'>results</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='st'>"specifications (ranked)"</span><span class='op'>)</span>
 
-<span class='fu'>plot_specs</span>(<span class='kw'>plot_a</span> <span class='kw'>=</span> <span class='no'>p1</span>,    <span class='co'># arguments must be called directly!</span>
-           <span class='kw'>plot_b</span> <span class='kw'>=</span> <span class='no'>p2</span>,
-           <span class='kw'>rel_height</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>))</div><div class='img'><img src='plot_specs-2.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'>plot_specs</span><span class='op'>(</span>plot_a <span class='op'>=</span> <span class='va'>p1</span>,    <span class='co'># arguments must be called directly!</span>
+           plot_b <span class='op'>=</span> <span class='va'>p2</span>,
+           rel_height <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_specs-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -275,7 +272,7 @@ very large and one wants to simplify the visualization.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -6,6 +6,7 @@
 \usage{
 plot_choices(
   df,
+  var = .data$estimate,
   choices = c("x", "y", "model", "controls", "subsets"),
   desc = FALSE,
   null = 0
@@ -13,6 +14,8 @@ plot_choices(
 }
 \arguments{
 \item{df}{a data frame resulting from \code{run_specs()}.}
+
+\item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
 
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 

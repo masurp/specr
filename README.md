@@ -15,7 +15,7 @@
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
 [![Travis build
 status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci.org/masurp/specr)
-[![Lifecycle:
+![](https://cranlogs.r-pkg.org/badges/grand-total/specr) [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
@@ -45,8 +45,15 @@ aspects and functions of the package:
     curve.
   - [Decomposing the variance of the specification
     curve](https://masurp.github.io/specr/articles/decompose_var.html):
-    An example of how to investigate variance components of the
-    specification curve.
+    Investigating variance components of the specification curve.
+  - [Including latent measurement
+    models](https://masurp.github.io/specr/articles/measurement_models.html):
+    This vignette exemplifies how to include latent measurement models
+    and estimate structural equations models using `lavaan`.
+  - [Including random effects/Estimate multilevel
+    models](https://masurp.github.io/specr/articles/random_effects.html):
+    This vignette exemplifies how to include random effects and estimate
+    multilevel models using `lme4`.
   - [Visualizing progress during
     estimation](https://masurp.github.io/specr/articles/progress.html):
     This vignette explains how to create a progress bar for longer
@@ -85,6 +92,7 @@ Using `specr` is comparatively simple. The main function is
 The function `plot_specs()` can then be used to visualize the results.
 
 ``` r
+# Load package
 library(specr)
 
 # Run specs
@@ -97,7 +105,7 @@ results <- run_specs(df = example_data,
                                     group2 = unique(example_data$group2)))
 # Result frame
 head(results)
-#> # A tibble: 6 x 12
+#> # A tibble: 6 x 23
 #>   x     y     model controls estimate std.error statistic  p.value conf.low
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
 #> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
@@ -106,7 +114,11 @@ head(results)
 #> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347
 #> 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 
 #> 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 
-#> # … with 3 more variables: conf.high <dbl>, obs <int>, subsets <chr>
+#> # … with 14 more variables: conf.high <dbl>, fit_r.squared <dbl>,
+#> #   fit_adj.r.squared <dbl>, fit_sigma <dbl>, fit_statistic <dbl>,
+#> #   fit_p.value <dbl>, fit_df <dbl>, fit_logLik <dbl>, fit_AIC <dbl>,
+#> #   fit_BIC <dbl>, fit_deviance <dbl>, fit_df.residual <int>, fit_nobs <int>,
+#> #   subsets <chr>
 
 # Plot
 plot_specs(results, choices = c("x", "y", "controls", "subsets"))
@@ -121,17 +133,17 @@ citation("specr")
 #> 
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
-#>   for conducting specification curve analyses. Available from
-#>   https://github.com/masurp/specr.
+#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
+#>   Visualizing Specification Curve Analyses. Available from
+#>   https://CRAN.R-project.org/package=specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1.9000)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.2)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2019},
-#>     url = {https://github.com/masurp/specr},
+#>     year = {2020},
+#>     url = {https://CRAN.R-project.org/package=specr},
 #>   }
 ```
 
