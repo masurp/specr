@@ -1,6 +1,6 @@
 Package: specr
 Title: Conducting and Visualizing Specification Curve Analyses
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: c(
     person(given = "Philipp K.",
            family = "Masur",
@@ -33,6 +33,7 @@ Imports:
     magrittr,
     purrr,
     rlang, 
+    stringr,
     tibble,
     tidyr
 Suggests: 
