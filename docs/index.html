@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -72,7 +72,7 @@
       <a href="articles/progress.html">Visualizing progress</a>
     </li>
     <li>
-      <a href="articles/random_effects.html">Including latent measurement models</a>
+      <a href="articles/random_effects.html">Including random effects</a>
     </li>
   </ul>
 </li>
@@ -104,7 +104,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#specr" class="anchor"></a>specr</h1></div>
 <!-- badges: start -->
-<p><a href="https://CRAN.R-project.org/package=specr"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a> <a href="https://travis-ci.org/masurp/specr"><img src="https://travis-ci.org/masurp/specr.svg?branch=master" alt="Travis build status"></a> <a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <!-- badges: end --></p>
+<p><a href="https://CRAN.R-project.org/package=specr"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a> <a href="https://travis-ci.org/masurp/specr"><img src="https://travis-ci.org/masurp/specr.svg?branch=master" alt="Travis build status"></a> <img src="https://cranlogs.r-pkg.org/badges/grand-total/specr"><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a> <!-- badges: end --></p>
 <div id="conducting-and-visualizing-specification-curve-analyses" class="section level3">
 <h3 class="hasAnchor">
 <a href="#conducting-and-visualizing-specification-curve-analyses" class="anchor"></a>Conducting and Visualizing Specification Curve Analyses</h3>
@@ -117,7 +117,11 @@
 <li>
 <a href="https://masurp.github.io/specr/articles/custom-plot.html">Customizing specification curve plots</a>: This vignette exemplifies various ways to plot the specification curve.</li>
 <li>
-<a href="https://masurp.github.io/specr/articles/decompose_var.html">Decomposing the variance of the specification curve</a>: An example of how to investigate variance components of the specification curve.</li>
+<a href="https://masurp.github.io/specr/articles/decompose_var.html">Decomposing the variance of the specification curve</a>: Investigating variance components of the specification curve.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/measurement_models.html">Including latent measurement models</a>: This vignette exemplifies how to include latent measurement models and estimate structural equations models using lavaan.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/random_effects.html">Including random effects/Estimate multilevel models</a>: This vignette exemplifies how to include random effects and estimate multilevel models using lme4.</li>
 <li>
 <a href="https://masurp.github.io/specr/articles/progress.html">Visualizing progress during estimation</a>: This vignette explains how to create a progress bar for longer computations.</li>
 </ul>
@@ -155,7 +159,7 @@
                                     group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># Result frame</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 12</span>
+<span class="co">#&gt; # A tibble: 6 x 23</span>
 <span class="co">#&gt;   x     y     model controls estimate std.error statistic  p.value conf.low</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 </span>
@@ -164,7 +168,11 @@
 <span class="co">#&gt; 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347</span>
 <span class="co">#&gt; 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 </span>
 <span class="co">#&gt; 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 </span>
-<span class="co">#&gt; # … with 3 more variables: conf.high &lt;dbl&gt;, obs &lt;int&gt;, subsets &lt;chr&gt;</span>
+<span class="co">#&gt; # … with 14 more variables: conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;,</span>
+<span class="co">#&gt; #   fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;int&gt;, fit_nobs &lt;int&gt;,</span>
+<span class="co">#&gt; #   subsets &lt;chr&gt;</span>
 
 <span class="co"># Plot</span>
 <span class="fu"><a href="reference/plot_specs.html">plot_specs</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></pre></div>
@@ -178,17 +186,17 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; To cite 'specr' in publications use:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   Masur, Philipp K. &amp; Scharkow, M. (2019). specr: Statistical functions</span>
-<span class="co">#&gt;   for conducting specification curve analyses. Available from</span>
-<span class="co">#&gt;   https://github.com/masurp/specr.</span>
+<span class="co">#&gt;   Masur, Philipp K. &amp; Scharkow, M. (2019). specr: Conducting and</span>
+<span class="co">#&gt;   Visualizing Specification Curve Analyses. Available from</span>
+<span class="co">#&gt;   https://CRAN.R-project.org/package=specr.</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; A BibTeX entry for LaTeX users is</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   @Misc{,</span>
-<span class="co">#&gt;     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1.9000)},</span>
+<span class="co">#&gt;     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.2)},</span>
 <span class="co">#&gt;     author = {Philipp K. Masur and Michael Scharkow},</span>
 <span class="co">#&gt;     year = {2019},</span>
-<span class="co">#&gt;     url = {https://github.com/masurp/specr},</span>
+<span class="co">#&gt;     url = {https://CRAN.R-project.org/package=specr},</span>
 <span class="co">#&gt;   }</span></pre></div>
 </div>
 <div id="references" class="section level3">
