@@ -33,7 +33,7 @@ setup_specs(y = c("y1"),
             x = c("x1", "x2"),
             model = c("lm"),
             controls = c("c1", "c2", "c3"),
-            all.comb = T)
+            all.comb = TRUE)
 
 }
 \seealso{

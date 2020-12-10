@@ -21,7 +21,7 @@
 #'             x = c("x1", "x2"),
 #'             model = c("lm"),
 #'             controls = c("c1", "c2", "c3"),
-#'             all.comb = T)
+#'             all.comb = TRUE)
 #'
 #'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,
@@ -42,8 +42,8 @@ setup_specs <- function(x,
   } else if(!rlang::is_null(controls) & isTRUE(all.comb)) {
 
     controls <- list(do.call("c", lapply(seq_along(controls),
-                                         function(i) combn(controls, i, FUN = list))) %>%
-                       map(., function(x) paste(x, collapse = " + ")), "no covariates") %>%
+                                         function(i) utils::combn(controls, i, FUN = list))) %>%
+                       map(function(x) paste(x, collapse = " + ")), "no covariates") %>%
       unlist
 
   } else {
