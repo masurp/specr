@@ -11,6 +11,7 @@ run_specs(
   model = "lm",
   controls = NULL,
   subsets = NULL,
+  all.comb = FALSE,
   conf.level = 0.95,
   keep.results = FALSE
 )
@@ -27,6 +28,8 @@ run_specs(
 \item{controls}{a vector denoting which control variables should be included. Defaults to NULL.}
 
 \item{subsets}{a named list that includes potential subsets that should be evaluated (see examples). Defaults to NULL.}
+
+\item{all.comb}{a logical value indicating what type of combinations of the control variables should be specified. Defaults to FALSE (i.e., none, all, and each individually). If this argument is set to TRUE, all possible combinations between the control variables are specified (see examples).}
 
 \item{conf.level}{the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to .95, which corresponds to a 95 percent confidence interval.}
 

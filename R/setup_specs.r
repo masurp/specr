@@ -6,6 +6,7 @@
 #' @param x a vector denoting independent variables
 #' @param model a vector denoting the model(s) that should be estimated.
 #' @param controls a vector of the control variables that should be included. Defaults to NULL.
+#' @param all.comb a logical value indicating what type of combinations of the control variables should be specified. Defaults to FALSE (i.e., none, all, and each individually). If this argument is set to TRUE, all possible combinations between the control variables are specified (see examples).
 #'
 #' @return a [tibble][tibble::tibble-package] that includes all possible specifications based on combinations of the analytical choices.
 #' @export
@@ -16,18 +17,33 @@
 #'             model = c("lm"),
 #'             controls = c("c1", "c2"))
 #'
+#' setup_specs(y = c("y1"),
+#'             x = c("x1", "x2"),
+#'             model = c("lm"),
+#'             controls = c("c1", "c2", "c3"),
+#'             all.comb = T)
+#'
 #'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,
                         y,
                         model,
-                        controls = NULL) {
+                        controls = NULL,
+                        all.comb = FALSE) {
 
   # create controls variables
-  if (!rlang::is_null(controls)) {
+  if (!rlang::is_null(controls) & isFALSE(all.comb)) {
+
     controls <- list(controls %>%
-                     paste(collapse = " + "),
+                       paste(collapse = " + "),
                      purrr::map(1:length(controls),
-                               ~ controls[[.x]]), "no covariates") %>%
+                                ~ controls[[.x]]), "no covariates") %>%
+      unlist
+
+  } else if(!rlang::is_null(controls) & isTRUE(all.comb)) {
+
+    controls <- list(do.call("c", lapply(seq_along(controls),
+                                         function(i) combn(controls, i, FUN = list))) %>%
+                       map(., function(x) paste(x, collapse = " + ")), "no covariates") %>%
       unlist
 
   } else {

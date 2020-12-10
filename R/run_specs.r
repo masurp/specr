@@ -8,6 +8,7 @@
 #' @param model a vector denoting the model(s) that should be estimated.
 #' @param controls a vector denoting which control variables should be included. Defaults to NULL.
 #' @param subsets a named list that includes potential subsets that should be evaluated (see examples). Defaults to NULL.
+#' @param all.comb a logical value indicating what type of combinations of the control variables should be specified. Defaults to FALSE (i.e., none, all, and each individually). If this argument is set to TRUE, all possible combinations between the control variables are specified (see examples).
 #' @param conf.level the confidence level to use for the confidence interval. Must be strictly greater than 0 and less than 1. Defaults to .95, which corresponds to a 95 percent confidence interval.
 #' @param keep.results a logical value indicating whether the complete model object should be kept. Defaults to FALSE.
 #'
@@ -39,6 +40,7 @@ run_specs <- function(df,
                       model = "lm",
                       controls = NULL,
                       subsets = NULL,
+                      all.comb = FALSE,
                       conf.level = 0.95,
                       keep.results = FALSE) {
 
@@ -53,7 +55,8 @@ run_specs <- function(df,
   specs <- setup_specs(y = y,
                        x = x,
                        model = model,
-                       controls = controls)
+                       controls = controls,
+                       all.comb = all.comb)
 
   if (!is.null(subsets)) {
 
