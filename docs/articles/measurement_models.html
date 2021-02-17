@@ -220,20 +220,20 @@
 <span class="co">#&gt; ℹ Input `res` is `map2(.data$model, formula, ~do.call(.x, list(data = df, formula = .y)))`.</span>
 <span class="co">#&gt; Warning in lav_object_post_check(object): lavaan WARNING: some estimated ov</span>
 <span class="co">#&gt; variances are negative</span>
-<span class="co">#&gt; # A tibble: 81 x 33</span>
+<span class="co">#&gt; # A tibble: 54 x 33</span>
 <span class="co">#&gt;    x     y     model controls res   op    estimate std.error statistic p.value</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;lis&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 ageyr text… sem_… grade    &lt;lav… ~     -0.360      0.0763    -4.72  2.32e-6</span>
-<span class="co">#&gt;  2 ageyr visu… sem_… grade    &lt;lav… ~     -0.0581     0.0583    -0.997 3.19e-1</span>
-<span class="co">#&gt;  3 ageyr speed sem_… grade    &lt;lav… ~      0.0516     0.0629     0.821 4.12e-1</span>
-<span class="co">#&gt;  4 ageyr text… sem_… grade    &lt;lav… ~     -0.360      0.0763    -4.72  2.32e-6</span>
-<span class="co">#&gt;  5 ageyr visu… sem_… grade    &lt;lav… ~     -0.0581     0.0583    -0.997 3.19e-1</span>
-<span class="co">#&gt;  6 ageyr speed sem_… grade    &lt;lav… ~      0.0516     0.0629     0.821 4.12e-1</span>
-<span class="co">#&gt;  7 ageyr text… sem_… no cova… &lt;lav… ~     -0.183      0.0710    -2.57  1.01e-2</span>
-<span class="co">#&gt;  8 ageyr visu… sem_… no cova… &lt;lav… ~      0.00828    0.0412     0.201 8.41e-1</span>
-<span class="co">#&gt;  9 ageyr speed sem_… no cova… &lt;lav… ~      0.142      0.0581     2.44  1.48e-2</span>
-<span class="co">#&gt; 10 ageyr text… sem_… grade    &lt;lav… ~     -0.552      0.107     -5.15  2.54e-7</span>
-<span class="co">#&gt; # … with 71 more rows, and 23 more variables: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span>
+<span class="co">#&gt;  1 ageyr text… sem_… grade    &lt;lav… ~     -0.360      0.0763   -4.72   2.32e-6</span>
+<span class="co">#&gt;  2 ageyr visu… sem_… grade    &lt;lav… ~     -0.0581     0.0583   -0.997  3.19e-1</span>
+<span class="co">#&gt;  3 ageyr speed sem_… grade    &lt;lav… ~      0.0516     0.0629    0.821  4.12e-1</span>
+<span class="co">#&gt;  4 ageyr text… sem_… no cova… &lt;lav… ~     -0.183      0.0710   -2.57   1.01e-2</span>
+<span class="co">#&gt;  5 ageyr visu… sem_… no cova… &lt;lav… ~      0.00828    0.0412    0.201  8.41e-1</span>
+<span class="co">#&gt;  6 ageyr speed sem_… no cova… &lt;lav… ~      0.142      0.0581    2.44   1.48e-2</span>
+<span class="co">#&gt;  7 ageyr text… sem_… grade    &lt;lav… ~     -0.552      0.107    -5.15   2.54e-7</span>
+<span class="co">#&gt;  8 ageyr visu… sem_… grade    &lt;lav… ~     -0.447      0.116    -3.86   1.12e-4</span>
+<span class="co">#&gt;  9 ageyr speed sem_… grade    &lt;lav… ~      0.00661    0.0796    0.0830 9.34e-1</span>
+<span class="co">#&gt; 10 ageyr text… sem_… no cova… &lt;lav… ~     -0.252      0.0918   -2.75   6.02e-3</span>
+<span class="co">#&gt; # … with 44 more rows, and 23 more variables: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   std.lv &lt;dbl&gt;, std.all &lt;dbl&gt;, std.nox &lt;dbl&gt;, fit_agfi &lt;dbl&gt;, fit_AIC &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   fit_BIC &lt;dbl&gt;, fit_cfi &lt;dbl&gt;, fit_chisq &lt;dbl&gt;, fit_npar &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   fit_rmsea &lt;dbl&gt;, fit_rmsea.conf.high &lt;dbl&gt;, fit_srmr &lt;dbl&gt;, fit_tli &lt;dbl&gt;,</span>
@@ -245,11 +245,11 @@
 <span class="co"># Summary across the dependent variables</span>
 <span class="fu"><a href="../reference/summarise_specs.html">summarise_specs</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">y</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 8</span>
-<span class="co">#&gt;   y        median    mad    min      max      q25     q75   obs</span>
-<span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 speed    0.0312 0.0904 -0.106  0.249    0.00661  0.137    144</span>
-<span class="co">#&gt; 2 textual -0.337  0.125  -0.558 -0.0180  -0.394   -0.237    144</span>
-<span class="co">#&gt; 3 visual  -0.131  0.109  -0.504  0.00828 -0.193   -0.0581   144</span>
+<span class="co">#&gt;   y        median   mad    min      max     q25     q75   obs</span>
+<span class="co">#&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 speed    0.0739 0.100 -0.106  0.249    0.0261  0.152   144.</span>
+<span class="co">#&gt; 2 textual -0.277  0.124 -0.558 -0.0180  -0.361  -0.201   144.</span>
+<span class="co">#&gt; 3 visual  -0.122  0.110 -0.504  0.00828 -0.170  -0.0415  144.</span>
 
 <span class="co"># Plot</span>
 <span class="fu"><a href="../reference/plot_specs.html">plot_specs</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></pre></div>
@@ -397,20 +397,20 @@
 <span class="va">results</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">model</span>, <span class="va">controls</span>, <span class="va">subsets</span>, 
                 <span class="va">fit_cfi</span>, <span class="va">fit_tli</span>, <span class="va">fit_rmsea</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 81 x 8</span>
+<span class="co">#&gt; # A tibble: 54 x 8</span>
 <span class="co">#&gt;    x     y       model      controls      subsets fit_cfi fit_tli fit_rmsea</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;         &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 ageyr textual sem_custom grade         sex = 1   1       1.01     0     </span>
 <span class="co">#&gt;  2 ageyr visual  sem_custom grade         sex = 1   1       1.07     0     </span>
 <span class="co">#&gt;  3 ageyr speed   sem_custom grade         sex = 1   1       1.02     0     </span>
-<span class="co">#&gt;  4 ageyr textual sem_custom grade         sex = 1   1       1.01     0     </span>
-<span class="co">#&gt;  5 ageyr visual  sem_custom grade         sex = 1   1       1.07     0     </span>
-<span class="co">#&gt;  6 ageyr speed   sem_custom grade         sex = 1   1       1.02     0     </span>
-<span class="co">#&gt;  7 ageyr textual sem_custom no covariates sex = 1   1       1.03     0     </span>
-<span class="co">#&gt;  8 ageyr visual  sem_custom no covariates sex = 1   1       1.08     0     </span>
-<span class="co">#&gt;  9 ageyr speed   sem_custom no covariates sex = 1   1       1.03     0     </span>
-<span class="co">#&gt; 10 ageyr textual sem_custom grade         sex = 2   0.994   0.986    0.0547</span>
-<span class="co">#&gt; # … with 71 more rows</span>
+<span class="co">#&gt;  4 ageyr textual sem_custom no covariates sex = 1   1       1.03     0     </span>
+<span class="co">#&gt;  5 ageyr visual  sem_custom no covariates sex = 1   1       1.08     0     </span>
+<span class="co">#&gt;  6 ageyr speed   sem_custom no covariates sex = 1   1       1.03     0     </span>
+<span class="co">#&gt;  7 ageyr textual sem_custom grade         sex = 2   0.994   0.986    0.0547</span>
+<span class="co">#&gt;  8 ageyr visual  sem_custom grade         sex = 2   0.979   0.954    0.0534</span>
+<span class="co">#&gt;  9 ageyr speed   sem_custom grade         sex = 2   0.857   0.677    0.167 </span>
+<span class="co">#&gt; 10 ageyr textual sem_custom no covariates sex = 2   0.998   0.995    0.0375</span>
+<span class="co">#&gt; # … with 44 more rows</span>
 
 <span class="co"># Extract chisq from lavaan objects</span>
 <span class="va">res_chisq</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op">%&gt;%</span>

@@ -147,7 +147,7 @@
     <p>This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within <code><a href='run_specs.html'>run_specs()</a></code>, which estimates all specified models based on the data that are provided.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>setup_specs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>model</span>, controls <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>setup_specs</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>model</span>, controls <span class='op'>=</span> <span class='cn'>NULL</span>, all.comb <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,6 +167,10 @@
     <tr>
       <th>controls</th>
       <td><p>a vector of the control variables that should be included. Defaults to NULL.</p></td>
+    </tr>
+    <tr>
+      <th>all.comb</th>
+      <td><p>a logical value indicating what type of combinations of the control variables should be specified. Defaults to FALSE (i.e., none, all, and each individually). If this argument is set to TRUE, all possible combinations between the control variables are specified (see examples).</p></td>
     </tr>
     </table>
 
@@ -193,6 +197,30 @@
 #&gt; </span><span style='color: #555555;'>6</span><span> x2    y1    lm    c2           
 #&gt; </span><span style='color: #555555;'>7</span><span> x1    y1    lm    no covariates
 #&gt; </span><span style='color: #555555;'>8</span><span> x2    y1    lm    no covariates</div><div class='input'>
+<span class='fu'>setup_specs</span><span class='op'>(</span>y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"y1"</span><span class='op'>)</span>,
+            x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x1"</span>, <span class='st'>"x2"</span><span class='op'>)</span>,
+            model <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"lm"</span><span class='op'>)</span>,
+            controls <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"c1"</span>, <span class='st'>"c2"</span>, <span class='st'>"c3"</span><span class='op'>)</span>,
+            all.comb <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 16 x 4</span><span>
+#&gt;    x     y     model controls     
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>        
+#&gt; </span><span style='color: #555555;'> 1</span><span> x1    y1    lm    c1           
+#&gt; </span><span style='color: #555555;'> 2</span><span> x2    y1    lm    c1           
+#&gt; </span><span style='color: #555555;'> 3</span><span> x1    y1    lm    c2           
+#&gt; </span><span style='color: #555555;'> 4</span><span> x2    y1    lm    c2           
+#&gt; </span><span style='color: #555555;'> 5</span><span> x1    y1    lm    c3           
+#&gt; </span><span style='color: #555555;'> 6</span><span> x2    y1    lm    c3           
+#&gt; </span><span style='color: #555555;'> 7</span><span> x1    y1    lm    c1 + c2      
+#&gt; </span><span style='color: #555555;'> 8</span><span> x2    y1    lm    c1 + c2      
+#&gt; </span><span style='color: #555555;'> 9</span><span> x1    y1    lm    c1 + c3      
+#&gt; </span><span style='color: #555555;'>10</span><span> x2    y1    lm    c1 + c3      
+#&gt; </span><span style='color: #555555;'>11</span><span> x1    y1    lm    c2 + c3      
+#&gt; </span><span style='color: #555555;'>12</span><span> x2    y1    lm    c2 + c3      
+#&gt; </span><span style='color: #555555;'>13</span><span> x1    y1    lm    c1 + c2 + c3 
+#&gt; </span><span style='color: #555555;'>14</span><span> x2    y1    lm    c1 + c2 + c3 
+#&gt; </span><span style='color: #555555;'>15</span><span> x1    y1    lm    no covariates
+#&gt; </span><span style='color: #555555;'>16</span><span> x2    y1    lm    no covariates</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

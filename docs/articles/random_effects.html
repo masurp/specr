@@ -191,21 +191,17 @@
                                 <span class="st">"lmer_rs_1"</span>, <span class="st">"lmer_rs_2"</span><span class="op">)</span>,
                       controls <span class="op">=</span> <span class="st">"pop"</span>,
                       keep.results <span class="op">=</span> <span class="cn">T</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 12 x 19</span>
-<span class="co">#&gt;    x     y     model controls res   effect group estimate std.error statistic</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;lis&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      9.00     0.241     37.3 </span>
-<span class="co">#&gt;  2 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      2.34     0.247      9.48</span>
-<span class="co">#&gt;  3 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      6.07     0.396     15.3 </span>
-<span class="co">#&gt;  4 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      3.15     0.646      4.88</span>
-<span class="co">#&gt;  5 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      9.00     0.241     37.3 </span>
-<span class="co">#&gt;  6 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      2.34     0.247      9.48</span>
-<span class="co">#&gt;  7 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      6.07     0.396     15.3 </span>
-<span class="co">#&gt;  8 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      3.15     0.646      4.88</span>
-<span class="co">#&gt;  9 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      9.25     0.242     38.2 </span>
-<span class="co">#&gt; 10 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      2.53     0.247     10.2 </span>
-<span class="co">#&gt; 11 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;     11.3      0.855     13.2 </span>
-<span class="co">#&gt; 12 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      2.38     0.588      4.05</span>
+<span class="co">#&gt; # A tibble: 8 x 19</span>
+<span class="co">#&gt;   x     y     model controls res   effect group estimate std.error statistic</span>
+<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;lis&gt; &lt;chr&gt;  &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      9.00     0.241     37.3 </span>
+<span class="co">#&gt; 2 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      2.34     0.247      9.48</span>
+<span class="co">#&gt; 3 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      6.07     0.396     15.3 </span>
+<span class="co">#&gt; 4 gdpP… life… lmer… pop      &lt;lme… fixed  &lt;NA&gt;      3.15     0.646      4.88</span>
+<span class="co">#&gt; 5 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      9.25     0.242     38.2 </span>
+<span class="co">#&gt; 6 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      2.53     0.247     10.2 </span>
+<span class="co">#&gt; 7 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;     11.3      0.855     13.2 </span>
+<span class="co">#&gt; 8 gdpP… life… lmer… no cova… &lt;lme… fixed  &lt;NA&gt;      2.38     0.588      4.05</span>
 <span class="co">#&gt; # … with 9 more variables: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_sigma &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_REMLcrit &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   fit_df.residual &lt;int&gt;, subsets &lt;chr&gt;</span></pre></div>
@@ -218,11 +214,11 @@
 <span class="co">#&gt; # A tibble: 4 x 10</span>
 <span class="co">#&gt; # Groups:   y, model [4]</span>
 <span class="co">#&gt;   y       model     subsets median   mad   min   max   q25   q75   obs</span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</span>
-<span class="co">#&gt; 1 lifeExp lmer_ri_1 all       9.00     0  9.00  9.25  9.00  9.13  1704</span>
-<span class="co">#&gt; 2 lifeExp lmer_ri_2 all       2.34     0  2.34  2.53  2.34  2.43  1704</span>
-<span class="co">#&gt; 3 lifeExp lmer_rs_1 all       6.07     0  6.07 11.3   6.07  8.69  1704</span>
-<span class="co">#&gt; 4 lifeExp lmer_rs_2 all       3.15     0  2.38  3.15  2.77  3.15  1704</span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 lifeExp lmer_ri_1 all       9.13 0.183  9.00  9.25  9.07  9.19  1704</span>
+<span class="co">#&gt; 2 lifeExp lmer_ri_2 all       2.43 0.144  2.34  2.53  2.39  2.48  1704</span>
+<span class="co">#&gt; 3 lifeExp lmer_rs_1 all       8.69 3.90   6.07 11.3   7.38 10.0   1704</span>
+<span class="co">#&gt; 4 lifeExp lmer_rs_2 all       2.77 0.570  2.38  3.15  2.58  2.96  1704</span>
 
 <span class="co"># Plot</span>
 <span class="fu"><a href="../reference/plot_specs.html">plot_specs</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></pre></div>
@@ -286,34 +282,18 @@
 <span class="co">#&gt;  27.289551863   3.152184695   0.001445719 </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[5]]</span>
-<span class="co">#&gt;   (Intercept) gdpPercap_log           pop </span>
-<span class="co">#&gt; -1.470391e+01  9.003243e+00  2.441721e-05 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[6]]</span>
-<span class="co">#&gt;   (Intercept) gdpPercap_log           pop </span>
-<span class="co">#&gt;  3.997514e+01  2.337900e+00  1.435283e-05 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[7]]</span>
-<span class="co">#&gt;   (Intercept) gdpPercap_log           pop </span>
-<span class="co">#&gt;  -0.354560951   6.066384127   0.002707258 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[8]]</span>
-<span class="co">#&gt;   (Intercept) gdpPercap_log           pop </span>
-<span class="co">#&gt;  27.289551863   3.152184695   0.001445719 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[9]]</span>
 <span class="co">#&gt;   (Intercept) gdpPercap_log </span>
 <span class="co">#&gt;    -15.999649      9.250647 </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[10]]</span>
+<span class="co">#&gt; [[6]]</span>
 <span class="co">#&gt;   (Intercept) gdpPercap_log </span>
 <span class="co">#&gt;     38.817615      2.531849 </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[11]]</span>
+<span class="co">#&gt; [[7]]</span>
 <span class="co">#&gt;   (Intercept) gdpPercap_log </span>
 <span class="co">#&gt;     -32.05618      11.32202 </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[12]]</span>
+<span class="co">#&gt; [[8]]</span>
 <span class="co">#&gt;   (Intercept) gdpPercap_log </span>
 <span class="co">#&gt;      42.67310       2.38358</span></pre></div>
 <p>To spot difference between models, we can also use the <code><a href="../reference/plot_summary.html">plot_summary()</a></code> function.</p>
