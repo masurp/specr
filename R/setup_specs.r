@@ -30,13 +30,17 @@ setup_specs <- function(x,
                         controls = NULL,
                         all.comb = FALSE) {
 
-  # create controls variables
-  if (!rlang::is_null(controls) & isFALSE(all.comb)) {
 
-    controls <- list(controls %>%
-                       paste(collapse = " + "),
-                     purrr::map(1:length(controls),
-                                ~ controls[[.x]]), "no covariates") %>%
+  if (!rlang::is_null(controls) & length(controls) == 1) {
+
+    controls <- list(controls, "no covariates") %>%
+      unlist
+
+  } else if (!rlang::is_null(controls) & isFALSE(all.comb)) {
+
+    controls <- list(controls %>% paste(collapse = " + "),
+                     purrr::map(1:length(controls), ~controls[[.x]]),
+                     "no covariates") %>%
       unlist
 
   } else if(!rlang::is_null(controls) & isTRUE(all.comb)) {
@@ -59,4 +63,3 @@ setup_specs <- function(x,
     dplyr::mutate_all(as.character) %>%
     as_tibble
 }
-
