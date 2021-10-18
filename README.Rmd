@@ -94,6 +94,27 @@ citation("specr")
 
 ### References
 
-Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). *Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications.* Available at: https://doi.org/10.2139/ssrn.2694998
+- Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
 
-Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. *Perspectives on Psychological Science*, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+- Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. *Perspectives on Psychological Science*, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+
+### Papers that used 'specr'
+
+If you have published a paper in which you used `specr` and you would like to be included in the following list, please send an email to [Philipp](mailto:p.k.masur@vu.nl). 
+
+- Ballou, N., & van Rooij, A. J. (2021). The relationship between mental well-being and dysregulated gaming: a specification curve analysis of core and peripheral criteria in five gaming disorder scales. *The Royal Society Open Science.* https://doi.org/10.1098/rsos.201385
+
+- Burton, J.W., Cruz, N. & Hahn, U. (2021). Reconsidering evidence of moral contagion in online social networks. *Nature Human Behaviour.* https://doi-org.vu-nl.idm.oclc.org/10.1038/s41562-021-01133-5
+
+- Cosme, D., & Lopez, R. B. (2020, March 7). Neural indicators of food cue reactivity, regulation, and valuation and their associations with body composition and daily eating behavior. https://doi.org/10.1093/scan/nsaa155
+
+- Del Giudice, M., & Gangestad, S. W. (2021). A Traveler’s Guide to the Multiverse: Promises, Pitfalls, and a Framework for the Evaluation of Analytic Decisions. *Advances in Methods and Practices in Psychological Science.* https://doi.org/10.1177/2515245920954925
+
+- Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating Associations Between Screen Time and Symptomatology in Individuals With Serious Mental Illness: Longitudinal Observational Study
+*Journal of Medical Internet Research, 23*(3), e23144. https://doi.org/10.2196/23144
+
+- Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. https://doi.org/10.31234/osf.io/9utyj
+
+- Masur, P. K. (2021). Understanding the Effects of Conceptual and Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification Curve Analysis of Large-Scale Survey Data. *Information, Communication & Society.* https://doi.org/10.1080/1369118X.2021.1963460 
+
+
