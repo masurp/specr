@@ -104,6 +104,8 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Ballou, N., & van Rooij, A. J. (2021). The relationship between mental well-being and dysregulated gaming: a specification curve analysis of core and peripheral criteria in five gaming disorder scales. *The Royal Society Open Science.* https://doi.org/10.1098/rsos.201385
 
+- Ballou, N., & Zendle, D. (2022). "Clinically significant distress" in internet gaming disorder: An individual participant meta-analysis. *Computers in Human Behavior, 129*. https://doi.org/10.1016/j.chb.2021.107140
+
 - Burton, J.W., Cruz, N. & Hahn, U. (2021). Reconsidering evidence of moral contagion in online social networks. *Nature Human Behaviour.* https://doi-org.vu-nl.idm.oclc.org/10.1038/s41562-021-01133-5
 
 - Cosme, D., & Lopez, R. B. (2020, March 7). Neural indicators of food cue reactivity, regulation, and valuation and their associations with body composition and daily eating behavior. https://doi.org/10.1093/scan/nsaa155

@@ -105,7 +105,7 @@ results <- run_specs(df = example_data,
                                     group2 = unique(example_data$group2)))
 # Result frame
 head(results)
-#> # A tibble: 6 x 23
+#> # A tibble: 6 × 23
 #>   x     y     model controls estimate std.error statistic  p.value conf.low
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
 #> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
@@ -169,6 +169,11 @@ like to be included in the following list, please send an email to
     analysis of core and peripheral criteria in five gaming disorder
     scales. *The Royal Society Open Science.*
     <https://doi.org/10.1098/rsos.201385>
+
+-   Ballou, N., & Zendle, D. (2022). “Clinically significant distress”
+    in internet gaming disorder: An individual participant
+    meta-analysis. *Computers in Human Behavior, 129*.
+    <https://doi.org/10.1016/j.chb.2021.107140>
 
 -   Burton, J.W., Cruz, N. & Hahn, U. (2021). Reconsidering evidence of
     moral contagion in online social networks. *Nature Human Behaviour.*
