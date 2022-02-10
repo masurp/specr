@@ -10,18 +10,13 @@ create_formula <- function(x,
 
 }
 
-# run specifications
-run_spec <- function(specs,
-                     df,
-                     conf.level,
-                     keep.results = FALSE) {
-  results <- specs %>%
-    dplyr::mutate(formula = pmap(specs, create_formula)) %>%
+run_spec <- function(specs, df, conf.level = 0.95, keep.results = FALSE) {
+  results <- specs %>% dplyr::mutate(formula = pmap(specs, create_formula)) %>%
     tidyr::unnest(formula) %>%
-    dplyr::mutate(res = map2(.data$model,
-                             formula,
-                             ~ do.call(.x, list(data = df,
-                                                formula = .y)))) %>%
+    dplyr::mutate(res = map2(.data$model, formula,
+                             ~ do.call(.x, list(as.formula(as.character(.y)), # positional instead of named arg
+                                                data = df
+    )))) %>%
     dplyr::mutate(coefs = map(.data$res,
                               broom::tidy,
                               conf.int = TRUE,
@@ -29,25 +24,10 @@ run_spec <- function(specs,
                   fit = map(.data$res, broom::glance)) %>%
     tidyr::unnest(.data$coefs) %>%
     tidyr::unnest(.data$fit, names_sep = "_")
-
-  if("op" %in% names(results)) {
-    results <- results %>%
-      dplyr::filter(.data$term == paste(.data$y, "~", .data$x))
-  } else {
-    results <- results %>%
-      dplyr::filter(.data$term == .data$x)
-    }
-
-  results <- results %>%
-    dplyr::select(-.data$formula, -.data$term)
-
-  if (isFALSE(keep.results)) {
-    results <- results %>%
-      dplyr::select(-.data$res)
-  }
-
   return(results)
 }
+
+
 
 # creates subsets
 create_subsets <- function(df,
@@ -87,4 +67,3 @@ names_from_dots <- function(...) {
   sapply(substitute(list(...))[-1], deparse)
 
 }
-

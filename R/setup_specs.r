@@ -24,42 +24,23 @@
 #'             all.comb = TRUE)
 #'
 #'@seealso [run_specs()] to run the specification curve analysis.
-setup_specs <- function(x,
-                        y,
-                        model,
-                        controls = NULL,
-                        all.comb = FALSE) {
-
-
+setup_specs <- function(x, y, model, controls = NULL, all.comb = FALSE) {
   if (!rlang::is_null(controls) & length(controls) == 1) {
-
-    controls <- list(controls, "no covariates") %>%
-      unlist
-
+    controls <- list(controls, "no covariates") %>% unlist
   } else if (!rlang::is_null(controls) & isFALSE(all.comb)) {
-
     controls <- list(controls %>% paste(collapse = " + "),
                      purrr::map(1:length(controls), ~controls[[.x]]),
-                     "no covariates") %>%
-      unlist
-
+                     "no covariates") %>% unlist
   } else if(!rlang::is_null(controls) & isTRUE(all.comb)) {
-
     controls <- list(do.call("c", lapply(seq_along(controls),
                                          function(i) utils::combn(controls, i, FUN = list))) %>%
                        map(function(x) paste(x, collapse = " + ")), "no covariates") %>%
       unlist
-
   } else {
-
     controls <- "no covariates"
-
   }
   # Expand to all possible combinations
-  expand.grid(x = x,
-              y = y,
-              model = model,
-              controls = controls) %>%
+  expand.grid(x = x, y = y, model = model, controls = controls) %>%
     dplyr::mutate_all(as.character) %>%
     as_tibble
 }

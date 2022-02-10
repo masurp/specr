@@ -34,82 +34,64 @@
 #' results
 #'
 #' @seealso [plot_specs()] to visualize the results of the specification curve analysis.
-run_specs <- function(df,
-                      x,
-                      y,
-                      model = "lm",
-                      controls = NULL,
-                      subsets = NULL,
-                      all.comb = FALSE,
-                      conf.level = 0.95,
-                      keep.results = FALSE) {
-
+run_specs <- function(df, x, y, model = "lm", controls = NULL, subsets = NULL,
+                      all.comb = FALSE, conf.level = 0.95, keep.results = FALSE) {
   if (rlang::is_missing(x)) {
     stop("You must specify at least one independent variable `x`.")
   }
-
   if (rlang::is_missing(y)) {
     stop("You must specify at least one dependent variable `y`.")
   }
-
-  specs <- setup_specs(y = y,
-                       x = x,
-                       model = model,
-                       controls = controls,
+  specs <- setup_specs(y = y, x = x, model = model, controls = controls,
                        all.comb = all.comb)
-
   if (!is.null(subsets)) {
 
-    if (class(subsets) != "list") {
-      wrong_class <- class(subsets)
-      stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
+      if (class(subsets) != "list") {
+        wrong_class <- class(subsets)
+        stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
+      }
+
+    subsets <- map(subsets, as.character)
+
+    df_list <- create_subsets(df, subsets)
+    df_list[[length(df_list)+1]] <- df %>% dplyr::mutate(filter = "all")
+
+    if (length(subsets) > 1) {
+
+    suppressMessages({
+    df_comb <- subsets %>%
+      cross %>%
+      map(~ create_subsets(subsets = .x, df = df) %>%
+            map(~ dplyr::select(.x, -filter)) %>%
+            reduce(dplyr::inner_join) %>%
+            dplyr::mutate(filter = paste(names(.x),
+                                         .x,
+                                         collapse = " & ",
+                                         sep = " = ")))
+
+    df_all <- append(df_list, df_comb)
+    })
+
+    } else {
+
+    df_all <- df_list
+
     }
 
-  subsets <- map(subsets, as.character)
+    if (conf.level > 1 | conf.level < 0) {
+      stop("The confidence level must be strictly greater than 0 and less than 1.")
+    }
 
-  df_list <- create_subsets(df, subsets)
-  df_list[[length(df_list)+1]] <- df %>% dplyr::mutate(filter = "all")
-
-  if (length(subsets) > 1) {
-
-  suppressMessages({
-  df_comb <- subsets %>%
-    cross %>%
-    map(~ create_subsets(subsets = .x, df = df) %>%
-          map(~ dplyr::select(.x, -filter)) %>%
-          reduce(dplyr::inner_join) %>%
-          dplyr::mutate(filter = paste(names(.x),
-                                       .x,
-                                       collapse = " & ",
-                                       sep = " = ")))
-
-  df_all <- append(df_list, df_comb)
-  })
+    map_df(df_all, ~ run_spec(specs, .x,
+                              conf.level = conf.level,
+                              keep.results = keep.results) %>%
+                  dplyr::mutate(subsets = unique(.x$filter)))
 
   } else {
-
-  df_all <- df_list
-
-  }
-
-  if (conf.level > 1 | conf.level < 0) {
-    stop("The confidence level must be strictly greater than 0 and less than 1.")
-  }
-
-  map_df(df_all, ~ run_spec(specs,
-                            .x,
-                            conf.level = conf.level,
-                            keep.results = keep.results) %>%
-                dplyr::mutate(subsets = unique(.x$filter)))
-
-  } else {
-
-  run_spec(specs,
-           df,
-           conf.level = conf.level,
-           keep.results = keep.results) %>%
-    dplyr::mutate(subsets = "all")
+    run_spec(specs, df,
+             conf.level = conf.level,
+             keep.results = keep.results) %>%
+      dplyr::mutate(subsets = "all")
 
   }
-
 }
