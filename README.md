@@ -206,3 +206,8 @@ like to be included in the following list, please send an email to
     Curve Analysis of Large-Scale Survey Data. *Information,
     Communication & Society.*
     <https://doi.org/10.1080/1369118X.2021.1963460>
+
+-   Yuan, Q., Li, H., Du, B., Dang, W., Chang, Q., Zhang, Z., Zhang, M.,
+    Ding, G., Lu, C., & Guo, T. (2022). The cerebellum and cognition:
+    Further evidence for its role in language control. *Cerebral
+    Cortex*, bhac051, <https://doi.org/10.1093/cercor/bhac051>
