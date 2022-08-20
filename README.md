@@ -105,7 +105,7 @@ results <- run_specs(df = example_data,
                                     group2 = unique(example_data$group2)))
 # Result frame
 head(results)
-#> # A tibble: 6 × 23
+#> # A tibble: 6 × 12
 #>   x     y     model controls estimate std.error statistic  p.value conf.low
 #>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
 #> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
@@ -114,11 +114,7 @@ head(results)
 #> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347
 #> 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 
 #> 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 
-#> # … with 14 more variables: conf.high <dbl>, fit_r.squared <dbl>,
-#> #   fit_adj.r.squared <dbl>, fit_sigma <dbl>, fit_statistic <dbl>,
-#> #   fit_p.value <dbl>, fit_df <dbl>, fit_logLik <dbl>, fit_AIC <dbl>,
-#> #   fit_BIC <dbl>, fit_deviance <dbl>, fit_df.residual <int>, fit_nobs <int>,
-#> #   subsets <chr>
+#> # … with 3 more variables: conf.high <dbl>, obs <int>, subsets <chr>
 
 # Plot
 plot_specs(results, choices = c("x", "y", "controls", "subsets"))
@@ -133,17 +129,17 @@ citation("specr")
 #> 
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
-#>   Visualizing Specification Curve Analyses. Available from
-#>   https://CRAN.R-project.org/package=specr.
+#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
+#>   for conducting specification curve analyses. Available from
+#>   https://github.com/masurp/specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.2.2)},
+#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2020},
-#>     url = {https://CRAN.R-project.org/package=specr},
+#>     year = {2019},
+#>     url = {https://github.com/masurp/specr},
 #>   }
 ```
 
@@ -163,6 +159,12 @@ citation("specr")
 If you have published a paper in which you used `specr` and you would
 like to be included in the following list, please send an email to
 [Philipp](mailto:p.k.masur@vu.nl).
+
+-   Akaliyski, P., Minkov, M., Li, J., Bond, M. H., & Gehring, S.
+    (2022). The weight of culture: Societal individualism and
+    flexibility explain large global variations in obesity. *Social
+    Science & Medicine*, 307.
+    <https://doi.org/10.1016/j.socscimed.2022.115167>
 
 -   Ballou, N., & van Rooij, A. J. (2021). The relationship between
     mental well-being and dysregulated gaming: a specification curve
@@ -195,6 +197,12 @@ like to be included in the following list, please send an email to
     With Serious Mental Illness: Longitudinal Observational Study
     *Journal of Medical Internet Research, 23*(3), e23144.
     <https://doi.org/10.2196/23144>
+
+-   Huang, S., Lai, X., Zhao, X., Dai, X., Yao, Y., Zhang, C., & Wang,
+    Y., (2022). Beyond screen time: Exploring associations between types
+    of smartphone use content and adolescents’ social relationships.
+    *International Journal of Environmental Research and Public Health,
+    19*, 8940. <https://doi.org/10.3390/ijerph19158940>
 
 -   Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave
     Appropriately: Exploring Associations Between Incongruent

@@ -102,6 +102,8 @@ citation("specr")
 
 If you have published a paper in which you used `specr` and you would like to be included in the following list, please send an email to [Philipp](mailto:p.k.masur@vu.nl). 
 
+- Akaliyski, P., Minkov, M., Li, J., Bond, M. H., & Gehring, S. (2022). The weight of culture: Societal individualism and flexibility explain large global variations in obesity. *Social Science & Medicine*, 307. https://doi.org/10.1016/j.socscimed.2022.115167
+
 - Ballou, N., & van Rooij, A. J. (2021). The relationship between mental well-being and dysregulated gaming: a specification curve analysis of core and peripheral criteria in five gaming disorder scales. *The Royal Society Open Science.* https://doi.org/10.1098/rsos.201385
 
 - Ballou, N., & Zendle, D. (2022). "Clinically significant distress" in internet gaming disorder: An individual participant meta-analysis. *Computers in Human Behavior, 129*. https://doi.org/10.1016/j.chb.2021.107140
@@ -114,6 +116,8 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating Associations Between Screen Time and Symptomatology in Individuals With Serious Mental Illness: Longitudinal Observational Study
 *Journal of Medical Internet Research, 23*(3), e23144. https://doi.org/10.2196/23144
+
+- Huang, S., Lai, X., Zhao, X., Dai, X., Yao, Y., Zhang, C., & Wang, Y., (2022). Beyond screen time: Exploring associations between types of smartphone use content and adolescents' social relationships. *International Journal of Environmental Research and Public Health, 19*, 8940. https://doi.org/10.3390/ijerph19158940
 
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. https://doi.org/10.31234/osf.io/9utyj
 
