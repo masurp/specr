@@ -15,13 +15,19 @@ run_spec <- function(specs,
                      df,
                      conf.level,
                      keep.results = FALSE) {
+
   results <- specs %>%
-    dplyr::mutate(formula = pmap(specs, create_formula)) %>%
-    tidyr::unnest(formula) %>%
-    dplyr::mutate(res = map2(.data$model,
-                             formula,
-                             ~ do.call(.x, list(data = df,
-                                                formula = .y)))) %>%
+    dplyr::mutate(formula = purrr::pmap_chr(specs, create_formula))
+
+  # Compute over specs (possibly in parallel)
+  results$res <- vector("list", nrow(results))
+  results$res <- foreach(i = 1:nrow(results)) %dopar%
+    do.call(
+      what = results[i,"model", drop = TRUE],
+      args = list(formula = results[i,"formula", drop = TRUE], data = df)
+    )
+
+  results <- results %>%
     dplyr::mutate(coefs = map(.data$res,
                               broom::tidy,
                               conf.int = TRUE,
