@@ -12,16 +12,12 @@
 #' @export
 #'
 #' @examples
-#' setup_specs(y = c("y1"),
+#' setup_specs(data = example_data,
 #'             x = c("x1", "x2"),
-#'             model = c("lm"),
-#'             controls = c("c1", "c2"))
-#'
-#' setup_specs(y = c("y1"),
-#'             x = c("x1", "x2"),
-#'             model = c("lm"),
-#'             controls = c("c1", "c2", "c3"),
-#'             all.comb = TRUE)
+#'             y = "y2",
+#'             model = "lm",
+#'             controls = c("c1", "c2"),
+#'             distinct(example_data, group1))
 #'
 #'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,
@@ -30,6 +26,8 @@ setup_specs <- function(x,
                         controls = NULL,
                         all.comb = FALSE) {
 
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "setup_specs()", "setup()")
 
   if (!rlang::is_null(controls) & length(controls) == 1) {
 

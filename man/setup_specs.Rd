@@ -24,16 +24,12 @@ a \link[tibble:tibble-package]{tibble} that includes all possible specifications
 This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within \code{\link[=run_specs]{run_specs()}}, which estimates all specified models based on the data that are provided.
 }
 \examples{
-setup_specs(y = c("y1"),
+setup_specs(data = example_data,
             x = c("x1", "x2"),
-            model = c("lm"),
-            controls = c("c1", "c2"))
-
-setup_specs(y = c("y1"),
-            x = c("x1", "x2"),
-            model = c("lm"),
-            controls = c("c1", "c2", "c3"),
-            all.comb = TRUE)
+            y = "y2",
+            model = "lm",
+            controls = c("c1", "c2"),
+            distinct(example_data, group1))
 
 }
 \seealso{

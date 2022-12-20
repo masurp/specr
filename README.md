@@ -94,30 +94,28 @@ The function `plot_specs()` can then be used to visualize the results.
 ``` r
 # Load package
 library(specr)
+library(tidyverse)
+library(tictoc)
 
-# Run specs
-results <- run_specs(df = example_data, 
-                     y = c("y1", "y2"), 
-                     x = c("x1", "x2"), 
-                     model = c("lm"), 
-                     controls = c("c1", "c2"), 
-                     subsets = list(group1 = unique(example_data$group1),
-                                    group2 = unique(example_data$group2)))
-# Result frame
-head(results)
-#> # A tibble: 6 × 12
-#>   x     y     model controls estimate std.error statistic  p.value conf.low
-#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
-#> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
-#> 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57    6.20 
-#> 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   -0.961
-#> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347
-#> 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 
-#> 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 
-#> # … with 3 more variables: conf.high <dbl>, obs <int>, subsets <chr>
+# Setup Specifications ----
+specs <- setup(data = example_data, 
+               y = c("y1", "y2"), 
+               x = c("x1", "x2"), 
+               model = c("lm"), 
+               distinct(example_data, group1),
+               distinct(example_data, group2),
+               controls = c("c1", "c2"))
 
-# Plot
-plot_specs(results, choices = c("x", "y", "controls", "subsets"))
+# Run Specification Curve aAnalysis ----
+results <- specr(specs, workers = 1)
+#> specr -- version: 0.3.0 
+#> -------------------
+#> Models fitted across 192 specifications
+#> Cores used: 1 
+#> 2.42 sec elapsed
+
+# Plot Specification cCurve ----
+plot(results)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -129,17 +127,17 @@ citation("specr")
 #> 
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
-#>   for conducting specification curve analyses. Available from
-#>   https://github.com/masurp/specr.
+#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
+#>   Visualizing Specification Curve Analyses. Available from
+#>   https://CRAN.R-project.org/package=specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.3.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2019},
-#>     url = {https://github.com/masurp/specr},
+#>     year = {2020},
+#>     url = {https://CRAN.R-project.org/package=specr},
 #>   }
 ```
 

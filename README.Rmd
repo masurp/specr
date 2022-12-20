@@ -70,20 +70,23 @@ Using `specr` is comparatively simple. The main function is `run_specs()` in whi
 ```{r, message=F, warning = F, fig.height=10, fig.width=10}
 # Load package
 library(specr)
+library(tidyverse)
+library(tictoc)
 
-# Run specs
-results <- run_specs(df = example_data, 
-                     y = c("y1", "y2"), 
-                     x = c("x1", "x2"), 
-                     model = c("lm"), 
-                     controls = c("c1", "c2"), 
-                     subsets = list(group1 = unique(example_data$group1),
-                                    group2 = unique(example_data$group2)))
-# Result frame
-head(results)
+# Setup Specifications ----
+specs <- setup(data = example_data, 
+               y = c("y1", "y2"), 
+               x = c("x1", "x2"), 
+               model = c("lm"), 
+               distinct(example_data, group1),
+               distinct(example_data, group2),
+               controls = c("c1", "c2"))
 
-# Plot
-plot_specs(results, choices = c("x", "y", "controls", "subsets"))
+# Run Specification Curve aAnalysis ----
+results <- specr(specs, workers = 1)
+
+# Plot Specification cCurve ----
+plot(results)
 ```
 
 ### How to cite this package

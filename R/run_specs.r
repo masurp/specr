@@ -44,6 +44,8 @@ run_specs <- function(df,
                       conf.level = 0.95,
                       keep.results = FALSE) {
 
+  tic()
+
   if (rlang::is_missing(x)) {
     stop("You must specify at least one independent variable `x`.")
   }
@@ -96,7 +98,7 @@ run_specs <- function(df,
     stop("The confidence level must be strictly greater than 0 and less than 1.")
   }
 
-  map_df(df_all, ~ run_spec(specs,
+  res <- map_df(df_all, ~ run_spec(specs,
                             .x,
                             conf.level = conf.level,
                             keep.results = keep.results) %>%
@@ -104,7 +106,7 @@ run_specs <- function(df,
 
   } else {
 
-  run_spec(specs,
+  res <- run_spec(specs,
            df,
            conf.level = conf.level,
            keep.results = keep.results) %>%
@@ -112,4 +114,16 @@ run_specs <- function(df,
 
   }
 
+  time <- toc(quiet = T)
+  s3 <- list(data = res,
+             specs = nrow(res),
+             time = time)
+
+  class(s3) <- "specr"
+  s3
+
 }
+
+
+
+
