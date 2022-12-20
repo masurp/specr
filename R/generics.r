@@ -44,8 +44,8 @@ summary.specr.setup <- function(x,
   if(isTRUE(print.specs)) {
   cat("\n\nHead of specifications table (first", rows, "rows):\n\n")
   x$specs %>%
-    select(-model_function) %>%
-    mutate_if(is.numeric, round, digits) %>%
+    dplyr::select(-model_function) %>%
+    dplyr::mutate_if(is.numeric, round, digits) %>%
     head(n = rows)
   }
 }
@@ -111,7 +111,7 @@ summary.specr <- function(x,
     # Short descriptive analysis across all specifications
     cat("Descriptive summary of the specification curve:\n\n")
     des1 <- x$data %>%
-      summarize(median = median(estimate),
+      dplyr::summarize(median = median(estimate),
                 mad = mad(estimate),
                 min = min(estimate),
                 max = max(estimate),
@@ -126,7 +126,7 @@ summary.specr <- function(x,
     # Head of the result table
     cat("Descriptive summary of sample sizes: \n\n")
     des2 <- x$data %>%
-      summarize(median = median(fit_nobs),
+      dplyr::summarize(median = median(fit_nobs),
                 min = min(fit_nobs),
                 max = max(fit_nobs)) %>%
       as.data.frame %>%
@@ -138,8 +138,8 @@ summary.specr <- function(x,
     # Head of the result table
     cat("Head of the specification results (first", rows, "rows): \n\n")
     x$data %>%
-      select(-model_function, -term) %>%
-      mutate_if(is.numeric, round, digits) %>%
+      dplyr::select(-model_function, -term) %>%
+      dplyr::mutate_if(is.numeric, round, digits) %>%
       head(n = rows) %>%
       print
   }
@@ -147,8 +147,8 @@ summary.specr <- function(x,
   if(what == "curve") {
     x$data %>%
       summarise_specs(..., var = estimate, stats = stats) %>%
-      ungroup %>%
-      mutate_if(is.numeric, round, digits) %>%
+      dplyr::ungroup %>%
+      dplyr::mutate_if(is.numeric, round, digits) %>%
       print
   }
 
@@ -250,9 +250,6 @@ plot.specr <- function(x,
     return(plot_c)
   }
 }
-
-
-
 
 as_tibble.specr <- function(x) {
   x$data

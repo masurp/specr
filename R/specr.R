@@ -85,7 +85,7 @@ specr <- function(specs,
     plan(multisession, workers = workers)
 
     res <- specs %>%
-      mutate(out = future_pmap(., function(...) {
+      dplyr::mutate(out = future_pmap(., function(...) {
 
         # Initialize specs as list
         l = list(...)
@@ -111,12 +111,12 @@ specr <- function(specs,
         )
       }),
       ) %>%
-      unnest(out)
+      tidyr::unnest(out)
 
   } else {
 
     res <- specs %>%
-      mutate(out = pmap(., function(...) {
+      dplyr::mutate(out = pmap(., function(...) {
 
         # Initialize specs as list
         l = list(...)
@@ -141,7 +141,7 @@ specr <- function(specs,
             data = data[s,])
         )
       })) %>%
-      unnest(out)
+      tidyr::unnest(out)
 
   }
 
@@ -154,16 +154,16 @@ specr <- function(specs,
 
   pos_formula <- which(names(res) == "formula")
   subsets_names <- res[5:pos_formula] %>%
-    select(-formula) %>%
+    dplyr::select(-formula) %>%
     names
 
   # Create
   res <- res %>%
-    mutate(across(all_of(subsets_names), ~ as.character(.)),
-           across(all_of(subsets_names), ~ ifelse(is.na(.), "all", .))) %>%
-    mutate(controls = ifelse(controls == "1", "no covariates", controls)) %>%
-    unite(., subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
-    mutate(subsets = sub(" & all", "", subsets))
+    dplyr::mutate(dplyr::across(all_of(subsets_names), ~ as.character(.)),
+                  dplyr::across(all_of(subsets_names), ~ ifelse(is.na(.), "all", .))) %>%
+    dplyr::mutate(controls = ifelse(controls == "1", "no covariates", controls)) %>%
+    tidyr::unite(., subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
+    dplyr::mutate(subsets = sub(" & all", "", subsets))
 
 
   # Create S3 class

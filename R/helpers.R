@@ -8,11 +8,11 @@ expand_covariate <- function(covariate) {
       "1",
       do.call(
         "c",
-        map(
+        purrr::map(
           seq_along(covariate),
           ~combn(covariate, .x, FUN = list))
       ) %>%
-        map(~paste(.x, collapse = " + "))
+        purrr::map(~paste(.x, collapse = " + "))
     ) %>%
       unlist
   }
@@ -23,8 +23,8 @@ tidy_model <- function(f, tidy_f) {
   function(...) {
     fit = do.call(f, args=list(...))
     tidy_f(fit) %>%
-      slice(2) %>%
-      mutate(fit_nobs = nobs(fit))
+      dplyr::slice(2) %>%
+      dplyr::mutate(fit_nobs = nobs(fit))
   }
 }
 

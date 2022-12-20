@@ -86,18 +86,18 @@ setup <- function(data,
   if(is.null(add_to_formula)) {
 
     grid <- grid %>%
-      mutate(formula = str_glue("{y} ~ {x} + {controls}"))
+      dplyr::mutate(formula = str_glue("{y} ~ {x} + {controls}"))
 
   # In case something should be added to the formula
   } else {
 
     grid <- grid %>%
-      mutate(formula = str_glue("{y} ~ {x} + {controls} + {add_to_formula}"))
+      dplyr::mutate(formula = str_glue("{y} ~ {x} + {controls} + {add_to_formula}"))
   }
 
   # Transform model string into actual function that also extracts parameters
   grid <- grid %>%
-    mutate(model_function = map(
+    dplyr::mutate(model_function = map(
       model, function(x) tidy_model(x, tidy_f = tidy_f)
     )
     )
