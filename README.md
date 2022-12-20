@@ -87,15 +87,15 @@ devtools::install_github("masurp/specr")
 
 ### Usage
 
-Using `specr` is comparatively simple. The main function is
-`run_specs()` in which analytical choices are specified as arguments.
-The function `plot_specs()` can then be used to visualize the results.
+Using `specr` is comparatively simple. The two main function are
+`setup()`,in which analytic choices are specified as arguments, and
+`specr()`, which fits the models across all specifications. The latter
+creates a class called “specr”, which can be summarized and plotted with
+generic function such as `summary` or `plot`.
 
 ``` r
 # Load package
 library(specr)
-library(tidyverse)
-library(tictoc)
 
 # Setup Specifications ----
 specs <- setup(data = example_data, 
@@ -112,9 +112,9 @@ results <- specr(specs, workers = 1)
 #> -------------------
 #> Models fitted across 192 specifications
 #> Cores used: 1 
-#> 2.42 sec elapsed
+#> 1.976 sec elapsed
 
-# Plot Specification cCurve ----
+# Plot Specification Curve ----
 plot(results)
 ```
 
