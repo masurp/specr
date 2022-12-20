@@ -4,7 +4,7 @@
 \alias{specr}
 \title{Estimate all specifications}
 \usage{
-specr(specs, data = NULL, workers = availableCores())
+specr(specs, data = NULL, workers = availableCores(), message = TRUE)
 }
 \arguments{
 \item{specs}{a \code{specr.setup} object resulting from \code{setup()} or a tibble that contains the relevant specifications (e.g., a tibble resulting from \code{setup()})}

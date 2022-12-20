@@ -60,10 +60,11 @@
 #' as_tibble(results2)
 specr <- function(specs,
                   data = NULL,
-                  workers = availableCores()){
+                  workers = availableCores(),
+                  message = TRUE){
 
   # Start timing
-  tic()
+  tictoc::tic()
 
   # Collect data and subsets
   if(class(specs)[1] != "specr.setup") {
@@ -145,12 +146,19 @@ specr <- function(specs,
 
   }
 
+  if(isTRUE(message)) {
+
   # Print short summary
   cat("specr -- version:", as.character(packageVersion("specr")), "\n")
   cat("-------------------\n")
   cat("Models fitted across", nrow(res), "specifications\n")
   cat("Cores used:", workers, "\n")
-  time <- toc()
+  time <- tictoc::toc()
+
+  } else {
+
+  time <- tictoc::toc(quiet = TRUE)
+  }
 
   pos_formula <- which(names(res) == "formula")
   subsets_names <- res[5:pos_formula] %>%
@@ -174,7 +182,7 @@ specr <- function(specs,
                  time = time)
 
   # Set class
-  class(output) <- "specr"
+  class(output) <- "specr.object"
 
   return(output)
 }

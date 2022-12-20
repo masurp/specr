@@ -87,7 +87,7 @@ summary.specr.setup <- function(x,
 #'                     min = min,
 #'                     max = max))
 #' @seealso The function used to create the "specr.setup" object: `setup`.
-summary.specr <- function(x,
+summary.specr.object <- function(x,
                           what = "default",
                           ...,
                           stats = list(median = median, mad = mad, min = min, max = max,
@@ -159,7 +159,7 @@ summary.specr <- function(x,
 #' This function plots an entire visualization of the specification curve
 #' analysis. The function uses the "specr" object that is produced by \code{specr()} to creates a standard visualization of the specification curve analysis.
 #'
-#' @param x a "specr" object, usually resulting from calling \code{specr()}.
+#' @param x a "specr.object" object, usually resulting from calling \code{specr()}.
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
 #' @param labels labels for the two parts of the plot
 #' @param rel_heights vector indicating the relative heights of the plot.
@@ -196,16 +196,16 @@ summary.specr <- function(x,
 #' plot(results, ci = F, ribbon = T)
 #' plot(results, what = "curve", desc = T)
 #' plot(results, what = "boxplot")
-plot.specr <- function(x,
-                       what = "default",
-                       choices = c("x", "y", "model", "controls", "subsets"),
-                       labels = c("A", "B"),
-                       rel_heights = c(2, 3),
-                       desc = FALSE,
-                       null = 0,
-                       ci = TRUE,
-                       ribbon = FALSE,
-                       ...){
+plot.specr.object <- function(x,
+                              what = "default",
+                              choices = c("x", "y", "model", "controls", "subsets"),
+                              labels = c("A", "B"),
+                              rel_heights = c(2, 3),
+                              desc = FALSE,
+                              null = 0,
+                              ci = TRUE,
+                              ribbon = FALSE,
+                              ...){
 
   # Create both plots
   plot_a <- plot_curve(x$data, ci = ci, ribbon = ribbon, desc = desc, null = null)
@@ -251,13 +251,13 @@ plot.specr <- function(x,
   }
 }
 
-as_tibble.specr <- function(x) {
+as_tibble.specr.object <- function(x) {
   x$data
 }
 
 
 
-as.data.frame.specr <- function(x) {
+as.data.frame.specr.object <- function(x) {
   as.data.frame(x$data)
 }
 
