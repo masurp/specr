@@ -65,10 +65,10 @@ devtools::install_github("masurp/specr")
 
 ### Usage
 
-Using `specr` is comparatively simple. The two main function are `setup()`,in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr", which can be summarized and plotted with generic function such as `summary` or `plot`. 
+Using `specr` is comparatively simple. The two main function are `setup()`,in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
 
 ```{r, message=F, warning = F, fig.height=10, fig.width=10}
-# Load package
+# Load package ----
 library(specr)
 
 # Setup Specifications ----
@@ -80,7 +80,7 @@ specs <- setup(data = example_data,
                distinct(example_data, group2),
                controls = c("c1", "c2"))
 
-# Run Specification Curve aAnalysis ----
+# Run Specification Curve Analysis ----
 results <- specr(specs, workers = 1)
 
 # Plot Specification Curve ----
