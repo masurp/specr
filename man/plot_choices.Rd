@@ -27,6 +27,9 @@ plot_choices(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
 This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
 }
 \examples{

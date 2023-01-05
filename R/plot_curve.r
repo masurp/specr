@@ -1,6 +1,9 @@
 #' Plot ranked specification curve
 #'
-#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
@@ -42,6 +45,9 @@ plot_curve <- function(df,
                        ribbon = FALSE,
                        legend = FALSE,
                        null = 0){
+
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_curve()", "plot.specr.object()")
 
   var <- enquo(var)
 

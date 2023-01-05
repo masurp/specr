@@ -1,6 +1,9 @@
 #' Create box plots for given analytical choices
 #'
-#' This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice.
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param choices a vector specifying which analytical choices should be plotted. By default, all choices are plotted.
@@ -23,6 +26,10 @@
 #' @seealso [summarise_specs()] to investigate the affect of analytical choices in more detail.
 plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
+
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_summary()", "plot.specr.object()")
+
   value <- key <- NULL
 
   df %>%

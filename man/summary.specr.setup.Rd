@@ -4,29 +4,36 @@
 \alias{summary.specr.setup}
 \title{Summarizing the Specifications Setup}
 \usage{
-\method{summary}{specr.setup}(x, digits = 2, rows = 6, print.specs = FALSE)
+\method{summary}{specr.setup}(x, digits = 2, rows = 6, print.specs = TRUE)
 }
 \arguments{
-\item{x}{an object of class "specr.setup", usually, a result of a call to \code{setup}.}
+\item{x}{An object of class "specr.setup", usually, a result of a call to \code{setup}.}
 
-\item{digits}{the number of digits to use when printing the specification table.}
+\item{digits}{The number of digits to use when printing the specification table.}
 
-\item{rows}{the number of rows of the specification tibble that should be printed.}
+\item{rows}{The number of rows of the specification tibble that should be printed.}
 
-\item{print.specs}{logical; if \code{TRUE}, a head of the specification tibble is returned and printed.}
+\item{print.specs}{Logical value; if \code{TRUE}, a head of the specification tibble
+is returned and printed.}
+}
+\value{
+A printed summary of an object of class \code{specr.setup}.
 }
 \description{
-\code{summary} method for class "specr.setup".
+\code{summary} method for class "specr.setup". Provides a short summary of the
+created specifications (the "multiverse") that lists all analytic choices, prints
+the function used to extract the parameters from the model. Finally, if
+\code{print.specs = TRUE}, it also shows the head of the actual specification grid.
 }
 \examples{
 # Setup specifications
-specs <- setup(data = example_data,    # data
-               x = c("x1", "x2"),      # independent variables
-               y = c("y1"),            # dependent variable
-               model = c("lm", "glm"), # model functions
-               controls = "c1")        # covariates to be added
+specs <- setup(data = example_data,                   # data
+               x = c("x1", "x2"),                     # independent variables
+               y = c("y1"),                           # dependent variable
+               model = c("lm", "glm"),                # model functions
+               controls = c("c1", "c2", "c3"))        # covariates to be added
 summary(specs)
-summary(specs, print.specs = TRUE, rows = 10)
+summary(specs, rows = 10)
 }
 \seealso{
 The function used to create the "specr.setup" object, \code{setup}.

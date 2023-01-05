@@ -30,7 +30,8 @@ library(lavaan)
 
 # Load data and recode
 d <- HolzingerSwineford1939 %>% 
-  mutate(sex = factor(sex)) %>%
+  mutate(sex = factor(sex),
+         ) %>%
   as_tibble
 
 # Check data
@@ -49,7 +50,7 @@ model <- "
   visual ~ ageyr + grade
 "
 
-sem(model, d)
+sem(model, d) %>% tidy_sem %>% select(term)
 ```
 
 
@@ -106,24 +107,26 @@ sem_custom <- function(formula, data) {
 Now we set up `run_specs()` like we are used to. We only include the new function as model parameter and use the latent variables (see named list in the custom function) as depended variables. We further keep the results (keep.results = T) for the time being. Warning messages may appear if models do not converge or have other issues. 
 
 ```{r}
-(results <- run_specs(df = d,
-                      y = c("textual", "visual", "speed"),
-                      x = c("ageyr"),
-                      model = c("sem_custom"),
-                      controls = c("grade"),
-                      subsets = list(sex = unique(d$sex),
-                                     school = unique(d$school)),
-                      keep.results = T))
+specs <- setup(data = d,
+               y = c("textual", "visual", "speed"),
+               x = c("ageyr"),
+               model = c("sem_custom"),
+               controls = c("grade"),
+               distinct(d, sex),
+               distinct(d, school))
+summary(specs, row = 10)
+
+```
+
+
+```{r}
+results <- specr(specs, workers = 1)
 ```
 
 We know can use the usual functions to plot or summarize the results. 
 
 ```{r, fig.height=8, fig.width=8, message=F, warning = F}
-# Summary across the dependent variables
-summarise_specs(results, y)
-
-# Plot
-plot_specs(results)
+plot(results, choices = c("y", "controls", "subsets"))
 ```
 
 ## 3. More specific analyses

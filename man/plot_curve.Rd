@@ -33,6 +33,9 @@ plot_curve(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
 This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 }
 \examples{

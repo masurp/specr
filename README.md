@@ -88,7 +88,7 @@ devtools::install_github("masurp/specr")
 ### Usage
 
 Using `specr` is comparatively simple. The two main function are
-`setup()`,in which analytic choices are specified as arguments, and
+`setup()`, in which analytic choices are specified as arguments, and
 `specr()`, which fits the models across all specifications. The latter
 creates a class called “specr.object”, which can be summarized and
 plotted with generic function such as `summary` or `plot`.
@@ -108,11 +108,9 @@ specs <- setup(data = example_data,
 
 # Run Specification Curve Analysis ----
 results <- specr(specs, workers = 1)
-#> specr -- version: 0.3.0 
-#> -------------------
-#> Models fitted across 192 specifications
+#> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 2.193 sec elapsed
+#> 1.936 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)

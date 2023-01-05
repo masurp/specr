@@ -6,7 +6,8 @@
 \usage{
 \method{plot}{specr.object}(
   x,
-  what = "default",
+  type = "default",
+  var = estimate,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"),
   rel_heights = c(2, 3),
@@ -18,34 +19,50 @@
 )
 }
 \arguments{
-\item{x}{a "specr.object" object, usually resulting from calling \code{specr()}.}
+\item{x}{A \code{specr.object} object, usually resulting from calling \code{specr()}.}
 
-\item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
+\item{type}{What type of figure should be plotted? If \code{what = "default"},
+the standard specification curve analysis plot (the specification curve as the
+upper panel and an overview of the relevant choices as the lower panel) is
+created. If \code{what = "curve"}, only the specification curve (upper panel
+of the default plot) is plotted. If \code{what = "choices"} only the choice
+panel (lower part of the default plot) is plotted. \code{what = "boxplot"},
+an alternative visualization of differences between choices is plotted. See
+examples for more information.}
 
-\item{labels}{labels for the two parts of the plot}
+\item{var}{Which parameter should be plotted in the curve? Defaults to
+\code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
+can be plotted too.}
+
+\item{choices}{A vector specifying which analytic choices should be plotted.
+By default, all choices (x, y, model, controls, subsets) are plotted.}
+
+\item{labels}{Labels for the two parts of the plot}
 
 \item{rel_heights}{vector indicating the relative heights of the plot.}
 
-\item{desc}{logical value indicating whether the curve should the arranged in
+\item{desc}{Logical value indicating whether the curve should the arranged in
 a descending order. Defaults to FALSE.}
 
 \item{null}{Indicate what value represents the 'null' hypothesis (defaults to
 zero).}
 
-\item{ci}{logical value indicating whether confidence intervals should be
+\item{ci}{Logical value indicating whether confidence intervals should be
 plotted.}
 
-\item{ribbon}{logical value indicating whether a ribbon instead should be
+\item{ribbon}{Logical value indicating whether a ribbon instead should be
 plotted.}
 
 \item{...}{additional arguments that can be passed to \code{plot_grid()}.}
 }
 \value{
-a \link[ggplot2]{ggplot} object.
+A \link[ggplot2]{ggplot} object that can be customized further.
 }
 \description{
-This function plots an entire visualization of the specification curve
-analysis. The function uses the "specr" object that is produced by \code{specr()} to creates a standard visualization of the specification curve analysis.
+This function plots visualizations of the specification curve
+analysis. The function requires an object of class \code{specr.object}, usually
+the results of calling \code{specr()} to create a standard visualization of the
+specification curve analysis. Several types of visualizations are possible.
 }
 \examples{
 # Setup specifications
@@ -63,7 +80,17 @@ results <- specr(specs, workers = 1)
 # Plot results in various ways
 plot(results)
 plot(results, choices = c("x", "y"))
-plot(results, ci = F, ribbon = T)
-plot(results, what = "curve", desc = T)
-plot(results, what = "boxplot")
+plot(results, ci = FALSE, ribbon = TRUE)
+plot(results, type = "curve", desc = TRUE)
+plot(results, type = "boxplot") + scale_fill_brewer(palette = "Dark2")
+
+# Also other variables in the resulting data set can be plotted
+plot(results, type = "curve", var = fit_r.squared, ci = FALSE)
+
+# Such a plot can also be extended (e.g., by again adding the estimates with
+# confidence intervals)
+plot(results, type = "curve", var = fit_r.squared) +
+  geom_point(aes(y = estimate), shape = 5) +
+  labs (x = "specifications", y = "r-squared | estimate")
+
 }

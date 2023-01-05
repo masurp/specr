@@ -1,0 +1,54 @@
+---
+title: "Including random effects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Including random effects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+
+```{r}
+
+library(specr)
+library(brms)
+
+
+
+
+
+brm_new <- function(formula, data) {
+  require(brms)
+  require(broom.mixed)
+  brm(formula, data, cores = 1)
+}
+
+opts <- specr::furrr_options(
+  globals = list(brm_new = brm_new),
+  packages = c("brms", "broom.mixed")
+)
+
+specs <- setup(data = example_data,
+              x = c("x1", "x2"),
+              y = c("y1", "y2"),
+              model = "brm_new",
+              controls = "c1")
+summary(specs)
+
+
+
+results2 <- specr(specs, workers = 4, .options = opts)
+
+summary(results2)
+```
+

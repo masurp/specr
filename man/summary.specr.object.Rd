@@ -6,8 +6,9 @@
 \usage{
 \method{summary}{specr.object}(
   x,
-  what = "default",
+  type = "default",
   ...,
+  var = estimate,
   stats = list(median = median, mad = mad, min = min, max = max, q25 = function(x)
     quantile(x, prob = 0.25), q75 = function(x) quantile(x, prob = 0.75)),
   digits = 2,
@@ -15,20 +16,26 @@
 )
 }
 \arguments{
-\item{x}{an object of class "specr", usually resulting of a call to \code{specr}.}
-
-\item{what}{different aspects can be summarized and printed. See details for alternative summaries}
+\item{x}{An object of class "specr", usually resulting of a call to \code{specr}.}
 
 \item{...}{In combination with \code{what = "curve"}, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
 
-\item{stats}{named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.}
+\item{stats}{Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.}
 
-\item{digits}{the number of digits to use when printing the specification table.}
+\item{digits}{The number of digits to use when printing the specification table.}
 
-\item{rows}{the number of rows of the specification tibble that should be printed.}
+\item{rows}{The number of rows of the specification tibble that should be printed.}
+
+\item{what}{Different aspects can be summarized and printed. See details for alternative summaries}
+}
+\value{
+A printed summary of an object of class \code{specr.object}.
 }
 \description{
-\code{summary} method for class "specr".
+\code{summary} method for class "specr". It provides a printed output including
+technical details (e.g., cores used, duration of the fitting process, number
+of specifications), a descriptive analysis of the overall specification curve,
+a descriptive summary of the resulting sample sizes, and a head of the results.
 }
 \examples{
 # Setup up specifications (returns "specr.setup" object)
@@ -45,9 +52,9 @@ results <- specr(specs, workers = 1)
 # Summary of the "specr" object
 summary(results)  # Default
 summary(results, digits = 5, rows = 10)
-summary(results, what = "curve")
-summary(results, what = "curve", x, y)
-summary(results, what = "curve",
+summary(results, type = "curve")
+summary(results, type = "curve", x, y)
+summary(results, type = "curve",
        x, group1,
        stats = list(median = median,
                     min = min,
