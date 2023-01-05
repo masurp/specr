@@ -24,8 +24,6 @@
 #' @param fun A function that extracts the parameters of interest from the
 #'    fitted models. Defaults to [tidy][broom::broom-package], which works
 #'    with a large range of different models.
-#' @param to_tibble If set to TRUE returns a simple data frame (tibble)
-#'    instead of the S3 object \code{specr.setup}.
 #'
 #' @return An object of class \code{specr.setup} which includes all possible
 #'    specifications based on combinations of the analytic choices. The
@@ -144,8 +142,7 @@ setup <- function(data,
                   ...,
                   controls = NULL,
                   add_to_formula = NULL,
-                  fun = function(x) broom::tidy(x, conf.int = TRUE),
-                  to_tibble = FALSE) {
+                  fun = function(x) broom::tidy(x, conf.int = TRUE)) {
 
   if (rlang::is_missing(data)) {
     stop("You must provide the data set that should be used in the analyses.")
@@ -205,8 +202,7 @@ setup <- function(data,
       dplyr::mutate(formula = str_glue("{y} ~ {x} + {controls} + {add_to_formula}"))
   }
 
-  # Transform model string into actual function that also extracts parameters and
-  # transform control variables
+  # Transform model string into actual function that also extracts parameters
   grid <- grid %>%
     mutate(model_function = purrr::map(model, function(x) tidy_model(x, fun = fun)))
 
@@ -233,14 +229,6 @@ setup <- function(data,
     subsets_names <- "none"
   }
 
-  # Should a tibble be returned?
-  if(isTRUE(to_tibble)) {
-
-    return(grid)
-
-  # Setup S3 class
-  } else {
-
     # Create list of relevant objects
     res <- list(specs = grid,
                 n_specs = nrow(grid),
@@ -257,6 +245,6 @@ setup <- function(data,
     class(res) <- "specr.setup"
 
     return(res)
-  }
+
 }
 

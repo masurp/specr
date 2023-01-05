@@ -7,8 +7,6 @@
 #'
 #' @param specs A `specr.setup` object resulting from \code{setup} or a tibble that
 #'    contains the relevant specifications (e.g., a tibble resulting from \code{setup})
-#' @param data A data frame or tibble that contains the data set. Does not have
-#'    to be specified if a `specr.setup` object is passed to specs.
 #' @param workers A numeric value that indicates how many cores should be used.
 #'    Defaults to \code{availableCores()} from the future package and thus uses
 #'    all available cores. Note: If the models specified via \code{setup()} are not
@@ -77,19 +75,19 @@
 #' @examples
 #' # Example 1 ----
 #' # Setup up typical specifications
-#' specs <- setup(data = example_data,            # providing data
-#'                y = c("y1", "y2"),              # different y variables
-#'                x = c("x1", "x2"),              # different x variables
-#'                model = "lm",                   # only one model type
-#'                #distinct(example_data, group1), # subset based on "group1"
-#'                controls = c("c1", "c2"))       # Control for two variables
+#' specs <- setup(data = example_data,             # providing data
+#'                y = c("y1", "y2"),               # different y variables
+#'                x = c("x1", "x2"),               # different x variables
+#'                model = "lm",                    # only one model type
+#'                distinct(example_data, group1), # subset based on "group1"
+#'                controls = c("c1", "c2"))        # Control for two variables
 #'
 #' # Run analysis (not parallelized, using simple `map` functions)
 #' results <- specr(specs, workers = 1)
 #'
 #' # Summary of the results
 #' summary(results)
-#' summary(results, what = "curve", subsets)
+#' summary(results, type = "curve", subsets)
 #' plot(results)  # For more information on how to plot result see \code{?plot.specr.object}
 #'
 #' # Example 2 ----
@@ -142,8 +140,7 @@
 #' # You can also extract the results tibble from the S3 class with standard functions
 #' as_tibble(results2)
 #' as.data.frame(results2)
-specr <- function(specs,
-                  data = NULL,
+specr <- function(x,
                   workers = availableCores(),
                   ...,
                   message = TRUE){
@@ -163,13 +160,13 @@ specr <- function(specs,
   # Collect data and subsets
   if(class(specs)[1] != "specr.setup") {
 
-    specs <- specs
+    specs <- x
 
   } else {
 
-    data <- specs$data
-    subsets <- specs$subsets
-    specs <- specs$specs
+    data <- x$data
+    subsets <- x$subsets
+    specs <- x$specs
 
   }
 
@@ -272,7 +269,11 @@ specr <- function(specs,
   # Create S3 class
   output <- list(data = res,
                  n_specs = nrow(res),
-                 subsets = subsets_names,
+                 x = x$x,
+                 y = x$y,
+                 model = x$model,
+                 controls = x$model,
+                 subsets = x$subsets,
                  workers = workers,
                  time = time)
 

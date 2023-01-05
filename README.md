@@ -9,6 +9,8 @@
 
 # specr
 
+## Conducting and Visualizing Specification Curve Analyses
+
 <!-- badges: start -->
 
 [![CRAN
@@ -19,7 +21,28 @@ status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
-### Conducting and Visualizing Specification Curve Analyses
+### News
+
+-   (5 January 2022): specr version 0.3.0 is available via github. This
+    is a major update with several new features and functions:
+    -   `setup_specs()` becomes `setup()` and thereby allows to
+        completely setup all specifications before actually estimating
+        the models.
+    -   `run_specs()` becomes `specr()` and wraps around `setup()` to
+        estimate all models.
+    -   Both `setup()` and `specr()` produce S3 classes that can be
+        investigated using generic function such as `summary()` or
+        `plot()`.
+    -   For more information about these changes, see further below.
+-   (4 December 2020): specr development version 0.2.2 is available via
+    github. Mostly minor updates and bug fixes.
+    -   All plotting functions allow to choose which parameter to plot.
+    -   More complete results based on `broom::tidy()` and
+        `broom::glance()`.
+-   (25 May 2020): specr version 0.2.1 has been released on
+    [CRAN](https://cran.r-project.org/web/packages/specr/index.html).
+
+### What is specr?
 
 The goal of specr is to facilitate specification curve analyses
 (Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
@@ -28,9 +51,10 @@ investigate how different (theoretically plausible) analytical choices
 affect outcome statistics within the universe of one single data set.
 
 It provides functions to setup, run, evaluate, and plot the multiverse
-of specifications. A simple usage example is provided below. For more
-information about the various functions and specific use cases, visit
-the [documentation](https://masurp.github.io/specr/index.html).
+of specifications. A simple example of how to use specr is provided
+below. For more information about the various functions and specific use
+cases, visit the
+[documentation](https://masurp.github.io/specr/index.html).
 
 There are also some vignettes that exemplify and explain specific
 aspects and functions of the package:
@@ -39,25 +63,21 @@ aspects and functions of the package:
     started](https://masurp.github.io/specr/articles/specr.html): A
     comprehensive example. This vignette illustrates the major functions
     of the package.
--   [Customizing specification curve
+-   [Customizing
     plots](https://masurp.github.io/specr/articles/custom-plot.html):
     This vignette exemplifies various ways to plot the specification
     curve.
--   [Decomposing the variance of the specification
+-   [Investigating variance in the specification
     curve](https://masurp.github.io/specr/articles/decompose_var.html):
     Investigating variance components of the specification curve.
--   [Including latent measurement
-    models](https://masurp.github.io/specr/articles/measurement_models.html):
+-   [Incorporating structural equation
+    modeling](https://masurp.github.io/specr/articles/measurement_models.html):
     This vignette exemplifies how to include latent measurement models
     and estimate structural equations models using `lavaan`.
--   [Including random effects/Estimate multilevel
-    models](https://masurp.github.io/specr/articles/random_effects.html):
+-   [Incorparting multilevel
+    modeling](https://masurp.github.io/specr/articles/random_effects.html):
     This vignette exemplifies how to include random effects and estimate
     multilevel models using `lme4`.
--   [Visualizing progress during
-    estimation](https://masurp.github.io/specr/articles/progress.html):
-    This vignette explains how to create a progress bar for longer
-    computations.
 
 ### Disclaimer
 
@@ -110,7 +130,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 1.806 sec elapsed
+#> 2.224 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)

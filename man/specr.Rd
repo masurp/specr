@@ -4,15 +4,9 @@
 \alias{specr}
 \title{Fit models across all specifications}
 \usage{
-specr(specs, data = NULL, workers = availableCores(), ..., message = TRUE)
+specr(x, workers = availableCores(), ..., message = TRUE)
 }
 \arguments{
-\item{specs}{A \code{specr.setup} object resulting from \code{setup} or a tibble that
-contains the relevant specifications (e.g., a tibble resulting from \code{setup})}
-
-\item{data}{A data frame or tibble that contains the data set. Does not have
-to be specified if a \code{specr.setup} object is passed to specs.}
-
 \item{workers}{A numeric value that indicates how many cores should be used.
 Defaults to \code{availableCores()} from the future package and thus uses
 all available cores. Note: If the models specified via \code{setup()} are not
@@ -29,6 +23,9 @@ is used. See examples 2 and 3 below for further details.}
 \item{message}{Logical value; indicates whether a short message should be
 printed after the estimation including information about the elapsed time.
 Defaults to TRUE.}
+
+\item{specs}{A \code{specr.setup} object resulting from \code{setup} or a tibble that
+contains the relevant specifications (e.g., a tibble resulting from \code{setup})}
 }
 \value{
 An object of class \code{specr.object}, which includes a data frame
@@ -83,19 +80,19 @@ analytical choices on results, and not a better way to estimate a correlation or
 \examples{
 # Example 1 ----
 # Setup up typical specifications
-specs <- setup(data = example_data,            # providing data
-               y = c("y1", "y2"),              # different y variables
-               x = c("x1", "x2"),              # different x variables
-               model = "lm",                   # only one model type
-               #distinct(example_data, group1), # subset based on "group1"
-               controls = c("c1", "c2"))       # Control for two variables
+specs <- setup(data = example_data,             # providing data
+               y = c("y1", "y2"),               # different y variables
+               x = c("x1", "x2"),               # different x variables
+               model = "lm",                    # only one model type
+               distinct(example_data, group1), # subset based on "group1"
+               controls = c("c1", "c2"))        # Control for two variables
 
 # Run analysis (not parallelized, using simple `map` functions)
 results <- specr(specs, workers = 1)
 
 # Summary of the results
 summary(results)
-summary(results, what = "curve", subsets)
+summary(results, type = "curve", subsets)
 plot(results)  # For more information on how to plot result see \code{?plot.specr.object}
 
 # Example 2 ----

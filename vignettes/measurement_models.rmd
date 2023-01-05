@@ -23,15 +23,12 @@ For this example, we will us the `HolzingerSwineford1939` data set that is inclu
 
 ```{r, message=F, warning = F}
 library(specr)
-library(purrr)
-library(dplyr)
-library(ggplot2)
 library(lavaan)
 
 # Load data and recode
 d <- HolzingerSwineford1939 %>% 
-  mutate(sex = factor(sex),
-         ) %>%
+  mutate(sex = as.character(sex),
+         school = as.character(school)) %>%
   as_tibble
 
 # Check data
@@ -50,7 +47,7 @@ model <- "
   visual ~ ageyr + grade
 "
 
-sem(model, d) %>% tidy_sem %>% select(term)
+summary(sem(model, d))
 ```
 
 
@@ -111,9 +108,9 @@ specs <- setup(data = d,
                y = c("textual", "visual", "speed"),
                x = c("ageyr"),
                model = c("sem_custom"),
-               controls = c("grade"),
                distinct(d, sex),
-               distinct(d, school))
+               distinct(d, school),
+               controls = c("grade"))
 summary(specs, row = 10)
 
 ```

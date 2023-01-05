@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("deprecated")`
 #'    This function is deprecated because the new version of specr uses a new analytic framework.
-#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function and adding the argument \code{type = "boxplot"}.
 #'    This function provides a convenient way to visually investigate the effect of individual choices on the estimate of interest. It produces box-and-whisker plot(s) for each provided analytical choice.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.

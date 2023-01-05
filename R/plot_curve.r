@@ -2,7 +2,8 @@
 #'
 #' @description `r lifecycle::badge("deprecated")`
 #'    This function is deprecated because the new version of specr uses a new analytic framework.
-#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function and
+#'    adding the argument \code{type = "curve"}.
 #'    This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.

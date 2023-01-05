@@ -1,7 +1,7 @@
 ## usethis namespace: start
 #' @import ggplot2
 #' @import dplyr
-#' @importFrom lme4 VarCorr
+#' @importFrom lme4 VarCorr lmer
 #' @importFrom glue glue
 #' @importFrom tictoc tic toc
 #' @importFrom tidyr expand_grid unnest unite

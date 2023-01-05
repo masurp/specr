@@ -260,6 +260,8 @@ plot.specr.object <- function(x,
                               null = 0,
                               ci = TRUE,
                               ribbon = FALSE,
+                              formula = NULL,
+                              var_int = FALSE,
                               ...){
 
 
@@ -375,6 +377,71 @@ plot.specr.object <- function(x,
       labs(x = "")
 
     return(plot_c)
+  }
+
+  if(type == "variance") {
+
+   if(is.null(formula)) {
+
+    if(length(x$x) > 1) {
+      var_x = "+ (1|x)"
+    } else {
+      var_x = ""
+    }
+
+    if(length(x$y) > 1) {
+      var_y = "+ (1|y)"
+    } else {
+      var_y = ""
+    }
+
+    if(length(x$model) > 1) {
+      var_model = "+ (1|model)"
+    } else {
+      var_model = ""
+    }
+
+    if(length(x$controls) > 0) {
+      var_controls = "+ (1|controls)"
+    } else {
+      var_controls = ""
+    }
+
+    if(x$subsets[1] == "none") {
+      var_subsets = ""
+    } else {
+      var_subsets = "+ (1|subsets)"
+    }
+
+    formula <- paste("estimate ~ 1", var_x, var_y, var_model, var_controls, var_subsets)
+
+   }
+
+    model <- lme4::lmer(formula = formula, data = x$data)
+
+    var <- lme4::VarCorr(model) %>%
+      as.data.frame %>%
+      select(grp, vcov)
+
+    # sum up all variance components
+    sum_var <- sum(var$vcov)
+
+    # estimate icc
+    var <- var %>%
+      mutate(icc = vcov/sum_var,
+             percent = .data$icc*100)
+
+    plot_d <- ggplot(var, aes(x = .data$grp,
+                    y = .data$percent)) +
+      geom_bar(stat = "identity", fill = "#377eb8") +
+      theme_minimal() +
+      theme(axis.text = element_text(colour = "black"),
+            axis.line.y = element_line(colour = "black"),
+            axis.line.x = element_line(colour = "black")) +
+      labs(x = "", y = "proportion of variance", fill = "analytical choices")
+
+    return(plot_d)
+
   }
 }
 

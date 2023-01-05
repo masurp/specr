@@ -15,6 +15,8 @@
   null = 0,
   ci = TRUE,
   ribbon = FALSE,
+  formula = NULL,
+  var_int = FALSE,
   ...
 )
 }

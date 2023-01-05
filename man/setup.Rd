@@ -12,8 +12,7 @@ setup(
   ...,
   controls = NULL,
   add_to_formula = NULL,
-  fun = function(x) broom::tidy(x, conf.int = TRUE),
-  to_tibble = FALSE
+  fun = function(x) broom::tidy(x, conf.int = TRUE)
 )
 }
 \arguments{
@@ -39,9 +38,6 @@ included in the formula (e.g. a constant covariate, random effect structures...)
 \item{fun}{A function that extracts the parameters of interest from the
 fitted models. Defaults to \link[broom:broom]{tidy}, which works
 with a large range of different models.}
-
-\item{to_tibble}{If set to TRUE returns a simple data frame (tibble)
-instead of the S3 object \code{specr.setup}.}
 }
 \value{
 An object of class \code{specr.setup} which includes all possible
