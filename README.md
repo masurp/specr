@@ -74,7 +74,7 @@ and not a better way to estimate a correlation or effect.
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")
+install.packages("specr")  # version 0.2.1
 ```
 
 Or install the most recent development version from
@@ -82,7 +82,7 @@ Or install the most recent development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")
+devtools::install_github("masurp/specr")  # version 0.3.0
 ```
 
 ### Usage
@@ -110,7 +110,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 1.936 sec elapsed
+#> 1.806 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)

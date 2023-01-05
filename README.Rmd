@@ -53,14 +53,14 @@ We do see a lot of value in investigating how analytical choices affect a statis
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")
+install.packages("specr")  # version 0.2.1
 ```
 
 Or install the most recent development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")
+devtools::install_github("masurp/specr")  # version 0.3.0
 ```
 
 ### Usage
