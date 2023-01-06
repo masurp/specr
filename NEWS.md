@@ -22,9 +22,13 @@ CRAN release: [soon]
 
 * Please note that the functions from earlier versions are still available, but deprecated. It is hence still possible to use the older framework as implemented in version 0.2.1, but we suggest to move to the new framework of version 0.3.0 due to its increased speed and flexibility. 
 
+## Known issues/bugs
+
+* So far none...
+
 # specr 0.2.2
 
-Development version: 2020-12-04
+Development version released: 2020-12-04
 
 ## Breaking changes
 
@@ -32,23 +36,21 @@ Development version: 2020-12-04
 
 ## Updates
 
-* Some minor updates and bug fixes:
+* Some minor updates (related to gituhub issues) and bug fixes:
 
-    - All combinations of control variables can be produced (by specifying `all.comb = TRUE`)
+    - All combinations of control variables can be produced (by specifying `all.comb = TRUE`; solved github issue #21)
     - `run_specs()` now allows to add sets of control variabels (github issue #11)
-    - all plotting functions allow to choose which parameter to plot
-    - more complete results based on `broom::tidy()` and `broom::glance()`
+    - All plotting functions allow to choose which parameter to plot
+    - More complete results based on `broom::tidy()` and `broom::glance()`
 
-* The package now allows to integrate:
+* The package further now allows to integrate:
 
    - random effects (see this [vignette](https://masurp.github.io/specr/articles/random_effects.html))
    - latent measurement models (see this [vignette](https://masurp.github.io/specr/articles/measurement_models.html))
    
 ## Known issues
 
-* Still no parallelization
-
-* 
+* Still no parallelization (github issue #1)
 
 # specr 0.2.1
 
@@ -68,7 +70,7 @@ CRAN release: 2020-03-26
 
 * Implementation of random effect modelling and structural equation modeling potentially possible, but still unclear. 
 
-* Does not allow to specify all possible combinations of control variables. 
+* Does not allow to specify all possible combinations of control variables (github issue #21). 
 
 * Does not allow to specify sets of control variables (github issue #11)
 
