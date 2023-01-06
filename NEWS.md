@@ -1,18 +1,30 @@
 
 # specr 0.3.0
 
+CRAN release: [soon]
+
 ## Breaking changes
 
-* This new version introduces a completely new analytic framework:
+* This new version introduces a completely new analytic framework which breaks with earlier version of specr
 
-   - `setup_specs()` becomes `setup()` and thereby allows to completely setup all specifications before actually estimating all models. This makes the overall package way more flexible. The function `setup()` also includes new arguments that allow for more options in setting up specifications and incorporating a variety of analytical choices. 
-   - `run_specs()` becomes `specr()`, which wraps around `setup()` to estimate all models. The underlying model estimation process can now be parallized to reduce fitting duration (based on `furrr`).
-   - Both `setup()` and `specr()` produce S3 classes that can be investigated using generic functions such as `summary()` or `plot()`. 
-   - For more information about these major changes and how to use the new version of specr, see this [vignette](https://masurp.github.io/specr/articles/specr.html). 
+* A new function called `setup()` is introduced and replaces the original `setup_specs()` to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models . 
 
-* Older functions from earlier versions are still available, but deprecated.
+   - Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue #26).
+   - Resulting specification can be filtered using standard `tidyverse` functions such as e.g., `filter()`, allowing to make sure that only reasonable specifications are actually fitted. 
+   - Produces an object of class `specr.setup`, which can be investigated using e.g., `summary()`. 
+
+* The function `run_specs()` is replaced by `specr()`, which now only wraps around `setup()` to estimate all models. Most changes are related to increasing speed of the computations. 
+
+   - The estimation process can now be parallelized (based on `furrr`, finally solving github issue #1).
+   - Produces an object of class `specr.object`, which can be investigated using generic function such as `summary()` and `plot(). 
+
+* For more information about these major changes and how to use the new version of specr, see this [vignette](https://masurp.github.io/specr/articles/specr.html). 
+
+* Please note that the functions from earlier versions are still available, but deprecated. It is hence still possible to use the older framework as implemented in version 0.2.1, but we suggest to move to the new framework of version 0.3.0 due to its increased speed and flexibility. 
 
 # specr 0.2.2
+
+Development version: 2020-12-04
 
 ## Breaking changes
 
@@ -22,6 +34,8 @@
 
 * Some minor updates and bug fixes:
 
+    - All combinations of control variables can be produced (by specifying `all.comb = TRUE`)
+    - `run_specs()` now allows to add sets of control variabels (github issue #11)
     - all plotting functions allow to choose which parameter to plot
     - more complete results based on `broom::tidy()` and `broom::glance()`
 
@@ -29,10 +43,40 @@
 
    - random effects (see this [vignette](https://masurp.github.io/specr/articles/random_effects.html))
    - latent measurement models (see this [vignette](https://masurp.github.io/specr/articles/measurement_models.html))
+   
+## Known issues
+
+* Still no parallelization
+
+* 
 
 # specr 0.2.1
 
 CRAN release: 2020-03-26
 
-* Stable version tested in several environments.
+## Updates
 
+* First stable version
+
+* Tested in several environments. 
+
+* Primary function is `run_specs()`, which allows to specify analytic choices and estimate all models across specifications. 
+
+## Known issues
+
+* No parallelization of the fitting process (can take very long if model fitting process is complex).
+
+* Implementation of random effect modelling and structural equation modeling potentially possible, but still unclear. 
+
+* Does not allow to specify all possible combinations of control variables. 
+
+* Does not allow to specify sets of control variables (github issue #11)
+
+
+# Pre-release version
+
+* This version is still in development but main functions and features are established. 
+
+## Known issues
+
+* Some further performance enhancements, customizations, debugging, and cosmetic changes will take place before any official release.
