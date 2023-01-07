@@ -10,12 +10,14 @@ CRAN release: [soon]
 * A new function called `setup()` is introduced and replaces the original `setup_specs()` to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models . 
 
    - Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue #26).
-   - Resulting specification can be filtered using standard `tidyverse` functions such as e.g., `filter()`, allowing to make sure that only reasonable specifications are actually fitted. 
+   - Excludes non-meaningful specifications (e.g., when control and independent or dependent variable are the same).
+   - Allows to specify all combinations of control variables or to "simplify" and only include none, each individually and all together (github issue #11).
+   - Resulting specification can be filtered using standard `tidyverse` functions such as e.g., `filter()`. This way, one can make sure a priori that only reasonable specifications are actually included. 
    - Produces an object of class `specr.setup`, which can be investigated using e.g., `summary()`. 
 
 * The function `run_specs()` is replaced by `specr()`, which now only wraps around `setup()` to estimate all models. Most changes are related to increasing speed of the computations. 
 
-   - The estimation process can now be parallelized (based on `furrr`, finally solving github issue #1).
+   - Most importantly, the estimation process can now be parallelized (based on `furrr`, finally solving github issue #1) to reduce fitting time. 
    - Produces an object of class `specr.object`, which can be investigated using generic function such as `summary()` and `plot(). 
 
 * For more information about these major changes and how to use the new version of specr, see this [vignette](https://masurp.github.io/specr/articles/specr.html). 
