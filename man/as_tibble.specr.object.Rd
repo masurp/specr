@@ -9,3 +9,4 @@
 \description{
 Return tibble from specr.object
 }
+\keyword{internal}

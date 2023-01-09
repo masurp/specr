@@ -20,6 +20,8 @@
 
 \item{...}{In combination with \code{what = "curve"}, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
 
+\item{var}{In combination with \code{what = "curve"}, unquoted name of parameter to be summarized. Defaults to estimate.}
+
 \item{stats}{Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.}
 
 \item{digits}{The number of digits to use when printing the specification table.}

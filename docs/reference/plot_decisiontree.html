@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -29,30 +29,36 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/custom-plot.html">Customizing plots</a>
+      <a href="../articles/01-different-specifications.html">Setting up different types of specifications</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Identifying variance components</a>
+      <a href="../articles/02-custom-plot.html">Visualizing specification curve analyses</a>
     </li>
     <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/03-parallelization.html">Using parallelization</a>
     </li>
     <li>
-      <a href="../articles/measurement_models.html">Including latent measurement models</a>
+      <a href="../articles/04-measurement_models.html">Incorporating structural equation models</a>
     </li>
     <li>
-      <a href="../articles/progress.html">Visualizing progress</a>
+      <a href="../articles/05-random_effects.html">Incorporating multilevel models</a>
     </li>
     <li>
-      <a href="../articles/random_effects.html">Including random effects</a>
+      <a href="../articles/06-bayesian-models.html">Incorporating Bayesian Statistics</a>
+    </li>
+    <li>
+      <a href="../articles/09-invest-spec.html">Investigating specific specifications</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/masurp/specr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -78,41 +84,48 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">df</span>, label <span class="op">=</span> <span class="cn">FALSE</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">df</span>, label <span class="op">=</span> <span class="cn">FALSE</span>, legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>df</dt>
 <dd><p>data frame resulting from <code><a href="run_specs.html">run_specs()</a></code>.</p></dd>
+
+
 <dt>label</dt>
 <dd><p>Logical. Should labels be included? Defaults to FALSE. Produces only a reasonable plot if number of specifications is low.</p></dd>
+
+
 <dt>legend</dt>
 <dd><p>Logical. Should specific decisions be identifiable. Defaults to FALSE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>a <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a> object.</p>
+    
+
+<p>a <a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a> object.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="run_specs.html">run_specs</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">example_data</span>,</span>
-<span class="r-in">                    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
-<span class="r-in">                    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
-<span class="r-in">                    model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>,</span>
-<span class="r-in">                    controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Basic, non-labelled decisions tree</span></span>
-<span class="r-in"><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="run_specs.html">run_specs</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">example_data</span>,</span></span>
+<span class="r-in"><span>                    y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                    controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Basic, non-labelled decisions tree</span></span></span>
+<span class="r-in"><span><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_decisiontree-1.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Labelled decisions tree</span></span>
-<span class="r-in"><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Labelled decisions tree</span></span></span>
+<span class="r-in"><span><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span>, label <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_decisiontree-2.png" alt="" width="700" height="433"></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Add legend</span></span>
-<span class="r-in"><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add legend</span></span></span>
+<span class="r-in"><span><span class="fu">plot_decisiontree</span><span class="op">(</span><span class="va">results</span>, label <span class="op">=</span> <span class="cn">TRUE</span>, legend <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="plot_decisiontree-3.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -128,7 +141,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

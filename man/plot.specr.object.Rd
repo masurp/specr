@@ -16,21 +16,23 @@
   ci = TRUE,
   ribbon = FALSE,
   formula = NULL,
-  var_int = FALSE,
+  print = TRUE,
   ...
 )
 }
 \arguments{
 \item{x}{A \code{specr.object} object, usually resulting from calling \code{specr()}.}
 
-\item{type}{What type of figure should be plotted? If \code{what = "default"},
+\item{type}{What type of figure should be plotted? If \code{type = "default"},
 the standard specification curve analysis plot (the specification curve as the
 upper panel and an overview of the relevant choices as the lower panel) is
-created. If \code{what = "curve"}, only the specification curve (upper panel
-of the default plot) is plotted. If \code{what = "choices"} only the choice
-panel (lower part of the default plot) is plotted. \code{what = "boxplot"},
-an alternative visualization of differences between choices is plotted. See
-examples for more information.}
+created. If \code{type = "curve"}, only the specification curve (upper panel
+of the default plot) is plotted. If \code{type = "choices"}, only the choice
+panel (lower part of the default plot) is plotted. If \code{type = "boxplot"},
+an alternative visualization of differences between choices is plotted that
+summarizes results per choice using box-and-whisker plot(s). If
+\code{type = "samplesizes"}, a barplot of sample sizes per specification is
+plotted.  See examples for more information.}
 
 \item{var}{Which parameter should be plotted in the curve? Defaults to
 \code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
@@ -53,9 +55,20 @@ zero).}
 plotted.}
 
 \item{ribbon}{Logical value indicating whether a ribbon instead should be
-plotted.}
+plotted}
 
-\item{...}{additional arguments that can be passed to \code{plot_grid()}.}
+\item{formula}{In combination with \code{type = "variance"}, you can provide
+a specific formula to extract specific variance components. The syntax of the
+formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
+\code{"estimate ~ 1 + (1|x) + (1|y)"} (to estimate the amount of variance
+explained by different independent \code{x} and dependent variables \code{y}). All other
+choices are then subsumed under residual variance. By no formula is provided,
+all choices (x, y, model, controls, and subsets) that have more than one alternative
+are included. See examples for further details.}
+
+\item{print}{In combination with \code{type = "variance"}, logical value indicating
+whether the intra-class correlations (i.e., percentages of variance explained by
+analstical choices) should be printed or not. Defaults to TRUE.}
 }
 \value{
 A \link[ggplot2]{ggplot} object that can be customized further.
@@ -84,10 +97,16 @@ plot(results)
 plot(results, choices = c("x", "y"))
 plot(results, ci = FALSE, ribbon = TRUE)
 plot(results, type = "curve", desc = TRUE)
-plot(results, type = "boxplot") + scale_fill_brewer(palette = "Dark2")
+plot(results, type = "choices", desc = TRUE)
+plot(results, type = "samplesizes")
+plot(results, type = "boxplot") +
+  scale_fill_brewer(palette = "Dark2")
 
 # Also other variables in the resulting data set can be plotted
-plot(results, type = "curve", var = fit_r.squared, ci = FALSE)
+plot(results,
+     type = "curve",
+     var = fit_r.squared,   # extract "r-square" instead of "estimate
+     ci = FALSE)
 
 # Such a plot can also be extended (e.g., by again adding the estimates with
 # confidence intervals)
@@ -95,4 +114,23 @@ plot(results, type = "curve", var = fit_r.squared) +
   geom_point(aes(y = estimate), shape = 5) +
   labs (x = "specifications", y = "r-squared | estimate")
 
+# We can also investigate how much variance is explained by each analytical choice
+plot(results, type = "variance") # default
+
+# By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices
+# also including interactions between chocies
+plot(results,
+     type = "variance",
+     formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")
+
+# `specr` also exports the function `plot_grid()` from the package `cowplot`, which
+# can be used to combine plots meaningfully
+a <- plot(results, "curve")
+b <- plot(results, "choices", choices = c("x", "y", "controls"))
+c <- plot(results, "samplesizes")
+plot_grid(a, b, c,
+          align = "v",
+          axis = "rbl",
+          rel_heights = c(2, 3, 1),
+          ncol = 1)
 }

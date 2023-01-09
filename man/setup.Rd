@@ -12,7 +12,9 @@ setup(
   ...,
   controls = NULL,
   add_to_formula = NULL,
-  fun = function(x) broom::tidy(x, conf.int = TRUE)
+  fun1 = function(x) broom::tidy(x, conf.int = TRUE),
+  fun2 = function(x) broom::glance(x),
+  simplify = FALSE
 )
 }
 \arguments{
@@ -26,8 +28,11 @@ setup(
 
 \item{...}{Specification of potential subsets/groups. As the subsetting
 variable should be in the data set, please specify as follows
-(\code{distinct(data, variable)}). Note: This variable needs to be a factor in
-the data set! See also examples further below.}
+(\code{distinct(data, variable)}). Note: This variable needs to be a numeric
+(\verb{<dbl>} or \verb{<int>}) or a character (\verb{<chr>}) variable in the the data set!
+It will not work with a factor (\verb{<fct>}) variable. If your grouping variable
+is a factor, please recode to a character variable beforehand. See also
+examples further below.}
 
 \item{controls}{A vector of the control variables that should be included.
 Defaults to NULL.}
@@ -35,9 +40,22 @@ Defaults to NULL.}
 \item{add_to_formula}{A string specifying aspects that should always be
 included in the formula (e.g. a constant covariate, random effect structures...)}
 
-\item{fun}{A function that extracts the parameters of interest from the
+\item{fun1}{A function that extracts the parameters of interest from the
 fitted models. Defaults to \link[broom:broom]{tidy}, which works
 with a large range of different models.}
+
+\item{fun2}{A function that extracts fit indices of interest from the models.
+Defaults to \link[broom:broom]{glance}, which works with a large range of
+different models. Note: Different models result in different fit indices. Thus,
+if you use different models within one specification curve analysis, this may not
+work. In this case, you can simply set \code{fun2 = NULL} to not extract any fit indices.}
+
+\item{simplify}{Logical value indicating what type of combinations between
+control variables should be included in the specification. If FALSE (default),
+all combinations between the provided variables are created (none, each
+individually, each combination between each variable, all variables). If
+TRUE, only no covariates, each individually, and all covariates are included
+as specifications (akin to the default in specr version 0.2.1).}
 }
 \value{
 An object of class \code{specr.setup} which includes all possible
@@ -93,11 +111,11 @@ specs <- setup(data = example_data,
                y = c("y1", "y2"),
                model = "lm",
                distinct(example_data, group1),
-               distinct(example_data, group2),
-               controls = c("c1", "c2"))
+               controls = c("c1", "c2", "c3"),
+               simplify = TRUE)
 
 # Check specifications
-summary(specs)
+summary(specs, rows = 18)
 
 
 # Example 2 ----
@@ -108,7 +126,7 @@ specs <- setup(data = example_data,
                model = c("lmer"),              # multilevel model
                distinct(example_data, group1),
                controls = c("c1", "c2"),
-               add_to_formula = "(1|group2)")  # include random effect in all formulas
+               add_to_formula = "(1|group2)")  # include random effect in all models
 
 # Check specifications
 summary(specs)
@@ -127,29 +145,8 @@ specs <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
                model = "lm",
-               fun = tidy_99,               # pass new function to setup
+               fun1 = tidy_99,               # pass new function to setup
                add_to_formula = "c1 + c2")  # add covariates to all models
-
-# Check specifications
-summary(specs)
-
-
-# Example 4 ----
-# Specific specification that can be represent as "subsets"
-library(tidyverse)
-# Create variable that defines outliers
-dat <- mutate(example_data, outlier = ifelse(x1 > 2 | x1 < -2, "outlier", "no outlier"))
-table(dat$outlier)
-
-# Setup specs
-specs <- setup(data = dat,
-               x = c("x1", "x2"),
-               y = c("y1", "y2"),
-               model = "lm",
-               distinct(d, outlier))
-
-# Remove outlier subset from resulting data set to avoid non-meaningful specifications
-specs$specs <- filter(specs$specs, subsets != "outlier")
 
 # Check specifications
 summary(specs)

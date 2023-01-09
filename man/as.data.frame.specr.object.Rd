@@ -9,3 +9,4 @@
 \description{
 Return data.frame from specr.object
 }
+\keyword{internal}

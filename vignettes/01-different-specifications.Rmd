@@ -1,0 +1,314 @@
+---
+title: "Setting up different types of specifications"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Setting up different types of specifications}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The function `setup()` seems rather simple, but it is in fact very versatile and allows to incorporate (almost?) any analytic choice that one might engage in during data analysis. In this vignette, I am going to exemplify how this function can be used to "create" several analytical choices. 
+
+```{r, message = F, warning = F}
+library(tidyverse)
+library(specr)
+```
+
+# Different independent and dependent variables
+
+One analytical choice may refer to choosing different independent or dependent variables (e.g., different scales that measure the same construct) or different ways in how these variables are compute (e.g., mean vs. latent measurement, log-transformation, etc). 
+
+## Simply providing different variable as vectors
+
+In most cases, this simply means adding such variables to the data set and provide them as alternative choices in setup. 
+
+```{r}
+# Setup specs
+specs <- setup(data = example_data,
+               x = c("x1", "x2", "x3", "x4"),
+               y = c("y1", "y2", "y3"),
+               model = "lm")
+
+# Summary of specifications
+summary(specs, rows = 12)
+
+# Run analysis and plot results
+results <- specr(specs, workers = 1)
+head(results$data)
+```
+
+## Specific variable/model combinations
+
+However, in some cases, we may have different type of variables (e.g., a mean vs. a dichotomous variable). In some cases, for example when this refers to a dependent variable, such a choice of variables requires also different model estimation functions. So in our setup, we want to acknowledge for specific variable/model combinations. In the following, let's imagine that next to our standard dependent variables (`y1`-`y3`), we also have a dichotomous item (`y_dich`; here only recoded from `y1`). In this case, we want to specify and add a custom function - here a logistic model (`glm(formula, data, family = binomial()`)) - to the setup.  
+
+```{r}
+# Dichotomous dependent variable
+data <- example_data %>%
+  mutate(y_dich = ifelse(y1 > mean(y1), 1, 0))
+
+# Specific function
+log_glm <- function(formula, data) {
+  glm(formula, data, family = binomial())
+}
+
+# Setup specs
+specs <- setup(data = data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2", "y3", "y_dich"),
+               model = c("lm", "log_glm"))
+# Check
+specs$specs
+```
+
+As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 0.3.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `sprec.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
+
+```{r}
+# Filter out models that are not meaningful (here only keep log_glm, when y == "y4")
+specs$specs <- specs$specs %>%
+  filter(!(model == "log_glm" & y != "y_dich")) %>%
+  filter(!(model == "lm" & y == "y_dich"))
+
+# Check results (only meaningful specifications remain)
+summary(specs, rows = 8)
+
+# Run analysis and plot results
+results <- specr(specs, workers = 1)
+head(results$data)
+```
+
+## Adding composite and latent variables
+
+In some cases, we may want to add mean indices or even latent measurement models of our variables of interest to explore how latent vs. manifest measurement affects our results. This requires a bit more upfront work as we need to work with `lavaan` for the latent measurement. Furthermore, we need to adjust the extract functions (`fun1` and `fun2` in `setup()`) so that the extraction of parameters aligns across different type of models. The beauty of `broom::tidy()` and `broom::glance()` (which are used by default) is that they adapt to the different model types that are passed to `setup`. Although the same parameters are extracted for most models, they sometimes differ for specific models (e.g., structural equation models resulting from `lavaan::sem()`). This means we need to adjust them to extract the same parameters across different models. 
+
+```{r}
+# Add mean (one choice)
+data <- data %>%
+  rowwise %>%
+  mutate(x_mean = mean(x1, x2, x3, x4)) %>%
+  ungroup
+
+# Add custom function with latent measurement models to pass to "models" (another choice)
+custom_sem <- function(formula, data) {
+  
+  # Make sure lavaan is loaded
+  require(lavaan)
+  
+  # Add latent measurement as list
+  latent <- list(latent_x12 = "latent_x12 =~ x1 + x2")
+  
+  # Remove +1 from formula as lavaan doesn't know how to process it 
+  semformula <- str_remove_all(formula, "\\+ 1")
+  
+  # remove non-used latent measurement models from list by checking the formula
+  valid <- purrr::keep(names(latent), ~ stringr::str_detect(formula, .x))
+  
+  # Create new formula that includes latent measurement models
+  formula <- paste(formula, "\n", paste(latent[valid], collapse = " \n "))
+  
+  # Pass formula to `sem()`
+  sem(formula, data)
+}
+
+# Create custom tidy function that extracts the same parameters from different models!
+tidy_new <- function(x) {
+  if(class(x) == "lavaan") {
+    broom::tidy(x, conf.int = TRUE) %>% 
+    select(term, estimate, conf.low, conf.high) %>%   # select parameters you want to keep
+    filter(grepl(" ~ ", term)) %>%                    # term needs to be adjusted
+    separate(term, c("dv", "term"), sep = " ~ ") %>%  # extract independent variable
+    select(-dv)                                       # remove dependent variable
+  } else {
+    broom::tidy(x, conf.int = TRUE) %>% 
+    select(term, estimate, conf.low, conf.high)      # same parameters as above
+  }
+}
+
+# Setup specs with new custom function
+specs <- setup(data = data,
+               x = c("x1", "x2", "x3", "x4", "x_mean", "latent_x12"),
+               y = c("y1", "y2"),
+               model = c("lm", "custom_sem"),
+               fun1 = tidy_new, # We pass the new extract function
+               fun2 = NULL)     # switch off "glance" as it produces different fit indices and wouldn't work
+
+# Quick check (still includes non-meaningful specifications)
+summary(specs, rows = 12)
+
+# Filter out non-meaningful specifications
+specs$specs <- specs$specs %>%
+  filter(!(model == "custom_sem" & !grepl("latent", x))) %>%
+  filter(!(model == "lm" & grepl("latent", x)))
+
+# Check again
+summary(specs, rows = 12)
+
+# Run analysis and plot results
+results <- specr(specs, workers = 1)
+plot(results, choices = c("x", "y"))
+```
+
+As we can see, we can now investigate the manifest and latent measures next to the individual items. 
+
+# Control variables
+
+Another analytical choice may refer to the inclusion of covariates. Here, the `setup()` function is again very versatile and allows to include different combinations of covariates. 
+
+## Adding a bunch of control variables
+
+By providing just a vector of covariates, `setup()` produces all combinations of these covariates plus a specification without any covariates. If we add the argument `simplify = TRUE`, not all combinations between covariates are created. Instead, only no covariates, each individually, and all together are included. 
+
+```{r}
+# Setup specification that include all combinations of covariates
+specs1 <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               controls = c("c1", "c2", "c3", "c4"))  # simply providing a vector of control variables
+
+# Setup secifications that include only no covariates, each individually, and all together
+specs2 <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               controls = c("c1", "c2", "c3", "c4"),
+               simplify = TRUE)   # Difference to specs1!
+
+# Check
+distinct(specs1$specs, controls)
+distinct(specs2$specs, controls)
+```
+
+## Sets of covariates
+
+We can also add groups of covariates. The way setup creates combinations between such groups remains the same. 
+
+```{r}
+# Add groups of covariates
+specs3 <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               controls = c("c1 + c2", "c3 + c4"))
+# Check
+distinct(specs3$specs, controls)
+```
+
+The `setup()` function further has an argument `add_to_formula`, which allows to add covariates (or any other formula-relevant aspects, e.g., random effect structures) to all model functions. 
+
+```{r}
+# Add some control variables to all models
+specs4 <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               controls = c("c1", "c2"),
+               add_to_formula = "c3")
+
+# Check (see how `c3` is added to each formula, but is not part of controls)
+specs4$specs[1:4,]
+```
+
+## Dealing with duplicates in specifications
+
+Finally, we may sometimes decide to add one of the independent or dependent variables as covariates as well. In this case, it would not make sense to add e.g., `x1` as covariate if it is already the independent variable. In this new version of specr, the `setup()` function automatically detects such duplications and deletes such specifications. 
+
+```{r}
+# Adding a covariate that is also a independent or dependent variable
+specs5 <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               controls = c("x1", "y1"))
+
+# Check (see how only 9 specifications are kept)
+specs5$specs
+```
+
+
+# Subset analyses
+
+One of the most powerful arguments within the `setup()` framework is the `...` (dot dot dot), which can be used for so-called "subset analyses". With this argument, a variety of analytical choices can be included. 
+
+## Simple subset analysis based on grouping variables
+
+In simple cases, we may want to investigate whether a relationship differs across certain subgroups. In the example data, we can for example investigate whether the relationship between `x` and `y` differs across age groups (`group1`) and gender (`group2`). We need to add them at the position of the `...` using the following syntax:
+
+`distinct(data, variable)`
+
+The function `distinct()` extracts all distinct values of the grouping variable and then passes these as combinatorial factors to the expand function within `setup()`. If two or more grouping variables are provided in this way (you can provide as many as you want, but it quickly becomes messy), `setup()` automatically adds them as "choice" columns to the specification setup data frame. Note how it automatically adds the value `NA` to make sure that also the simple subsets and not only the combinations between the two groups are included in the specifications. It further creates a new column "subsets", which represents the combination of the subsetting factors. 
+
+```{r}
+# Setup specifications
+specs <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = c("lm"),
+               distinct(example_data, group1),
+               distinct(example_data, group2))
+
+# Summary of specifications
+summary(specs)
+
+# Check subsets (in this case, 12 different types of subset analysis,
+# including using "all" subjects)
+distinct(specs$specs, subsets)
+
+# Run analysis and plot results
+results <- specr(specs, workers = 1)
+plot(results, choices = c("x", "y", "subsets"))
+```
+
+
+## More complex analysis using the subsets functionality
+
+The true potential of this type of subsetting can only be grapsed with another example. Let's imagine we want to include the removal of outliers as an analytical choice in our specification curve analysis. Perhaps we are unsure about the cut-off value and want to investigate different (arbitrary) ones. This can again be seen as a subset analysis. 
+
+We first create variables that denote who is an outlier and who is not according to the rule we want to use. We then pass these variables as subsets to the `setup()` function. This again produces non-meaningful specifications (e.g., a subset that includes outliers, a subset that includes people who align with different outlier rules, etc.). So we want to keep only the meaningful specifications. In this case, these are just 7 different types of specifications. 
+
+```{r}
+# Check for outliers in `y1` (should of course be more elaborate than eye-balling)
+ggplot(data, aes(x = y1)) +
+  geom_histogram(color = "white") +
+  theme_minimal()
+
+# Create variables that denote outliers (here with a range of arbitrary thresholds)
+data <- data %>%
+  mutate(outlier1 = ifelse(y1 < mean(y1) - 2*sd(y1) | y1 > mean(y1) + 2*sd(y1), "outlier", "2.0*SD"),
+         outlier2 = ifelse(y1 < mean(y1) - 2.1*sd(y1) | y1 > mean(y1) + 2.1*sd(y1), "outlier", "2.1*SD"),
+         outlier3 = ifelse(y1 < mean(y1) - 2.2*sd(y1) | y1 > mean(y1) + 2.2*sd(y1), "outlier", "2.2*SD"),
+         outlier4 = ifelse(y1 < mean(y1) - 2.3*sd(y1) | y1 > mean(y1) + 2.3*sd(y1), "outlier", "2.3*SD"),
+         outlier5 = ifelse(y1 < mean(y1) - 2.4*sd(y1) | y1 > mean(y1) + 2.4*sd(y1), "outlier", "2.4*SD"),
+         outlier6 = ifelse(y1 < mean(y1) - 2.5*sd(y1) | y1 > mean(y1) + 2.5*sd(y1), "outlier", "2.5*SD"))
+
+# Setup specs
+specs <- setup(data = data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = "lm",
+               distinct(data, outlier1),
+               distinct(data, outlier2),
+               distinct(data, outlier3),
+               distinct(data, outlier4),
+               distinct(data, outlier5),
+               distinct(data, outlier6),
+               controls = c("c1", "c2"))
+
+# Remove unnecessary combinations
+specs$specs <- specs$specs %>%
+  filter(subsets == "2.0*SD" | subsets == "2.1*SD" | 
+         subsets == "2.2*SD" | subsets == "2.3*SD" |
+         subsets == "2.4*SD" | subsets == "2.5*SD" |  
+         subsets == "all")
+
+# Check specifications (see how it contains only meaningful subsets?)
+summary(specs, rows = 7)
+
+# Run analysis and plot results
+results <- specr(specs, workers = 1)
+plot(results, choices = c("subsets"))
+```
+
+
+There are of course many more types of analytical decisions. For some more examples, see some of the other vignettes. If you have a specific type of analytical decision that you don't know how to include, feel free to open an issue on github. 
+

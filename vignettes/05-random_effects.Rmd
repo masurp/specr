@@ -1,0 +1,141 @@
+---
+title: "Incorporating multilevel models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Incorporating multilevel models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+Many data are hierarchical and we want to acknowledge the nested structure in our models. Specr can easily estimate such multilevel models. We again have to write a customized function that we can pass first to `setup()` and the `specr()` will do the rest. 
+
+For this example, we will us the `gapminder` data set that is included in the `gapminder`-package. We quickly recode some variable to get more interpretable estimates.
+
+```{r, message=F, warning = F}
+# Load packages
+library(tidyverse)
+library(specr)
+library(gapminder)
+library(lme4)
+
+# Recode some variables
+gapminder <- gapminder %>%
+  mutate(gdpPercap_log = log(gdpPercap),
+         pop = pop/1000)
+
+# Check data
+head(gapminder)
+```
+
+
+## Simply adding a random effect structure
+
+For this example, we use the package `lme4` and more specifically the function `lmer()` to estimate the multilevel model (more complex models such as poisson or negative binomial multilevel models can likewise be estimated). 
+
+Based on the data set, we want to estimate the relationship between `gdpPercap` (GDP per capita) and `lifeExp` (life expectancy). Both variables are nested within both countries and years. We can simply add a respective random effect structure via the argument `add_to_formula`. This way, this will be automatically included in the formula of all specifications. Because `broom` doesn't provide a `tidy` function for `merMod`-objects resulting from `lme4::lmer()`, we need to add a new extraction function like so `fun1 = new_function`. Luckily, we can use the `broom.mixed` package, which agian provides a tidy function for such objects. 
+
+```{r}
+specs <- setup(data = gapminder,
+                y = c("lifeExp"),
+                x = c("gdpPercap_log"), 
+                model = c("lmer"),
+                controls = "pop",
+                fun1 = function(x) broom.mixed::tidy(x, conf.int = TRUE),
+                add_to_formula = "(1|country) + (1|year)")
+
+# Check formula
+summary(specs)
+
+# Run analysis and inspect results
+results <- specr(specs, workers = 1)
+as_tibble(results)
+```
+
+
+## Defining a customatized multilevel functions
+
+Sometimes, we may not want to add one random effect structure to all models and instead explore more specific random structure (and even several different random effect structures). In this case, we create several customized lmer-functions that account for different nesting structures. 
+
+```{r}
+# Random intercept model (only country as grouping variable)
+lmer_ri_1 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  formula <- paste(formula, "+ (1|country)")
+  lmer(formula, data)
+}
+
+# Including random slopes (only country as grouping variable)
+lmer_rs_1 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  slopevars <- unlist(strsplit(formula, " ~ "))[2]
+  formula <- paste0(formula, "+ (1 + ", slopevars, "|country)" )
+  lmer(formula, data)
+}
+
+# Random intercept model (lifeExp is nested in both countries and years)
+lmer_ri_2 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  formula <- paste0(formula, "+ (1|country) + (1|year)")
+  lmer(formula, data)
+}
+
+# Including random slopes (intercept and slopes are nested in both countries and years)
+lmer_rs_2 <- function(formula, data,...) {
+  require(lme4)
+  require(broom.mixed)
+  slopevars <- unlist(strsplit(formula, " ~ "))[2]
+  formula <- paste0(formula, "+ (1 + ", slopevars, "|country) + (", slopevars, "|year)" )
+  lmer(formula, data)
+}
+```
+
+### Setting up specifications
+
+We can now use these function to estimate these models. In this example, we investigate the influence of different nesting structures on the fixed effect between GDP per capita and life expectancy.
+
+```{r, message=F, warning = F}
+# Setup specifications with customized functions
+specs <- setup(data = gapminder,
+                y = c("lifeExp"),
+                x = c("gdpPercap_log"), 
+                model = c("lmer_ri_1", "lmer_ri_2", 
+                          "lmer_rs_1", "lmer_rs_2"),
+               controls = "pop")
+
+# Check specifications
+summary(specs)
+```
+
+###  Fit the models
+
+Now, we can simply fit the models with `specr()` as we are used to. Although not really necessary here, I going to use parallelization to exemplify how we can pass the created function to the workers using `furrr_options`. We need to pass both new functions as a list of "globals" and the packages that are additionally required. 
+
+```{r, warning = F, message = F, fig.height=8, fig.width=8, message=F, warning = F}
+# Create furrr_options and pass globals
+opts <- furrr_options(
+  globals = list(lmer_ri_1 = lmer_ri_1, lmer_ri_2 = lmer_ri_2, 
+                 lmer_rs_1 = lmer_rs_1, lmer_rs_2 = lmer_rs_2),
+  packages = c("lme4", "broom.mixed")
+)
+
+# Run analysis in parallel and plot results
+results <- specr(specs, 
+                 workers = 2, 
+                 .options = opts)  # pass `furrr_options` here
+plot(results)
+```
+
+

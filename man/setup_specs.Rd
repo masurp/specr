@@ -29,8 +29,7 @@ This function creates a tibble that includes all possible specifications based t
 setup_specs(x = c("x1", "x2"),
             y = "y2",
             model = "lm",
-            controls = c("c1", "c2"),
-            distinct(example_data, group1))
+            controls = c("c1", "c2"))
 
 }
 \seealso{
