@@ -18,15 +18,40 @@ expand_covariate <- function(covariate) {
   }
 }
 
+expand_covariate_simple <- function(covariate) {
+
+  if (!rlang::is_null(covariate) & length(covariate) == 1) {
+
+    list(1, covariate) %>%
+      unlist
+
+  } else if (!rlang::is_null(covariate) & length(covariate) > 1) {
+
+     list(1,
+          purrr::map(1:length(covariate), ~covariate[[.x]]),
+          covariate %>% paste(collapse = " + ")) %>%
+      unlist
+
+  } else {
+    "1"
+  }
+}
+
 # Function to determine the method of parameter extraction
-tidy_model <- function(f, fun) {
+tidy_model <- function(f, fun1, fun2) {
   function(...) {
     fit <- do.call(f, args=list(...))
-    fit1 <- fun(fit)
-    fit2 <- broom::glance(fit)
+    fit1 <- fun1(fit)
+
+    if(is.null(fun2)) {
+      fit1 <- fit1 %>% mutate(fit_nobs = broom::glance(fit)$nobs)
+      return(fit1)
+    } else {
+    fit2 <- fun2(fit)
     colnames(fit2) <- paste("fit", colnames(fit2), sep = "_")
     fit <- bind_cols(fit1, fit2)
     return(fit)
+    }
   }
 }
 

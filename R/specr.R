@@ -5,7 +5,7 @@
 #'    in the analytic framework implemented in the package \code{specr}. It estimates
 #'    and returns respective parameters and estimates of models that were specified via \code{setup()}.
 #'
-#' @param specs A `specr.setup` object resulting from \code{setup} or a tibble that
+#' @param x A `specr.setup` object resulting from \code{setup} or a tibble that
 #'    contains the relevant specifications (e.g., a tibble resulting from \code{setup})
 #' @param workers A numeric value that indicates how many cores should be used.
 #'    Defaults to \code{availableCores()} from the future package and thus uses
@@ -79,7 +79,7 @@
 #'                y = c("y1", "y2"),               # different y variables
 #'                x = c("x1", "x2"),               # different x variables
 #'                model = "lm",                    # only one model type
-#'                distinct(example_data, group1), # subset based on "group1"
+#'                distinct(example_data, group1),  # subset based on "group1"
 #'                controls = c("c1", "c2"))        # Control for two variables
 #'
 #' # Run analysis (not parallelized, using simple `map` functions)
@@ -88,7 +88,7 @@
 #' # Summary of the results
 #' summary(results)
 #' summary(results, type = "curve", subsets)
-#' plot(results)  # For more information on how to plot result see \code{?plot.specr.object}
+#'
 #'
 #' # Example 2 ----
 #' # Setup up specifications with specific additions to the formula
@@ -115,7 +115,7 @@
 #'   glm(formula, data, family = gaussian())
 #' }
 #'
-#' Setup specifications
+#' # Setup specifications
 #' specs3 <- setup(data = example_data,
 #'                 y = c("y1", "y2"),
 #'                 x = c("x1", "x2"),
@@ -129,17 +129,15 @@
 #' opts <- furrr_options(globals = list(glm2 = glm2))
 #'
 #' # Run analysis using parallelization (4 cores and `future_pmap`).
-#' results2 <- specr(specs2,
+#' results3 <- specr(specs3,
 #'                   workers = 4,
 #'                   .options = opts) # Pass opts to `specr`, which passes it to `future_pmap()`
 #'
 #' # Summary of results
-#' summary(results2, digits = 3)
-#' plot(results2)
+#' summary(results3, digits = 3)
 #'
 #' # You can also extract the results tibble from the S3 class with standard functions
-#' as_tibble(results2)
-#' as.data.frame(results2)
+#' as_tibble(results3)
 specr <- function(x,
                   workers = availableCores(),
                   ...,
@@ -149,16 +147,16 @@ specr <- function(x,
   # Start timing
   tictoc::tic()
 
-  if (rlang::is_missing(specs)) {
+  if (rlang::is_missing(x)) {
     stop("You need to provide a class 'specr.setup' or a data frame with specifications. Use 'setup()' to create such a specification setup.")
   }
 
-  if(class(specs)[1] == "tbl_df" & rlang::is_missing(data)) {
+  if(class(x)[1] == "tbl_df" & rlang::is_missing(data)) {
     stop("You provided a tibble with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
   }
 
   # Collect data and subsets
-  if(class(specs)[1] != "specr.setup") {
+  if(class(x)[1] != "specr.setup") {
 
     specs <- x
 

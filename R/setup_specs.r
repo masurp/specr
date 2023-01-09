@@ -18,8 +18,7 @@
 #' setup_specs(x = c("x1", "x2"),
 #'             y = "y2",
 #'             model = "lm",
-#'             controls = c("c1", "c2"),
-#'             distinct(example_data, group1))
+#'             controls = c("c1", "c2"))
 #'
 #'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,

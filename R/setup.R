@@ -15,15 +15,29 @@
 #' @param model A vector denoting the model(s) that should be estimated.
 #' @param ... Specification of potential subsets/groups. As the subsetting
 #'    variable should be in the data set, please specify as follows
-#'    (`distinct(data, variable)`). Note: This variable needs to be a factor in
-#'    the data set! See also examples further below.
+#'    (`distinct(data, variable)`). Note: This variable needs to be a numeric
+#'    (`<dbl>` or `<int>`) or a character (`<chr>`) variable in the the data set!
+#'    It will not work with a factor (`<fct>`) variable. If your grouping variable
+#'    is a factor, please recode to a character variable beforehand. See also
+#'    examples further below.
 #' @param controls A vector of the control variables that should be included.
 #'    Defaults to NULL.
 #' @param add_to_formula A string specifying aspects that should always be
 #'    included in the formula (e.g. a constant covariate, random effect structures...)
-#' @param fun A function that extracts the parameters of interest from the
+#' @param fun1 A function that extracts the parameters of interest from the
 #'    fitted models. Defaults to [tidy][broom::broom-package], which works
 #'    with a large range of different models.
+#' @param fun2 A function that extracts fit indices of interest from the models.
+#'    Defaults to [glance][broom::broom-package], which works with a large range of
+#'    different models. Note: Different models result in different fit indices. Thus,
+#'    if you use different models within one specification curve analysis, this may not
+#'    work. In this case, you can simply set `fun2 = NULL` to not extract any fit indices.
+#' @param simplify Logical value indicating what type of combinations between
+#'    control variables should be included in the specification. If FALSE (default),
+#'    all combinations between the provided variables are created (none, each
+#'    individually, each combination between each variable, all variables). If
+#'    TRUE, only no covariates, each individually, and all covariates are included
+#'    as specifications (akin to the default in specr version 0.2.1).
 #'
 #' @return An object of class \code{specr.setup} which includes all possible
 #'    specifications based on combinations of the analytic choices. The
@@ -75,11 +89,11 @@
 #'                y = c("y1", "y2"),
 #'                model = "lm",
 #'                distinct(example_data, group1),
-#'                distinct(example_data, group2),
-#'                controls = c("c1", "c2"))
+#'                controls = c("c1", "c2", "c3"),
+#'                simplify = TRUE)
 #'
 #' # Check specifications
-#' summary(specs)
+#' summary(specs, rows = 18)
 #'
 #'
 #' # Example 2 ----
@@ -90,7 +104,7 @@
 #'                model = c("lmer"),              # multilevel model
 #'                distinct(example_data, group1),
 #'                controls = c("c1", "c2"),
-#'                add_to_formula = "(1|group2)")  # include random effect in all formulas
+#'                add_to_formula = "(1|group2)")  # include random effect in all models
 #'
 #' # Check specifications
 #' summary(specs)
@@ -109,29 +123,8 @@
 #'                x = c("x1", "x2"),
 #'                y = c("y1", "y2"),
 #'                model = "lm",
-#'                fun = tidy_99,               # pass new function to setup
+#'                fun1 = tidy_99,               # pass new function to setup
 #'                add_to_formula = "c1 + c2")  # add covariates to all models
-#'
-#' # Check specifications
-#' summary(specs)
-#'
-#'
-#' # Example 4 ----
-#' # Specific specification that can be represent as "subsets"
-#' library(tidyverse)
-#' # Create variable that defines outliers
-#' dat <- mutate(example_data, outlier = ifelse(x1 > 2 | x1 < -2, "outlier", "no outlier"))
-#' table(dat$outlier)
-#'
-#' # Setup specs
-#' specs <- setup(data = dat,
-#'                x = c("x1", "x2"),
-#'                y = c("y1", "y2"),
-#'                model = "lm",
-#'                distinct(d, outlier))
-#'
-#' # Remove outlier subset from resulting data set to avoid non-meaningful specifications
-#' specs$specs <- filter(specs$specs, subsets != "outlier")
 #'
 #' # Check specifications
 #' summary(specs)
@@ -142,7 +135,9 @@ setup <- function(data,
                   ...,
                   controls = NULL,
                   add_to_formula = NULL,
-                  fun = function(x) broom::tidy(x, conf.int = TRUE)) {
+                  fun1 = function(x) broom::tidy(x, conf.int = TRUE),
+                  fun2 = function(x) broom::glance(x),
+                  simplify = FALSE) {
 
   if (rlang::is_missing(data)) {
     stop("You must provide the data set that should be used in the analyses.")
@@ -165,6 +160,16 @@ setup <- function(data,
     map(function(x) append(x, NA)) %>%
     expand.grid
 
+  if(isTRUE(simplify)) {
+
+    controls <- expand_covariate_simple(controls)
+
+  } else {
+
+    controls <- expand_covariate(controls)
+
+  }
+
   # In case there are no subsets:
   if(length(group_vars) == 0) {
 
@@ -172,7 +177,7 @@ setup <- function(data,
       x,
       y,
       model,
-      controls = expand_covariate(controls),
+      controls,
       group_var = "all"
     )
 
@@ -183,11 +188,22 @@ setup <- function(data,
       x,
       y,
       model,
-      controls = expand_covariate(controls),
+      controls,
       group_vars
     )
 
   }
+
+  # Filter out non-meaningful specs (e.g., where control and independent are the same)
+  grid <- grid %>%
+    rowwise %>%
+    mutate(check = grepl(x, controls)) %>%
+    mutate(check2 = grepl(y, controls)) %>%
+    filter(isFALSE(check)) %>%
+    filter(isFALSE(check2)) %>%
+    select(-check, -check2) %>%
+    ungroup
+
 
   # In case nothing should be addded to the formula
   if(is.null(add_to_formula)) {
@@ -204,7 +220,7 @@ setup <- function(data,
 
   # Transform model string into actual function that also extracts parameters
   grid <- grid %>%
-    mutate(model_function = purrr::map(model, function(x) tidy_model(x, fun = fun)))
+    mutate(model_function = purrr::map(model, function(x) tidy_model(x, fun1 = fun1, fun2 = fun2)))
 
   pos_formula <- which(names(grid) == "formula")
   subsets_names <- grid[5:pos_formula] %>%
@@ -215,12 +231,12 @@ setup <- function(data,
 
     # Create subset variable (combination of group variables)
      grid <- grid %>%
-      mutate(dplyr::across(all_of(subsets_names), ~ as.character(.))) %>%
-      tidyr::unite(., subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
-      mutate(across(all_of(subsets_names),~ as.factor(.)),
-             subsets = sub("NA & ", "", subsets),
-             subsets = sub(" & NA", "", subsets),
-             subsets = ifelse(subsets == "NA", "all", subsets))
+       mutate(dplyr::across(all_of(subsets_names), ~ as.character(.))) %>%
+       tidyr::unite(., subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
+       mutate(across(all_of(subsets_names),~ as.factor(.)),
+              subsets = stringr::str_remove_all(subsets, "NA & "),
+              subsets = stringr::str_remove_all(subsets, " & NA"),
+              subsets = ifelse(subsets == "NA", "all", subsets))
 
   } else {
 
@@ -237,7 +253,8 @@ setup <- function(data,
                 model = model,
                 controls = controls,
                 subsets = subsets_names,
-                fun = fun,
+                fun1 = fun1,
+                fun2 = fun2,
                 add_to_formula = add_to_formula,
                 data = data)
 
