@@ -204,9 +204,8 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function (x) </span></span>
-<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7f8f13d9cdd8&gt;</span></span>
+<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7ff4d50305a0&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -237,7 +236,7 @@ results.</p>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  </span>
 <span><span class="co">#&gt; Models fitted based on 192 specifications</span></span>
 <span><span class="co">#&gt; Cores used: 1 </span></span>
-<span><span class="co">#&gt; 3.265 sec elapsed</span></span>
+<span><span class="co">#&gt; 2.69 sec elapsed</span></span>
 <span></span>
 <span><span class="co"># Check</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
@@ -247,7 +246,7 @@ results.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 0.3.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    3.265 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    2.69 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       192 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -355,13 +354,12 @@ and how the analytical choices affected the obtained results.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="specr_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Plot </span></span>
+<code class="sourceCode R"><span><span class="co"># Plot </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, desc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="specr_files/figure-html/unnamed-chunk-7-2.png" width="100%"></p>
+<p><img src="specr_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 <p>The resulting plot includes the ranked specification curve (A) and an
 overview about how the different analytical choices affect the estimate
 of interest (B). Red represents negative and significant effects (based
@@ -372,7 +370,7 @@ choices on the estimate of interest more precisely. We can again use the
 generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> to produce respective boxplots.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="specr_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
+<p><img src="specr_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 <p>We can see that the dependent variable (<code>y</code>) produces the
 largest differences in the obtained estimates.</p>
 </div>
@@ -393,7 +391,7 @@ curve.</p>
 <span><span class="co">#&gt; 3    model 0.00 0.00    0.00</span></span>
 <span><span class="co">#&gt; 4        x 0.06 0.93   93.13</span></span>
 <span><span class="co">#&gt; 5 Residual 0.00 0.02    1.94</span></span></code></pre></div>
-<p><img src="specr_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
+<p><img src="specr_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
 </div>
   </div>
 

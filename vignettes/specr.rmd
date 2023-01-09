@@ -114,7 +114,10 @@ However, in order to grasp how the different analytical choices affect the outco
 ```{r, fig.height=10, fig.width=10, message=F, warning = F}
 # Plot entire visualization
 plot(results)
+```
 
+
+```{r, fig.height=5, fig.width=10, message=F, warning = F}
 # Plot 
 plot(results, type = "curve", desc = TRUE) +
   ggplot2::scale_color_brewer(palette = "Dark2") +
