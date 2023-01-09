@@ -7,7 +7,7 @@ CRAN release: [soon]
 
 * This new version introduces a completely new analytic framework which breaks with earlier version of specr
 
-* A new function called `setup()` is introduced and replaces the original `setup_specs()` to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models . 
+* A new function called `setup()` is introduced and replaces the original `setup_specs()` to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models. 
 
    - Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue #26).
    - Excludes non-meaningful specifications (e.g., when control and independent or dependent variable are the same).
@@ -17,8 +17,9 @@ CRAN release: [soon]
 
 * The function `run_specs()` is replaced by `specr()`, which now only wraps around `setup()` to estimate all models. Most changes are related to increasing speed of the computations. 
 
-   - Most importantly, the estimation process can now be parallelized (based on `furrr`, finally solving github issue #1) to reduce fitting time. 
-   - Produces an object of class `specr.object`, which can be investigated using generic function such as `summary()` and `plot(). 
+   - Most importantly, the estimation process can now be parallelized (based on `furrr`, finally solving github issue #1) to reduce fitting time (big thanks to [Matti Vuorre](https://github.com/mvuorre) who explored ways to parallelize specification curve analysis in this [blogpost](https://vuorre.netlify.app/posts/parallel-multiverse/), which was the basis for this implementation). 
+   - Deals better and faster with subset analyses (big thanks to [Kasper Welbers](https://github.com/kasperwelbers) who contributed some essential code here).
+   - Produces an object of class `specr.object`, which can be investigated using generic function such as `summary()` and `plot()`. 
 
 * For more information about these major changes and how to use the new version of specr, see this [vignette](https://masurp.github.io/specr/articles/specr.html). 
 
