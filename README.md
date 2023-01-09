@@ -24,21 +24,14 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 ### News
 
 -   (5 January 2022): specr version 0.3.0 is available via github. This
-    is a major update with several new features and functions:
-    -   `setup_specs()` becomes `setup()` and thereby allows to
-        completely setup all specifications before actually estimating
-        the models.
-    -   `run_specs()` becomes `specr()` and wraps around `setup()` to
-        estimate all models.
-    -   Both `setup()` and `specr()` produce S3 classes that can be
-        investigated using generic function such as `summary()` or
-        `plot()`.
-    -   For more information about these changes, see further below.
+    is a major update with several new features and functions. Note: it
+    introduces a new framework for conduction specification curve
+    analyses compared to earlier versions (see version history for more
+    details).
+
 -   (4 December 2020): specr development version 0.2.2 is available via
     github. Mostly minor updates and bug fixes.
-    -   All plotting functions allow to choose which parameter to plot.
-    -   More complete results based on `broom::tidy()` and
-        `broom::glance()`.
+
 -   (25 May 2020): specr version 0.2.1 has been released on
     [CRAN](https://cran.r-project.org/web/packages/specr/index.html).
 
@@ -46,38 +39,54 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 
 The goal of specr is to facilitate specification curve analyses
 (Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
-see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). It can be used to
-investigate how different (theoretically plausible) analytical choices
-affect outcome statistics within the universe of one single data set.
-
-It provides functions to setup, run, evaluate, and plot the multiverse
-of specifications. A simple example of how to use specr is provided
-below. For more information about the various functions and specific use
-cases, visit the
+see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). The package can be
+used to investigate how different (theoretically plausible) analytical
+choices affect outcome statistics within the universe of one single data
+set. It provides functions to setup, run, evaluate, and plot the
+multiverse of specifications. A simple example of how to use specr is
+provided below. For more information about the various functions and
+specific use cases, visit the
 [documentation](https://masurp.github.io/specr/index.html).
 
-There are also some vignettes that exemplify and explain specific
-aspects and functions of the package:
+The following vignettes exemplify and explain specific aspects and
+functions of the package:
 
 -   [Getting
     started](https://masurp.github.io/specr/articles/specr.html): A
-    comprehensive example. This vignette illustrates the major functions
-    of the package.
--   [Customizing
-    plots](https://masurp.github.io/specr/articles/custom-plot.html):
-    This vignette exemplifies various ways to plot the specification
-    curve.
--   [Investigating variance in the specification
-    curve](https://masurp.github.io/specr/articles/decompose_var.html):
-    Investigating variance components of the specification curve.
+    comprehensive example of how to use specr (v.0.3.0). This vignette
+    illustrates the major functions of the package (`setup` and `specr`)
+    and introduces the typical workflow.
+-   [Setting up different types of
+    specifications](https://masurp.github.io/specr/articles/01-different-specifications.html):
+    This vignette shows how to implement different types of analytical
+    choices (incl. different model functions, subset analysis, outliers
+    with different thresholds and many mores)
+-   [Visualizing specification curve
+    analyses](https://masurp.github.io/specr/articles/02-custom-plot.html):
+    This vignette exemplifies how the results of different specification
+    can be investigated using a variety of visualizations. It furthers
+    outlines ways to customize these visualizations.  
+-   [Using
+    parallelization](https://masurp.github.io/specr/articles/03-paralleliization.html):
+    This vignette shows how to parallelize the fitting process.
 -   [Incorporating structural equation
-    modeling](https://masurp.github.io/specr/articles/measurement_models.html):
+    modeling](https://masurp.github.io/specr/articles/04-measurement_models.html):
     This vignette exemplifies how to include latent measurement models
-    and estimate structural equations models using `lavaan`.
--   [Incorparting multilevel
-    modeling](https://masurp.github.io/specr/articles/random_effects.html):
+    and estimate structural equations models using `lavaan` as part of a
+    specification curve analysis.
+-   [Incorporating multilevel
+    modeling](https://masurp.github.io/specr/articles/05-random_effects.html):
     This vignette exemplifies how to include random effects and estimate
-    multilevel models using `lme4`.
+    multilevel models using `lme4` as part of the specification curve
+    analysis.
+-   [Incorporating Bayesian
+    modeling](https://masurp.github.io/specr/articles/06-bayesian-models.html):
+    This vignette shows how `specr` can also be used with Bayesian
+    modeling based on the package `brms`.
+-   [Investing specific
+    specifications](https://masurp.github.io/specr/articles/09-invest-spec.html):
+    This vignette shows how entire models can be kept during the fitting
+    process and investigated individually afterwards.
 
 ### Disclaimer
 
@@ -130,7 +139,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 2.224 sec elapsed
+#> 2.022 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)
