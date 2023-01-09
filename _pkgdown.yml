@@ -6,20 +6,39 @@ template:
   bootswatch: lumen
 
 reference:
-  - title: "Specification curve analyses"
+  - title: "Conduct specification curve analysis"
+    desc: >
+      Core functions of the package that allow to a) setup all specifications and b) then fit models across all specifications
+    contents:
+      - setup
+      - specr
+  - title: "Summarize results"
+    desc: >
+      Both functions above create S3 classes that can be investigated with the generic summary function and transformed to data frames.
+    contents:
+      - summary.specr.setup
+      - summary.specr.object
+  - title: "Plot results"
+    desc: >
+      After running specr(), the resulting S3 class object can be passed to the generic plot function to visualize the results.
+    contents:
+      - plot.specr.object
+  - title: "Data set(s)"
+    contents:
+      - example_data
+  - title: "Deprecated"
+    desc: >
+      The following function still exist and can be used, but are deprecated from version 0.3.0 on.
     contents:
       - setup_specs
       - run_specs
-  - title: "Summarize results"
-    contents:
-      - summarise_specs
-      - icc_specs
-  - title: "Plot results"
-    contents:
       - plot_specs
       - plot_curve
       - plot_choices
-      - plot_samplesizes
       - plot_summary
+      - plot_samplesizes
       - plot_variance
       - plot_decisiontree
+      - summarise_specs
+      - icc_specs
+
