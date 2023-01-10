@@ -171,12 +171,12 @@ provides.</p>
 <span><span class="va">results_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
 <span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 57.253 sec elapsed</span></span></code></pre>
+<span><span class="co">## 64.441 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results_parall</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
 <span><span class="co">## Cores used: 4 </span></span>
-<span><span class="co">## 34.414 sec elapsed</span></span></code></pre>
+<span><span class="co">## 33.564 sec elapsed</span></span></code></pre>
 <p>As we can see, the fitting time is reduced, but even with this
 comparatively large data set and more than 1,000 specifications, the
 reduction is still not that much. In sum, parallelization only makes
@@ -217,7 +217,7 @@ global environment (and potentially also packages) as shown below.</p>
 <span>                          .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 72 specifications</span></span>
 <span><span class="co">## Cores used: 4 </span></span>
-<span><span class="co">## 46.956 sec elapsed</span></span></code></pre>
+<span><span class="co">## 40.084 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Summarize results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results_parall_2</span><span class="op">)</span></span></code></pre></div>
@@ -227,7 +227,7 @@ global environment (and potentially also packages) as shown below.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 0.3.0 </span></span>
 <span><span class="co">##   Cores used:                     4 </span></span>
-<span><span class="co">##   Duration of fitting process:    46.956 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    40.084 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       72 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>

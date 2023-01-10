@@ -218,20 +218,21 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p><code><a href="specr.html">specr()</a></code> to run the actual specification curve analysis</p></div>
+    <div class="dont-index"><p><code><a href="specr.html">specr()</a></code> for the second step of actually running the actual specification curve analysis</p>
+<p><code><a href="summary.specr.setup.html">summary.specr.setup()</a></code> for how to summarize and inspect the resulting specifications</p></div>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1 ----</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Example 1 ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setting up typical specifications</span></span></span>
-<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
-<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,             <span class="co"># data to be used</span></span></span>
+<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,               <span class="co"># independent variables</span></span></span>
+<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,               <span class="co"># dependent variables</span></span></span>
+<span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,                    <span class="co"># model estimation function</span></span></span>
+<span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,  <span class="co"># grouping variable for subsets</span></span></span>
+<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,  <span class="co"># control variables</span></span></span>
+<span class="r-in"><span>               simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>                 <span class="co"># limited combinations of controls</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
@@ -252,7 +253,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f7eeaff7990&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f81fc00d3f8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 18 rows):</span>
@@ -280,15 +281,15 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> x1    y1    lm    c1 + c2 + c3 old     old    y1 ~ x1 + c1 + c2 + c3</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 2 ----</span></span></span>
+<span class="r-in"><span><span class="co">## Example 2 ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setting up specifications for multilevel models</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span>,              <span class="co"># multilevel model</span></span></span>
+<span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span>,               <span class="co"># multilevel model</span></span></span>
 <span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               add_to_formula <span class="op">=</span> <span class="st">"(1|group2)"</span><span class="op">)</span>  <span class="co"># include random effect in all models</span></span></span>
+<span class="r-in"><span>               add_to_formula <span class="op">=</span> <span class="st">"(1|group2)"</span><span class="op">)</span>   <span class="co"># random effect in all models</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
@@ -309,7 +310,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f7f01c396d0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f81fc97ebd8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
@@ -325,12 +326,16 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lmer  c1       old     old    y1 ~ x1 + c1 + (1|group2)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Example 3 ----</span></span></span>
-<span class="r-in"><span><span class="co"># Setting up specifications with specific additions to the formula and different parameter extract functions</span></span></span>
+<span class="r-in"><span><span class="co">## Example 3 ----</span></span></span>
+<span class="r-in"><span><span class="co"># Setting up specifications with a different parameter extract functions</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Create custom extract function</span></span></span>
+<span class="r-in"><span><span class="co"># Create custom extract function to extract different parameter and model</span></span></span>
 <span class="r-in"><span><span class="va">tidy_99</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span>, conf.level <span class="op">=</span> <span class="fl">.99</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>,</span></span>
+<span class="r-in"><span>                    conf.int <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
+<span class="r-in"><span>                    conf.level <span class="op">=</span> <span class="fl">.99</span><span class="op">)</span>  <span class="co"># different alpha error rate</span></span></span>
+<span class="r-in"><span>  <span class="va">fit</span><span class="op">$</span><span class="va">full_model</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>             <span class="co"># include entire model fit object</span></span></span>
+<span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Setup specs</span></span></span>
@@ -359,9 +364,13 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function(x) {</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   broom::tidy(x, conf.int = TRUE, conf.level = .99)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fit &lt;- broom::tidy(x,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     conf.int = TRUE,</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     conf.level = .99)  # different alpha error rate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   fit$full_model = list(x)             # include entire model fit object</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   return(fit)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f7eeb066da0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f81fbc1d380&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>

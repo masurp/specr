@@ -146,7 +146,7 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Setup up specifications (returns "specr.setup" object)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Setup up specifications (returns S3 class "specr.setup")</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
@@ -154,21 +154,21 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Run analysis (returns "specr" object)</span></span></span>
+<span class="r-in"><span><span class="co"># Run analysis (returns S3 class "specr.object")</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 64 specifications</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.528 sec elapsed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1.37 sec elapsed</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Summary of the "specr" object</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>  <span class="co"># Default</span></span></span>
+<span class="r-in"><span><span class="co"># Default summary of the "specr.object"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results of the specification curve analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Technical details:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.528 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    1.37 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -197,6 +197,8 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_nobs &lt;dbl&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Adjusting output</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, digits <span class="op">=</span> <span class="fl">5</span>, rows <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Results of the specification curve analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
@@ -204,7 +206,7 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.528 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    1.37 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -237,11 +239,15 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_df.residual &lt;dbl&gt;, fit_nobs &lt;dbl&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Summarize the specification curve descriptively</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 7</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   median   mad    min   max    q25   q75   obs</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>  0.126 0.412 -<span style="color: #BB0000;">0.387</span> 0.662 -<span style="color: #BB0000;">0.139</span> 0.395  338.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Grouping for certain analytical decisions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, <span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 9</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># Groups:   x [2]</span></span>
@@ -251,6 +257,8 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y2    -<span style="color: #BB0000;">0.258</span>  0.078<span style="text-decoration: underline;">4</span> -<span style="color: #BB0000;">0.387</span> -<span style="color: #BB0000;">0.178</span>  -<span style="color: #BB0000;">0.314</span>  -<span style="color: #BB0000;">0.211</span>   338.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x2    y1     0.232  0.057<span style="text-decoration: underline;">3</span>  0.159  0.346   0.200   0.283   338.</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x2    y2    -<span style="color: #BB0000;">0.021</span><span style="color: #BB0000; text-decoration: underline;">1</span> 0.115  -<span style="color: #BB0000;">0.127</span>  0.091<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.088</span><span style="color: #BB0000; text-decoration: underline;">2</span>  0.057<span style="text-decoration: underline;">2</span>  338.</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Using customized functions</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>,</span></span>
 <span class="r-in"><span>       <span class="va">x</span>, <span class="va">group1</span>,</span></span>
 <span class="r-in"><span>       stats <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>median <span class="op">=</span> <span class="va">median</span>,</span></span>

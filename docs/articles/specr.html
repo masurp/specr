@@ -204,8 +204,9 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7ff4d50305a0&gt;</span></span>
+<span><span class="co">#&gt;   function (x) </span></span>
+<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7fec4976ba48&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -236,7 +237,7 @@ results.</p>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  </span>
 <span><span class="co">#&gt; Models fitted based on 192 specifications</span></span>
 <span><span class="co">#&gt; Cores used: 1 </span></span>
-<span><span class="co">#&gt; 2.69 sec elapsed</span></span>
+<span><span class="co">#&gt; 2.744 sec elapsed</span></span>
 <span></span>
 <span><span class="co"># Check</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
@@ -246,7 +247,7 @@ results.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 0.3.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    2.69 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    2.744 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       192 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>

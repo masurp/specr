@@ -128,16 +128,20 @@
 <li>
 <a href="https://masurp.github.io/specr/articles/specr.html" class="external-link">Getting started</a>: A comprehensive example of how to use specr (v.0.3.0). This vignette illustrates the major functions of the package (<code>setup</code> and <code>specr</code>) and introduces the typical workflow.</li>
 <li>
-<a href="https://masurp.github.io/specr/articles/custom-plot.html" class="external-link">Customizing plots</a>: This vignette exemplifies how the results of different specification can be investigated using a variety of visualizations. It furthers outlines ways to customize these visualizations.<br>
+<a href="https://masurp.github.io/specr/articles/01-different-specifications.html" class="external-link">Setting up different types of specifications</a>: This vignette shows how to implement different types of analytical choices (incl. different model functions, subset analysis, outliers with different thresholds and many mores)</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/02-custom-plot.html" class="external-link">Visualizing specification curve analyses</a>: This vignette exemplifies how the results of different specification can be investigated using a variety of visualizations. It furthers outlines ways to customize these visualizations.<br>
 </li>
 <li>
-<a href="https://masurp.github.io/specr/articles/decompose_var.html" class="external-link">Investigating variance in the specification curve</a>: This vignette proposes to view a specification curve analysis as a factorial design. This allows to investigating how analytical choices account for variance in the resulting parameters.</li>
+<a href="https://masurp.github.io/specr/articles/03-paralleliization.html" class="external-link">Using parallelization</a>: This vignette shows how to parallelize the fitting process.</li>
 <li>
-<a href="https://masurp.github.io/specr/articles/measurement_models.html" class="external-link">Incorporating structural equation modeling</a>: This vignette exemplifies how to include latent measurement models and estimate structural equations models using <code>lavaan</code> as part of a specification curve analysis.</li>
+<a href="https://masurp.github.io/specr/articles/04-measurement_models.html" class="external-link">Incorporating structural equation modeling</a>: This vignette exemplifies how to include latent measurement models and estimate structural equations models using <code>lavaan</code> as part of a specification curve analysis.</li>
 <li>
-<a href="https://masurp.github.io/specr/articles/random_effects.html" class="external-link">Incorporating multilevel modeling</a>: This vignette exemplifies how to include random effects and estimate multilevel models using <code>lme4</code> as part of the specification curve analysis.</li>
+<a href="https://masurp.github.io/specr/articles/05-random_effects.html" class="external-link">Incorporating multilevel modeling</a>: This vignette exemplifies how to include random effects and estimate multilevel models using <code>lme4</code> as part of the specification curve analysis.</li>
 <li>
-</li>
+<a href="https://masurp.github.io/specr/articles/06-bayesian-models.html" class="external-link">Incorporating Bayesian modeling</a>: This vignette shows how <code>specr</code> can also be used with Bayesian modeling based on the package <code>brms</code>.</li>
+<li>
+<a href="https://masurp.github.io/specr/articles/09-invest-spec.html" class="external-link">Investing specific specifications</a>: This vignette shows how entire models can be kept during the fitting process and investigated individually afterwards.</li>
 </ul>
 </div>
 <div class="section level3">
@@ -177,7 +181,7 @@
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Models fitted based on 192 specifications</span></span>
 <span><span class="co">#&gt; Cores used: 1 </span></span>
-<span><span class="co">#&gt; 3.08 sec elapsed</span></span>
+<span><span class="co">#&gt; 2.372 sec elapsed</span></span>
 <span></span>
 <span><span class="co"># Plot Specification Curve ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
@@ -227,7 +231,8 @@
 <li><p>Huang, S., Lai, X., Zhao, X., Dai, X., Yao, Y., Zhang, C., &amp; Wang, Y., (2022). Beyond screen time: Exploring associations between types of smartphone use content and adolescents’ social relationships. <em>International Journal of Environmental Research and Public Health, 19</em>, 8940. <a href="https://doi.org/10.3390/ijerph19158940" class="external-link uri">https://doi.org/10.3390/ijerph19158940</a></p></li>
 <li><p>Kritzler, S., &amp; Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. <a href="https://doi.org/10.31234/osf.io/9utyj" class="external-link uri">https://doi.org/10.31234/osf.io/9utyj</a></p></li>
 <li><p>Masur, P. K. (2021). Understanding the Effects of Conceptual and Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification Curve Analysis of Large-Scale Survey Data. <em>Information, Communication &amp; Society.</em> <a href="https://doi.org/10.1080/1369118X.2021.1963460" class="external-link uri">https://doi.org/10.1080/1369118X.2021.1963460</a></p></li>
-<li><p>Yuan, Q., Li, H., Du, B., Dang, W., Chang, Q., Zhang, Z., Zhang, M., Ding, G., Lu, C., &amp; Guo, T. (2022). The cerebellum and cognition: Further evidence for its role in language control. <em>Cerebral Cortex</em>, bhac051, <a href="https://doi.org/10.1093/cercor/bhac051" class="external-link uri">https://doi.org/10.1093/cercor/bhac051</a></p></li>
+<li><p>Rauvola, R. S., &amp; Rudolph, C. W. (2023). Worker aging, control, and well-being: A specification curve analysis. <em>Acta Psychologica, 233</em>, 103833.</p></li>
+<li><p>Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., … &amp; Guo, T. (2023). The cerebellum and cognition: further evidence for its role in language control. <em>Cerebral Cortex, 33</em>(1), 35-49. <a href="https://doi.org/10.1093/cercor/bhac051" class="external-link uri">https://doi.org/10.1093/cercor/bhac051</a></p></li>
 </ul>
 </div>
 </div>
@@ -280,8 +285,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=specr" class="external-link"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a></li>
-<li><a href="https://travis-ci.org/masurp/specr" class="external-link"><img src="https://travis-ci.org/masurp/specr.svg?branch=master" alt="Travis build status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: maturing"></a></li>
 </ul>
 </div>
 
