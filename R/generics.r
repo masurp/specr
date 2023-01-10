@@ -83,7 +83,7 @@ as.data.frame.specr.setup <- function(x) {
 #'   a descriptive summary of the resulting sample sizes, and a head of the results.
 #'
 #' @param x An object of class "specr", usually resulting of a call to `specr`.
-#' @param what Different aspects can be summarized and printed. See details for alternative summaries
+#' @param type Different aspects can be summarized and printed. See details for alternative summaries
 #' @param ... In combination with `what = "curve"`, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.
 #' @param var In combination with `what = "curve"`, unquoted name of parameter to be summarized. Defaults to estimate.
 #' @param stats Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.
@@ -425,14 +425,13 @@ plot.specr.object <- function(x,
 
   if(type == "default"){
 
-  p <- cowplot::plot_grid(plot_a,
-                     plot_b,
-                     labels = labels,
-                     align = "v",
-                     axis = "rbl",
-                     rel_heights = rel_heights,
-                     ncol = 1,
-                     ...)
+  p <- plot_grid(plot_a,
+                 plot_b,
+                 labels = labels,
+                 align = "v",
+                 axis = "rbl",
+                 rel_heights = rel_heights,
+                 ncol = 1.)
    return(p)
   }
 
