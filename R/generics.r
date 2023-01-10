@@ -15,6 +15,8 @@
 #'
 #' @export
 #'
+#' @seealso The function [setup()], which creates the "specr.setup" object.
+#'
 #' @examples
 #' # Setup specifications
 #' specs <- setup(data = example_data,                   # data
@@ -23,9 +25,9 @@
 #'                model = c("lm", "glm"),                # model functions
 #'                distinct(example_data, group3),        # subsets
 #'                controls = c("c1", "c2", "c3"))        # covariates to be added
+#'
+#' # Summarize specifications
 #' summary(specs)
-#' summary(specs, rows = 10)
-#' @seealso The function used to create the "specr.setup" object, `setup`.
 summary.specr.setup <- function(x,
                                 digits = 2,
                                 rows = 6,
@@ -93,7 +95,7 @@ as.data.frame.specr.setup <- function(x) {
 #' @export
 #'
 #' @examples
-#' # Setup up specifications (returns "specr.setup" object)
+#' # Setup up specifications (returns S3 class "specr.setup")
 #' specs <- setup(data = example_data,
 #'                y = c("y1", "y2"),
 #'                x = c("x1", "x2"),
@@ -101,14 +103,22 @@ as.data.frame.specr.setup <- function(x) {
 #'                distinct(example_data, group1),
 #'                controls = c("c1", "c2"))
 #'
-#' # Run analysis (returns "specr" object)
+#' # Run analysis (returns S3 class "specr.object")
 #' results <- specr(specs, workers = 1)
 #'
-#' # Summary of the "specr" object
-#' summary(results)  # Default
+#' # Default summary of the "specr.object"
+#' summary(results)
+#'
+#' # Adjusting output
 #' summary(results, digits = 5, rows = 10)
+#'
+#' # Summarize the specification curve descriptively
 #' summary(results, type = "curve")
+#'
+#' # Grouping for certain analytical decisions
 #' summary(results, type = "curve", x, y)
+#'
+#' # Using customized functions
 #' summary(results, type = "curve",
 #'        x, group1,
 #'        stats = list(median = median,
@@ -249,6 +259,8 @@ summary.specr.object <- function(x,
 #' @export
 #'
 #' @examples
+#+ fig.height = 8, fig.width = 8
+#' ## Specification Curve analysis ----
 #' # Setup specifications
 #' specs <- setup(data = example_data,
 #'                y = c("y1", "y2"),
@@ -261,28 +273,50 @@ summary.specr.object <- function(x,
 #' # Run analysis
 #' results <- specr(specs, workers = 1)
 #'
-#' # Plot results in various ways
-#' plot(results)
-#' plot(results, choices = c("x", "y"))
-#' plot(results, ci = FALSE, ribbon = TRUE)
-#' plot(results, type = "curve", desc = TRUE)
-#' plot(results, type = "choices", desc = TRUE)
-#' plot(results, type = "samplesizes")
-#' plot(results, type = "boxplot") +
-#'   scale_fill_brewer(palette = "Dark2")
+#' # Resulting data frame with estimates
+#' as_tibble(results)  # This will be used for plotting
 #'
+#'
+#' ## Visualizations ---
+#' # Plot results in various ways
+#' plot(results)                            # default
+#' plot(results, choices = c("x", "y"))     # specific choices
+#' plot(results, ci = FALSE, ribbon = TRUE) # exclude CI and add ribbon instead
+#'
+#+ fig.height = 3.5, fig.width = 8
+#' # Plot only specification curve
+#' plot(results, type = "curve", desc = TRUE)
+#'
+#+ fig.height = 5.5, fig.width = 8
+#' # Plot choice panel only
+#' plot(results, type = "choices")
+#'
+#+ fig.height = 1.5, fig.width = 8
+#' # Plot sample size plot
+#' plot(results, type = "samplesizes")
+#'
+#+ fig.height = 7, fig.width = 8
+#' # Plot alternative visualization with box-n-whisker plots
+#' plot(results, type = "boxplot")
+#'
+#'
+#+ fig.height = 3.5, fig.width = 8
+#' ## Alternative and specific visualizations ----
 #' # Also other variables in the resulting data set can be plotted
 #' plot(results,
 #'      type = "curve",
-#'      var = fit_r.squared,   # extract "r-square" instead of "estimate
+#'      var = fit_r.squared,   # extract "r-square" instead of "estimate"
 #'      ci = FALSE)
 #'
+#+ fig.height = 3.5, fig.width = 8
 #' # Such a plot can also be extended (e.g., by again adding the estimates with
 #' # confidence intervals)
+#' library(ggplot2)
 #' plot(results, type = "curve", var = fit_r.squared) +
 #'   geom_point(aes(y = estimate), shape = 5) +
-#'   labs (x = "specifications", y = "r-squared | estimate")
+#'   labs(x = "specifications", y = "r-squared | estimate")
 #'
+#+ fig.height = 5, fig.width = 8
 #' # We can also investigate how much variance is explained by each analytical choice
 #' plot(results, type = "variance") # default
 #'
@@ -292,6 +326,8 @@ summary.specr.object <- function(x,
 #'      type = "variance",
 #'      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")
 #'
+#+ fig.height = 8, fig.width = 8
+#' ## Combining several plots ----
 #' # `specr` also exports the function `plot_grid()` from the package `cowplot`, which
 #' # can be used to combine plots meaningfully
 #' a <- plot(results, "curve")

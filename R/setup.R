@@ -79,43 +79,48 @@
 #' }
 #' @export
 #'
-#' @seealso [specr()] to run the actual specification curve analysis
-
+#' @seealso [specr()] for the second step of actually running the actual specification curve analysis
+#' @seealso [summary.specr.setup()] for how to summarize and inspect the resulting specifications
+#'
 #' @examples
-#' # Example 1 ----
+#' ## Example 1 ----
 #' # Setting up typical specifications
-#' specs <- setup(data = example_data,
-#'                x = c("x1", "x2"),
-#'                y = c("y1", "y2"),
-#'                model = "lm",
-#'                distinct(example_data, group1),
-#'                controls = c("c1", "c2", "c3"),
-#'                simplify = TRUE)
+#' specs <- setup(data = example_data,             # data to be used
+#'                x = c("x1", "x2"),               # independent variables
+#'                y = c("y1", "y2"),               # dependent variables
+#'                model = "lm",                    # model estimation function
+#'                distinct(example_data, group1),  # grouping variable for subsets
+#'                controls = c("c1", "c2", "c3"),  # control variables
+#'                simplify = TRUE)                 # limited combinations of controls
 #'
 #' # Check specifications
 #' summary(specs, rows = 18)
 #'
 #'
-#' # Example 2 ----
+#' ## Example 2 ----
 #' # Setting up specifications for multilevel models
 #' specs <- setup(data = example_data,
 #'                x = c("x1", "x2"),
 #'                y = c("y1", "y2"),
-#'                model = c("lmer"),              # multilevel model
+#'                model = c("lmer"),               # multilevel model
 #'                distinct(example_data, group1),
 #'                controls = c("c1", "c2"),
-#'                add_to_formula = "(1|group2)")  # include random effect in all models
+#'                add_to_formula = "(1|group2)")   # random effect in all models
 #'
 #' # Check specifications
 #' summary(specs)
 #'
 #'
-#' # Example 3 ----
-#' # Setting up specifications with specific additions to the formula and different parameter extract functions
+#' ## Example 3 ----
+#' # Setting up specifications with a different parameter extract functions
 #'
-#' # Create custom extract function
+#' # Create custom extract function to extract different parameter and model
 #' tidy_99 <- function(x) {
-#'   broom::tidy(x, conf.int = TRUE, conf.level = .99)
+#'   fit <- broom::tidy(x,
+#'                     conf.int = TRUE,
+#'                     conf.level = .99)  # different alpha error rate
+#'   fit$full_model = list(x)             # include entire model fit object
+#'   return(fit)
 #' }
 #'
 #' # Setup specs
