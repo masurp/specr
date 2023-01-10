@@ -4,11 +4,17 @@
 \alias{specr}
 \title{Fit models across all specifications}
 \usage{
-specr(x, workers = availableCores(), ..., message = TRUE)
+specr(x, data = NULL, workers = availableCores(), ..., message = TRUE)
 }
 \arguments{
 \item{x}{A \code{specr.setup} object resulting from \code{setup} or a tibble that
-contains the relevant specifications (e.g., a tibble resulting from \code{setup})}
+contains the relevant specifications (e.g., a tibble resulting from
+\code{as_tibble(setup(...))}).}
+
+\item{data}{If x is not an object of "specr.setup" and simply a tibble, you
+need to provide the data set that should be used. Defaults to NULL as it is
+assumend that most users will create an object of class "specr.setup" that they'll
+pass to \code{specr()}.}
 
 \item{workers}{A numeric value that indicates how many cores should be used.
 Defaults to \code{availableCores()} from the future package and thus uses
@@ -41,7 +47,8 @@ an overview on available methods.
 Runs the specification/multiverse analysis across specified models.
 This is the central function of the package and represent the second step
 in the analytic framework implemented in the package \code{specr}. It estimates
-and returns respective parameters and estimates of models that were specified via \code{setup()}.
+and returns respective parameters and estimates of models that were specified
+via \code{setup()}.
 }
 \details{
 Empirical results are often contingent on analytical decisions that
@@ -61,11 +68,11 @@ or parameter of interest.
 A general overview is provided in the vignettes \code{vignette("specr")}.
 Generally, you create relevant specification using the function \code{setup()}.
 You then pass the resulting object of a class \code{specr.setup} to the
-present function \code{specr()} to run the specification curve analysis. Further
-note that the resulting object of class \code{specr.object} allows to use
-several generic function such as \code{summary()} or \code{plot()}. Use
-\code{methods(class = "specr.object")} for an overview on available methods and
-e.g., \code{?plot.specr.object} to view the dedicated help page.
+present function \code{specr()} to run the specification curve analysis.
+Further note that the resulting object of class \code{specr.object} allows
+to use several generic function such as \code{summary()} or \code{plot()}.
+Use \code{methods(class = "specr.object")} for an overview on available
+methods and e.g., \code{?plot.specr.object} to view the dedicated help page.
 
 \bold{Disclaimer}
 
@@ -74,19 +81,19 @@ affect a statistical outcome of interest. However, we strongly caution
 against using specr as a tool to somehow arrive at a better estimate
 compared to a single model. Running a specification curve analysis
 does not make your findings any more reliable, valid or generalizable
-than a single analysis. The method is meant to inform about the effects of
-analytical choices on results, and not a better way to estimate a correlation or effect.
+than a single analysis. The method is meant to inform about the effects
+of analytical choices on results, and not a better way to estimate a
+correlation or effect.
 }
 \examples{
-# Example 1 ----
+## Example 1 ----
 # Setup up typical specifications
-specs <- setup(data = example_data,             # providing data
-               y = c("y1", "y2"),               # different y variables
-               x = c("x1", "x2"),               # different x variables
-               model = "lm",                    # only one model type
-               distinct(example_data, group1),  # subset based on "group1"
-               controls = c("c1", "c2"))        # Control for two variables
-
+specs <- setup(data = example_data,            # providing data
+               y = c("y1", "y2"),              # different y variables
+               x = c("x1", "x2"),              # different x variables
+               model = "lm",                   # only one model type
+               distinct(example_data, group1), # subsets
+               controls = c("c1", "c2"))       # Control these variables
 # Run analysis (not parallelized, using simple `map` functions)
 results <- specr(specs, workers = 1)
 
@@ -95,7 +102,7 @@ summary(results)
 summary(results, type = "curve", subsets)
 
 
-# Example 2 ----
+## Example 2 ----
 # Setup up specifications with specific additions to the formula
 specs2 <- setup(data = example_data,
                 y = c("y1", "y2"),
@@ -104,17 +111,17 @@ specs2 <- setup(data = example_data,
                 distinct(example_data, group1),
                 distinct(example_data, group2),
                 controls = "c1",
-                add_to_formula = "c2")  # In all models, we now control for "c2"
+                add_to_formula = "c2") # Always control for `c2`
 
-# Run analysis using parallelization (2 cores and `future_pmap`).
-# Because "lm" is a base function, no further options need to be specified.
+# Run analysis using parallelization (2 cores and `future_pmap()`).
+# Because "lm" is a base function, no further arguments necessary
 results2 <- specr(specs2, workers = 2)
 
 # Summary of results
 summary(results2, digits = 3)
 
 
-# Example 3 ----
+## Example 3 ----
 # Create custom function
 glm2 <- function(formula, data) {
   glm(formula, data, family = gaussian())
@@ -124,7 +131,7 @@ glm2 <- function(formula, data) {
 specs3 <- setup(data = example_data,
                 y = c("y1", "y2"),
                 x = c("x1", "x2"),
-                model = c("lm", "glm2"), # custom function as alternative model
+                model = c("lm", "glm2"), # custom function added
                 distinct(example_data, group1),
                 distinct(example_data, group2),
                 controls = "c1",
@@ -136,17 +143,25 @@ opts <- furrr_options(globals = list(glm2 = glm2))
 # Run analysis using parallelization (4 cores and `future_pmap`).
 results3 <- specr(specs3,
                   workers = 4,
-                  .options = opts) # Pass opts to `specr`, which passes it to `future_pmap()`
+                  .options = opts) # Options passed to to `future_pmap()`
 
 # Summary of results
 summary(results3, digits = 3)
-
-# You can also extract the results tibble from the S3 class with standard functions
-as_tibble(results3)
 }
 \references{
 \itemize{
-\item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications. Available at: https://doi.org/10.2139/ssrn.2694998
-\item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. Perspectives on Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+\item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
+Curve: Descriptive and Inferential Statistics for all Plausible Specifications.
+Available at: https://doi.org/10.2139/ssrn.2694998
+\item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016).
+Increasing Transparency Through a Multiverse Analysis. Perspectives on
+Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
 }
+}
+\seealso{
+\code{\link[=setup]{setup()}} for the first step of setting up the specifications.
+
+\code{\link[=summary.specr.object]{summary.specr.object()}} for how to summarize and inspect the results.
+
+\code{\link[=plot.specr.object]{plot.specr.object()}} for plotting results.
 }

@@ -33,9 +33,10 @@ specs <- setup(data = example_data,                   # data
                model = c("lm", "glm"),                # model functions
                distinct(example_data, group3),        # subsets
                controls = c("c1", "c2", "c3"))        # covariates to be added
+
+# Summarize specifications
 summary(specs)
-summary(specs, rows = 10)
 }
 \seealso{
-The function used to create the "specr.setup" object, \code{setup}.
+The function \code{\link[=setup]{setup()}}, which creates the "specr.setup" object.
 }

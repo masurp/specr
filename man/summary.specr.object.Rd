@@ -40,7 +40,7 @@ of specifications), a descriptive analysis of the overall specification curve,
 a descriptive summary of the resulting sample sizes, and a head of the results.
 }
 \examples{
-# Setup up specifications (returns "specr.setup" object)
+# Setup up specifications (returns S3 class "specr.setup")
 specs <- setup(data = example_data,
                y = c("y1", "y2"),
                x = c("x1", "x2"),
@@ -48,14 +48,22 @@ specs <- setup(data = example_data,
                distinct(example_data, group1),
                controls = c("c1", "c2"))
 
-# Run analysis (returns "specr" object)
+# Run analysis (returns S3 class "specr.object")
 results <- specr(specs, workers = 1)
 
-# Summary of the "specr" object
-summary(results)  # Default
+# Default summary of the "specr.object"
+summary(results)
+
+# Adjusting output
 summary(results, digits = 5, rows = 10)
+
+# Summarize the specification curve descriptively
 summary(results, type = "curve")
+
+# Grouping for certain analytical decisions
 summary(results, type = "curve", x, y)
+
+# Using customized functions
 summary(results, type = "curve",
        x, group1,
        stats = list(median = median,

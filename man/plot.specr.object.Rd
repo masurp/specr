@@ -80,6 +80,7 @@ the results of calling \code{specr()} to create a standard visualization of the
 specification curve analysis. Several types of visualizations are possible.
 }
 \examples{
+## Specification Curve analysis ----
 # Setup specifications
 specs <- setup(data = example_data,
                y = c("y1", "y2"),
@@ -92,27 +93,42 @@ specs <- setup(data = example_data,
 # Run analysis
 results <- specr(specs, workers = 1)
 
-# Plot results in various ways
-plot(results)
-plot(results, choices = c("x", "y"))
-plot(results, ci = FALSE, ribbon = TRUE)
-plot(results, type = "curve", desc = TRUE)
-plot(results, type = "choices", desc = TRUE)
-plot(results, type = "samplesizes")
-plot(results, type = "boxplot") +
-  scale_fill_brewer(palette = "Dark2")
+# Resulting data frame with estimates
+as_tibble(results)  # This will be used for plotting
 
+
+## Visualizations ---
+# Plot results in various ways
+plot(results)                            # default
+plot(results, choices = c("x", "y"))     # specific choices
+plot(results, ci = FALSE, ribbon = TRUE) # exclude CI and add ribbon instead
+
+# Plot only specification curve
+plot(results, type = "curve", desc = TRUE)
+
+# Plot choice panel only
+plot(results, type = "choices")
+
+# Plot sample size plot
+plot(results, type = "samplesizes")
+
+# Plot alternative visualization with box-n-whisker plots
+plot(results, type = "boxplot")
+
+
+## Alternative and specific visualizations ----
 # Also other variables in the resulting data set can be plotted
 plot(results,
      type = "curve",
-     var = fit_r.squared,   # extract "r-square" instead of "estimate
+     var = fit_r.squared,   # extract "r-square" instead of "estimate"
      ci = FALSE)
 
 # Such a plot can also be extended (e.g., by again adding the estimates with
 # confidence intervals)
+library(ggplot2)
 plot(results, type = "curve", var = fit_r.squared) +
   geom_point(aes(y = estimate), shape = 5) +
-  labs (x = "specifications", y = "r-squared | estimate")
+  labs(x = "specifications", y = "r-squared | estimate")
 
 # We can also investigate how much variance is explained by each analytical choice
 plot(results, type = "variance") # default
@@ -123,6 +139,7 @@ plot(results,
      type = "variance",
      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")
 
+## Combining several plots ----
 # `specr` also exports the function `plot_grid()` from the package `cowplot`, which
 # can be used to combine plots meaningfully
 a <- plot(results, "curve")
