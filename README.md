@@ -37,7 +37,7 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 ### What is specr?
 
 The goal of specr is to facilitate specification curve analyses
-(Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
+(Simonsohn, Simmons & Nelson, 2020; also known as multiverse analyses,
 see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). The package can be
 used to investigate how different (theoretically plausible) analytical
 choices affect outcome statistics within the universe of one single data
@@ -102,7 +102,7 @@ and not a better way to estimate a correlation or effect.
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")  # version 0.2.1
+install.packages("specr")   # version 0.2.1
 ```
 
 Or install the most recent development version from
@@ -110,7 +110,7 @@ Or install the most recent development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")  # version 0.3.0
+devtools::install_github("masurp/specr")   # version 0.3.0
 ```
 
 ### Usage
@@ -138,7 +138,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 1.949 sec elapsed
+#> 1.942 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)
