@@ -15,10 +15,8 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
-[![Travis build
-status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci.org/masurp/specr)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/specr) [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
 ### News
@@ -26,7 +24,8 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 -   (5 January 2022): specr version 0.3.0 is available via github. This
     is a major update with several new features and functions. Note: it
     introduces a new framework for conduction specification curve
-    analyses compared to earlier versions (see version history for more
+    analyses compared to earlier versions (see [version
+    history](https://masurp.github.io/specr/news/index.html) for more
     details).
 
 -   (4 December 2020): specr development version 0.2.2 is available via
@@ -139,7 +138,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 1.91 sec elapsed
+#> 1.949 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)
