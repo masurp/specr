@@ -18,6 +18,8 @@
 \arguments{
 \item{x}{An object of class "specr", usually resulting of a call to \code{specr}.}
 
+\item{type}{Different aspects can be summarized and printed. See details for alternative summaries}
+
 \item{...}{In combination with \code{what = "curve"}, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
 
 \item{var}{In combination with \code{what = "curve"}, unquoted name of parameter to be summarized. Defaults to estimate.}
@@ -27,8 +29,6 @@
 \item{digits}{The number of digits to use when printing the specification table.}
 
 \item{rows}{The number of rows of the specification tibble that should be printed.}
-
-\item{what}{Different aspects can be summarized and printed. See details for alternative summaries}
 }
 \value{
 A printed summary of an object of class \code{specr.object}.
