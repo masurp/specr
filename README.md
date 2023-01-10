@@ -139,7 +139,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 2.022 sec elapsed
+#> 1.91 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)
@@ -240,7 +240,11 @@ like to be included in the following list, please send an email to
     Communication & Society.*
     <https://doi.org/10.1080/1369118X.2021.1963460>
 
--   Yuan, Q., Li, H., Du, B., Dang, W., Chang, Q., Zhang, Z., Zhang, M.,
-    Ding, G., Lu, C., & Guo, T. (2022). The cerebellum and cognition:
-    Further evidence for its role in language control. *Cerebral
-    Cortex*, bhac051, <https://doi.org/10.1093/cercor/bhac051>
+-   Rauvola, R. S., & Rudolph, C. W. (2023). Worker aging, control, and
+    well-being: A specification curve analysis. *Acta Psychologica,
+    233*, 103833.
+
+-   Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., … &
+    Guo, T. (2023). The cerebellum and cognition: further evidence for
+    its role in language control. *Cerebral Cortex, 33*(1), 35-49.
+    <https://doi.org/10.1093/cercor/bhac051>
