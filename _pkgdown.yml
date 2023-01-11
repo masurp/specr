@@ -42,3 +42,38 @@ reference:
       - summarise_specs
       - icc_specs
 
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  type: default
+  left:
+  - text: Getting started
+    href: articles/specr.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Basics
+    - text: Setting up different types of specifications
+      href: articles/different-specifications.html
+    - text: Visualizing specification curve analyses
+      href: articles/custom-plot.html
+    - text: Investigating specific specifications
+      href: articles/invest-spec.html
+    - text: Parallelization
+      href: articles/parallelization.html
+    - text: -------
+    - text: Incorporating specific models
+    - text: Structural equation models
+      href: articles/measurement_models.html
+    - text: Multilevel models
+      href: articles/random_effects.html
+    - text: Bayesian Modeling
+      href: articles/bayesian-models.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/masurp/specr
+

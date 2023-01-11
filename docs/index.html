@@ -40,7 +40,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="articles/specr.html">Get started</a>
+  <a href="articles/specr.html">Getting started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -52,37 +52,41 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="articles/01-different-specifications.html">Setting up different types of specifications</a>
+<li class="dropdown-header">Basics</li>
+    <li>
+      <a href="articles/different-specifications.html">Setting up different types of specifications</a>
     </li>
     <li>
-      <a href="articles/02-custom-plot.html">Visualizing specification curve analyses</a>
+      <a href="articles/custom-plot.html">Visualizing specification curve analyses</a>
     </li>
     <li>
-      <a href="articles/03-parallelization.html">Using parallelization</a>
+      <a href="articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="articles/04-measurement_models.html">Incorporating structural equation models</a>
+      <a href="articles/parallelization.html">Parallelization</a>
+    </li>
+    <li class="divider">
+    </li>
+<li class="dropdown-header">Incorporating specific models</li>
+    <li>
+      <a href="articles/measurement_models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="articles/05-random_effects.html">Incorporating multilevel models</a>
+      <a href="articles/random_effects.html">Multilevel models</a>
     </li>
     <li>
-      <a href="articles/06-bayesian-models.html">Incorporating Bayesian Statistics</a>
-    </li>
-    <li>
-      <a href="articles/09-invest-spec.html">Investigating specific specifications</a>
+      <a href="articles/bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="news/index.html">Changelog</a>
+  <a href="news/index.html">News</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/masurp/specr/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://github.com/masurp/specr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,7 +118,7 @@
 <h3 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
 </h3>
 <ul>
-<li><p>(5 January 2022): specr version 0.3.0 is available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see version history for more details).</p></li>
+<li><p>(5 January 2022): specr version 0.3.0 is available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see <a href="https://masurp.github.io/specr/news/index.html" class="external-link">version history</a> for more details).</p></li>
 <li><p>(4 December 2020): specr development version 0.2.2 is available via github. Mostly minor updates and bug fixes.</p></li>
 <li><p>(25 May 2020): specr version 0.2.1 has been released on <a href="https://cran.r-project.org/web/packages/specr/index.html" class="external-link">CRAN</a>.</p></li>
 </ul>
@@ -122,7 +126,7 @@
 <div class="section level3">
 <h3 id="what-is-specr">What is specr?<a class="anchor" aria-label="anchor" href="#what-is-specr"></a>
 </h3>
-<p>The goal of specr is to facilitate specification curve analyses (Simonsohn, Simmons &amp; Nelson, 2019; also known as multiverse analyses, see Steegen, Tuerlinckx, Gelman &amp; Vanpaemel, 2016). The package can be used to investigate how different (theoretically plausible) analytical choices affect outcome statistics within the universe of one single data set. It provides functions to setup, run, evaluate, and plot the multiverse of specifications. A simple example of how to use specr is provided below. For more information about the various functions and specific use cases, visit the <a href="https://masurp.github.io/specr/index.html">documentation</a>.</p>
+<p>The goal of specr is to facilitate specification curve analyses (Simonsohn, Simmons &amp; Nelson, 2020; also known as multiverse analyses, see Steegen, Tuerlinckx, Gelman &amp; Vanpaemel, 2016). The package can be used to investigate how different (theoretically plausible) analytical choices affect outcome statistics within the universe of one single data set. It provides functions to setup, run, evaluate, and plot the multiverse of specifications. A simple example of how to use specr is provided below. For more information about the various functions and specific use cases, visit the <a href="https://masurp.github.io/specr/index.html">documentation</a>.</p>
 <p>The following vignettes exemplify and explain specific aspects and functions of the package:</p>
 <ul>
 <li>
@@ -154,11 +158,11 @@
 </h3>
 <p>Install specr from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"specr"</span><span class="op">)</span>  <span class="co"># version 0.2.1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"specr"</span><span class="op">)</span>   <span class="co"># version 0.2.1</span></span></code></pre></div>
 <p>Or install the most recent development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"masurp/specr"</span><span class="op">)</span>  <span class="co"># version 0.3.0</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"masurp/specr"</span><span class="op">)</span>   <span class="co"># version 0.3.0</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -173,15 +177,15 @@
 <span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>, </span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>, </span>
 <span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>, </span>
-<span>               <span class="fu"><a href="reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="reference/distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span>
 <span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run Specification Curve Analysis ----</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Models fitted based on 192 specifications</span></span>
 <span><span class="co">#&gt; Cores used: 1 </span></span>
-<span><span class="co">#&gt; 2.372 sec elapsed</span></span>
+<span><span class="co">#&gt; 1.942 sec elapsed</span></span>
 <span></span>
 <span><span class="co"># Plot Specification Curve ----</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
@@ -285,7 +289,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=specr" class="external-link"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: maturing"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: stable"></a></li>
 </ul>
 </div>
 

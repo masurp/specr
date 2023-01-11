@@ -27,7 +27,7 @@ via setup()."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-  <a href="../articles/specr.html">Get started</a>
+  <a href="../articles/specr.html">Getting started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -38,34 +38,37 @@ via setup()."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/lib
      
     <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/01-different-specifications.html">Setting up different types of specifications</a>
+  <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Basics</li>
+    <li>
+      <a href="../articles/different-specifications.html">Setting up different types of specifications</a>
     </li>
     <li>
-      <a href="../articles/02-custom-plot.html">Visualizing specification curve analyses</a>
+      <a href="../articles/custom-plot.html">Visualizing specification curve analyses</a>
     </li>
     <li>
-      <a href="../articles/03-parallelization.html">Using parallelization</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/04-measurement_models.html">Incorporating structural equation models</a>
+      <a href="../articles/parallelization.html">Parallelization</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Incorporating specific models</li>
+    <li>
+      <a href="../articles/measurement_models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="../articles/05-random_effects.html">Incorporating multilevel models</a>
+      <a href="../articles/random_effects.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/06-bayesian-models.html">Incorporating Bayesian Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/09-invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul></li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/masurp/specr/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://github.com/masurp/specr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -114,11 +117,11 @@ pass to <code>specr()</code>.</p></dd>
 <dd><p>A numeric value that indicates how many cores should be used.
 Defaults to <code>availableCores()</code> from the future package and thus uses
 all available cores. Note: If the models specified via <code><a href="setup.html">setup()</a></code> are not
-very computationally intensive, the overhead introduced trhough the parallelization
+very computationally intensive, the overhead introduced through the parallelization
 (setting up several workers and R sessions, etc.) may actually make the fitting
 process slower. It only becomes considerably faster if the model fitting process
 is so intensive that the overhead no longer matters. In other words, in a lot
-of cases, setting <code>workers = 1</code> can be a meaningful choice.</p></dd>
+of cases, setting <code>workers = 1</code> is still the best choice.</p></dd>
 
 
 <dt>...</dt>
@@ -129,7 +132,7 @@ is used. See examples 2 and 3 below for further details.</p></dd>
 
 <dt>message</dt>
 <dd><p>Logical value; indicates whether a short message should be
-printed after the estimation including information about the elapsed time.
+printed after the estimation including information about corse used and elapsed time.
 Defaults to TRUE.</p></dd>
 
 </dl></div>
@@ -151,11 +154,11 @@ an overview on available methods.</p>
     <p>Empirical results are often contingent on analytical decisions that
 are equally defensible, often arbitrary, and motivated by different reasons.
 This decisions may introduce bias or at least variability. To this end,
-specification curve analyses  (Simonsohn et al., 2019) or multiverse
+specification curve analyses  (Simonsohn et al., 2020) or multiverse
 analyses (Steegen et al., 2016) refer to identifying the set of
 theoretically justified, statistically valid (and potentially also non-redundant
 specifications, fitting the "multiverse" of models represented by these
-specifications and estract relevant parameters often to display the results
+specifications and extract relevant parameters often to display the results
 graphically as a so-called specification curve. This allows readers to
 identify consequential specifications decisions and how they affect the results
 or parameter of interest.</p>
@@ -181,12 +184,8 @@ correlation or effect.</p>
     <div id="references">
     <h2>References</h2>
     
-<ul><li><p>Simonsohn, U., Simmons, J. P., &amp; Nelson, L. D. (2019). Specification
-Curve: Descriptive and Inferential Statistics for all Plausible Specifications.
-Available at: https://doi.org/10.2139/ssrn.2694998</p></li>
-<li><p>Steegen, S., Tuerlinckx, F., Gelman, A., &amp; Vanpaemel, W. (2016).
-Increasing Transparency Through a Multiverse Analysis. Perspectives on
-Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637</p></li>
+<ul><li><p>Simonsohn, U., Simmons, J.P. &amp; Nelson, L.D. (2020). Specification curve analysis. <em>Nature Human Behaviour, 4</em>, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z</p></li>
+<li><p>Steegen, S., Tuerlinckx, F., Gelman, A., &amp; Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. <em>Perspectives on Psychological Science, 11</em>(5), 702-712. https://doi.org/10.1177/1745691616658637</p></li>
 </ul></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -197,19 +196,20 @@ Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Example 1 ----</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Example 1 ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setup up typical specifications</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,            <span class="co"># providing data</span></span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,              <span class="co"># different y variables</span></span></span>
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,              <span class="co"># different x variables</span></span></span>
 <span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,                   <span class="co"># only one model type</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>, <span class="co"># subsets</span></span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span>       <span class="co"># Control these variables</span></span></span>
-<span class="r-in"><span><span class="co"># Run analysis (not parallelized, using simple `map` functions)</span></span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>, <span class="co"># subsets</span></span></span>
+<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span>       <span class="co"># Control for these variables</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Run analysis (not parallelized)</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 64 specifications</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.654 sec elapsed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.563 sec elapsed</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summary of the results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
@@ -219,7 +219,7 @@ Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637<
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.654 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.563 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -248,138 +248,41 @@ Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_nobs &lt;dbl&gt;</span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, <span class="va">subsets</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   subsets median   mad    min   max    q25   q75   obs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> all      0.144 0.444 -<span style="color: #BB0000;">0.339</span> 0.620 -<span style="color: #BB0000;">0.132</span> 0.352  <span style="text-decoration: underline;">1</span>000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> middle   0.130 0.411 -<span style="color: #BB0000;">0.387</span> 0.613 -<span style="color: #BB0000;">0.108</span> 0.316   331</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> old      0.204 0.506 -<span style="color: #BB0000;">0.304</span> 0.662 -<span style="color: #BB0000;">0.110</span> 0.418   323</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> young    0.101 0.375 -<span style="color: #BB0000;">0.310</span> 0.567 -<span style="color: #BB0000;">0.139</span> 0.287   346</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Example 2 ----</span></span></span>
-<span class="r-in"><span><span class="co"># Setup up specifications with specific additions to the formula</span></span></span>
+<span class="r-in"><span><span class="co"># Example 2 ----</span></span></span>
+<span class="r-in"><span><span class="co"># Working without S3 classes</span></span></span>
 <span class="r-in"><span><span class="va">specs2</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
 <span class="r-in"><span>                y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                model <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>                <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                controls <span class="op">=</span> <span class="st">"c1"</span>,</span></span>
-<span class="r-in"><span>                add_to_formula <span class="op">=</span> <span class="st">"c2"</span><span class="op">)</span> <span class="co"># Always control for `c2`</span></span></span>
+<span class="r-in"><span>                controls <span class="op">=</span> <span class="st">"c1"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Run analysis using parallelization (2 cores and `future_pmap()`).</span></span></span>
-<span class="r-in"><span><span class="co"># Because "lm" is a base function, no further arguments necessary</span></span></span>
-<span class="r-in"><span><span class="va">results2</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs2</span>, workers <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 96 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5.912 sec elapsed</span>
+<span class="r-in"><span><span class="co"># Working with tibbles</span></span></span>
+<span class="r-in"><span><span class="va">specs_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">specs2</span><span class="op">)</span>      <span class="co"># extract tibble from setup</span></span></span>
+<span class="r-in"><span><span class="va">results3</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs_tibble</span>,</span></span>
+<span class="r-in"><span>                  data <span class="op">=</span> <span class="va">example_data</span>, <span class="co"># need to provide data!</span></span></span>
+<span class="r-in"><span>                  workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 8 specifications</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.074 sec elapsed</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Summary of results</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results2</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results of the specification curve analysis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Technical details:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    5.912 sec elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       96 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  median   mad    min   max    q25  q75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.137 0.394 -0.292 0.675 -0.042 0.44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of sample sizes: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  median min  max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     250 160 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Head of the specification results (first 6 rows): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"><span><span class="co"># Results (tibble instead of S3 class)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results3</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 26</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets    group1 group2 formula estimate std.error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle &amp; … middle female y1 ~ x…    0.596     0.101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old &amp; fem… old    female y1 ~ x…    0.643     0.083</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young &amp; f… young  female y1 ~ x…    0.48      0.082</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        female     <span style="color: #BB0000;">NA</span>     female y1 ~ x…    0.602     0.054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        middle &amp; … middle male   y1 ~ x…    0.578     0.093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        old &amp; male old    male   y1 ~ x…    0.675     0.1  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 16 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_df.residual &lt;dbl&gt;, fit_nobs &lt;dbl&gt;</span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co">## Example 3 ----</span></span></span>
-<span class="r-in"><span><span class="co"># Create custom function</span></span></span>
-<span class="r-in"><span><span class="va">glm2</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">gaussian</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Setup specifications</span></span></span>
-<span class="r-in"><span><span class="va">specs3</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
-<span class="r-in"><span>                y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span>, <span class="st">"glm2"</span><span class="op">)</span>, <span class="co"># custom function added</span></span></span>
-<span class="r-in"><span>                <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>                controls <span class="op">=</span> <span class="st">"c1"</span>,</span></span>
-<span class="r-in"><span>                add_to_formula <span class="op">=</span> <span class="st">"c2"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Because "glm2" is a custom function, we need to provide `furrr_options`</span></span></span>
-<span class="r-in"><span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="furrr_options.html">furrr_options</a></span><span class="op">(</span>globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>glm2 <span class="op">=</span> <span class="va">glm2</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Run analysis using parallelization (4 cores and `future_pmap`).</span></span></span>
-<span class="r-in"><span><span class="va">results3</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs3</span>,</span></span>
-<span class="r-in"><span>                  workers <span class="op">=</span> <span class="fl">4</span>,</span></span>
-<span class="r-in"><span>                  .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span> <span class="co"># Options passed to to `future_pmap()`</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 192 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10.975 sec elapsed</span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Summary of results</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results3</span>, digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Results of the specification curve analysis</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> -------------------</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Technical details:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    10.975 sec elapsed </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       192 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  median   mad    min   max    q25  q75</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.137 0.394 -0.292 0.675 -0.042 0.44</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of sample sizes: </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  median min  max</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     250 160 1000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Head of the specification results (first 6 rows): </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 28</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets    group1 group2 formula estimate std.error</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle &amp; … middle female y1 ~ x…    0.596     0.101</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old &amp; fem… old    female y1 ~ x…    0.643     0.083</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young &amp; f… young  female y1 ~ x…    0.48      0.082</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        female     <span style="color: #BB0000;">NA</span>     female y1 ~ x…    0.602     0.054</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        middle &amp; … middle male   y1 ~ x…    0.578     0.093</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        old &amp; male old    male   y1 ~ x…    0.675     0.1  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 18 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_df.residual &lt;dbl&gt;, fit_nobs &lt;dbl&gt;, fit_null.deviance &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_df.null &lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets formula      model_function term  estimate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    c1       all     y1 ~ x1 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y2    lm    1        all     y2 ~ x1 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.328</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y2    lm    c1       all     y2 ~ x1 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.339</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x2    y1    lm    1        all     y1 ~ x2 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x2    y1    lm    c1       all     y1 ~ x2 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 17 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;int&gt;, fit_nobs &lt;int&gt;</span></span>
 </code></pre></div>
     </div>
   </div>

@@ -26,7 +26,7 @@ print.specs = TRUE, it also shows the head of the actual specification grid.'><!
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-  <a href="../articles/specr.html">Get started</a>
+  <a href="../articles/specr.html">Getting started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -37,34 +37,37 @@ print.specs = TRUE, it also shows the head of the actual specification grid.'><!
      
     <span class="caret"></span>
   </a>
-  <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/01-different-specifications.html">Setting up different types of specifications</a>
+  <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Basics</li>
+    <li>
+      <a href="../articles/different-specifications.html">Setting up different types of specifications</a>
     </li>
     <li>
-      <a href="../articles/02-custom-plot.html">Visualizing specification curve analyses</a>
+      <a href="../articles/custom-plot.html">Visualizing specification curve analyses</a>
     </li>
     <li>
-      <a href="../articles/03-parallelization.html">Using parallelization</a>
+      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/04-measurement_models.html">Incorporating structural equation models</a>
+      <a href="../articles/parallelization.html">Parallelization</a>
+    </li>
+    <li class="divider">
+    <li class="dropdown-header">Incorporating specific models</li>
+    <li>
+      <a href="../articles/measurement_models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="../articles/05-random_effects.html">Incorporating multilevel models</a>
+      <a href="../articles/random_effects.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/06-bayesian-models.html">Incorporating Bayesian Statistics</a>
-    </li>
-    <li>
-      <a href="../articles/09-invest-spec.html">Investigating specific specifications</a>
+      <a href="../articles/bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul></li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="../news/index.html">News</a>
 </li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
-  <a href="https://github.com/masurp/specr/" class="external-link">
-    <span class="fab fa-github fa-lg"></span>
+  <a href="https://github.com/masurp/specr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -91,12 +94,12 @@ the function used to extract the parameters from the model. Finally, if
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S3 method for specr.setup</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">x</span>, digits <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">6</span>, print.specs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">object</span>, digits <span class="op">=</span> <span class="fl">2</span>, rows <span class="op">=</span> <span class="fl">6</span>, print.specs <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>x</dt>
+    <dl><dt>object</dt>
 <dd><p>An object of class "specr.setup", usually, a result of a call to <code>setup</code>.</p></dd>
 
 
@@ -111,6 +114,10 @@ the function used to extract the parameters from the model. Finally, if
 <dt>print.specs</dt>
 <dd><p>Logical value; if <code>TRUE</code>, a head of the specification tibble
 is returned and printed.</p></dd>
+
+
+<dt>...</dt>
+<dd><p>further arguments passed to or from other methods (currently ignored).</p></dd>
 
 </dl></div>
     <div id="value">
@@ -131,7 +138,7 @@ is returned and printed.</p></dd>
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,                     <span class="co"># independent variables</span></span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,                     <span class="co"># dependent variable</span></span></span>
 <span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span>, <span class="st">"glm"</span><span class="op">)</span>,                <span class="co"># model functions</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="distinct.html">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group3</span><span class="op">)</span>,        <span class="co"># subsets</span></span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group3</span><span class="op">)</span>,        <span class="co"># subsets</span></span></span>
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span><span class="op">)</span>        <span class="co"># covariates to be added</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summarize specifications</span></span></span>
@@ -153,7 +160,7 @@ is returned and printed.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f8213542538&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9bc6b830a8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>

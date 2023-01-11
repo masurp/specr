@@ -43,6 +43,9 @@
     <loc>https://masurp.github.io/specr/index.html/articles/decompose_var.html</loc>
   </url>
   <url>
+    <loc>https://masurp.github.io/specr/index.html/articles/different-specifications.html</loc>
+  </url>
+  <url>
     <loc>https://masurp.github.io/specr/index.html/articles/index.html</loc>
   </url>
   <url>
@@ -50,6 +53,9 @@
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/articles/measurement_models.html</loc>
+  </url>
+  <url>
+    <loc>https://masurp.github.io/specr/index.html/articles/parallelization.html</loc>
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/articles/progress.html</loc>
@@ -131,6 +137,9 @@
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/print.specr.object.html</loc>
+  </url>
+  <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/reexports.html</loc>
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/run_specs.html</loc>
