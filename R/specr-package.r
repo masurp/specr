@@ -14,6 +14,6 @@
 #' @importFrom parallelly availableCores
 #' @importFrom stats formula mad median nobs quantile start vcov
 #' @importFrom stringr str_glue str_remove_all
-#' @importFrom utils stack
+#' @importFrom utils stack head packageVersion
 ## usethis namespace: end
 NULL
