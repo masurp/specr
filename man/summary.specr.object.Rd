@@ -5,22 +5,23 @@
 \title{Summarizing the Specification Curve Analysis}
 \usage{
 \method{summary}{specr.object}(
-  x,
+  object,
   type = "default",
-  ...,
-  var = estimate,
+  group = NULL,
+  var = .data$estimate,
   stats = list(median = median, mad = mad, min = min, max = max, q25 = function(x)
     quantile(x, prob = 0.25), q75 = function(x) quantile(x, prob = 0.75)),
   digits = 2,
-  rows = 6
+  rows = 6,
+  ...
 )
 }
 \arguments{
-\item{x}{An object of class "specr", usually resulting of a call to \code{specr}.}
+\item{object}{An object of class "specr", usually resulting of a call to \code{specr}.}
 
 \item{type}{Different aspects can be summarized and printed. See details for alternative summaries}
 
-\item{...}{In combination with \code{what = "curve"}, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
+\item{group}{In combination with \code{what = "curve"}, provide a vector of one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
 
 \item{var}{In combination with \code{what = "curve"}, unquoted name of parameter to be summarized. Defaults to estimate.}
 
@@ -29,6 +30,8 @@
 \item{digits}{The number of digits to use when printing the specification table.}
 
 \item{rows}{The number of rows of the specification tibble that should be printed.}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
 A printed summary of an object of class \code{specr.object}.
@@ -40,7 +43,7 @@ of specifications), a descriptive analysis of the overall specification curve,
 a descriptive summary of the resulting sample sizes, and a head of the results.
 }
 \examples{
-# Setup up specifications (returns S3 class "specr.setup")
+# Setup up specifications (returns object of class "specr.setup")
 specs <- setup(data = example_data,
                y = c("y1", "y2"),
                x = c("x1", "x2"),
@@ -48,24 +51,24 @@ specs <- setup(data = example_data,
                distinct(example_data, group1),
                controls = c("c1", "c2"))
 
-# Run analysis (returns S3 class "specr.object")
+# Run analysis (returns object of class "specr.object")
 results <- specr(specs, workers = 1)
 
 # Default summary of the "specr.object"
 summary(results)
 
-# Adjusting output
-summary(results, digits = 5, rows = 10)
-
 # Summarize the specification curve descriptively
 summary(results, type = "curve")
 
 # Grouping for certain analytical decisions
-summary(results, type = "curve", x, y)
+summary(results,
+       type = "curve",
+       group = c("x", "y"))
 
 # Using customized functions
-summary(results, type = "curve",
-       x, group1,
+summary(results,
+        type = "curve",
+       group = c("x", "group1"),
        stats = list(median = median,
                     min = min,
                     max = max))

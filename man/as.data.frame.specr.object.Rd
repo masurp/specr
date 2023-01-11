@@ -4,7 +4,7 @@
 \alias{as.data.frame.specr.object}
 \title{Return data.frame from specr.object}
 \usage{
-\method{as.data.frame}{specr.object}(x)
+\method{as.data.frame}{specr.object}(x, ...)
 }
 \description{
 Return data.frame from specr.object

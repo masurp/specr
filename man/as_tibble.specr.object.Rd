@@ -4,7 +4,7 @@
 \alias{as_tibble.specr.object}
 \title{Return tibble from specr.object}
 \usage{
-\method{as_tibble}{specr.object}(x)
+\method{as_tibble}{specr.object}(x, ...)
 }
 \description{
 Return tibble from specr.object

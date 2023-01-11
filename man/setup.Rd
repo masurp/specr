@@ -78,11 +78,11 @@ all specifications.
 Empirical results are often contingent on analytical decisions that
 are equally defensible, often arbitrary, and motivated by different reasons.
 This decisions may introduce bias or at least variability. To this end,
-specification curve analyses  (Simonsohn et al., 2019) or multiverse
+specification curve analyses  (Simonsohn et al., 2020) or multiverse
 analyses (Steegen et al., 2016) refer to identifying the set of
 theoretically justified, statistically valid (and potentially also non-redundant
 specifications, fitting the "multiverse" of models represented by these
-specifications and estract relevant parameters often to display the results
+specifications and extract relevant parameters often to display the results
 graphically as a so-called specification curve. This allows readers to
 identify consequential specifications decisions and how they affect the results
 or parameter of interest.
@@ -93,7 +93,8 @@ A general overview is provided in the vignettes \code{vignette("specr")}.
 It is assumed that you want to estimate the relationship between two variables
 (\code{x} and \code{y}). What varies may be what variables should be used for
 \code{x} and \code{y}, what model should be used to estimate the relationship,
-and whether the relationship should be estimated for certain subsets. This
+whether the relationship should be estimated for certain subsets, and whether
+different combinations of control variables should be included. This
 allows to (re)produce almost any analytical decision imaginable. See examples
 below for how a number of typical analytical decision can be implemented.
 Afterwards you pass the resulting object of a class \code{specr.setup} to the
@@ -110,7 +111,8 @@ specs <- setup(data = example_data,             # data to be used
                x = c("x1", "x2"),               # independent variables
                y = c("y1", "y2"),               # dependent variables
                model = "lm",                    # model estimation function
-               distinct(example_data, group1),  # grouping variable for subsets
+               distinct(example_data, group1),  # first grouping variable for subsets
+               distinct(example_data, group2),  # second grouping variable for subsets
                controls = c("c1", "c2", "c3"),  # control variables
                simplify = TRUE)                 # limited combinations of controls
 
@@ -138,9 +140,9 @@ summary(specs)
 # Create custom extract function to extract different parameter and model
 tidy_99 <- function(x) {
   fit <- broom::tidy(x,
-                    conf.int = TRUE,
-                    conf.level = .99)  # different alpha error rate
-  fit$full_model = list(x)             # include entire model fit object
+     conf.int = TRUE,
+     conf.level = .99)         # different alpha error rate
+  fit$full_model = list(x)     # include entire model fit object as list
   return(fit)
 }
 
@@ -149,16 +151,16 @@ specs <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
                model = "lm",
-               fun1 = tidy_99,               # pass new function to setup
-               add_to_formula = "c1 + c2")  # add covariates to all models
+               fun1 = tidy_99,             # pass new function to setup
+               add_to_formula = "c1 + c2") # set of covariates in all models
 
 # Check specifications
 summary(specs)
 }
 \references{
 \itemize{
-\item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications. Available at: https://doi.org/10.2139/ssrn.2694998
-\item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. Perspectives on Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+\item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. \emph{Nature Human Behaviour, 4}, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+\item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. \emph{Perspectives on Psychological Science, 11}(5), 702-712. https://doi.org/10.1177/1745691616658637
 }
 }
 \seealso{

@@ -4,7 +4,7 @@
 \alias{as.data.frame.specr.setup}
 \title{Return tibble from specr.setup object}
 \usage{
-\method{as.data.frame}{specr.setup}(x)
+\method{as.data.frame}{specr.setup}(x, ...)
 }
 \description{
 Return tibble from specr.setup object

@@ -4,7 +4,7 @@
 \alias{as_tibble.specr.setup}
 \title{Return tibble from specr.setup object}
 \usage{
-\method{as_tibble}{specr.setup}(x)
+\method{as_tibble}{specr.setup}(x, ...)
 }
 \description{
 Return tibble from specr.setup object

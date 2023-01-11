@@ -7,7 +7,7 @@
 \method{plot}{specr.object}(
   x,
   type = "default",
-  var = estimate,
+  var = .data$estimate,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"),
   rel_heights = c(2, 3),
@@ -15,6 +15,7 @@
   null = 0,
   ci = TRUE,
   ribbon = FALSE,
+  legend = FALSE,
   formula = NULL,
   print = TRUE,
   ...
@@ -57,6 +58,9 @@ plotted.}
 \item{ribbon}{Logical value indicating whether a ribbon instead should be
 plotted}
 
+\item{legend}{Logical value indicating whether a legend should be plotted.
+Defaults to FALSE.}
+
 \item{formula}{In combination with \code{type = "variance"}, you can provide
 a specific formula to extract specific variance components. The syntax of the
 formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
@@ -69,6 +73,8 @@ are included. See examples for further details.}
 \item{print}{In combination with \code{type = "variance"}, logical value indicating
 whether the intra-class correlations (i.e., percentages of variance explained by
 analstical choices) should be printed or not. Defaults to TRUE.}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
 A \link[ggplot2]{ggplot} object that can be customized further.
@@ -80,7 +86,7 @@ the results of calling \code{specr()} to create a standard visualization of the
 specification curve analysis. Several types of visualizations are possible.
 }
 \examples{
-## Specification Curve analysis ----
+# Specification Curve analysis ----
 # Setup specifications
 specs <- setup(data = example_data,
                y = c("y1", "y2"),
@@ -97,27 +103,19 @@ results <- specr(specs, workers = 1)
 as_tibble(results)  # This will be used for plotting
 
 
-## Visualizations ---
+# Visualizations ---
 # Plot results in various ways
 plot(results)                            # default
 plot(results, choices = c("x", "y"))     # specific choices
 plot(results, ci = FALSE, ribbon = TRUE) # exclude CI and add ribbon instead
-
-# Plot only specification curve
-plot(results, type = "curve", desc = TRUE)
-
-# Plot choice panel only
+plot(results, type = "curve")
 plot(results, type = "choices")
-
-# Plot sample size plot
 plot(results, type = "samplesizes")
-
-# Plot alternative visualization with box-n-whisker plots
 plot(results, type = "boxplot")
 
 
-## Alternative and specific visualizations ----
-# Also other variables in the resulting data set can be plotted
+# Alternative and specific visualizations ----
+# Other variables in the resulting data set can be plotted too
 plot(results,
      type = "curve",
      var = fit_r.squared,   # extract "r-square" instead of "estimate"
@@ -131,10 +129,10 @@ plot(results, type = "curve", var = fit_r.squared) +
   labs(x = "specifications", y = "r-squared | estimate")
 
 # We can also investigate how much variance is explained by each analytical choice
-plot(results, type = "variance") # default
+plot(results, type = "variance")
 
 # By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices
-# also including interactions between chocies
+# and also include interactions between chocies
 plot(results,
      type = "variance",
      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")

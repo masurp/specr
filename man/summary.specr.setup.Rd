@@ -4,10 +4,10 @@
 \alias{summary.specr.setup}
 \title{Summarizing the Specifications Setup}
 \usage{
-\method{summary}{specr.setup}(x, digits = 2, rows = 6, print.specs = TRUE)
+\method{summary}{specr.setup}(object, digits = 2, rows = 6, print.specs = TRUE, ...)
 }
 \arguments{
-\item{x}{An object of class "specr.setup", usually, a result of a call to \code{setup}.}
+\item{object}{An object of class "specr.setup", usually, a result of a call to \code{setup}.}
 
 \item{digits}{The number of digits to use when printing the specification table.}
 
@@ -15,6 +15,8 @@
 
 \item{print.specs}{Logical value; if \code{TRUE}, a head of the specification tibble
 is returned and printed.}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
 A printed summary of an object of class \code{specr.setup}.
