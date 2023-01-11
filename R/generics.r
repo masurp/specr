@@ -5,11 +5,12 @@
 #'    the function used to extract the parameters from the model. Finally, if
 #'    \code{print.specs = TRUE}, it also shows the head of the actual specification grid.
 #'
-#' @param x An object of class "specr.setup", usually, a result of a call to `setup`.
+#' @param object An object of class "specr.setup", usually, a result of a call to `setup`.
 #' @param digits The number of digits to use when printing the specification table.
 #' @param rows The number of rows of the specification tibble that should be printed.
 #' @param print.specs Logical value; if `TRUE`, a head of the specification tibble
 #'   is returned and printed.
+#' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A printed summary of an object of class \code{specr.setup}.
 #'
@@ -28,35 +29,36 @@
 #'
 #' # Summarize specifications
 #' summary(specs)
-summary.specr.setup <- function(x,
+summary.specr.setup <- function(object,
                                 digits = 2,
                                 rows = 6,
-                                print.specs = TRUE) {
+                                print.specs = TRUE,
+                                ...) {
 
   cat("Setup for the Specification Curve Analysis\n")
   cat("-------------------------------------------\n")
-  cat("Class:                     ", class(x), "-- version:", as.character(packageVersion("specr")), "\n")
-  cat("Number of specifications:  ", as.numeric(x$n_specs), "\n\n")
+  cat("Class:                     ", class(object), "-- version:", as.character(utils::packageVersion("specr")), "\n")
+  cat("Number of specifications:  ", as.numeric(object$n_specs), "\n\n")
 
 
   cat("Specifications:\n\n")
-  cat("  Independent variable:    ", paste0(unique(x$x), collapse = ", "), "\n")
-  cat("  Dependent variable:      ", paste0(unique(x$y), collapse = ", "), "\n")
-  cat("  Models:                  ", paste0(unique(x$model), collapse = ", "), "\n")
-  cat("  Covariates:              ", sub("\\b1\\b", "1 (none)", paste0(unique(x$specs$controls), collapse = ", ")), "\n")
-  cat("  Subsets analyses:        ", paste0(unique(x$specs$subsets), collapse = ", "), "\n\n")
+  cat("  Independent variable:    ", paste0(unique(object$x), collapse = ", "), "\n")
+  cat("  Dependent variable:      ", paste0(unique(object$y), collapse = ", "), "\n")
+  cat("  Models:                  ", paste0(unique(object$model), collapse = ", "), "\n")
+  cat("  Covariates:              ", sub("\\b1\\b", "1 (none)", paste0(unique(object$specs$controls), collapse = ", ")), "\n")
+  cat("  Subsets analyses:        ", paste0(unique(object$specs$subsets), collapse = ", "), "\n\n")
 
 
   cat("Function used to extract parameters:\n\n")
   cat("  ")
-  print(x$fun1)
+  print(object$fun1)
 
   if(isTRUE(print.specs)) {
   cat("\n\nHead of specifications table (first", rows, "rows):\n\n")
-  x$specs %>%
-    dplyr::select(-model_function) %>%
-    dplyr::mutate_if(is.numeric, round, digits) %>%
-    head(n = rows)
+  object$specs %>%
+    select(-.data$model_function) %>%
+    mutate_if(is.numeric, round, digits) %>%
+    utils::head(n = rows)
   }
 }
 
@@ -64,15 +66,15 @@ summary.specr.setup <- function(x,
 #' Return tibble from specr.setup object
 #' @keywords internal
 #' @export
-as_tibble.specr.setup <- function(x) {
-  x$specs
+as_tibble.specr.setup <- function(x, ...) {
+  as_tibble(x$specs, ...)
 }
 
 #' Return tibble from specr.setup object
 #' @keywords internal
 #' @export
-as.data.frame.specr.setup <- function(x) {
-  as.data.frame(x$specs)
+as.data.frame.specr.setup <- function(x, ...) {
+  as.data.frame(x$specs, ...)
 }
 
 #' Summarizing the Specification Curve Analysis
@@ -82,20 +84,21 @@ as.data.frame.specr.setup <- function(x) {
 #'   of specifications), a descriptive analysis of the overall specification curve,
 #'   a descriptive summary of the resulting sample sizes, and a head of the results.
 #'
-#' @param x An object of class "specr", usually resulting of a call to `specr`.
+#' @param object An object of class "specr", usually resulting of a call to `specr`.
 #' @param type Different aspects can be summarized and printed. See details for alternative summaries
-#' @param ... In combination with `what = "curve"`, provide one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.
+#' @param group In combination with `what = "curve"`, provide a vector of one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.
 #' @param var In combination with `what = "curve"`, unquoted name of parameter to be summarized. Defaults to estimate.
 #' @param stats Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.
 #' @param digits The number of digits to use when printing the specification table.
 #' @param rows The number of rows of the specification tibble that should be printed.
+#' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A printed summary of an object of class \code{specr.object}.
 #'
 #' @export
 #'
 #' @examples
-#' # Setup up specifications (returns S3 class "specr.setup")
+#' # Setup up specifications (returns object of class "specr.setup")
 #' specs <- setup(data = example_data,
 #'                y = c("y1", "y2"),
 #'                x = c("x1", "x2"),
@@ -103,40 +106,40 @@ as.data.frame.specr.setup <- function(x) {
 #'                distinct(example_data, group1),
 #'                controls = c("c1", "c2"))
 #'
-#' # Run analysis (returns S3 class "specr.object")
+#' # Run analysis (returns object of class "specr.object")
 #' results <- specr(specs, workers = 1)
 #'
 #' # Default summary of the "specr.object"
 #' summary(results)
 #'
-#' # Adjusting output
-#' summary(results, digits = 5, rows = 10)
-#'
 #' # Summarize the specification curve descriptively
 #' summary(results, type = "curve")
 #'
 #' # Grouping for certain analytical decisions
-#' summary(results, type = "curve", x, y)
+#' summary(results,
+#'        type = "curve",
+#'        group = c("x", "y"))
 #'
 #' # Using customized functions
-#' summary(results, type = "curve",
-#'        x, group1,
+#' summary(results,
+#'         type = "curve",
+#'        group = c("x", "group1"),
 #'        stats = list(median = median,
 #'                     min = min,
 #'                     max = max))
 #' @seealso The function used to create the "specr.setup" object: `setup`.
-summary.specr.object <- function(x,
-                          type = "default",
-                          ...,
-                          var = estimate,
-                          stats = list(median = median, mad = mad, min = min, max = max,
-                                       q25 = function(x) quantile(x, prob = .25),
-                                       q75 = function(x) quantile(x, prob = .75)),
-                          digits = 2,
-                          rows = 6){
+summary.specr.object <- function(object,
+                                 type = "default",
+                                 group = NULL,
+                                 var = .data$estimate,
+                                 stats = list(median = median, mad = mad, min = min, max = max,
+                                              q25 = function(x) quantile(x, prob = .25),
+                                              q75 = function(x) quantile(x, prob = .75)),
+                                 digits = 2,
+                                 rows = 6,
+                                 ...){
 
   var <- enquo(var)
-  group_var <- enquos(...)
 
   if(type == "default") {
 
@@ -145,15 +148,15 @@ summary.specr.object <- function(x,
     cat("-------------------\n")
 
     cat("Technical details:\n\n")
-    cat("  Class:                         ", class(x), "-- version:", as.character(packageVersion("specr")), "\n")
-    cat("  Cores used:                    ", x$workers, "\n")
-    cat("  Duration of fitting process:   ", x$time$callback_msg, "\n")
-    cat("  Number of specifications:      ", as.numeric(x$n_specs), "\n\n")
+    cat("  Class:                         ", class(object), "-- version:", as.character(utils::packageVersion("specr")), "\n")
+    cat("  Cores used:                    ", object$workers, "\n")
+    cat("  Duration of fitting process:   ", object$time$callback_msg, "\n")
+    cat("  Number of specifications:      ", as.numeric(object$n_specs), "\n\n")
 
     # Short descriptive analysis across all specifications
     cat("Descriptive summary of the specification curve:\n\n")
 
-    x$data %>%
+    object$data %>%
       summarize_at(vars(!! var), stats) %>%
       as.data.frame %>%
       round(digits) %>%
@@ -163,10 +166,10 @@ summary.specr.object <- function(x,
 
     # Head of the result table
     cat("Descriptive summary of sample sizes: \n\n")
-    des2 <- x$data %>%
-      summarize(median = median(fit_nobs),
-                min = min(fit_nobs),
-                max = max(fit_nobs)) %>%
+    des2 <- object$data %>%
+      summarize(median = median(.data$fit_nobs),
+                min = min(.data$fit_nobs),
+                max = max(.data$fit_nobs)) %>%
       as.data.frame %>%
       round(digits)
     print(des2, row.names = FALSE)
@@ -175,34 +178,34 @@ summary.specr.object <- function(x,
 
     # Head of the result table
     cat("Head of the specification results (first", rows, "rows): \n\n")
-    x$data %>%
-      dplyr::select(-model_function, -term) %>%
-      dplyr::mutate_if(is.numeric, round, digits) %>%
-      head(n = rows) %>%
+    object$data %>%
+      select(-.data$model_function, -.data$term) %>%
+      mutate_if(is.numeric, round, digits) %>%
+      utils::head(n = rows) %>%
       print
   }
 
   if(type == "curve") {
 
-    if (length(group_var) == 0) {
+    if (length(group) == 0) {
 
       dplyr::bind_cols(
-        x$data %>%
+        object$data %>%
           summarize_at(vars(!! var), stats),
-        x$data %>%
+        object$data %>%
           dplyr::summarize(obs = median(.data$fit_nobs))
       )
 
     } else {
 
       dplyr::left_join(
-        x$data %>%
-          dplyr::group_by(!!! group_var) %>%
+        object$data %>%
+          dplyr::group_by_at(group) %>%
           summarize_at(vars(!! var), stats),
-        x$data %>%
-          dplyr::group_by(!!! group_var) %>%
+        object$data %>%
+          dplyr::group_by_at(group) %>%
           dplyr::summarize(obs = median(.data$fit_nobs)),
-        by = names_from_dots(...)
+        by = group
       )
     }
   }
@@ -242,6 +245,8 @@ summary.specr.object <- function(x,
 #'   plotted.
 #' @param ribbon Logical value indicating whether a ribbon instead should be
 #'   plotted
+#' @param legend Logical value indicating whether a legend should be plotted.
+#'   Defaults to FALSE.
 #' @param formula In combination with \code{type = "variance"}, you can provide
 #'   a specific formula to extract specific variance components. The syntax of the
 #'   formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
@@ -253,14 +258,14 @@ summary.specr.object <- function(x,
 #' @param print In combination with \code{type = "variance"}, logical value indicating
 #'   whether the intra-class correlations (i.e., percentages of variance explained by
 #'   analstical choices) should be printed or not. Defaults to TRUE.
+#' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A \link[ggplot2]{ggplot} object that can be customized further.
 #'
 #' @export
 #'
 #' @examples
-#+ fig.height = 8, fig.width = 8
-#' ## Specification Curve analysis ----
+#' # Specification Curve analysis ----
 #' # Setup specifications
 #' specs <- setup(data = example_data,
 #'                y = c("y1", "y2"),
@@ -277,38 +282,24 @@ summary.specr.object <- function(x,
 #' as_tibble(results)  # This will be used for plotting
 #'
 #'
-#' ## Visualizations ---
+#' # Visualizations ---
 #' # Plot results in various ways
 #' plot(results)                            # default
 #' plot(results, choices = c("x", "y"))     # specific choices
 #' plot(results, ci = FALSE, ribbon = TRUE) # exclude CI and add ribbon instead
-#'
-#+ fig.height = 3.5, fig.width = 8
-#' # Plot only specification curve
-#' plot(results, type = "curve", desc = TRUE)
-#'
-#+ fig.height = 5.5, fig.width = 8
-#' # Plot choice panel only
+#' plot(results, type = "curve")
 #' plot(results, type = "choices")
-#'
-#+ fig.height = 1.5, fig.width = 8
-#' # Plot sample size plot
 #' plot(results, type = "samplesizes")
-#'
-#+ fig.height = 7, fig.width = 8
-#' # Plot alternative visualization with box-n-whisker plots
 #' plot(results, type = "boxplot")
 #'
 #'
-#+ fig.height = 3.5, fig.width = 8
-#' ## Alternative and specific visualizations ----
-#' # Also other variables in the resulting data set can be plotted
+#' # Alternative and specific visualizations ----
+#' # Other variables in the resulting data set can be plotted too
 #' plot(results,
 #'      type = "curve",
 #'      var = fit_r.squared,   # extract "r-square" instead of "estimate"
 #'      ci = FALSE)
 #'
-#+ fig.height = 3.5, fig.width = 8
 #' # Such a plot can also be extended (e.g., by again adding the estimates with
 #' # confidence intervals)
 #' library(ggplot2)
@@ -316,17 +307,15 @@ summary.specr.object <- function(x,
 #'   geom_point(aes(y = estimate), shape = 5) +
 #'   labs(x = "specifications", y = "r-squared | estimate")
 #'
-#+ fig.height = 5, fig.width = 8
 #' # We can also investigate how much variance is explained by each analytical choice
-#' plot(results, type = "variance") # default
+#' plot(results, type = "variance")
 #'
 #' # By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices
-#' # also including interactions between chocies
+#' # and also include interactions between chocies
 #' plot(results,
 #'      type = "variance",
 #'      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")
 #'
-#+ fig.height = 8, fig.width = 8
 #' ## Combining several plots ----
 #' # `specr` also exports the function `plot_grid()` from the package `cowplot`, which
 #' # can be used to combine plots meaningfully
@@ -340,7 +329,7 @@ summary.specr.object <- function(x,
 #'           ncol = 1)
 plot.specr.object <- function(x,
                               type = "default",
-                              var = estimate,
+                              var = .data$estimate,
                               choices = c("x", "y", "model", "controls", "subsets"),
                               labels = c("A", "B"),
                               rel_heights = c(2, 3),
@@ -348,6 +337,7 @@ plot.specr.object <- function(x,
                               null = 0,
                               ci = TRUE,
                               ribbon = FALSE,
+                              legend = FALSE,
                               formula = NULL,
                               print = TRUE,
                               ...){
@@ -358,12 +348,12 @@ plot.specr.object <- function(x,
   # Create specification curve plot
   plot_a <- x$data %>%
     format_results(var = var, null = null, desc = desc) %>%
-    ggplot(aes(x = specifications,
+    ggplot(aes(x = .data$specifications,
                y = !! var,
-               ymin = conf.low,
-               ymax = conf.high,
-               color = color)) +
-    geom_point(aes(color = color),
+               ymin = .data$conf.low,
+               ymax = .data$conf.high,
+               color = .data$color)) +
+    geom_point(aes(color = .data$color),
                size = 1) +
     theme_minimal() +
     scale_color_identity() +
@@ -405,16 +395,16 @@ plot.specr.object <- function(x,
     format_results(var = var, null = null, desc = desc) %>%
     tidyr::gather(key, value, choices) %>%
     dplyr::mutate(key = factor(key, levels = choices)) %>%
-    ggplot(aes(x = specifications,
+    ggplot(aes(x = .data$specifications,
                y = value,
-               color = color)) +
-    geom_point(aes(x = specifications,
+               color = .data$color)) +
+    geom_point(aes(x = .data$specifications,
                    y = value),
                shape = 124,
                size = 3.35) +
     scale_color_identity() +
     theme_minimal() +
-    facet_grid(.data$key~1, scales = "free_y", space = "free_y") +
+    facet_grid(key~1, scales = "free_y", space = "free_y") +
     theme(
       axis.line = element_line("black", size = .5),
       legend.position = "none",
@@ -451,7 +441,9 @@ plot.specr.object <- function(x,
 
     plot_c <- x$data %>%
       tidyr::gather(key, value, all_of(choices)) %>%
-      ggplot(aes(x = value, y = estimate, fill = key)) +
+      ggplot(aes(x = value,
+                 y = !! var,
+                 fill = key)) +
       geom_boxplot(outlier.color = "red") +
       coord_flip() +
       scale_fill_brewer(palette = "Blues") +
@@ -467,6 +459,8 @@ plot.specr.object <- function(x,
   }
 
   if(type == "variance") {
+
+  grp <- NULL
 
    if(is.null(formula)) {
 
@@ -565,14 +559,14 @@ plot.specr.object <- function(x,
 #' Return tibble from specr.object
 #' @keywords internal
 #' @export
-as_tibble.specr.object <- function(x) {
-  x$data
+as_tibble.specr.object <- function(x,...) {
+  as_tibble(x$data, ...)
 }
 
 
 #' Return data.frame from specr.object
 #' @keywords internal
 #' @export
-as.data.frame.specr.object <- function(x) {
-  as.data.frame(x$data)
+as.data.frame.specr.object <- function(x, ...) {
+  as.data.frame(x$data, ...)
 }
