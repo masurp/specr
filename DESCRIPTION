@@ -20,17 +20,15 @@ Depends:
     R (>= 3.5.0)
 Imports:
     broom,
-    broom.mixed,
     cowplot,
     dplyr,
     furrr,
     future,
-    gapminder,
     ggplot2,
     ggraph,
     glue,
     igraph,
-    lavaan,
+    lifecycle,
     lme4,
     magrittr,
     parallelly,
@@ -41,11 +39,15 @@ Imports:
     tibble,
     tidyr
 Suggests: 
+    broom.mixed,
+    brms,
+    gapminder,
+    ggridges,
     knitr,
+    lavaan,
     testthat,
     tidyverse,
     performance,
-    progress,
     rmarkdown
 Encoding: UTF-8
 LazyData: true
