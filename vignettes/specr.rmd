@@ -96,12 +96,12 @@ summary(results,
 # basic descriptive summary per specific choices
 summary(results, 
         type = "curve", 
-        x, controls)   # group analysis by choices
+        group = c("x", "controls"))  # group analysis by choices
 
 # basic descriptive summary with other statistics
 summary(results, 
         type = "curve", 
-        subsets, 
+        group = "subsets", 
         stats = list(mean = mean, median = median))
 ```
 
