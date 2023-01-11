@@ -16,16 +16,16 @@
 #' @param workers A numeric value that indicates how many cores should be used.
 #'    Defaults to \code{availableCores()} from the future package and thus uses
 #'    all available cores. Note: If the models specified via \code{setup()} are not
-#'    very computationally intensive, the overhead introduced trhough the parallelization
+#'    very computationally intensive, the overhead introduced through the parallelization
 #'    (setting up several workers and R sessions, etc.) may actually make the fitting
 #'    process slower. It only becomes considerably faster if the model fitting process
 #'    is so intensive that the overhead no longer matters. In other words, in a lot
-#'    of cases, setting \code{workers = 1} can be a meaningful choice.
+#'    of cases, setting \code{workers = 1} is still the best choice.
 #' @param ... Further arguments that can be passed to \code{future_pmap}. This only becomes
 #'    important if parallelization is used (workers > 1) and a custom model function
 #'    is used. See examples 2 and 3 below for further details.
 #' @param message Logical value; indicates whether a short message should be
-#'   printed after the estimation including information about the elapsed time.
+#'   printed after the estimation including information about corse used and elapsed time.
 #'   Defaults to TRUE.
 #'
 #' @return An object of class \code{specr.object}, which includes a data frame
@@ -40,11 +40,11 @@
 #' @details Empirical results are often contingent on analytical decisions that
 #'    are equally defensible, often arbitrary, and motivated by different reasons.
 #'    This decisions may introduce bias or at least variability. To this end,
-#'    specification curve analyses  (Simonsohn et al., 2019) or multiverse
+#'    specification curve analyses  (Simonsohn et al., 2020) or multiverse
 #'    analyses (Steegen et al., 2016) refer to identifying the set of
 #'    theoretically justified, statistically valid (and potentially also non-redundant
 #'    specifications, fitting the "multiverse" of models represented by these
-#'    specifications and estract relevant parameters often to display the results
+#'    specifications and extract relevant parameters often to display the results
 #'    graphically as a so-called specification curve. This allows readers to
 #'    identify consequential specifications decisions and how they affect the results
 #'    or parameter of interest.
@@ -74,12 +74,8 @@
 #'
 #'
 #' @references \itemize{
-#'  \item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification
-#'     Curve: Descriptive and Inferential Statistics for all Plausible Specifications.
-#'     Available at: https://doi.org/10.2139/ssrn.2694998
-#'  \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016).
-#'     Increasing Transparency Through a Multiverse Analysis. Perspectives on
-#'     Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+#'  \item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+#'  \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. *Perspectives on Psychological Science, 11*(5), 702-712. https://doi.org/10.1177/1745691616658637
 #' }
 #' @export
 #'
@@ -88,68 +84,38 @@
 #' @seealso [plot.specr.object()] for plotting results.
 #'
 #' @examples
-#' ## Example 1 ----
+#' # Example 1 ----
 #' # Setup up typical specifications
 #' specs <- setup(data = example_data,            # providing data
 #'                y = c("y1", "y2"),              # different y variables
 #'                x = c("x1", "x2"),              # different x variables
 #'                model = "lm",                   # only one model type
 #'                distinct(example_data, group1), # subsets
-#'                controls = c("c1", "c2"))       # Control these variables
-#
-#' # Run analysis (not parallelized, using simple `map` functions)
+#'                controls = c("c1", "c2"))       # Control for these variables
+#'
+#' # Run analysis (not parallelized)
 #' results <- specr(specs, workers = 1)
 #'
 #' # Summary of the results
 #' summary(results)
-#' summary(results, type = "curve", subsets)
 #'
 #'
-#' ## Example 2 ----
-#' # Setup up specifications with specific additions to the formula
+#' # Example 2 ----
+#' # Working without S3 classes
 #' specs2 <- setup(data = example_data,
 #'                 y = c("y1", "y2"),
 #'                 x = c("x1", "x2"),
 #'                 model = "lm",
-#'                 distinct(example_data, group1),
-#'                 distinct(example_data, group2),
-#'                 controls = "c1",
-#'                 add_to_formula = "c2") # Always control for `c2`
+#'                 controls = "c1")
 #'
-#' # Run analysis using parallelization (2 cores and `future_pmap()`).
-#' # Because "lm" is a base function, no further arguments necessary
-#' results2 <- specr(specs2, workers = 2)
+#' # Working with tibbles
+#' specs_tibble <- as_tibble(specs2)      # extract tibble from setup
+#' results3 <- specr(specs_tibble,
+#'                   data = example_data, # need to provide data!
+#'                   workers = 1)
 #'
-#' # Summary of results
-#' summary(results2, digits = 3)
-#'
-#'
-#' ## Example 3 ----
-#' # Create custom function
-#' glm2 <- function(formula, data) {
-#'   glm(formula, data, family = gaussian())
-#' }
-#'
-#' # Setup specifications
-#' specs3 <- setup(data = example_data,
-#'                 y = c("y1", "y2"),
-#'                 x = c("x1", "x2"),
-#'                 model = c("lm", "glm2"), # custom function added
-#'                 distinct(example_data, group1),
-#'                 distinct(example_data, group2),
-#'                 controls = "c1",
-#'                 add_to_formula = "c2")
-#'
-#' # Because "glm2" is a custom function, we need to provide `furrr_options`
-#' opts <- furrr_options(globals = list(glm2 = glm2))
-#'
-#' # Run analysis using parallelization (4 cores and `future_pmap`).
-#' results3 <- specr(specs3,
-#'                   workers = 4,
-#'                   .options = opts) # Options passed to to `future_pmap()`
-#'
-#' # Summary of results
-#' summary(results3, digits = 3)
+#' # Results (tibble instead of S3 class)
+#' head(results3)
 specr <- function(x,
                   data = NULL,
                   workers = availableCores(),
@@ -160,12 +126,19 @@ specr <- function(x,
   # Start timing
   tictoc::tic()
 
-  if(isFALSE(any(c("specr.setup", "tbl_df", "tbl", "data.frame") %in% class(x)))) {
+  . <- out <- term <- y <- NULL
+
+  if(!inherits(x, c("specr.setup", "tbl_df", "tbl", "data.frame"))) {
     stop("You need to provide an object of class 'specr.setup' (or a tibble or data frame of the specification setup).\n  Use 'setup()' to create such a specification setup.")
   }
 
   if(isTRUE(any(c("tbl_df", "tbl", "data.frame") %in% class(x))) & is.null(data)) {
     stop("You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
+  }
+
+  if(workers == 0) {
+    stop("You need to set workers to at least 1 to run the analyses.\n
+         Alternatively, you can just remove the argument and `specr()` will choose all available cores.")
   }
 
   # Collect data and subsets

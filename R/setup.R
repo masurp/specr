@@ -48,11 +48,11 @@
 #' @details Empirical results are often contingent on analytical decisions that
 #'    are equally defensible, often arbitrary, and motivated by different reasons.
 #'    This decisions may introduce bias or at least variability. To this end,
-#'    specification curve analyses  (Simonsohn et al., 2019) or multiverse
+#'    specification curve analyses  (Simonsohn et al., 2020) or multiverse
 #'    analyses (Steegen et al., 2016) refer to identifying the set of
 #'    theoretically justified, statistically valid (and potentially also non-redundant
 #'    specifications, fitting the "multiverse" of models represented by these
-#'    specifications and estract relevant parameters often to display the results
+#'    specifications and extract relevant parameters often to display the results
 #'    graphically as a so-called specification curve. This allows readers to
 #'    identify consequential specifications decisions and how they affect the results
 #'    or parameter of interest.
@@ -63,7 +63,8 @@
 #'    It is assumed that you want to estimate the relationship between two variables
 #'    (\code{x} and \code{y}). What varies may be what variables should be used for
 #'    \code{x} and \code{y}, what model should be used to estimate the relationship,
-#'    and whether the relationship should be estimated for certain subsets. This
+#'    whether the relationship should be estimated for certain subsets, and whether
+#'    different combinations of control variables should be included. This
 #'    allows to (re)produce almost any analytical decision imaginable. See examples
 #'    below for how a number of typical analytical decision can be implemented.
 #'    Afterwards you pass the resulting object of a class \code{specr.setup} to the
@@ -74,8 +75,8 @@
 #'    e.g., \code{?summary.specr.setup} to view the dedicated help page.
 #'
 #' @references \itemize{
-#'  \item Simonsohn, U., Simmons, J. P., & Nelson, L. D. (2019). Specification Curve: Descriptive and Inferential Statistics for all Plausible Specifications. Available at: https://doi.org/10.2139/ssrn.2694998
-#'  \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. Perspectives on Psychological Science, 11(5), 702-712. https://doi.org/10.1177/1745691616658637
+#'  \item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+#'  \item Steegen, S., Tuerlinckx, F., Gelman, A., & Vanpaemel, W. (2016). Increasing Transparency Through a Multiverse Analysis. *Perspectives on Psychological Science, 11*(5), 702-712. https://doi.org/10.1177/1745691616658637
 #' }
 #' @export
 #'
@@ -89,7 +90,8 @@
 #'                x = c("x1", "x2"),               # independent variables
 #'                y = c("y1", "y2"),               # dependent variables
 #'                model = "lm",                    # model estimation function
-#'                distinct(example_data, group1),  # grouping variable for subsets
+#'                distinct(example_data, group1),  # first grouping variable for subsets
+#'                distinct(example_data, group2),  # second grouping variable for subsets
 #'                controls = c("c1", "c2", "c3"),  # control variables
 #'                simplify = TRUE)                 # limited combinations of controls
 #'
@@ -117,9 +119,9 @@
 #' # Create custom extract function to extract different parameter and model
 #' tidy_99 <- function(x) {
 #'   fit <- broom::tidy(x,
-#'                     conf.int = TRUE,
-#'                     conf.level = .99)  # different alpha error rate
-#'   fit$full_model = list(x)             # include entire model fit object
+#'      conf.int = TRUE,
+#'      conf.level = .99)         # different alpha error rate
+#'   fit$full_model = list(x)     # include entire model fit object as list
 #'   return(fit)
 #' }
 #'
@@ -128,8 +130,8 @@
 #'                x = c("x1", "x2"),
 #'                y = c("y1", "y2"),
 #'                model = "lm",
-#'                fun1 = tidy_99,               # pass new function to setup
-#'                add_to_formula = "c1 + c2")  # add covariates to all models
+#'                fun1 = tidy_99,             # pass new function to setup
+#'                add_to_formula = "c1 + c2") # set of covariates in all models
 #'
 #' # Check specifications
 #' summary(specs)
@@ -144,6 +146,8 @@ setup <- function(data,
                   fun2 = function(x) broom::glance(x),
                   simplify = FALSE) {
 
+  . <- subsets <- group_var <- check <- check2 <- NULL
+
   if (rlang::is_missing(data)) {
     stop("You must provide the data set that should be used in the analyses.")
   }
@@ -157,7 +161,11 @@ setup <- function(data,
   }
 
   if (rlang::is_missing(model)) {
-    stop("You must name at least one model function (e.g., 'lm')")
+    stop("You must name at least one model function (e.g., 'lm').")
+  }
+
+  if (any(duplicated(x))| any(duplicated(y)) | any(duplicated(model)) | any(duplicated(controls))) {
+    stop("Duplicate values in x, y, model, and controls are not allowed.")
   }
 
   # Create all subset combinations
@@ -214,22 +222,25 @@ setup <- function(data,
   if(is.null(add_to_formula)) {
 
     grid <- grid %>%
-      dplyr::mutate(formula = str_glue("{y} ~ {x} + {controls}"))
+      mutate(formula = str_glue("{y} ~ {x} + {controls}"))
 
   # In case something should be added to the formula
   } else {
 
     grid <- grid %>%
-      dplyr::mutate(formula = str_glue("{y} ~ {x} + {controls} + {add_to_formula}"))
+      mutate(formula = str_glue("{y} ~ {x} + {controls} + {add_to_formula}"))
   }
 
   # Transform model string into actual function that also extracts parameters
   grid <- grid %>%
-    mutate(model_function = purrr::map(model, function(x) tidy_model(x, fun1 = fun1, fun2 = fun2)))
+    mutate(model_function = purrr::map(model,
+                                       function(x) tidy_model(x,
+                                                              fun1 = fun1,
+                                                              fun2 = fun2)))
 
   pos_formula <- which(names(grid) == "formula")
   subsets_names <- grid[5:pos_formula] %>%
-    dplyr::select(-formula) %>%
+    select(-formula) %>%
     names
 
   if(subsets_names[1] != "group_var") {
@@ -237,7 +248,7 @@ setup <- function(data,
     # Create subset variable (combination of group variables)
      grid <- grid %>%
        mutate(dplyr::across(all_of(subsets_names), ~ as.character(.))) %>%
-       tidyr::unite(., subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
+       tidyr::unite(subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
        mutate(across(all_of(subsets_names),~ as.factor(.)),
               subsets = stringr::str_remove_all(subsets, "NA & "),
               subsets = stringr::str_remove_all(subsets, " & NA"),
