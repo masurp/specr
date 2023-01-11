@@ -65,7 +65,7 @@ run_specs <- function(df,
 
   if (!is.null(subsets)) {
 
-    if (class(subsets) != "list") {
+    if (!inherits(subsets, "list")) {
       wrong_class <- class(subsets)
       stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
     }
