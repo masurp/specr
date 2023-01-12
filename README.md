@@ -21,17 +21,17 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
--   (5 January 2022): specr version 0.3.0 is available via github. This
-    is a major update with several new features and functions. Note: it
+-   5 January 2022: specr version 0.3.0 is available via github. This is
+    a major update with several new features and functions. Note: it
     introduces a new framework for conduction specification curve
     analyses compared to earlier versions (see [version
     history](https://masurp.github.io/specr/news/index.html) for more
     details).
 
--   (4 December 2020): specr development version 0.2.2 is available via
+-   4 December 2020: specr development version 0.2.2 is available via
     github. Mostly minor updates and bug fixes.
 
--   (25 May 2020): specr version 0.2.1 has been released on
+-   25 May 2020: specr version 0.2.1 has been released on
     [CRAN](https://cran.r-project.org/web/packages/specr/index.html).
 
 ### What is specr?
@@ -138,7 +138,7 @@ specs <- setup(data = example_data,
 results <- specr(specs, workers = 1)
 #> Models fitted based on 192 specifications
 #> Cores used: 1 
-#> 1.942 sec elapsed
+#> 2.074 sec elapsed
 
 # Plot Specification Curve ----
 plot(results)
