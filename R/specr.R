@@ -275,3 +275,119 @@ specr <- function(x,
   return(output)
 
 }
+
+
+specr2 <- function(x,
+                  data = NULL,
+                  ...,
+                  message = TRUE){
+
+
+  # Start timing
+  tictoc::tic()
+
+  . <- out <- term <- y <- NULL
+
+  if(!inherits(x, c("specr.setup", "tbl_df", "tbl", "data.frame"))) {
+    stop("You need to provide an object of class 'specr.setup' (or a tibble or data frame of the specification setup).\n  Use 'setup()' to create such a specification setup.")
+  }
+
+  if(isTRUE(any(c("tbl_df", "tbl", "data.frame") %in% class(x))) & is.null(data)) {
+    stop("You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
+  }
+
+  # Collect data and subsets
+  if("specr.setup" %in% class(x)) {
+
+    data <- x$data
+    subsets <- x$subsets
+    specs <- x$specs
+
+  } else {
+
+    specs <- x
+
+  }
+
+    res <- specs %>%
+      dplyr::mutate(out = future_pmap(., function(...) {
+
+        # Initialize specs as list
+        l = list(...)
+
+        # identify the grouping columns
+        group_i <- which(sapply(l, is.factor))
+        s <- rep(TRUE, nrow(data))
+
+        # Create relevant subsets
+        for (i in group_i) {
+          column <- names(l)[i]
+          value <- l[[i]]
+          if (is.na(value)) next
+          s <- s & data[[column]] == value
+        }
+
+        # Iterate across specifications
+        do.call(
+          what = l$model_function,
+          args = list(
+            formula = l$formula,
+            data = data[s,])
+        )
+      },
+      ...),
+      ) %>%
+      tidyr::unnest(out)
+
+
+  # Select relevant term
+  if("op" %in% names(res)) {
+    res <- res %>%
+      dplyr::filter(term == paste(y, "~", x))
+  } else {
+    res <- res %>%
+      dplyr::filter(term == x)
+  }
+
+  pos_formula <- which(names(res) == "formula")
+  subsets_names <- res[5:pos_formula] %>%
+    dplyr::select(-formula) %>%
+    names
+
+  if(isTRUE(message)) {
+
+    # Print short summary
+    cat("Models fitted based on", nrow(res), "specifications\n")
+    time <- tictoc::toc()
+
+  } else {
+
+    time <- tictoc::toc(quiet = TRUE)
+
+  }
+
+  if(class(x)[1] == "specr.setup") {
+
+    # Create S3 class
+    output <- list(data = res,
+                   n_specs = nrow(res),
+                   x = x$x,
+                   y = x$y,
+                   model = x$model,
+                   controls = x$model,
+                   subsets = x$subsets,
+                   time = time)
+
+    # Set class
+    class(output) <- "specr.object"
+
+  } else {
+
+    # Create tibble
+    output <- as_tibble(res)
+
+  }
+
+  return(output)
+
+}
