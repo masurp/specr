@@ -2,10 +2,6 @@
 #' @export
 magrittr::`%>%`
 
-#' @importFrom furrr furrr_options
-#' @export
-furrr::furrr_options
-
 #' @importFrom tibble tibble
 #' @export
 tibble::as_tibble
