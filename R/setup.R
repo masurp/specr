@@ -261,6 +261,17 @@ setup <- function(data,
     subsets_names <- "none"
   }
 
+  # Transform controls variable
+  grid <- grid %>%
+    mutate(controls = ifelse(controls == "1", "no covariates", controls))
+
+  if(isTRUE(simplify)) {
+
+    grid <- grid %>%
+      mutate(controls = ifelse(grepl("\\+", controls), "all covariates", controls))
+
+  }
+
     # Create list of relevant objects
     res <- list(specs = grid,
                 n_specs = nrow(grid),
@@ -280,4 +291,5 @@ setup <- function(data,
     return(res)
 
 }
+
 
