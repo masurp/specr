@@ -163,10 +163,10 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run analysis (returns object of class "specr.object")</span></span></span>
-<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 64 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.563 sec elapsed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cores used: 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.836 sec elapsed</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Default summary of the "specr.object"</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
@@ -176,7 +176,7 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.563 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.836 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -194,10 +194,10 @@ a descriptive summary of the resulting sample sizes, and a head of the results.<
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 25</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets group1 formula estimate std.error statistic</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle  middle y1 ~ x…     0.61      0.07      9.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old     old    y1 ~ x…     0.66      0.06     10.4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young   young  y1 ~ x…     0.57      0.06     10.2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        all     <span style="color: #BB0000;">NA</span>     y1 ~ x…     0.62      0.04     16.4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    no cova… middle  middle y1 ~ x…     0.61      0.07      9.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    no cova… old     old    y1 ~ x…     0.66      0.06     10.4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    no cova… young   young  y1 ~ x…     0.57      0.06     10.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    no cova… all     <span style="color: #BB0000;">NA</span>     y1 ~ x…     0.62      0.04     16.4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    c1       middle  middle y1 ~ x…     0.6       0.07      8.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    c1       old     old    y1 ~ x…     0.64      0.06      9.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 15 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span>

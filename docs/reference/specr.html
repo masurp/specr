@@ -95,7 +95,7 @@ via <code><a href="setup.html">setup()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specr</span><span class="op">(</span><span class="va">x</span>, data <span class="op">=</span> <span class="cn">NULL</span>, workers <span class="op">=</span> <span class="fu">availableCores</span><span class="op">(</span><span class="op">)</span>, <span class="va">...</span>, message <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specr</span><span class="op">(</span><span class="va">x</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, message <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -113,21 +113,10 @@ assumend that most users will create an object of class "specr.setup" that they'
 pass to <code>specr()</code>.</p></dd>
 
 
-<dt>workers</dt>
-<dd><p>A numeric value that indicates how many cores should be used.
-Defaults to <code>availableCores()</code> from the future package and thus uses
-all available cores. Note: If the models specified via <code><a href="setup.html">setup()</a></code> are not
-very computationally intensive, the overhead introduced through the parallelization
-(setting up several workers and R sessions, etc.) may actually make the fitting
-process slower. It only becomes considerably faster if the model fitting process
-is so intensive that the overhead no longer matters. In other words, in a lot
-of cases, setting <code>workers = 1</code> is still the best choice.</p></dd>
-
-
 <dt>...</dt>
 <dd><p>Further arguments that can be passed to <code>future_pmap</code>. This only becomes
-important if parallelization is used (workers &gt; 1) and a custom model function
-is used. See examples 2 and 3 below for further details.</p></dd>
+important if parallelization by setting up a <code>furrr::plan()</code> upfront and a
+custom model function is used.</p></dd>
 
 
 <dt>message</dt>
@@ -206,10 +195,10 @@ correlation or effect.</p>
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span>       <span class="co"># Control for these variables</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run analysis (not parallelized)</span></span></span>
-<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 64 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.563 sec elapsed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cores used: 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.793 sec elapsed</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summary of the results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
@@ -219,7 +208,7 @@ correlation or effect.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 0.3.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.563 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.793 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -237,10 +226,10 @@ correlation or effect.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 25</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets group1 formula estimate std.error statistic</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle  middle y1 ~ x…     0.61      0.07      9.28</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old     old    y1 ~ x…     0.66      0.06     10.4 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young   young  y1 ~ x…     0.57      0.06     10.2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        all     <span style="color: #BB0000;">NA</span>     y1 ~ x…     0.62      0.04     16.4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    no cova… middle  middle y1 ~ x…     0.61      0.07      9.28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    no cova… old     old    y1 ~ x…     0.66      0.06     10.4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    no cova… young   young  y1 ~ x…     0.57      0.06     10.2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    no cova… all     <span style="color: #BB0000;">NA</span>     y1 ~ x…     0.62      0.04     16.4 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    c1       middle  middle y1 ~ x…     0.6       0.07      8.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    c1       old     old    y1 ~ x…     0.64      0.06      9.81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 15 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span>
@@ -260,24 +249,23 @@ correlation or effect.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Working with tibbles</span></span></span>
 <span class="r-in"><span><span class="va">specs_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">specs2</span><span class="op">)</span>      <span class="co"># extract tibble from setup</span></span></span>
-<span class="r-in"><span><span class="va">results3</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs_tibble</span>,</span></span>
-<span class="r-in"><span>                  data <span class="op">=</span> <span class="va">example_data</span>, <span class="co"># need to provide data!</span></span></span>
-<span class="r-in"><span>                  workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">results2</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs_tibble</span>,</span></span>
+<span class="r-in"><span>                  data <span class="op">=</span> <span class="va">example_data</span><span class="op">)</span> <span class="co"># need to provide data!</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 8 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cores used: 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 0.074 sec elapsed</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cores used: 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 0.122 sec elapsed</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Results (tibble instead of S3 class)</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results2</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 26</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets formula      model_function term  estimate</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.620</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    c1       all     y1 ~ x1 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.603</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y2    lm    1        all     y2 ~ x1 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.328</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y2    lm    c1       all     y2 ~ x1 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.339</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x2    y1    lm    1        all     y1 ~ x2 + 1  <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x2    y1    lm    c1       all     y1 ~ x2 + c1 <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.249</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets formula  model_function term  estimate</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates all     y1 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.620</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    c1            all     y1 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1       0.603</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y2    lm    no covariates all     y2 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.328</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y2    lm    c1            all     y2 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1      -<span style="color: #BB0000;">0.339</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x2    y1    lm    no covariates all     y1 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x2    y1    lm    c1            all     y1 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2       0.249</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 17 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span>

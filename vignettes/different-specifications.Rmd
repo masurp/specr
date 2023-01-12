@@ -34,7 +34,7 @@ specs <- setup(data = example_data,
 summary(specs, rows = 12)
 
 # Run analysis and plot results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 head(results$data)
 ```
 
@@ -73,7 +73,7 @@ specs$specs <- specs$specs %>%
 summary(specs, rows = 8)
 
 # Run analysis and plot results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 head(results$data)
 ```
 
@@ -144,7 +144,7 @@ specs$specs <- specs$specs %>%
 summary(specs, rows = 12)
 
 # Run analysis and plot results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 plot(results, choices = c("x", "y"))
 ```
 
@@ -245,7 +245,8 @@ specs <- setup(data = example_data,
                y = c("y1", "y2"),
                model = c("lm"),
                distinct(example_data, group1),
-               distinct(example_data, group2))
+               distinct(example_data, group2),
+               controls = "c1")
 
 # Summary of specifications
 summary(specs)
@@ -255,7 +256,7 @@ summary(specs)
 distinct(specs$specs, subsets)
 
 # Run analysis and plot results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 plot(results, choices = c("x", "y", "subsets"))
 ```
 
@@ -305,7 +306,7 @@ specs$specs <- specs$specs %>%
 summary(specs, rows = 7)
 
 # Run analysis and plot results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 plot(results, choices = c("x", "y", "subsets"))
 ```
 

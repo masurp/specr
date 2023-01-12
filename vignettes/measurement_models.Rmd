@@ -45,7 +45,7 @@ head(d)
 
 Let's quickly run a simple structural equation model with lavaan. Note that there are separate regression formulas for the measurement models and the actual regression models in the string that represents the model. The regression formulas follows a similar pattern as formulas in linear models (e.g., using `lm()` or `glm()`) or multilevel models (e.g., using `lme4::lmer()`). This regression formula will automatically be built by the function `setup()`. The formulas denoting the measurement model (in this case only one), however, we need to actively paste into the formula string. 
 
-## Understanding `lavaan` syntax
+## Understanding `lavaan` syntax and output
 
 ```{r}
 # Model syntax
@@ -60,6 +60,8 @@ model <- "
 fit <- sem(model, d)
 broom::tidy(fit)
 ```
+
+Whenever we want to include more complex models in "specr", it makes sense to check what output the `broom::tidy()` function produces. Here, we can see that the variable `term` does not only include the predictor (as it usually does with models such as "lm" or "glm"), but it includes the entire paths within the model. If we do not specify different types of model, this will not be a problem, but we we do (e.g., "sem" and "lm"), we need to adjust the paremeter extract function. 
 
 
 # Specification curve analysis with latent variables
@@ -136,7 +138,7 @@ Within the specification table, we don't really see much difference compared to 
 If we know pass it to `specr()`, actual structural equation models will be fitted in the background. 
 
 ```{r, fig.height=8, fig.width=8, message=F, warning = F}
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 plot(results, choices = c("y", "controls", "model", "subsets"))
 ```
 

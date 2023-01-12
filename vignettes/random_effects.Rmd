@@ -57,7 +57,7 @@ specs <- setup(data = gapminder,
 summary(specs)
 
 # Run analysis and inspect results
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 as_tibble(results)
 ```
 
@@ -131,10 +131,11 @@ opts <- furrr_options(
   packages = c("lme4", "broom.mixed")
 )
 
+# Specify future plan
+plan(multisession, workers = 4)
+
 # Run analysis in parallel and plot results
-results <- specr(specs, 
-                 workers = 2, 
-                 .options = opts)  # pass `furrr_options` here
+results <- specr(specs, .options = opts)  # pass `furrr_options` here
 plot(results)
 ```
 

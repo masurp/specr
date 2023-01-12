@@ -48,7 +48,7 @@ specs <- setup(data = example_data,
                controls = c("c1", "c2"),
                fun1 = tidy_new)
 
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 ```
 
 

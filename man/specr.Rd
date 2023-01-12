@@ -4,7 +4,7 @@
 \alias{specr}
 \title{Fit models across all specifications}
 \usage{
-specr(x, data = NULL, workers = availableCores(), ..., message = TRUE)
+specr(x, data = NULL, ..., message = TRUE)
 }
 \arguments{
 \item{x}{A \code{specr.setup} object resulting from \code{setup} or a tibble that
@@ -16,18 +16,9 @@ need to provide the data set that should be used. Defaults to NULL as it is
 assumend that most users will create an object of class "specr.setup" that they'll
 pass to \code{specr()}.}
 
-\item{workers}{A numeric value that indicates how many cores should be used.
-Defaults to \code{availableCores()} from the future package and thus uses
-all available cores. Note: If the models specified via \code{setup()} are not
-very computationally intensive, the overhead introduced through the parallelization
-(setting up several workers and R sessions, etc.) may actually make the fitting
-process slower. It only becomes considerably faster if the model fitting process
-is so intensive that the overhead no longer matters. In other words, in a lot
-of cases, setting \code{workers = 1} is still the best choice.}
-
 \item{...}{Further arguments that can be passed to \code{future_pmap}. This only becomes
-important if parallelization is used (workers > 1) and a custom model function
-is used. See examples 2 and 3 below for further details.}
+important if parallelization by setting up a \code{furrr::plan()} upfront and a
+custom model function is used.}
 
 \item{message}{Logical value; indicates whether a short message should be
 printed after the estimation including information about corse used and elapsed time.
@@ -96,7 +87,7 @@ specs <- setup(data = example_data,            # providing data
                controls = c("c1", "c2"))       # Control for these variables
 
 # Run analysis (not parallelized)
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 
 # Summary of the results
 summary(results)
@@ -112,12 +103,11 @@ specs2 <- setup(data = example_data,
 
 # Working with tibbles
 specs_tibble <- as_tibble(specs2)      # extract tibble from setup
-results3 <- specr(specs_tibble,
-                  data = example_data, # need to provide data!
-                  workers = 1)
+results2 <- specr(specs_tibble,
+                  data = example_data) # need to provide data!
 
 # Results (tibble instead of S3 class)
-head(results3)
+head(results2)
 }
 \references{
 \itemize{

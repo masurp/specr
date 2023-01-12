@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
-\alias{furrr_options}
 \alias{as_tibble}
 \alias{distinct}
 \alias{plot_grid}
@@ -18,8 +17,6 @@ below to see their documentation.
   \item{cowplot}{\code{\link[cowplot]{plot_grid}}}
 
   \item{dplyr}{\code{\link[dplyr]{distinct}}}
-
-  \item{furrr}{\code{\link[furrr]{furrr_options}}}
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 

@@ -52,7 +52,7 @@ specs <- setup(data = example_data,
                controls = c("c1", "c2"))
 
 # Run analysis (returns object of class "specr.object")
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 
 # Default summary of the "specr.object"
 summary(results)

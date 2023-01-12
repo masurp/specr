@@ -116,7 +116,8 @@
 <p>A major improvement in version 0.3.0 of specr is that we can
 parallelize the computations, which can reduce fitting time. For this,
 specr uses functions from the package <a href="https://furrr.futureverse.org/" class="external-link">furrr</a>. I suggest to check out
-the website of the package for further information.</p>
+the website of the package for further information. To be to use
+relevant functions, we load the package <code>furrr</code> upfront.</p>
 <p>Before we start to run some examples, bear in mind that using
 parallelization does not always mean that the computations are
 automatically faster. If the overall computation time is not very long,
@@ -131,6 +132,7 @@ specify more than 1000 specifications.</p>
 <code class="sourceCode R"><span><span class="co"># Load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data generating function</span></span>
 <span><span class="va">generate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">seed</span> <span class="op">=</span> <span class="fl">42</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
@@ -157,12 +159,14 @@ specify more than 1000 specifications.</p>
 <div class="section level2">
 <h2 id="simple-parallelization-without-custom-functions">Simple parallelization without custom functions<a class="anchor" aria-label="anchor" href="#simple-parallelization-without-custom-functions"></a>
 </h2>
-<p>If we use standard model fitting function (e.g., “lm”, “glm”) that
-are included in the base package, parallelization is a simple as
-specifiying e.g., <code>workers = 4</code> to use 4 cores. If you don’t
-specify anything, it will actually call a function
-<code>availableCores()</code> and use as many cores as your computer
-provides.</p>
+<p>If we use standard model fitting function (e.g., “lm”) that are
+included in the base package, parallelization is comparatively simple.
+We only need to load the package <code>furrr</code> and specify a “plan
+for how to resolve a future” (for more information see
+<code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">?future::plan</a></code>). In this case, I am choosing
+<code>multisession</code> (resolve the computations separate R sessions
+running in the background on the same machine) and specify
+<code>workers = 4</code> so that it runs on 4 cores in parallel.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Setup of specifications (number of specs = 1152)</span></span>
 <span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">dat</span>,            </span>
@@ -172,23 +176,30 @@ provides.</p>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">group</span><span class="op">)</span>,</span>
 <span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span>, <span class="st">"c4"</span><span class="op">)</span><span class="op">)</span>   </span>
 <span></span>
-<span><span class="co"># Comparison</span></span>
-<span><span class="va">results_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Default: Sequential ---</span></span>
+<span><span class="va">results_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 55.785 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 57.537 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">results_parall</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Parallel: Multisession (only works when `furrr` is loaded!)</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span>strategy <span class="op">=</span> <span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span><span class="va">results_parall</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
-<span><span class="co">## Cores used: 4 </span></span>
-<span><span class="co">## 31.627 sec elapsed</span></span></code></pre>
-<p>As we can see, the fitting time is reduced, but even with this
-comparatively large data set and more than 1,000 specifications, the
-reduction is still not that much. In sum, parallelization only makes
-sense if you have a truly large data set and thousands of specifications
-<strong>or</strong> the type of model you are estimating takes a really
-long time (e.g., a complex structural equation model, a negative
-binomial model, etc.).</p>
+<span><span class="co">## Number of cores used: 4 </span></span>
+<span><span class="co">## 33.88 sec elapsed</span></span></code></pre>
+<p>As we can see, the default (sequential) computation took around a
+minute (<code>results_simple$time$callback_msg</code>) and the parallel
+computation about half a minute
+(<code>results_parall$time$callback_msg</code>).</p>
+<p>We have to acknowledge that even with this comparatively large data
+set and more than 1,000 specifications, the reduction in time not too
+much. Thus, parallelization only makes sense if you have a truly large
+data set and thousands of specifications <em>or</em> the type of model
+you are estimating takes a really long time (e.g., a complex structural
+equation model, a negative binomial model, etc.). The true power of
+parallelization furthermore only come into play if you are using a
+considerable number of cores.</p>
 </div>
 <div class="section level2">
 <h2 id="parallelization-with-custom-functions-from-different-packages-">Parallelization with custom functions from different packages.<a class="anchor" aria-label="anchor" href="#parallelization-with-custom-functions-from-different-packages-"></a>
@@ -196,7 +207,11 @@ binomial model, etc.).</p>
 <p>If we use a custom function, we need to make sure that this function
 is passed to the different workers. This can be done by specifying so
 called <code>furrr_options</code>. We need to pass objects from the
-global environment (and potentially also packages) as shown below.</p>
+global environment (and potentially also packages) as shown below.
+Please note that we do not have to specify the “future plan” again,
+because it is still set up from earlier (see above). If we are unsure
+what plan is currently specified, we can simply run <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code>
+and get some information about the current setup.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom function</span></span>
 <span><span class="va">log_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
@@ -208,22 +223,26 @@ global environment (and potentially also packages) as shown below.</p>
 <span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y4"</span><span class="op">)</span>,                    </span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span><span class="op">)</span>,               </span>
 <span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log_model"</span><span class="op">)</span>, </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">group</span><span class="op">)</span>,</span>
-<span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span>   </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span>   </span>
 <span></span>
-<span><span class="co"># Creat furrr_options to be passed to specr()</span></span>
+<span><span class="co"># Create furrr_options to be passed to specr() (only works if `furrr` is loaded)</span></span>
 <span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span></span>
 <span>  globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>log_model <span class="op">=</span> <span class="va">log_model</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Run results</span></span>
-<span><span class="va">results_parall_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, </span>
-<span>                          workers <span class="op">=</span> <span class="fl">4</span>,</span>
-<span>                          .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 72 specifications</span></span>
-<span><span class="co">## Cores used: 4 </span></span>
-<span><span class="co">## 41.463 sec elapsed</span></span></code></pre>
+<span><span class="co"># What "plan" is currently specified?</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## multisession:</span></span>
+<span><span class="co">## - args: function (..., workers = 4, envir = parent.frame())</span></span>
+<span><span class="co">## - tweaked: TRUE</span></span>
+<span><span class="co">## - call: plan(strategy = multisession, workers = 4)</span></span></code></pre>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Run results</span></span>
+<span><span class="va">results_parall_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Models fitted based on 18 specifications</span></span>
+<span><span class="co">## Number of cores used: 4 </span></span>
+<span><span class="co">## 7.123 sec elapsed</span></span></code></pre>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Summarize results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results_parall_2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Results of the specification curve analysis</span></span>
@@ -232,13 +251,13 @@ global environment (and potentially also packages) as shown below.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 0.3.0 </span></span>
 <span><span class="co">##   Cores used:                     4 </span></span>
-<span><span class="co">##   Duration of fitting process:    41.463 sec elapsed </span></span>
-<span><span class="co">##   Number of specifications:       72 </span></span>
+<span><span class="co">##   Duration of fitting process:    7.123 sec elapsed </span></span>
+<span><span class="co">##   Number of specifications:       18 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  median  mad   min  max q25  q75</span></span>
-<span><span class="co">##    0.01 0.01 -0.02 0.03   0 0.01</span></span>
+<span><span class="co">##       0 0.01 -0.02 0.03   0 0.01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of sample sizes: </span></span>
 <span><span class="co">## </span></span>
@@ -250,12 +269,12 @@ global environment (and potentially also packages) as shown below.</p>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 21</span></span></span>
 <span><span class="co">##   x     y     model  controls subsets group formula estimate std.error statistic</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… 1        e       e     y4 ~ x…     0.01      0.01      0.38</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… 1        a       a     y4 ~ x…     0.01      0.01      0.62</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… 1        d       d     y4 ~ x…    -<span style="color: #BB0000;">0.02</span>      0.01     -<span style="color: #BB0000;">1.17</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… 1        c       c     y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.16</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… 1        b       b     y4 ~ x…     0.03      0.01      1.84</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… 1        all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01      0.66</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… no cova… e       e     y4 ~ x…     0.01      0.01      0.38</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… no cova… a       a     y4 ~ x…     0.01      0.01      0.62</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… no cova… d       d     y4 ~ x…    -<span style="color: #BB0000;">0.02</span>      0.01     -<span style="color: #BB0000;">1.17</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… no cova… c       c     y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.16</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… no cova… b       b     y4 ~ x…     0.03      0.01      1.84</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… no cova… all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01      0.66</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 11 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_null.deviance &lt;dbl&gt;, fit_df.null &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span></span>

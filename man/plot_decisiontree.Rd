@@ -17,6 +17,9 @@ plot_decisiontree(df, label = FALSE, legend = FALSE)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can plot a similar figure simply by using the generic \code{plot()}.
 This function plots a simple decision tree that is meant to help understanding how few analytical choices may results in a large number of specifications. It is somewhat useless if the final number of specifications is very high.
 }
 \examples{

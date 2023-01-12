@@ -153,27 +153,27 @@ is returned and printed.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Independent variable:     x1, x2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lm, glm </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               1 (none), c1, c2, c3, c1 + c2, c1 + c3, c2 + c3, c1 + c2 + c3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates, c1, c2, c3, c1 + c2, c1 + c3, c2 + c3, c1 + c2 + c3 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         C, B, A, all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9bc6b830a8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc58bb5a058&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets group3 formula     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        C       C      y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        B       B      y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        A       A      y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        all     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    c1       C       C      y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    c1       B       B      y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets group3 formula     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates C       C      y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates B       B      y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates A       A      y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates all     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lm    c1            C       C      y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lm    c1            B       B      y1 ~ x1 + c1</span>
 </code></pre></div>
     </div>
   </div>

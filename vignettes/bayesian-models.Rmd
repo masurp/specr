@@ -21,6 +21,8 @@ This vignette shows how one can incorporate Bayesian modeling using the package 
 
 That said, since the models have to be compiled in C++, you need to set up your computer so that it can actually use C++. This has to be done only once, before installing brms. Unfortunately, as almost always, how you install C++ depends on your operating system. Check [this vignette](https://github.com/masurp/workshop_bayes/blob/main/exercises/Exercise_02.md) to if you have problems installing `brms`. 
 
+We are also loading the library `furrr` as we want to parallelize the computations.
+
 
 ```{r, warning = F, message = F}
 library(tidyverse)
@@ -28,6 +30,7 @@ library(specr)
 library(brms)
 library(broom.mixed)
 library(ggridges)
+library(furrr)
 ```
 
 
@@ -75,15 +78,16 @@ Because we are estimating 24 Bayesian models, it makes sense to parallelize this
 
 ```{r, warning = F, message = F, results = 'hide'}
 # Specify furrr_options
-opts <- specr::furrr_options(
+opts <- furrr_options(
   globals = list(brm_new = brm_new, glance_brm = glance_brm),
   packages = c("brms", "broom.mixed", "broom")
 )
 
+# Specify future session
+plan(multisession, workers = 4)
+
 # Run analysis with furrr_options
-results <- specr(specs, 
-                  workers = 4, 
-                  .options = opts)
+results <- specr(specs, .options = opts)
 ```
 
 Now we can again summarize and plot our results.
@@ -134,6 +138,7 @@ posteriors %>%
   mutate(id = factor(id, levels = 1:24)) %>%
   ggplot(aes(x = value, y = id, fill = key)) +
   geom_density_ridges() +
+  scale_fill_brewer(palette = "Blues") +
   theme_minimal()+
   labs(x = "Posterior", 
        y = "Specifications", 
@@ -156,7 +161,7 @@ p1 <- results %>%
                       quantiles = c(0.025, 0.975), 
                       alpha = .5,
                       fill = "lightblue", 
-                      color = "darkgrey") +
+                      color = "black") +
   coord_flip() +
   theme_minimal() +
   labs(x = "Posterior", y = "") +

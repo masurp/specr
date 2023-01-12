@@ -251,39 +251,39 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Independent variable:     x1, x2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lm </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               1 (none), c1, c2, c3, c1 + c2 + c3 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates, c1, c2, c3, all covariates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         middle &amp; female, old &amp; female, young &amp; female, female, middle &amp; male, old &amp; male, young &amp; male, male, middle, old, young, all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9bc6e0e798&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc59a6c2d18&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 18 rows):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 18 × 8</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    x     y     model controls subsets         group1 group2 formula     </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    1        middle &amp; female middle female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> x1    y1    lm    1        old &amp; female    old    female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> x1    y1    lm    1        young &amp; female  young  female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> x1    y1    lm    1        female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> x1    y1    lm    1        middle &amp; male   middle male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> x1    y1    lm    1        old &amp; male      old    male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> x1    y1    lm    1        young &amp; male    young  male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> x1    y1    lm    1        male            <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    1        middle          middle <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> x1    y1    lm    1        old             old    <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> x1    y1    lm    1        young           young  <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> x1    y1    lm    1        all             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> x1    y1    lm    c1       middle &amp; female middle female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> x1    y1    lm    c1       old &amp; female    old    female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> x1    y1    lm    c1       young &amp; female  young  female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> x1    y1    lm    c1       female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> x1    y1    lm    c1       middle &amp; male   middle male   y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> x1    y1    lm    c1       old &amp; male      old    male   y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    x     y     model controls      subsets         group1 group2 formula     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> x1    y1    lm    no covariates young &amp; male    young  male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> x1    y1    lm    no covariates male            <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    no covariates middle          middle <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> x1    y1    lm    no covariates old             old    <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> x1    y1    lm    no covariates young           young  <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> x1    y1    lm    no covariates all             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> x1    y1    lm    c1            middle &amp; female middle female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> x1    y1    lm    c1            old &amp; female    old    female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> x1    y1    lm    c1            young &amp; female  young  female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> x1    y1    lm    c1            female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> x1    y1    lm    c1            middle &amp; male   middle male   y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> x1    y1    lm    c1            old &amp; male      old    male   y1 ~ x1 + c1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 2 ----</span></span></span>
@@ -308,27 +308,27 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Independent variable:     x1, x2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lmer </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               1 (none), c1, c2, c1 + c2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates, c1, c2, c1 + c2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         middle, old, young, all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9bbc2ea188&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc5785296b8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets group1 formula                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lmer  1        middle  middle y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lmer  1        old     old    y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lmer  1        young   young  y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lmer  1        all     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lmer  c1       middle  middle y1 ~ x1 + c1 + (1|group2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lmer  c1       old     old    y1 ~ x1 + c1 + (1|group2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets group1 formula                  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lmer  no covariates middle  middle y1 ~ x1 + 1 + (1|group2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lmer  no covariates old     old    y1 ~ x1 + 1 + (1|group2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lmer  no covariates young   young  y1 ~ x1 + 1 + (1|group2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lmer  no covariates all     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 + (1|group2) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lmer  c1            middle  middle y1 ~ x1 + c1 + (1|group2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lmer  c1            old     old    y1 ~ x1 + c1 + (1|group2)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 3 ----</span></span></span>
@@ -363,7 +363,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Independent variable:     x1, x2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lm </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               1 (none) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
@@ -375,18 +375,18 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fit$full_model = list(x)     # include entire model fit object as list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   return(fit)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7f9bc6e39ab0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc59a72f478&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 6</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls subsets formula              </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1 + c1 + c2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y2    lm    1        all     y2 ~ x1 + 1 + c1 + c2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x2    y1    lm    1        all     y1 ~ x2 + 1 + c1 + c2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x2    y2    lm    1        all     y2 ~ x2 + 1 + c1 + c2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets formula              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates all     y1 ~ x1 + 1 + c1 + c2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y2    lm    no covariates all     y2 ~ x1 + 1 + c1 + c2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x2    y1    lm    no covariates all     y1 ~ x2 + 1 + c1 + c2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x2    y2    lm    no covariates all     y2 ~ x2 + 1 + c1 + c2</span>
 </code></pre></div>
     </div>
   </div>

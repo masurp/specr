@@ -162,26 +162,26 @@ included in the package.</p>
 <span><span class="co">##   Independent variable:     x1, x2 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm </span></span>
-<span><span class="co">##   Covariates:               1 (none), c1, c2, c1 + c2 </span></span>
+<span><span class="co">##   Covariates:               no covariates, c1, c2, c1 + c2 </span></span>
 <span><span class="co">##   Subsets analyses:         middle &amp; female, old &amp; female, young &amp; female, female, middle &amp; male, old &amp; male, young &amp; male, male, middle, old, young, all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7ff22c95dc10&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fec62d5d508&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
-<span><span class="co">##   x     y     model controls subsets         group1 group2 formula    </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle &amp; female middle female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old &amp; female    old    female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young &amp; female  young  female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
+<span><span class="co">##   x     y     model controls      subsets         group1 group2 formula    </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
 <p>We can see that we will estimate 192 models.</p>
 </div>
 <div class="section level3">
@@ -194,8 +194,8 @@ core (by setting <code>workers = 1</code>).</p>
 <code class="sourceCode R"><span><span class="co"># Running specification curve analysis </span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 192 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 1.67 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 1.736 sec elapsed</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="investigating-the-results">Investigating the results<a class="anchor" aria-label="anchor" href="#investigating-the-results"></a>
@@ -211,7 +211,7 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 0.3.0 </span></span>
 <span><span class="co">##   Cores used:                     1 </span></span>
-<span><span class="co">##   Duration of fitting process:    1.67 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    1.736 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       192 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
@@ -227,14 +227,14 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## Head of the specification results (first 6 rows): </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 26</span></span></span>
-<span><span class="co">##   x     y     model controls subsets    group1 group2 formula estimate std.error</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle &amp; … middle female y1 ~ x…     0.6       0.1 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old &amp; fem… old    female y1 ~ x…     0.65      0.08</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young &amp; f… young  female y1 ~ x…     0.48      0.08</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        female     <span style="color: #BB0000;">NA</span>     female y1 ~ x…     0.61      0.05</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        middle &amp; … middle male   y1 ~ x…     0.61      0.09</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        old &amp; male old    male   y1 ~ x…     0.68      0.1 </span></span>
+<span><span class="co">##   x     y     model controls    subsets group1 group2 formula estimate std.error</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covaria… middle… middle female y1 ~ x…     0.6       0.1 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covaria… old &amp; … old    female y1 ~ x…     0.65      0.08</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covaria… young … young  female y1 ~ x…     0.48      0.08</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covaria… female  <span style="color: #BB0000;">NA</span>     female y1 ~ x…     0.61      0.05</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covaria… middle… middle male   y1 ~ x…     0.61      0.09</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covaria… old &amp; … old    male   y1 ~ x…     0.68      0.1 </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 16 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span></span>

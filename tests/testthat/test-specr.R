@@ -18,17 +18,13 @@ test_that("function returns an error when no data is provided", {
                "You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
 })
 
-# test 3: check that the function returns an error when the wrong number of cores is provided
-test_that("function returns an error when the wrong number of cores is provided", {
-  expect_error(specr(specs, workers = 0))
-})
 
-# test 4: check that the function returns an error when an incorrect object is provided
+# test 3: check that the function returns an error when an incorrect object is provided
 test_that("function returns an error when an incorrect object is provided", {
   expect_error(specr(1))
 })
 
-# test 5: check that the function returns an object of class 'tibble' when no specr.setup is provided
+# test 4: check that the function returns an object of class 'tibble' when no specr.setup is provided
 test_that("function returns an object of class 'tibble' when no specr.setup is provided", {
   expect_true(inherits(specr(as_tibble(specs),
                              data = example_data,

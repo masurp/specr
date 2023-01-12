@@ -153,49 +153,49 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="co">##   Independent variable:     x1, x2, x3, x4 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2, y3 </span></span>
 <span><span class="co">##   Models:                   lm </span></span>
-<span><span class="co">##   Covariates:               1 (none) </span></span>
+<span><span class="co">##   Covariates:               no covariates </span></span>
 <span><span class="co">##   Subsets analyses:         all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe998c4b598&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7ff1595af328&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 12 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 6</span></span></span>
-<span><span class="co">##    x     y     model controls subsets formula    </span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    1        all     y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y2    lm    1        all     y2 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y3    lm    1        all     y3 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x2    y1    lm    1        all     y1 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x2    y2    lm    1        all     y2 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x2    y3    lm    1        all     y3 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x3    y1    lm    1        all     y1 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x3    y2    lm    1        all     y2 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x3    y3    lm    1        all     y3 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> x4    y1    lm    1        all     y1 ~ x4 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> x4    y2    lm    1        all     y2 ~ x4 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> x4    y3    lm    1        all     y3 ~ x4 + 1</span></span></code></pre>
+<span><span class="co">##    x     y     model controls      subsets formula    </span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    no covariates all     y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y2    lm    no covariates all     y2 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y3    lm    no covariates all     y3 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x2    y1    lm    no covariates all     y1 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x2    y2    lm    no covariates all     y2 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x2    y3    lm    no covariates all     y3 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x3    y1    lm    no covariates all     y1 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x3    y2    lm    no covariates all     y2 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x3    y3    lm    no covariates all     y3 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> x4    y1    lm    no covariates all     y1 ~ x4 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> x4    y2    lm    no covariates all     y2 ~ x4 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> x4    y3    lm    no covariates all     y3 ~ x4 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 12 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 0.151 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 0.159 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 26</span></span></span>
-<span><span class="co">##   x     y     model controls subsets formula     model_function term  estimate</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.620 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2    lm    1        all     y2 ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.328</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3    lm    1        all     y3 ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.082</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x2    y1    lm    1        all     y1 ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y2    lm    1        all     y2 ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y3    lm    1        all     y3 ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.073</span><span style="color: #BB0000; text-decoration: underline;">5</span></span></span>
+<span><span class="co">##   x     y     model controls      subsets formula  model_function term  estimate</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates all     y1 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.620 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2    lm    no covariates all     y2 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.328</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3    lm    no covariates all     y3 ~ x1… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.082</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x2    y1    lm    no covariates all     y1 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y2    lm    no covariates all     y2 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y3    lm    no covariates all     y3 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.073</span><span style="color: #BB0000; text-decoration: underline;">5</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 17 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span></span>
@@ -234,24 +234,24 @@ setup.</p>
 <span><span class="co"># Check</span></span>
 <span><span class="va">specs</span><span class="op">$</span><span class="va">specs</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 16 × 7</span></span></span>
-<span><span class="co">##    x     y      model   controls subsets formula         model_function</span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1     lm      1        all     y1 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y1     log_glm 1        all     y1 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y2     lm      1        all     y2 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x1    y2     log_glm 1        all     y2 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x1    y3     lm      1        all     y3 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x1    y3     log_glm 1        all     y3 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x1    y_dich lm      1        all     y_dich ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x1    y_dich log_glm 1        all     y_dich ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x2    y1     lm      1        all     y1 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> x2    y1     log_glm 1        all     y1 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> x2    y2     lm      1        all     y2 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> x2    y2     log_glm 1        all     y2 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">13</span> x2    y3     lm      1        all     y3 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">14</span> x2    y3     log_glm 1        all     y3 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">15</span> x2    y_dich lm      1        all     y_dich ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">16</span> x2    y_dich log_glm 1        all     y_dich ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
+<span><span class="co">##    x     y      model   controls      subsets formula         model_function</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1     lm      no covariates all     y1 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y1     log_glm no covariates all     y1 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y2     lm      no covariates all     y2 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x1    y2     log_glm no covariates all     y2 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x1    y3     lm      no covariates all     y3 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x1    y3     log_glm no covariates all     y3 ~ x1 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x1    y_dich lm      no covariates all     y_dich ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x1    y_dich log_glm no covariates all     y_dich ~ x1 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x2    y1     lm      no covariates all     y1 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> x2    y1     log_glm no covariates all     y1 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> x2    y2     lm      no covariates all     y2 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> x2    y2     log_glm no covariates all     y2 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">13</span> x2    y3     lm      no covariates all     y3 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">14</span> x2    y3     log_glm no covariates all     y3 ~ x2 + 1     <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">15</span> x2    y_dich lm      no covariates all     y_dich ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">16</span> x2    y_dich log_glm no covariates all     y_dich ~ x2 + 1 <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
 <p>As we can see, the <code><a href="../reference/setup.html">setup()</a></code> function produces all
 combinations between the variables and the model functions. This is not
 meaningful as the logistic model should only be used if the dependent
@@ -281,45 +281,45 @@ position of the list: the data frame that includes the specifications
 <span><span class="co">##   Independent variable:     x1, x2 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2, y3, y_dich </span></span>
 <span><span class="co">##   Models:                   lm, log_glm </span></span>
-<span><span class="co">##   Covariates:               1 (none) </span></span>
+<span><span class="co">##   Covariates:               no covariates </span></span>
 <span><span class="co">##   Subsets analyses:         all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe9b2eb6270&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7ff1584cd060&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 8 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 8 × 6</span></span></span>
-<span><span class="co">##   x     y      model   controls subsets formula        </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>         </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1     lm      1        all     y1 ~ x1 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2     lm      1        all     y2 ~ x1 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3     lm      1        all     y3 ~ x1 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y_dich log_glm 1        all     y_dich ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1     lm      1        all     y1 ~ x2 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      1        all     y2 ~ x2 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span> x2    y3     lm      1        all     y3 ~ x2 + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span> x2    y_dich log_glm 1        all     y_dich ~ x2 + 1</span></span></code></pre>
+<span><span class="co">##   x     y      model   controls      subsets formula        </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>         </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1     lm      no covariates all     y1 ~ x1 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2     lm      no covariates all     y2 ~ x1 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3     lm      no covariates all     y3 ~ x1 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y_dich log_glm no covariates all     y_dich ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1     lm      no covariates all     y1 ~ x2 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      no covariates all     y2 ~ x2 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span> x2    y3     lm      no covariates all     y3 ~ x2 + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span> x2    y_dich log_glm no covariates all     y_dich ~ x2 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 8 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 0.137 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 0.152 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 28</span></span></span>
-<span><span class="co">##   x     y      model   controls subsets formula    model_function term  estimate</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1     lm      1        all     y1 ~ x1 +… <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.620 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2     lm      1        all     y2 ~ x1 +… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.328</span> </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3     lm      1        all     y3 ~ x1 +… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.082</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y_dich log_glm 1        all     y_dich ~ … <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.753 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1     lm      1        all     y1 ~ x2 +… <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      1        all     y2 ~ x2 +… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
+<span><span class="co">##   x     y      model   controls    subsets formula model_function term  estimate</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1     lm      no covaria… all     y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.620 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2     lm      no covaria… all     y2 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.328</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y3     lm      no covaria… all     y3 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1     -<span style="color: #BB0000;">0.082</span><span style="color: #BB0000; text-decoration: underline;">1</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y_dich log_glm no covaria… all     y_dich… <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.753 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1     lm      no covaria… all     y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      no covaria… all     y2 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 19 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span></span>
@@ -408,7 +408,7 @@ models.</p>
 <span><span class="co">##   Independent variable:     x1, x2, x3, x4, x_mean, latent_x12 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm, custom_sem </span></span>
-<span><span class="co">##   Covariates:               1 (none) </span></span>
+<span><span class="co">##   Covariates:               no covariates </span></span>
 <span><span class="co">##   Subsets analyses:         all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
@@ -429,20 +429,20 @@ models.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 12 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 6</span></span></span>
-<span><span class="co">##    x     y     model      controls subsets formula    </span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1    lm         1        all     y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y1    custom_sem 1        all     y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y2    lm         1        all     y2 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x1    y2    custom_sem 1        all     y2 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x2    y1    lm         1        all     y1 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x2    y1    custom_sem 1        all     y1 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x2    y2    lm         1        all     y2 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x2    y2    custom_sem 1        all     y2 ~ x2 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x3    y1    lm         1        all     y1 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> x3    y1    custom_sem 1        all     y1 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> x3    y2    lm         1        all     y2 ~ x3 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> x3    y2    custom_sem 1        all     y2 ~ x3 + 1</span></span></code></pre>
+<span><span class="co">##    x     y     model      controls      subsets formula    </span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1    y1    lm         no covariates all     y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1    y1    custom_sem no covariates all     y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x1    y2    lm         no covariates all     y2 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x1    y2    custom_sem no covariates all     y2 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x2    y1    lm         no covariates all     y1 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x2    y1    custom_sem no covariates all     y1 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x2    y2    lm         no covariates all     y2 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x2    y2    custom_sem no covariates all     y2 ~ x2 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x3    y1    lm         no covariates all     y1 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> x3    y1    custom_sem no covariates all     y1 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> x3    y2    lm         no covariates all     y2 ~ x3 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> x3    y2    custom_sem no covariates all     y2 ~ x3 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter out non-meaningful specifications</span></span>
 <span><span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -461,7 +461,7 @@ models.</p>
 <span><span class="co">##   Independent variable:     x1, x2, x3, x4, x_mean, latent_x12 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm, custom_sem </span></span>
-<span><span class="co">##   Covariates:               1 (none) </span></span>
+<span><span class="co">##   Covariates:               no covariates </span></span>
 <span><span class="co">##   Subsets analyses:         all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
@@ -482,23 +482,23 @@ models.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 12 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 12 × 6</span></span></span>
-<span><span class="co">##    x          y     model      controls subsets formula            </span></span>
-<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>             </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1         y1    lm         1        all     y1 ~ x1 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1         y2    lm         1        all     y2 ~ x1 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x2         y1    lm         1        all     y1 ~ x2 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x2         y2    lm         1        all     y2 ~ x2 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x3         y1    lm         1        all     y1 ~ x3 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x3         y2    lm         1        all     y2 ~ x3 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x4         y1    lm         1        all     y1 ~ x4 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x4         y2    lm         1        all     y2 ~ x4 + 1        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x_mean     y1    lm         1        all     y1 ~ x_mean + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">10</span> x_mean     y2    lm         1        all     y2 ~ x_mean + 1    </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">11</span> latent_x12 y1    custom_sem 1        all     y1 ~ latent_x12 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">12</span> latent_x12 y2    custom_sem 1        all     y2 ~ latent_x12 + 1</span></span></code></pre>
+<span><span class="co">##    x          y     model      controls      subsets formula            </span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>             </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> x1         y1    lm         no covariates all     y1 ~ x1 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> x1         y2    lm         no covariates all     y2 ~ x1 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> x2         y1    lm         no covariates all     y1 ~ x2 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> x2         y2    lm         no covariates all     y2 ~ x2 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> x3         y1    lm         no covariates all     y1 ~ x3 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> x3         y2    lm         no covariates all     y2 ~ x3 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> x4         y1    lm         no covariates all     y1 ~ x4 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> x4         y2    lm         no covariates all     y2 ~ x4 + 1        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> x_mean     y1    lm         no covariates all     y1 ~ x_mean + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> x_mean     y2    lm         no covariates all     y2 ~ x_mean + 1    </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">11</span> latent_x12 y1    custom_sem no covariates all     y1 ~ latent_x12 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">12</span> latent_x12 y2    custom_sem no covariates all     y2 ~ latent_x12 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: lavaan</span></span></code></pre>
 <pre><code><span><span class="co">## This is lavaan 0.6-11</span></span>
 <span><span class="co">## lavaan is FREE software! Please report any bugs.</span></span></code></pre>
@@ -508,8 +508,8 @@ models.</p>
 <span><span class="co">## Warning in lav_object_post_check(object): lavaan WARNING: some estimated ov</span></span>
 <span><span class="co">## variances are negative</span></span></code></pre>
 <pre><code><span><span class="co">## Models fitted based on 12 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 0.524 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 0.532 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
@@ -553,7 +553,7 @@ together are included.</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 16 × 1</span></span></span>
 <span><span class="co">##    controls         </span></span>
 <span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1                </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> no covariates    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 2</span> c1               </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 3</span> c2               </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;"> 4</span> c3               </span></span>
@@ -572,14 +572,14 @@ together are included.</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">specs2</span><span class="op">$</span><span class="va">specs</span>, <span class="va">controls</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
-<span><span class="co">##   controls         </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1                </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> c1               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> c2               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> c3               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> c4               </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> c1 + c2 + c3 + c4</span></span></code></pre>
+<span><span class="co">##   controls      </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> no covariates </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> c1            </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> c2            </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> c3            </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> c4            </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> all covariates</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="sets-of-covariates">Sets of covariates<a class="anchor" aria-label="anchor" href="#sets-of-covariates"></a>
@@ -598,7 +598,7 @@ combinations between such groups remains the same.</p>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 1</span></span></span>
 <span><span class="co">##   controls         </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>            </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> 1                </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> no covariates    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">2</span> c1 + c2          </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">3</span> c3 + c4          </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> c1 + c2 + c3 + c4</span></span></code></pre>
@@ -616,14 +616,16 @@ model functions.</p>
 <span>               add_to_formula <span class="op">=</span> <span class="st">"c3"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Check (see how `c3` is added to each formula, but is not part of controls)</span></span>
-<span><span class="va">specs4</span><span class="op">$</span><span class="va">specs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>,<span class="op">]</span></span></code></pre></div>
-<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 7</span></span></span>
-<span><span class="co">##   x     y     model controls subsets formula                model_function</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1 + c3       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    c1       all     y1 ~ x1 + c1 + c3      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    c2       all     y1 ~ x1 + c2 + c3      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    c1 + c2  all     y1 ~ x1 + c1 + c2 + c3 <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
+<span><span class="va">specs4</span><span class="op">$</span><span class="va">specs</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span>,<span class="op">]</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 7</span></span></span>
+<span><span class="co">##   x     y     model controls      subsets formula                model_function</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates all     y1 ~ x1 + 1 + c3       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    c1            all     y1 ~ x1 + c1 + c3      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    c2            all     y1 ~ x1 + c2 + c3      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    c1 + c2       all     y1 ~ x1 + c1 + c2 + c3 <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y2    lm    no covariates all     y2 ~ x1 + 1 + c3       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y2    lm    c1            all     y2 ~ x1 + c1 + c3      <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="dealing-with-duplicates-in-specifications">Dealing with duplicates in specifications<a class="anchor" aria-label="anchor" href="#dealing-with-duplicates-in-specifications"></a>
@@ -645,17 +647,17 @@ and deletes such specifications.</p>
 <span><span class="co"># Check (see how only 9 specifications are kept)</span></span>
 <span><span class="va">specs5</span><span class="op">$</span><span class="va">specs</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 9 × 7</span></span></span>
-<span><span class="co">##   x     y     model controls subsets formula           model_function</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        all     y1 ~ x1 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2    lm    1        all     y2 ~ x1 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y2    lm    y1       all     y2 ~ x1 + y1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x2    y1    lm    1        all     y1 ~ x2 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1    lm    x1       all     y1 ~ x2 + x1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2    lm    1        all     y2 ~ x2 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span> x2    y2    lm    x1       all     y2 ~ x2 + x1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">8</span> x2    y2    lm    y1       all     y2 ~ x2 + y1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">9</span> x2    y2    lm    x1 + y1  all     y2 ~ x2 + x1 + y1 <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
+<span><span class="co">##   x     y     model controls      subsets formula           model_function</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>        </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates all     y1 ~ x1 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y2    lm    no covariates all     y2 ~ x1 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y2    lm    y1            all     y2 ~ x1 + y1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x2    y1    lm    no covariates all     y1 ~ x2 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1    lm    x1            all     y1 ~ x2 + x1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2    lm    no covariates all     y2 ~ x2 + 1       <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span> x2    y2    lm    x1            all     y2 ~ x2 + x1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">8</span> x2    y2    lm    y1            all     y2 ~ x2 + y1      <span style="color: #949494;">&lt;fn&gt;</span>          </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">9</span> x2    y2    lm    x1 + y1       all     y2 ~ x2 + x1 + y1 <span style="color: #949494;">&lt;fn&gt;</span></span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -693,40 +695,41 @@ factors.</p>
 <span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span>
 <span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>,</span>
 <span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span><span class="op">)</span></span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span>
+<span>               controls <span class="op">=</span> <span class="st">"c1"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Summary of specifications</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
 <span><span class="co">## Class:                      specr.setup -- version: 0.3.0 </span></span>
-<span><span class="co">## Number of specifications:   48 </span></span>
+<span><span class="co">## Number of specifications:   96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Independent variable:     x1, x2 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm </span></span>
-<span><span class="co">##   Covariates:               1 (none) </span></span>
+<span><span class="co">##   Covariates:               no covariates, c1 </span></span>
 <span><span class="co">##   Subsets analyses:         middle &amp; female, old &amp; female, young &amp; female, female, middle &amp; male, old &amp; male, young &amp; male, male, middle, old, young, all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe9aff11118&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7ff171b4df48&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
-<span><span class="co">##   x     y     model controls subsets         group1 group2 formula    </span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        middle &amp; female middle female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        old &amp; female    old    female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        young &amp; female  young  female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
+<span><span class="co">##   x     y     model controls      subsets         group1 group2 formula    </span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check subsets (in this case, 12 different types of subset analysis,</span></span>
 <span><span class="co"># including using "all" subjects)</span></span>
@@ -748,10 +751,10 @@ factors.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">12</span> all</span></span></code></pre>
 <div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 48 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 0.406 sec elapsed</span></span></code></pre>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Models fitted based on 96 specifications</span></span>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 0.877 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
@@ -821,36 +824,36 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="co">##   Independent variable:     x1, x2 </span></span>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm </span></span>
-<span><span class="co">##   Covariates:               1 (none), c1, c2, c1 + c2 </span></span>
+<span><span class="co">##   Covariates:               no covariates, c1, c2, c1 + c2 </span></span>
 <span><span class="co">##   Subsets analyses:         2.5*SD, 2.4*SD, 2.3*SD, 2.2*SD, 2.1*SD, 2.0*SD, all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe9aed345c8&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7ff1582f1ee8&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 7 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 7 × 12</span></span></span>
-<span><span class="co">##   x     y     model controls subsets outlier1 outlier2 outlier3 outlier4</span></span>
-<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    1        2.5*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    1        2.4*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    1        2.3*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       2.3*SD  </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    1        2.2*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       2.2*SD   <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    1        2.1*SD  <span style="color: #BB0000;">NA</span>       2.1*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    1        2.0*SD  2.0*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">7</span> x1    y1    lm    1        all     <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">##   x     y     model controls      subsets outlier1 outlier2 outlier3 outlier4</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates 2.5*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates 2.4*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates 2.3*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       2.3*SD  </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates 2.2*SD  <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       2.2*SD   <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates 2.1*SD  <span style="color: #BB0000;">NA</span>       2.1*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates 2.0*SD  2.0*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">7</span> x1    y1    lm    no covariates all     <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 3 more variables: outlier5 &lt;fct&gt;, outlier6 &lt;fct&gt;, formula &lt;glue&gt;</span></span></span></code></pre>
 <div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 112 specifications</span></span>
-<span><span class="co">## Cores used: 1 </span></span>
-<span><span class="co">## 1.278 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1 </span></span>
+<span><span class="co">## 1.076 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
 <p>There are of course many more types of analytical decisions. For some
 more examples, see some of the other vignettes. If you have a specific

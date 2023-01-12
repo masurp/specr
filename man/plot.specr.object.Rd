@@ -97,7 +97,7 @@ specs <- setup(data = example_data,
                controls = c("c1", "c2"))
 
 # Run analysis
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 
 # Resulting data frame with estimates
 as_tibble(results)  # This will be used for plotting
