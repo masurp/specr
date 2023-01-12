@@ -10,7 +10,7 @@
 #' @importFrom igraph graph_from_data_frame
 #' @importFrom purrr map map2 map_df pmap reduce cross
 #' @importFrom furrr future_pmap
-#' @importFrom future plan multisession
+#' @importFrom future nbrOfWorkers plan multisession
 #' @importFrom parallelly availableCores
 #' @importFrom stats formula mad median nobs quantile start vcov
 #' @importFrom stringr str_glue str_remove_all
