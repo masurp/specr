@@ -13,17 +13,9 @@
 #'    need to provide the data set that should be used. Defaults to NULL as it is
 #'    assumend that most users will create an object of class "specr.setup" that they'll
 #'    pass to `specr()`.
-#' @param workers A numeric value that indicates how many cores should be used.
-#'    Defaults to \code{availableCores()} from the future package and thus uses
-#'    all available cores. Note: If the models specified via \code{setup()} are not
-#'    very computationally intensive, the overhead introduced through the parallelization
-#'    (setting up several workers and R sessions, etc.) may actually make the fitting
-#'    process slower. It only becomes considerably faster if the model fitting process
-#'    is so intensive that the overhead no longer matters. In other words, in a lot
-#'    of cases, setting \code{workers = 1} is still the best choice.
 #' @param ... Further arguments that can be passed to \code{future_pmap}. This only becomes
-#'    important if parallelization is used (workers > 1) and a custom model function
-#'    is used. See examples 2 and 3 below for further details.
+#'    important if parallelization by setting up a `furrr::plan()` upfront and a
+#'    custom model function is used.
 #' @param message Logical value; indicates whether a short message should be
 #'   printed after the estimation including information about corse used and elapsed time.
 #'   Defaults to TRUE.
@@ -94,7 +86,7 @@
 #'                controls = c("c1", "c2"))       # Control for these variables
 #'
 #' # Run analysis (not parallelized)
-#' results <- specr(specs, workers = 1)
+#' results <- specr(specs)
 #'
 #' # Summary of the results
 #' summary(results)
@@ -110,15 +102,13 @@
 #'
 #' # Working with tibbles
 #' specs_tibble <- as_tibble(specs2)      # extract tibble from setup
-#' results3 <- specr(specs_tibble,
-#'                   data = example_data, # need to provide data!
-#'                   workers = 1)
+#' results2 <- specr(specs_tibble,
+#'                   data = example_data) # need to provide data!
 #'
 #' # Results (tibble instead of S3 class)
-#' head(results3)
+#' head(results2)
 specr <- function(x,
                   data = NULL,
-                  workers = availableCores(),
                   ...,
                   message = TRUE){
 
@@ -136,11 +126,6 @@ specr <- function(x,
     stop("You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
   }
 
-  if(workers == 0) {
-    stop("You need to set workers to at least 1 to run the analyses.\n
-         Alternatively, you can just remove the argument and `specr()` will choose all available cores.")
-  }
-
   # Collect data and subsets
   if("specr.setup" %in% class(x)) {
 
@@ -155,42 +140,7 @@ specr <- function(x,
   }
 
   # Differentiate between 1 and >1 workers
-  if(workers > 1) {
-
-    # Start several works
-    plan(multisession, workers = workers)
-
-    res <- specs %>%
-      dplyr::mutate(out = future_pmap(., function(...) {
-
-        # Initialize specs as list
-        l = list(...)
-
-        # identify the grouping columns
-        group_i <- which(sapply(l, is.factor))
-        s <- rep(TRUE, nrow(data))
-
-        # Create relevant subsets
-        for (i in group_i) {
-          column <- names(l)[i]
-          value <- l[[i]]
-          if (is.na(value)) next
-          s <- s & data[[column]] == value
-        }
-
-        # Iterate across specifications
-        do.call(
-          what = l$model_function,
-          args = list(
-            formula = l$formula,
-            data = data[s,])
-        )
-      },
-      ...),
-      ) %>%
-      tidyr::unnest(out)
-
-  } else {
+  if(is(plan(), "sequential")) {
 
     res <- specs %>%
       dplyr::mutate(out = pmap(., function(...) {
@@ -220,94 +170,7 @@ specr <- function(x,
       })) %>%
       tidyr::unnest(out)
 
-  }
-
-  # Select relevant term
-  if("op" %in% names(res)) {
-    res <- res %>%
-      dplyr::filter(term == paste(y, "~", x))
   } else {
-    res <- res %>%
-      dplyr::filter(term == x)
-  }
-
-  pos_formula <- which(names(res) == "formula")
-  subsets_names <- res[5:pos_formula] %>%
-    dplyr::select(-formula) %>%
-    names
-
-  if(isTRUE(message)) {
-
-  # Print short summary
-  cat("Models fitted based on", nrow(res), "specifications\n")
-  cat("Cores used:", workers, "\n")
-  time <- tictoc::toc()
-
-  } else {
-
-  time <- tictoc::toc(quiet = TRUE)
-
-  }
-
-  if(class(x)[1] == "specr.setup") {
-
-  # Create S3 class
-  output <- list(data = res,
-                 n_specs = nrow(res),
-                 x = x$x,
-                 y = x$y,
-                 model = x$model,
-                 controls = x$model,
-                 subsets = x$subsets,
-                 workers = workers,
-                 time = time)
-
-  # Set class
-  class(output) <- "specr.object"
-
-  } else {
-
-  # Create tibble
-  output <- as_tibble(res)
-
-  }
-
-  return(output)
-
-}
-
-
-specr2 <- function(x,
-                  data = NULL,
-                  ...,
-                  message = TRUE){
-
-
-  # Start timing
-  tictoc::tic()
-
-  . <- out <- term <- y <- NULL
-
-  if(!inherits(x, c("specr.setup", "tbl_df", "tbl", "data.frame"))) {
-    stop("You need to provide an object of class 'specr.setup' (or a tibble or data frame of the specification setup).\n  Use 'setup()' to create such a specification setup.")
-  }
-
-  if(isTRUE(any(c("tbl_df", "tbl", "data.frame") %in% class(x))) & is.null(data)) {
-    stop("You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
-  }
-
-  # Collect data and subsets
-  if("specr.setup" %in% class(x)) {
-
-    data <- x$data
-    subsets <- x$subsets
-    specs <- x$specs
-
-  } else {
-
-    specs <- x
-
-  }
 
     res <- specs %>%
       dplyr::mutate(out = future_pmap(., function(...) {
@@ -339,6 +202,7 @@ specr2 <- function(x,
       ) %>%
       tidyr::unnest(out)
 
+  }
 
   # Select relevant term
   if("op" %in% names(res)) {
@@ -356,35 +220,37 @@ specr2 <- function(x,
 
   if(isTRUE(message)) {
 
-    # Print short summary
-    cat("Models fitted based on", nrow(res), "specifications\n")
-    time <- tictoc::toc()
+  # Print short summary
+  cat("Models fitted based on", nrow(res), "specifications\n")
+  cat("Number of cores used:", future::nbrOfWorkers(), "\n")
+  time <- tictoc::toc()
 
   } else {
 
-    time <- tictoc::toc(quiet = TRUE)
+  time <- tictoc::toc(quiet = TRUE)
 
   }
 
   if(class(x)[1] == "specr.setup") {
 
-    # Create S3 class
-    output <- list(data = res,
-                   n_specs = nrow(res),
-                   x = x$x,
-                   y = x$y,
-                   model = x$model,
-                   controls = x$model,
-                   subsets = x$subsets,
-                   time = time)
+  # Create S3 class
+  output <- list(data = res,
+                 n_specs = nrow(res),
+                 x = x$x,
+                 y = x$y,
+                 model = x$model,
+                 controls = x$model,
+                 subsets = x$subsets,
+                 workers = nbrOfWorkers(),
+                 time = time)
 
-    # Set class
-    class(output) <- "specr.object"
+  # Set class
+  class(output) <- "specr.object"
 
   } else {
 
-    # Create tibble
-    output <- as_tibble(res)
+  # Create tibble
+  output <- as_tibble(res)
 
   }
 
