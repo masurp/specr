@@ -206,7 +206,7 @@ specs4 <- setup(data = example_data,
                add_to_formula = "c3")
 
 # Check (see how `c3` is added to each formula, but is not part of controls)
-specs4$specs[1:4,]
+specs4$specs[1:6,]
 ```
 
 ## Dealing with duplicates in specifications
@@ -306,7 +306,7 @@ summary(specs, rows = 7)
 
 # Run analysis and plot results
 results <- specr(specs, workers = 1)
-plot(results, choices = c("subsets"))
+plot(results, choices = c("x", "y", "subsets"))
 ```
 
 

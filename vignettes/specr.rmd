@@ -63,7 +63,7 @@ specs <- setup(data = example_data,            # First, we provide the data set
                controls = c("c1", "c2"))       # We include two control variable 
 
 # Overview of the specifications/multiverse
-summary(specs)
+summary(specs, rows = 20)
 ```
 
 The resulting S3 class ("specr.setup") includes a data frame with 96 different specifications. We can also see that the analysis will use the function `tidy()` from the `broom`-package to extract parameters from the models. 
@@ -102,7 +102,8 @@ summary(results,
 summary(results, 
         type = "curve", 
         group = "subsets", 
-        stats = list(mean = mean, median = median))
+        stats = list(mean = mean, 
+                     median = median))
 ```
 
 The output contains summary statistics such as the median, the median absolute deviation, ... as well as the number of observations that were used for each model. Bear in mind that due to subsetting or missing data, sample sizes can vary considerably which, in turn, affects the results.
