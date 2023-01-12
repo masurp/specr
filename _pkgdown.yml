@@ -18,10 +18,11 @@ reference:
     contents:
       - summary.specr.setup
       - summary.specr.object
-  - title: "Plot results"
+  - title: "Visualizations"
     desc: >
-      After running specr(), the resulting S3 class object can be passed to the generic plot function to visualize the results.
+      After running setup() or specr(), the resulting S3 class objects can be passed to the generic plot function to create visualizations.
     contents:
+      - plot.specr.setup
       - plot.specr.object
   - title: "Data set(s)"
     contents:

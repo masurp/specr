@@ -62,6 +62,110 @@ summary.specr.setup <- function(object,
   }
 }
 
+#' Plot visualization of the specification setup
+#'
+#' @description This function plots a visual summary of the specification setup.
+#'   It requires an object of class \code{specr.setup}, usually
+#'   the result of calling \code{setup()}.
+#'
+#' @param x A `specr.setup` object, usually resulting from calling \code{setup()}.
+#' @param layout The type of layout to create for the garden of forking path. Defaults to "dendrogram".
+#' @param circular Should the layout be transformed into a radial representation. Only possible for some layouts. Defaults to FALSE.r
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#'
+#' @return A \link[ggplot2]{ggplot} object that can be customized further.
+#'
+#' @export
+#'
+#' @examples
+#' specs <- setup(data = example_data,
+#'                x = c("x1", "x2", "x3"),
+#'                y = c("y1", "y2"),
+#'                model = c("lm", "glm"),
+#'                distinct(example_data, group2),
+#'                controls = "c1")
+#'
+#' plot(specs)
+plot.specr.setup <- function(x,
+                             layout = "dendrogram",
+                             circular = TRUE,
+                             ...) {
+
+
+  df <- dplyr::tibble(decision = factor(c("model", "x", "y", "controls", "subsets"),
+                                 levels = c("model", "x", "y", "controls", "subsets")),
+               number = c(length(unique(x$specs$model)),
+                          length(unique(x$specs$x)),
+                          length(unique(x$specs$y)),
+                          length(unique(x$specs$controls)),
+                          length(unique(x$specs$subsets))))
+
+  p1 <- df %>%
+    ggplot(aes(x = decision, y = number)) +
+    geom_col(fill = "steelblue") +
+    scale_y_continuous(n.breaks = max(df$number)) +
+    theme_classic() +
+    labs(x = "", y = "number of options")
+
+  df <- x$specs %>%
+    select(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
+    arrange(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
+    mutate(start = "raw data") %>%
+    select(start, dplyr::everything()) %>%
+    mutate(x = paste0(.data$x, " & ", .data$model),
+           y = paste0(.data$y, " & ", .data$x),
+           controls = paste0(.data$controls, " & ", .data$y),
+           subsets = paste0(.data$subsets, " & ", .data$controls))
+
+  # Create edges
+  edges_level1 <- df %>%
+    select(.data$start, .data$model) %>%
+    rename(from = .data$start, to = .data$model) %>%
+    unique %>%
+    mutate(decisions = "model")
+  edges_level2 <- df %>%
+    select(.data$model, .data$x) %>%
+    rename(from = .data$model, to = .data$x) %>%
+    unique %>%
+    mutate(decisions = "independent variable")
+  edges_level3 <- df %>%
+    select(.data$x, .data$y) %>%
+    rename(from = .data$x, to = .data$y) %>%
+    unique %>%
+    mutate(decisions = "dependent variable")
+  edges_level4 = df %>%
+    select(.data$y, .data$controls) %>%
+    rename(from = .data$y, to = .data$controls) %>%
+    mutate(decisions = "control variables")
+  edges_level5 <- df %>%
+    select(.data$controls, .data$subsets) %>%
+    rename(from = .data$controls, to = .data$subsets) %>%
+    mutate(decisions = "subsets")
+
+  # Combine edges
+  edge_list <- rbind(edges_level1,
+                     edges_level2,
+                     edges_level3,
+                     edges_level4,
+                     edges_level5)
+  # Plot edges
+  p2 <- edge_list %>%
+    graph_from_data_frame %>%
+    ggraph::ggraph(layout = layout,
+                   circular = circular) +
+    ggraph::geom_edge_diagonal() +
+    ggraph::geom_node_point(fill = "white", shape = 21) +
+    theme_void()
+
+  # Combine plots
+  plot_grid(p1, p2,
+            labels = c("A", "B"),
+            align = "h",
+            ncol = 2)
+
+
+}
+
 
 #' Return tibble from specr.setup object
 #' @keywords internal
@@ -107,7 +211,7 @@ as.data.frame.specr.setup <- function(x, ...) {
 #'                controls = c("c1", "c2"))
 #'
 #' # Run analysis (returns object of class "specr.object")
-#' results <- specr(specs, workers = 1)
+#' results <- specr(specs)
 #'
 #' # Default summary of the "specr.object"
 #' summary(results)
@@ -276,7 +380,7 @@ summary.specr.object <- function(object,
 #'                controls = c("c1", "c2"))
 #'
 #' # Run analysis
-#' results <- specr(specs, workers = 1)
+#' results <- specr(specs)
 #'
 #' # Resulting data frame with estimates
 #' as_tibble(results)  # This will be used for plotting

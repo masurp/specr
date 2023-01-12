@@ -1,6 +1,9 @@
 #' Plot decision tree
 #'
-#' This function plots a simple decision tree that is meant to help understanding how few analytical choices may results in a large number of specifications. It is somewhat useless if the final number of specifications is very high.
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()}.
+#'    This function plots a simple decision tree that is meant to help understanding how few analytical choices may results in a large number of specifications. It is somewhat useless if the final number of specifications is very high.
 #'
 #' @param df data frame resulting from [run_specs()].
 #' @param label Logical. Should labels be included? Defaults to FALSE. Produces only a reasonable plot if number of specifications is low.
@@ -28,6 +31,9 @@
 plot_decisiontree <- function(df,
                               label = FALSE,
                               legend = FALSE) {
+
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_decisiontree()", "plot.specr.setup()")
 
   # Create data set for graph transformation
   df <- df %>%
@@ -92,14 +98,12 @@ plot_decisiontree <- function(df,
     plot <- plot +
       ggraph::geom_node_text(aes(label = .data$name,
                                  filter = .data$leaf),
-                     angle=90 ,
-                     hjust=1,
-                     nudge_y = -0.10) +
+                             angle=90 ,
+                             hjust=1,
+                             nudge_y = -0.10) +
       ylim(-5, NA)
   }
 
   return(plot)
 
 }
-
-
