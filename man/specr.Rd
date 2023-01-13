@@ -4,7 +4,7 @@
 \alias{specr}
 \title{Fit models across all specifications}
 \usage{
-specr(x, data = NULL, ..., message = TRUE)
+specr(x, data = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{specr.setup} object resulting from \code{setup} or a tibble that
@@ -22,10 +22,6 @@ this involves passing \code{furrr_options} passing to the argument \code{.option
 When a plan for parallelization is set, one can also set \code{.progress = TRUE}
 to print a progress bar during the fitting process. See details for more information
 on parallelization.}
-
-\item{message}{Logical value; indicates whether a short message should be
-printed after the estimation including information about corse used and elapsed time.
-Defaults to TRUE.}
 }
 \value{
 An object of class \code{specr.object}, which includes a data frame

@@ -19,9 +19,6 @@
 #'    When a plan for parallelization is set, one can also set `.progress = TRUE`
 #'    to print a progress bar during the fitting process. See details for more information
 #'    on parallelization.
-#' @param message Logical value; indicates whether a short message should be
-#'   printed after the estimation including information about corse used and elapsed time.
-#'   Defaults to TRUE.
 #'
 #' @return An object of class \code{specr.object}, which includes a data frame
 #'   with all specifications their respective results along with many other useful
@@ -131,8 +128,7 @@
 #' head(results2)
 specr <- function(x,
                   data = NULL,
-                  ...,
-                  message = TRUE){
+                  ...){
 
 
   # Start timing
@@ -235,19 +231,12 @@ specr <- function(x,
       dplyr::filter(term == x)
   }
 
+  # Compute time
   end <- Sys.time()
   time <- end-start
   time <- paste(round(as.numeric(time), 3), "sec elapsed")
 
-  if(isTRUE(message)) {
-
-  # Print short summary
-  cat("Models fitted based on", nrow(res), "specifications\n")
-  cat("Number of cores used:", future::nbrOfWorkers(), "\n")
-
-
-  }
-
+  # Create S2 class
   if(class(x)[1] == "specr.setup") {
 
   # Create S3 class
