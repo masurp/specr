@@ -62,6 +62,15 @@ summary.specr.setup <- function(object,
   }
 }
 
+#' Print method for S3 class "specr.setup"
+#' @keywords internal
+#' @export
+print.specr.setup <- function(x, ...) {
+
+  cat("Number of specifications: ", as.numeric(x$n_specs), "\n\n")
+
+}
+
 #' Plot visualization of the specification setup
 #'
 #' @description This function plots a visual summary of the specification setup.
@@ -69,8 +78,8 @@ summary.specr.setup <- function(object,
 #'   the result of calling \code{setup()}.
 #'
 #' @param x A `specr.setup` object, usually resulting from calling \code{setup()}.
-#' @param layout The type of layout to create for the garden of forking path. Defaults to "dendrogram".
-#' @param circular Should the layout be transformed into a radial representation. Only possible for some layouts. Defaults to FALSE.r
+#' @param layout The type of layout to create for the garden of forking path. Defaults to "dendrogram". See `?ggraph` for options.
+#' @param circular Should the layout be transformed into a radial representation. Only possible for some layouts. Defaults to FALSE.
 #' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A \link[ggplot2]{ggplot} object that can be customized further.
@@ -86,11 +95,13 @@ summary.specr.setup <- function(object,
 #'                controls = "c1")
 #'
 #' plot(specs)
+#' plot(specs, circular = TRUE)
 plot.specr.setup <- function(x,
                              layout = "dendrogram",
-                             circular = TRUE,
+                             circular = FALSE,
                              ...) {
 
+  decision <- number <- NULL
 
   df <- dplyr::tibble(decision = factor(c("model", "x", "y", "controls", "subsets"),
                                  levels = c("model", "x", "y", "controls", "subsets")),
@@ -254,7 +265,7 @@ summary.specr.object <- function(object,
     cat("Technical details:\n\n")
     cat("  Class:                         ", class(object), "-- version:", as.character(utils::packageVersion("specr")), "\n")
     cat("  Cores used:                    ", object$workers, "\n")
-    cat("  Duration of fitting process:   ", object$time$callback_msg, "\n")
+    cat("  Duration of fitting process:   ", object$time, "\n")
     cat("  Number of specifications:      ", as.numeric(object$n_specs), "\n\n")
 
     # Short descriptive analysis across all specifications
@@ -315,6 +326,30 @@ summary.specr.object <- function(object,
   }
 
 }
+
+#' Print method for S3 class "specr.object"
+#' @keywords internal
+#' @export
+print.specr.object <- function(x, ...) {
+
+  cat("Models fitted based on", nrow(x$data), "specifications\n")
+  cat("Number of cores used:", x$workers, "\n\n")
+
+  # Short descriptive analysis across all specifications
+  cat("Descriptive summary of the specification curve:\n\n")
+
+  x$data %>%
+    summarize_at(vars(.data$estimate),
+                 list(median = median, mad = mad, min = min, max = max,
+                      q25 = function(x) quantile(x, prob = .25),
+                      q75 = function(x) quantile(x, prob = .75))) %>%
+    as.data.frame %>%
+    round(2) %>%
+    print(row.names = FALSE)
+
+}
+
+
 
 #' Plot specification curve and analytic choices
 #'
