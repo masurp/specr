@@ -21,7 +21,7 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
--   5 January 2022: specr version 0.3.0 is available via github. This is
+-   5 January 2022: specr version 1.0.0 is available via github. This is
     a major update with several new features and functions. Note: it
     introduces a new framework for conduction specification curve
     analyses compared to earlier versions (see [version
@@ -56,36 +56,36 @@ functions of the package:
     illustrates the major functions of the package (`setup` and `specr`)
     and introduces the typical workflow.
 -   [Setting up different types of
-    specifications](https://masurp.github.io/specr/articles/01-different-specifications.html):
+    specifications](https://masurp.github.io/specr/articles/different-specifications.html):
     This vignette shows how to implement different types of analytical
     choices (incl. different model functions, subset analysis, outliers
     with different thresholds and many mores)
 -   [Visualizing specification curve
-    analyses](https://masurp.github.io/specr/articles/02-custom-plot.html):
+    analyses](https://masurp.github.io/specr/articles/custom-plot.html):
     This vignette exemplifies how the results of different specification
     can be investigated using a variety of visualizations. It furthers
     outlines ways to customize these visualizations.  
+-   [Investing specific
+    specifications](https://masurp.github.io/specr/articles/invest-spec.html):
+    This vignette shows how entire models can be kept during the fitting
+    process and investigated individually afterwards.  
 -   [Using
-    parallelization](https://masurp.github.io/specr/articles/03-paralleliization.html):
+    parallelization](https://masurp.github.io/specr/articles/parallelization.html):
     This vignette shows how to parallelize the fitting process.
 -   [Incorporating structural equation
-    modeling](https://masurp.github.io/specr/articles/04-measurement_models.html):
+    modeling](https://masurp.github.io/specr/articles/measurement_models.html):
     This vignette exemplifies how to include latent measurement models
     and estimate structural equations models using `lavaan` as part of a
     specification curve analysis.
 -   [Incorporating multilevel
-    modeling](https://masurp.github.io/specr/articles/05-random_effects.html):
+    modeling](https://masurp.github.io/specr/articles/random_effects.html):
     This vignette exemplifies how to include random effects and estimate
     multilevel models using `lme4` as part of the specification curve
     analysis.
 -   [Incorporating Bayesian
-    modeling](https://masurp.github.io/specr/articles/06-bayesian-models.html):
+    modeling](https://masurp.github.io/specr/articles/bayesian-models.html):
     This vignette shows how `specr` can also be used with Bayesian
     modeling based on the package `brms`.
--   [Investing specific
-    specifications](https://masurp.github.io/specr/articles/09-invest-spec.html):
-    This vignette shows how entire models can be kept during the fitting
-    process and investigated individually afterwards.
 
 ### Disclaimer
 
@@ -110,7 +110,7 @@ Or install the most recent development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")   # version 0.3.0
+devtools::install_github("masurp/specr")   # version 1.0.0
 ```
 
 ### Usage
@@ -135,10 +135,9 @@ specs <- setup(data = example_data,
                controls = c("c1", "c2"))
 
 # Run Specification Curve Analysis ----
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 #> Models fitted based on 192 specifications
-#> Cores used: 1 
-#> 2.074 sec elapsed
+#> Number of cores used: 1
 
 # Plot Specification Curve ----
 plot(results)
@@ -160,7 +159,7 @@ citation("specr")
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 0.3.0)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 1.0.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
 #>     year = {2020},
 #>     url = {https://CRAN.R-project.org/package=specr},
