@@ -4,14 +4,14 @@
 \alias{plot.specr.setup}
 \title{Plot visualization of the specification setup}
 \usage{
-\method{plot}{specr.setup}(x, layout = "dendrogram", circular = TRUE, ...)
+\method{plot}{specr.setup}(x, layout = "dendrogram", circular = FALSE, ...)
 }
 \arguments{
 \item{x}{A \code{specr.setup} object, usually resulting from calling \code{setup()}.}
 
-\item{layout}{The type of layout to create for the garden of forking path. Defaults to "dendrogram".}
+\item{layout}{The type of layout to create for the garden of forking path. Defaults to "dendrogram". See \code{?ggraph} for options.}
 
-\item{circular}{Should the layout be transformed into a radial representation. Only possible for some layouts. Defaults to FALSE.r}
+\item{circular}{Should the layout be transformed into a radial representation. Only possible for some layouts. Defaults to FALSE.}
 
 \item{...}{further arguments passed to or from other methods (currently ignored).}
 }
@@ -32,4 +32,5 @@ specs <- setup(data = example_data,
                controls = "c1")
 
 plot(specs)
+plot(specs, circular = TRUE)
 }

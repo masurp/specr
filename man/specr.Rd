@@ -17,8 +17,11 @@ assumend that most users will create an object of class "specr.setup" that they'
 pass to \code{specr()}.}
 
 \item{...}{Further arguments that can be passed to \code{future_pmap}. This only becomes
-important if parallelization by setting up a \code{furrr::plan()} upfront and a
-custom model function is used.}
+important if parallelization is used. For example, if a custom model function is used
+this involves passing \code{furrr_options} passing to the argument \code{.options}.
+When a plan for parallelization is set, one can also set \code{.progress = TRUE}
+to print a progress bar during the fitting process. See details for more information
+on parallelization.}
 
 \item{message}{Logical value; indicates whether a short message should be
 printed after the estimation including information about corse used and elapsed time.
@@ -64,6 +67,25 @@ Further note that the resulting object of class \code{specr.object} allows
 to use several generic function such as \code{summary()} or \code{plot()}.
 Use \code{methods(class = "specr.object")} for an overview on available
 methods and e.g., \code{?plot.specr.object} to view the dedicated help page.
+
+\bold{Parallelization}
+
+By default, the function fits models across all specifications sequentially
+(one after the other). If the data set is large, the models complex (e.g.,
+large structural equation models, negative binomial models, or Bayesian models),
+and the number of specifications is large, it can make sense to parallelize
+these operations. One simply has to load the package \code{furrr} (which
+in turn, builds on \code{future}) up front. Then parallelizing the fitting process
+works as specified in the package description of \code{furr}/\code{future} by setting a
+"plan" before running \code{specr} such as:
+
+\code{plan(multisession, workers = 4)}
+
+However, there are many more ways to specifically set up the plan, including
+different strategy than \code{multisession}. For more information, see
+\code{vignette("parallelization")} and the
+\href{https://future.futureverse.org/reference/plan.html}{reference page}
+for \code{plan()}.
 
 \bold{Disclaimer}
 

@@ -167,4 +167,6 @@ summary(specs)
 \code{\link[=specr]{specr()}} for the second step of actually running the actual specification curve analysis
 
 \code{\link[=summary.specr.setup]{summary.specr.setup()}} for how to summarize and inspect the resulting specifications
+
+\code{\link[=plot.specr.setup]{plot.specr.setup()}} for creating a visual summary of the specification setup.
 }
