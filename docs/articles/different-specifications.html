@@ -160,7 +160,7 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe7a7d4fb58&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fe68351e9d0&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 12 rows):</span></span></code></pre>
@@ -181,11 +181,8 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">12</span> x4    y3    lm    no covariates all     y3 ~ x4 + 1</span></span></code></pre>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 12 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 26</span></span></span>
 <span><span class="co">##   x     y     model controls      subsets formula  model_function term  estimate</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -215,7 +212,7 @@ following, let’s imagine that next to our standard dependent variables
 case, we want to specify and add a custom function - here a logistic
 model (<code>glm(formula, data, family = binomial()</code>)) - to the
 setup.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Dichotomous dependent variable</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">example_data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>y_dich <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">y1</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span>, <span class="fl">1</span>, <span class="fl">0</span><span class="op">)</span><span class="op">)</span></span>
@@ -262,7 +259,7 @@ able to filter or subset the <code>sprec.setup</code> object
 (essentially a list). Instead, you want to filter/subset the first
 position of the list: the data frame that includes the specifications
 (here <code>specs$specs</code> or <code>specs[[1]]</code>).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter out models that are not meaningful (here only keep log_glm, when y == "y4")</span></span>
 <span><span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"log_glm"</span> <span class="op">&amp;</span> <span class="va">y</span> <span class="op">!=</span> <span class="st">"y_dich"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -287,7 +284,7 @@ position of the list: the data frame that includes the specifications
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe7a6b24448&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fe6802b0020&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 8 rows):</span></span></code></pre>
@@ -302,13 +299,10 @@ position of the list: the data frame that includes the specifications
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      no covariates all     y2 ~ x2 + 1    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">7</span> x2    y3     lm      no covariates all     y3 ~ x2 + 1    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">8</span> x2    y_dich log_glm no covariates all     y_dich ~ x2 + 1</span></span></code></pre>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 8 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 28</span></span></span>
 <span><span class="co">##   x     y      model   controls    subsets formula model_function term  estimate</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
@@ -343,7 +337,7 @@ models, they sometimes differ for specific models (e.g., structural
 equation models resulting from <code><a href="https://rdrr.io/pkg/lavaan/man/sem.html" class="external-link">lavaan::sem()</a></code>). This means
 we need to adjust them to extract the same parameters across different
 models.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add mean (one choice)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="va">rowwise</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -441,7 +435,7 @@ models.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> x3    y1    custom_sem no covariates all     y1 ~ x3 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">11</span> x3    y2    lm         no covariates all     y2 ~ x3 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">12</span> x3    y2    custom_sem no covariates all     y2 ~ x3 + 1</span></span></code></pre>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter out non-meaningful specifications</span></span>
 <span><span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="va">specs</span><span class="op">$</span><span class="va">specs</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="op">(</span><span class="va">model</span> <span class="op">==</span> <span class="st">"custom_sem"</span> <span class="op">&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"latent"</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -494,7 +488,7 @@ models.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> x_mean     y2    lm         no covariates all     y2 ~ x_mean + 1    </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">11</span> latent_x12 y1    custom_sem no covariates all     y1 ~ latent_x12 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">12</span> latent_x12 y2    custom_sem no covariates all     y2 ~ latent_x12 + 1</span></span></code></pre>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Loading required package: lavaan</span></span></code></pre>
@@ -505,9 +499,7 @@ models.</p>
 <span></span>
 <span><span class="co">## Warning in lav_object_post_check(object): lavaan WARNING: some estimated ov</span></span>
 <span><span class="co">## variances are negative</span></span></code></pre>
-<pre><code><span><span class="co">## Models fitted based on 12 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>As we can see, we can now investigate the manifest and latent
@@ -529,7 +521,7 @@ without any covariates. If we add the argument
 <code>simplify = TRUE</code>, not all combinations between covariates
 are created. Instead, only no covariates, each individually, and all
 together are included.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Setup specification that include all combinations of covariates</span></span>
 <span><span class="va">specs1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
@@ -566,7 +558,7 @@ together are included.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">14</span> c1 + c3 + c4     </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">15</span> c2 + c3 + c4     </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">16</span> c1 + c2 + c3 + c4</span></span></code></pre>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">specs2</span><span class="op">$</span><span class="va">specs</span>, <span class="va">controls</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
 <span><span class="co">##   controls      </span></span>
@@ -583,7 +575,7 @@ together are included.</p>
 </h3>
 <p>We can also add groups of covariates. The way setup creates
 combinations between such groups remains the same.</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add groups of covariates</span></span>
 <span><span class="va">specs3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
@@ -603,7 +595,7 @@ combinations between such groups remains the same.</p>
 <code>add_to_formula</code>, which allows to add covariates (or any
 other formula-relevant aspects, e.g., random effect structures) to all
 model functions.</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Add some control variables to all models</span></span>
 <span><span class="va">specs4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
@@ -633,7 +625,7 @@ make sense to add e.g., <code>x1</code> as covariate if it is already
 the independent variable. In this new version of specr, the
 <code><a href="../reference/setup.html">setup()</a></code> function automatically detects such duplications
 and deletes such specifications.</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Adding a covariate that is also a independent or dependent variable</span></span>
 <span><span class="va">specs5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
@@ -685,7 +677,7 @@ the simple subsets and not only the combinations between the two groups
 are included in the specifications. It further creates a new column
 “subsets”, which represents the combination of the subsetting
 factors.</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Setup specifications</span></span>
 <span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
@@ -714,7 +706,7 @@ factors.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe7bb106db8&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fe6939c96c8&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
@@ -727,7 +719,7 @@ factors.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check subsets (in this case, 12 different types of subset analysis,</span></span>
 <span><span class="co"># including using "all" subjects)</span></span>
 <span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">specs</span><span class="op">$</span><span class="va">specs</span>, <span class="va">subsets</span><span class="op">)</span></span></code></pre></div>
@@ -746,13 +738,10 @@ factors.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">10</span> old            </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">11</span> young          </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">12</span> all</span></span></code></pre>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 96 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -771,14 +760,14 @@ non-meaningful specifications (e.g., a subset that includes outliers, a
 subset that includes people who align with different outlier rules,
 etc.). So we want to keep only the meaningful specifications. In this
 case, these are just 7 different types of specifications.</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Check for outliers in `y1` (should of course be more elaborate than eye-balling)</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">data</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">y1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></span></code></pre>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create variables that denote outliers (here with a range of arbitrary thresholds)</span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>outlier1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">y1</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span> <span class="op">-</span> <span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span> <span class="op">|</span> <span class="va">y1</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">y1</span><span class="op">)</span>, <span class="st">"outlier"</span>, <span class="st">"2.0*SD"</span><span class="op">)</span>,</span>
@@ -827,7 +816,7 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fe7a43c94f8&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fe68146d270&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 7 rows):</span></span></code></pre>
@@ -842,13 +831,10 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates 2.0*SD  2.0*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">7</span> x1    y1    lm    no covariates all     <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 3 more variables: outlier5 &lt;fct&gt;, outlier6 &lt;fct&gt;, formula &lt;glue&gt;</span></span></span></code></pre>
-<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 112 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
-<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"subsets"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="different-specifications_files/figure-html/unnamed-chunk-11-2.png" width="700"></p>
 <p>There are of course many more types of analytical decisions. For some
 more examples, see some of the other vignettes. If you have a specific

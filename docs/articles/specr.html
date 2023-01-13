@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -123,7 +123,8 @@ Furthermore, the <code>tidyverse</code> includes <code>ggplot2</code>
 which can be used to modify the layout of the plots.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load library</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="understanding-the-data">Understanding the data<a class="anchor" aria-label="anchor" href="#understanding-the-data"></a>
 </h2>
@@ -195,7 +196,7 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">#&gt; -------------------------------------------</span></span>
-<span><span class="co">#&gt; Class:                      specr.setup -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt; Number of specifications:   384 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
@@ -208,8 +209,9 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fade0cb0400&gt;</span></span>
+<span><span class="co">#&gt;   function (x) </span></span>
+<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7fe6e22880a8&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 20 rows):</span></span>
@@ -238,13 +240,13 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> x1    y1    lm    c1            male            <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + c1</span></span></code></pre></div>
 <p>The resulting S3 class (“specr.setup”) includes a data frame with 96
 different specifications. We can also see that the analysis will use the
-function <code>tidy()</code> from the <code>broom</code>-package to
+function <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy()</a></code> from the <code>broom</code>-package to
 extract parameters from the models.</p>
 <p>We can also get a “visual summary” of the specifications and the
 resulting “garden of forking paths” using the generic
 <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">specs</span>, circular <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <p><img src="specr_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 </div>
 <div class="section level2">
@@ -258,9 +260,6 @@ results.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run specification curve analysis</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span>  </span>
-<span><span class="co">#&gt; Models fitted based on 384 specifications</span></span>
-<span><span class="co">#&gt; Number of cores used: 1 </span></span>
-<span><span class="co">#&gt; 6.402 sec elapsed</span></span>
 <span></span>
 <span><span class="co"># Summarize results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
@@ -268,9 +267,9 @@ results.</p>
 <span><span class="co">#&gt; -------------------</span></span>
 <span><span class="co">#&gt; Technical details:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Class:                          specr.object -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    6.402 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    5.609 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       384 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -376,20 +375,22 @@ be used to produce the typical visualization of the specification curve
 and how the analytical choices affected the obtained results.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot entire visualization</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="specr_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Plot </span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, desc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="specr_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 <p>The resulting plot includes the ranked specification curve (A) and an
 overview about how the different analytical choices affect the estimate
 of interest (B). Red represents negative and significant effects (based
 on the chosen significance level, by default <span class="math inline">\(\alpha = .05\)</span>). Blue represents positive
 and significant effects. Grey refers to non-significant effects.</p>
+<p>We can also just plot the curve and adjust the style and layout using
+<code>ggplot2</code>- functions.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Plot </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, desc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_color_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Dark2"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_grey</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="specr_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 <p>Sometimes, it can be useful to check the influence of specific
 choices on the estimate of interest more precisely. We can again use the
 generic function <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> to produce respective boxplots.</p>

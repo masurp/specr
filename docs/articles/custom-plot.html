@@ -169,7 +169,7 @@ included in the package.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7f812922c0d8&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7f82f4bd6000&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
@@ -193,15 +193,13 @@ core (by setting <code>workers = 1</code>).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Running specification curve analysis </span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 192 specifications</span></span>
-<span><span class="co">## Number of cores used: 1</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="investigating-the-results">Investigating the results<a class="anchor" aria-label="anchor" href="#investigating-the-results"></a>
 </h3>
 <p>Let’s quickly get some ideas about the specification curve by using
 the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> function.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Overall summary</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Results of the specification curve analysis</span></span>
@@ -210,7 +208,7 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     1 </span></span>
-<span><span class="co">##   Duration of fitting process:    1.635 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    1.71 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       192 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
@@ -244,7 +242,7 @@ from 250 to 1000 (the full data set). We can also summarize different
 aspects in more detail. For example, by add <code>type = "curve"</code>,
 we are able to produce descriptive summaries of the multiverse of
 parameters.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Specific descriptive analysis of the curve, grouped by x and y</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>        type <span class="op">=</span> <span class="st">"curve"</span>, </span>
@@ -280,21 +278,21 @@ without any further arguments specified. In the background, the function
 is actually set to <code>type = "default"</code>, which creates both the
 specification curve plot and the choice panel and combines them into a
 larger figure.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>We can further customize that function, e.g., by removing unnecessary
 information (in this case we only specified one model, plotting this
 analytical choice is hence useless) or by reordering/transforming the
 analytical choices (and thereby visualize specific contrasts).</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Customizing plot</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>     choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span>, <span class="co"># model is not plotted</span></span>
 <span>                 <span class="st">"group1"</span>, <span class="st">"group2"</span><span class="op">)</span>,  <span class="co"># subset split into original groups</span></span>
 <span>     rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.75</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span>          <span class="co"># changing relative heights</span></span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Investigating specific contrasts</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="va">results</span><span class="op">$</span><span class="va">data</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grepl</a></span><span class="op">(</span><span class="st">"female"</span>, <span class="va">subsets</span><span class="op">)</span>, <span class="st">"female"</span>, </span>
@@ -317,7 +315,7 @@ covers the most important aspects of the analysis. Alternatively, we can
 plot the specification curve and the choice panel individually and bind
 them together afterwards. This is useful as it allows us to customize
 and change both individual plots (using ggplot-functions!)</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot specification curve</span></span>
 <span><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>           type <span class="op">=</span> <span class="st">"curve"</span>,</span>
@@ -353,7 +351,7 @@ impute them or delete them listwise, we should investigate how many
 participants were included in each specification. Using
 <code>plot(x, type = "samplesizes")</code>, we get a barplot that shows
 the sample size per specification.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"samplesizes"</span><span class="op">)</span> </span>
 <span></span>
 <span><span class="co"># Add to overall plot</span></span>
@@ -375,19 +373,19 @@ specifications are in fact a distribution of parameters, a box-n-whisker
 plot (short “boxplot”) is a great alternative to investigate differences
 in results contingent on analytical chocies. We simply have to use the
 argument <code>type = "boxplot"</code> to create such plots.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ALl choices</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>     type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span> </span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Specific choices and further adjustments</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>     type <span class="op">=</span> <span class="st">"boxplot"</span>, </span>
 <span>     choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-9-2.png" width="700"></p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, </span>
 <span>     type <span class="op">=</span> <span class="st">"boxplot"</span>,</span>
 <span>     choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"group1"</span>, <span class="st">"group2"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
@@ -395,7 +393,7 @@ argument <code>type = "boxplot"</code> to create such plots.</p>
 <p><img src="custom-plot_files/figure-html/unnamed-chunk-9-3.png" width="700"></p>
 <p>Bear in mind, however, that next to these generic functions, we can
 always use the resulting data frame and plot our own figures.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">group1</span>, y <span class="op">=</span> <span class="va">estimate</span>, fill <span class="op">=</span> <span class="va">group2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>

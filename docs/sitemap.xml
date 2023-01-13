@@ -13,27 +13,6 @@
     <loc>https://masurp.github.io/specr/index.html/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/01-different-specifications.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/02-custom-plot.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/03-parallelization.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/04-measurement_models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/05-random_effects.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/06-bayesian-models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/09-invest-spec.html</loc>
-  </url>
-  <url>
     <loc>https://masurp.github.io/specr/index.html/articles/bayesian-models.html</loc>
   </url>
   <url>
@@ -112,6 +91,9 @@
     <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.object.html</loc>
   </url>
   <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.setup.html</loc>
+  </url>
+  <url>
     <loc>https://masurp.github.io/specr/index.html/reference/plot_choices.html</loc>
   </url>
   <url>
@@ -137,6 +119,9 @@
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/print.specr.object.html</loc>
+  </url>
+  <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/print.specr.setup.html</loc>
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/reexports.html</loc>

@@ -204,8 +204,6 @@ for such objects.</p>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Some predictor variables are on very different scales: consider</span></span>
 <span><span class="co">#&gt; rescaling</span></span>
-<span><span class="co">#&gt; Models fitted based on 2 specifications</span></span>
-<span><span class="co">#&gt; Number of cores used: 1</span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 22</span></span></span>
 <span><span class="co">#&gt;   x       y     model controls subsets formula model_function effect group term </span></span>
@@ -291,8 +289,9 @@ the fixed effect between GDP per capita and life expectancy.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fde666e6210&gt;</span></span>
+<span><span class="co">#&gt;   function (x) </span></span>
+<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7fd618c393d8&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -328,8 +327,6 @@ required.</p>
 <span></span>
 <span><span class="co"># Run analysis in parallel and plot results</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span>  <span class="co"># pass `furrr_options` here</span></span>
-<span><span class="co">#&gt; Models fitted based on 8 specifications</span></span>
-<span><span class="co">#&gt; Number of cores used: 4</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="random_effects_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 <p>At the end of our analysis, it makes sense to explicitly close

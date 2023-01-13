@@ -95,7 +95,7 @@ via <code><a href="setup.html">setup()</a></code>.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specr</span><span class="op">(</span><span class="va">x</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, message <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">specr</span><span class="op">(</span><span class="va">x</span>, data <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -120,12 +120,6 @@ this involves passing <code>furrr_options</code> passing to the argument <code>.
 When a plan for parallelization is set, one can also set <code>.progress = TRUE</code>
 to print a progress bar during the fitting process. See details for more information
 on parallelization.</p></dd>
-
-
-<dt>message</dt>
-<dd><p>Logical value; indicates whether a short message should be
-printed after the estimation including information about corse used and elapsed time.
-Defaults to TRUE.</p></dd>
 
 </dl></div>
     <div id="value">
@@ -214,8 +208,6 @@ correlation or effect.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Run analysis (not parallelized)</span></span></span>
 <span class="r-in"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 64 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cores used: 1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summary of the results</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
@@ -225,7 +217,7 @@ correlation or effect.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Class:                          specr.object -- version: 1.0.0 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Cores used:                     1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.572 sec elapsed </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Duration of fitting process:    0.969 sec elapsed </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Number of specifications:       64 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Descriptive summary of the specification curve:</span>
@@ -268,8 +260,6 @@ correlation or effect.</p>
 <span class="r-in"><span><span class="va">specs_tibble</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">specs2</span><span class="op">)</span>      <span class="co"># extract tibble from setup</span></span></span>
 <span class="r-in"><span><span class="va">results2</span> <span class="op">&lt;-</span> <span class="fu">specr</span><span class="op">(</span><span class="va">specs_tibble</span>,</span></span>
 <span class="r-in"><span>                  data <span class="op">=</span> <span class="va">example_data</span><span class="op">)</span> <span class="co"># need to provide data!</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Models fitted based on 8 specifications</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of cores used: 1 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Results (tibble instead of S3 class)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results2</span><span class="op">)</span></span></span>

@@ -205,7 +205,7 @@ aspects of the Bayesian models.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   function (x) </span></span>
 <span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7f823d5b3af8&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7ff71746ab20&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -248,7 +248,7 @@ want to use. Here, I am using 4 cores.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     4 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    3.768 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    5.104 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       24 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -302,12 +302,12 @@ explore specific models using the <code>pull</code> function.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Population-Level Effects: </span></span>
 <span><span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; Intercept    -1.09      0.04    -1.16    -1.03 1.00     1007      851</span></span>
-<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.69 1.00      796      605</span></span>
+<span><span class="co">#&gt; Intercept    -1.10      0.04    -1.17    -1.03 1.00      985      629</span></span>
+<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.69 1.00      909      661</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family Specific Parameters: </span></span>
 <span><span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00      999      578</span></span>
+<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00      820      627</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS</span></span>
 <span><span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span></span>
@@ -328,16 +328,16 @@ frame.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span><span class="co">#&gt;    id    key   value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.686</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.564</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.585</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.657</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.577</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.668</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.639</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.624</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.717</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.690</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.684</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.601</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.596</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.623</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.637</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.632</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.586</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.674</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.551</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.663</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plotting-posterior-distributions-for-all-specifications">Plotting posterior distributions for all specifications<a class="anchor" aria-label="anchor" href="#plotting-posterior-distributions-for-all-specifications"></a>
