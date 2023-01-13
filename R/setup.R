@@ -82,6 +82,7 @@
 #'
 #' @seealso [specr()] for the second step of actually running the actual specification curve analysis
 #' @seealso [summary.specr.setup()] for how to summarize and inspect the resulting specifications
+#' @seealso [plot.specr.setup()] for creating a visual summary of the specification setup.
 #'
 #' @examples
 #' ## Example 1 ----
