@@ -23,7 +23,6 @@ Per default, `specr()` summarizes individual specifications by using `broom.mixe
 library(tidyverse)
 library(specr)
 library(performance)
-
 ```
 
 ## Setup specifications with a specific extract function

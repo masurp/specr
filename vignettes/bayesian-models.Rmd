@@ -45,8 +45,7 @@ Furthermore, I also create a custom fit extract function. Most importantly, I ad
 ```{r}
 # Customized function, not necessary if standard values are to be used
 brm_new <- function(formula, data) {
-  brm(formula, data, 
-      seed = 42,
+  brm(formula, data,
       silent = 2,   # Don't print progress
       refresh = 0,  # Remove message (not necessary, but nicer in the output)
       cores = 1,    # set cores to 1 to not interfere with `furrr`
@@ -200,5 +199,11 @@ plot_grid(p1, p2,
           align = "hv",            
           axis = "tblr",            
           rel_heights = c(3, 2))
+```
+
+At the end of our analysis, it makes sense to explicitly close multisession workers by switching the plan back to sequential. 
+
+```{r}
+plan(sequential)
 ```
 

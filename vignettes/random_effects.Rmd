@@ -27,6 +27,7 @@ library(tidyverse)
 library(specr)
 library(gapminder)
 library(lme4)
+library(furrr)  # For parallelization!
 
 # Recode some variables
 gapminder <- gapminder %>%
@@ -139,4 +140,8 @@ results <- specr(specs, .options = opts)  # pass `furrr_options` here
 plot(results)
 ```
 
+At the end of our analysis, it makes sense to explicitly close multisession workers by switching the plan back to sequential. 
 
+```{r}
+plan(sequential)
+```

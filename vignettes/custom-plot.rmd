@@ -42,7 +42,7 @@ won't take much time, we do not parallelize and stick to one core (by setting `w
 
 ```{r}
 # Running specification curve analysis 
-results <- specr(specs, workers = 1)
+results <- specr(specs)
 ```
 
 ## Investigating the results

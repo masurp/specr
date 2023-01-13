@@ -23,8 +23,8 @@ The following vignette is a more comprehensive version of the short example on t
 ```{r, message=F, warning = F}
 # Load library
 library(specr)
+library(ggplot2)
 ```
-
 
 ## Understanding the data
 
@@ -71,7 +71,7 @@ The resulting S3 class ("specr.setup") includes a data frame with 96 different s
 We can also get a "visual summary" of the specifications and the resulting "garden of forking paths" using the generic `plot()` function. 
 
 ```{r}
-plot(specs, circular = TRUE)
+plot(specs)
 ```
 
 ## Fit models across specifications
@@ -122,16 +122,18 @@ However, in order to grasp how the different analytical choices affect the outco
 plot(results)
 ```
 
+The resulting plot includes the ranked specification curve (A) and an overview about how the different analytical choices affect the estimate of interest (B). Red represents negative and significant effects (based on the chosen significance level, by default $\alpha = .05$). Blue represents positive and significant effects. Grey refers to non-significant effects. 
+
+We can also just plot the curve and adjust the style and layout using `ggplot2`- functions. 
 
 ```{r, fig.height=5, fig.width=10, message=F, warning = F}
 # Plot 
 plot(results, type = "curve", desc = TRUE) +
-  ggplot2::scale_color_brewer(palette = "Dark2") +
-  ggplot2::theme_grey() +
-  ggplot2::theme(legend.position = "none")
+  scale_color_brewer(palette = "Dark2") +
+  theme_grey() +
+  theme(legend.position = "none")
 ```
 
-The resulting plot includes the ranked specification curve (A) and an overview about how the different analytical choices affect the estimate of interest (B). Red represents negative and significant effects (based on the chosen significance level, by default $\alpha = .05$). Blue represents positive and significant effects. Grey refers to non-significant effects. 
 
 Sometimes, it can be useful to check the influence of specific choices on the estimate of interest more precisely. We can again use the generic function `plot()` to produce respective boxplots.
 

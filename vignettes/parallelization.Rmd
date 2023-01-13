@@ -16,6 +16,7 @@ Before we start to run some examples, bear in mind that using parallelization do
 library(tidyverse)
 library(specr)
 library(furrr)
+library(tictoc)
 
 # Data generating function
 generate_data <- function(seed = 42, n = 1e5) {
@@ -60,16 +61,22 @@ results_simple <- specr(specs)
 # Parallel: Multisession (only works when `furrr` is loaded!)
 plan(strategy = multisession, workers = 4)
 results_parall <- specr(specs)
+
+# Comparison
+cat("Sequential: ", results_simple$time, "\n",
+    "Parallel:   ", results_parall$time)
 ```
 
-As we can see, the default (sequential) computation took around a minute (`results_simple$time$callback_msg`) and the parallel computation about half a minute (`results_parall$time$callback_msg`).
+As we can see, the default (sequential) computation took around a minute (`r results_simple$time`) and the parallel computation about half a minute (`r results_parall$time`).
 
 We have to acknowledge that even with this comparatively large data set and more than 1,000 specifications, the reduction in time not too much. Thus, parallelization only makes sense if you have a truly large data set and thousands of specifications *or* the type of model you are estimating takes a really long time (e.g., a complex structural equation model, a negative binomial model, etc.). The true power of parallelization furthermore only come into play if you are using a considerable number of cores. 
 
 
 ## Parallelization with custom functions from different packages. 
 
-If we use a custom function, we need to make sure that this function is passed to the different workers. This can be done by specifying so called `furrr_options`. We need to pass objects from the global environment (and potentially also packages) as shown below. Please note that we do not have to specify the "future plan" again, because it is still set up from earlier (see above). If we are unsure what plan is currently specified, we can simply run `plan()` and get some information about the current setup. 
+If we use a custom function, we need to make sure that this function is passed to the different workers. This can be done by specifying so called `furrr_options`. We need to pass objects from the global environment (and potentially also packages) as shown below. Please note that we do not have to specify the "future plan" again, because have specified it already earlier in this session (see above). If we are unsure what plan is currently specified, we can simply run `plan()` and get some information about the current setup. 
+
+As computation can take a long time, it would be nice if we would see some kind of progress indication. This can easily be done by simply adding the argument `.progress = TRUE` to `specr()`. This passes this argument to the `future_pmap()` function within `specr()` and prints a rudimentary progress bar during the fitting process. 
 
 ```{r}
 # Custom function
@@ -82,7 +89,8 @@ specs <- setup(data = dat,
                y = c("y4"),                    
                x = c("x1", "x2", "x3"),               
                model = c("log_model"), 
-               distinct(dat, group))   
+               distinct(dat, group),
+               controls = c("c1", "c2"))   
 
 # Create furrr_options to be passed to specr() (only works if `furrr` is loaded)
 opts <- furrr_options(
@@ -93,14 +101,22 @@ opts <- furrr_options(
 plan()
 
 # Run results
-results_parall_2 <- specr(specs, .options = opts)
+results_parall_2 <- specr(specs, 
+                          .options = opts,
+                          .progress = TRUE, # To add progress bar
+                          message = FALSE)  # To omit message
 
 # Summarize results
 summary(results_parall_2)
 ```
 
+Note: In the technical details of the summary, we also always see how many cores were used and how long the fitting process has taken. 
 
+At the end of our analysis, it makes sense to explicitly close multisession workers by switching the plan back to sequential. 
 
+```{r}
+plan(sequential)
+```
 
 
 

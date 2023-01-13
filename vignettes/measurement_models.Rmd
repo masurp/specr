@@ -25,14 +25,16 @@ Sometimes, we may want to estimate relationships between latent variables and we
 
 ## Preparing the data set
 
-For this example, we will us the `HolzingerSwineford1939` data set that is included in the `lavaan`-package. We quickly dummy-code the sex variable as we want to include it as a control. 
-
 ```{r, message=F, warning = F}
 # Load packages
 library(tidyverse)
 library(specr)
 library(lavaan)
+```
 
+For this example, we will us the `HolzingerSwineford1939` data set that is included in the `lavaan`-package. We quickly dummy-code the sex variable as we want to include it as a control. 
+
+```{r, message=F, warning = F}
 # Load data and recode
 d <- HolzingerSwineford1939 %>% 
   mutate(sex = as.character(sex),
