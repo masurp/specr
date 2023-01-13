@@ -31,8 +31,7 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 -   4 December 2020: specr development version 0.2.2 is available via
     github. Mostly minor updates and bug fixes.
 
--   25 May 2020: specr version 0.2.1 has been released on
-    [CRAN](https://cran.r-project.org/web/packages/specr/index.html).
+-   25 May 2020: specr version 0.2.1 has been released on CRAN.
 
 ### What is specr?
 
