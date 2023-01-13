@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -127,6 +127,7 @@ some variable to get more interpretable estimates.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jennybc/gapminder" class="external-link">gapminder</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/" class="external-link">lme4</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span>  <span class="co"># For parallelization!</span></span>
 <span></span>
 <span><span class="co"># Recode some variables</span></span>
 <span><span class="va">gapminder</span> <span class="op">&lt;-</span> <span class="va">gapminder</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -176,7 +177,7 @@ for such objects.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">#&gt; -------------------------------------------</span></span>
-<span><span class="co">#&gt; Class:                      specr.setup -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt; Number of specifications:   2 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
@@ -184,7 +185,7 @@ for such objects.</p>
 <span><span class="co">#&gt;   Independent variable:     gdpPercap_log </span></span>
 <span><span class="co">#&gt;   Dependent variable:       lifeExp </span></span>
 <span><span class="co">#&gt;   Models:                   lmer </span></span>
-<span><span class="co">#&gt;   Covariates:               1 (none), pop </span></span>
+<span><span class="co">#&gt;   Covariates:               no covariates, pop </span></span>
 <span><span class="co">#&gt;   Subsets analyses:         all </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
@@ -194,23 +195,22 @@ for such objects.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
-<span><span class="co">#&gt;   x             y       model controls subsets formula                          </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPercap_log lifeExp lmer  1        all     lifeExp ~ gdpPercap_log + 1 + (1…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> gdpPercap_log lifeExp lmer  pop      all     lifeExp ~ gdpPercap_log + pop + …</span></span>
+<span><span class="co">#&gt;   x             y       model controls      subsets formula                     </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                      </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPercap_log lifeExp lmer  no covariates all     lifeExp ~ gdpPercap_log + 1…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> gdpPercap_log lifeExp lmer  pop           all     lifeExp ~ gdpPercap_log + p…</span></span>
 <span></span>
 <span><span class="co"># Run analysis and inspect results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, workers <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Some predictor variables are on very different scales: consider</span></span>
 <span><span class="co">#&gt; rescaling</span></span>
 <span><span class="co">#&gt; Models fitted based on 2 specifications</span></span>
-<span><span class="co">#&gt; Cores used: 1 </span></span>
-<span><span class="co">#&gt; 0.266 sec elapsed</span></span>
+<span><span class="co">#&gt; Number of cores used: 1</span></span>
 <span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 22</span></span></span>
 <span><span class="co">#&gt;   x       y     model controls subsets formula model_function effect group term </span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPer… life… lmer  1        all     lifeEx… <span style="color: #949494;">&lt;fn&gt;</span>           fixed  <span style="color: #BB0000;">NA</span>    gdpP…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPer… life… lmer  no cova… all     lifeEx… <span style="color: #949494;">&lt;fn&gt;</span>           fixed  <span style="color: #BB0000;">NA</span>    gdpP…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> gdpPer… life… lmer  pop      all     lifeEx… <span style="color: #949494;">&lt;fn&gt;</span>           fixed  <span style="color: #BB0000;">NA</span>    gdpP…</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 12 more variables: estimate &lt;dbl&gt;, std.error &lt;dbl&gt;, statistic &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_nobs &lt;int&gt;, fit_sigma &lt;dbl&gt;,</span></span></span>
@@ -278,7 +278,7 @@ the fixed effect between GDP per capita and life expectancy.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">#&gt; -------------------------------------------</span></span>
-<span><span class="co">#&gt; Class:                      specr.setup -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt; Number of specifications:   8 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
@@ -286,26 +286,25 @@ the fixed effect between GDP per capita and life expectancy.</p>
 <span><span class="co">#&gt;   Independent variable:     gdpPercap_log </span></span>
 <span><span class="co">#&gt;   Dependent variable:       lifeExp </span></span>
 <span><span class="co">#&gt;   Models:                   lmer_ri_1, lmer_ri_2, lmer_rs_1, lmer_rs_2 </span></span>
-<span><span class="co">#&gt;   Covariates:               1 (none), pop </span></span>
+<span><span class="co">#&gt;   Covariates:               no covariates, pop </span></span>
 <span><span class="co">#&gt;   Subsets analyses:         all </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function (x) </span></span>
-<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fd2a2ebe2e8&gt;</span></span>
+<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7fde666e6210&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
-<span><span class="co">#&gt;   x             y       model     controls subsets formula                      </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                       </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPercap_log lifeExp lmer_ri_1 1        all     lifeExp ~ gdpPercap_log + 1  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> gdpPercap_log lifeExp lmer_ri_1 pop      all     lifeExp ~ gdpPercap_log + pop</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gdpPercap_log lifeExp lmer_ri_2 1        all     lifeExp ~ gdpPercap_log + 1  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gdpPercap_log lifeExp lmer_ri_2 pop      all     lifeExp ~ gdpPercap_log + pop</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> gdpPercap_log lifeExp lmer_rs_1 1        all     lifeExp ~ gdpPercap_log + 1  </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> gdpPercap_log lifeExp lmer_rs_1 pop      all     lifeExp ~ gdpPercap_log + pop</span></span></code></pre></div>
+<span><span class="co">#&gt;   x             y       model     controls      subsets formula                 </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> gdpPercap_log lifeExp lmer_ri_1 no covariates all     lifeExp ~ gdpPercap_log…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> gdpPercap_log lifeExp lmer_ri_1 pop           all     lifeExp ~ gdpPercap_log…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> gdpPercap_log lifeExp lmer_ri_2 no covariates all     lifeExp ~ gdpPercap_log…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> gdpPercap_log lifeExp lmer_ri_2 pop           all     lifeExp ~ gdpPercap_log…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> gdpPercap_log lifeExp lmer_rs_1 no covariates all     lifeExp ~ gdpPercap_log…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> gdpPercap_log lifeExp lmer_rs_1 pop           all     lifeExp ~ gdpPercap_log…</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="fit-the-models">Fit the models<a class="anchor" aria-label="anchor" href="#fit-the-models"></a>
@@ -324,15 +323,19 @@ required.</p>
 <span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lme4"</span>, <span class="st">"broom.mixed"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
+<span><span class="co"># Specify future plan</span></span>
+<span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
+<span></span>
 <span><span class="co"># Run analysis in parallel and plot results</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, </span>
-<span>                 workers <span class="op">=</span> <span class="fl">2</span>, </span>
-<span>                 .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span>  <span class="co"># pass `furrr_options` here</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span>  <span class="co"># pass `furrr_options` here</span></span>
 <span><span class="co">#&gt; Models fitted based on 8 specifications</span></span>
-<span><span class="co">#&gt; Cores used: 2 </span></span>
-<span><span class="co">#&gt; 5.95 sec elapsed</span></span>
+<span><span class="co">#&gt; Number of cores used: 4</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></code></pre></div>
 <p><img src="random_effects_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
+<p>At the end of our analysis, it makes sense to explicitly close
+multisession workers by switching the plan back to sequential.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>

@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -133,6 +133,7 @@ specify more than 1000 specifications.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc" class="external-link">tictoc</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data generating function</span></span>
 <span><span class="va">generate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">seed</span> <span class="op">=</span> <span class="fl">42</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
@@ -179,19 +180,22 @@ running in the background on the same machine) and specify
 <span><span class="co"># Default: Sequential ---</span></span>
 <span><span class="va">results_simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
-<span><span class="co">## Number of cores used: 1 </span></span>
-<span><span class="co">## 57.537 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 1</span></span></code></pre>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Parallel: Multisession (only works when `furrr` is loaded!)</span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span>strategy <span class="op">=</span> <span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">results_parall</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Models fitted based on 1152 specifications</span></span>
-<span><span class="co">## Number of cores used: 4 </span></span>
-<span><span class="co">## 33.88 sec elapsed</span></span></code></pre>
+<span><span class="co">## Number of cores used: 4</span></span></code></pre>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Comparison</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Sequential: "</span>, <span class="va">results_simple</span><span class="op">$</span><span class="va">time</span>, <span class="st">"\n"</span>,</span>
+<span>    <span class="st">"Parallel:   "</span>, <span class="va">results_parall</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Sequential:  53.818 sec elapsed </span></span>
+<span><span class="co">##  Parallel:    35.016 sec elapsed</span></span></code></pre>
 <p>As we can see, the default (sequential) computation took around a
-minute (<code>results_simple$time$callback_msg</code>) and the parallel
-computation about half a minute
-(<code>results_parall$time$callback_msg</code>).</p>
+minute (53.818 sec elapsed) and the parallel computation about half a
+minute (35.016 sec elapsed).</p>
 <p>We have to acknowledge that even with this comparatively large data
 set and more than 1,000 specifications, the reduction in time not too
 much. Thus, parallelization only makes sense if you have a truly large
@@ -209,10 +213,17 @@ is passed to the different workers. This can be done by specifying so
 called <code>furrr_options</code>. We need to pass objects from the
 global environment (and potentially also packages) as shown below.
 Please note that we do not have to specify the “future plan” again,
-because it is still set up from earlier (see above). If we are unsure
-what plan is currently specified, we can simply run <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code>
-and get some information about the current setup.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+because have specified it already earlier in this session (see above).
+If we are unsure what plan is currently specified, we can simply run
+<code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code> and get some information about the current
+setup.</p>
+<p>As computation can take a long time, it would be nice if we would see
+some kind of progress indication. This can easily be done by simply
+adding the argument <code>.progress = TRUE</code> to
+<code><a href="../reference/specr.html">specr()</a></code>. This passes this argument to the
+<code><a href="https://furrr.futureverse.org/reference/future_map2.html" class="external-link">future_pmap()</a></code> function within <code><a href="../reference/specr.html">specr()</a></code> and
+prints a rudimentary progress bar during the fitting process.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Custom function</span></span>
 <span><span class="va">log_model</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/glm.html" class="external-link">glm</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, family <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/family.html" class="external-link">binomial</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -223,7 +234,8 @@ and get some information about the current setup.</p>
 <span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y4"</span><span class="op">)</span>,                    </span>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span>, <span class="st">"x3"</span><span class="op">)</span>,               </span>
 <span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"log_model"</span><span class="op">)</span>, </span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">group</span><span class="op">)</span><span class="op">)</span>   </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">dat</span>, <span class="va">group</span><span class="op">)</span>,</span>
+<span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span><span class="op">)</span>   </span>
 <span></span>
 <span><span class="co"># Create furrr_options to be passed to specr() (only works if `furrr` is loaded)</span></span>
 <span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span></span>
@@ -236,28 +248,28 @@ and get some information about the current setup.</p>
 <span><span class="co">## - args: function (..., workers = 4, envir = parent.frame())</span></span>
 <span><span class="co">## - tweaked: TRUE</span></span>
 <span><span class="co">## - call: plan(strategy = multisession, workers = 4)</span></span></code></pre>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Run results</span></span>
-<span><span class="va">results_parall_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Models fitted based on 18 specifications</span></span>
-<span><span class="co">## Number of cores used: 4 </span></span>
-<span><span class="co">## 7.123 sec elapsed</span></span></code></pre>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Summarize results</span></span>
+<code class="sourceCode R"><span><span class="co"># Run results</span></span>
+<span><span class="va">results_parall_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, </span>
+<span>                          .options <span class="op">=</span> <span class="va">opts</span>,</span>
+<span>                          .progress <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># To add progress bar</span></span>
+<span>                          message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># To omit message</span></span>
+<span></span>
+<span><span class="co"># Summarize results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results_parall_2</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Results of the specification curve analysis</span></span>
 <span><span class="co">## -------------------</span></span>
 <span><span class="co">## Technical details:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##   Class:                          specr.object -- version: 0.3.0 </span></span>
+<span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     4 </span></span>
-<span><span class="co">##   Duration of fitting process:    7.123 sec elapsed </span></span>
-<span><span class="co">##   Number of specifications:       18 </span></span>
+<span><span class="co">##   Duration of fitting process:    37.661 sec elapsed </span></span>
+<span><span class="co">##   Number of specifications:       72 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  median  mad   min  max q25  q75</span></span>
-<span><span class="co">##       0 0.01 -0.02 0.03   0 0.01</span></span>
+<span><span class="co">##    0.01 0.01 -0.02 0.03   0 0.01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of sample sizes: </span></span>
 <span><span class="co">## </span></span>
@@ -279,6 +291,12 @@ and get some information about the current setup.</p>
 <span><span class="co">## <span style="color: #949494;">#   fit_null.deviance &lt;dbl&gt;, fit_df.null &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_nobs &lt;dbl&gt;</span></span></span></code></pre>
+<p>Note: In the technical details of the summary, we also always see how
+many cores were used and how long the fitting process has taken.</p>
+<p>At the end of our analysis, it makes sense to explicitly close
+multisession workers by switching the plan back to sequential.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span></code></pre></div>
 </div>
   </div>
 

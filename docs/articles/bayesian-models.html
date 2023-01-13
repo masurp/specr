@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
@@ -165,8 +165,7 @@ aspects of the Bayesian models.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Customized function, not necessary if standard values are to be used</span></span>
 <span><span class="va">brm_new</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html" class="external-link">brm</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>, </span>
-<span>      seed <span class="op">=</span> <span class="fl">42</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/brms/man/brm.html" class="external-link">brm</a></span><span class="op">(</span><span class="va">formula</span>, <span class="va">data</span>,</span>
 <span>      silent <span class="op">=</span> <span class="fl">2</span>,   <span class="co"># Don't print progress</span></span>
 <span>      refresh <span class="op">=</span> <span class="fl">0</span>,  <span class="co"># Remove message (not necessary, but nicer in the output)</span></span>
 <span>      cores <span class="op">=</span> <span class="fl">1</span>,    <span class="co"># set cores to 1 to not interfere with `furrr`</span></span>
@@ -191,7 +190,7 @@ aspects of the Bayesian models.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">#&gt; -------------------------------------------</span></span>
-<span><span class="co">#&gt; Class:                      specr.setup -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt; Number of specifications:   24 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
@@ -206,7 +205,7 @@ aspects of the Bayesian models.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   function (x) </span></span>
 <span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fe604b22d90&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f823d5b3af8&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -247,9 +246,9 @@ want to use. Here, I am using 4 cores.</p>
 <span><span class="co">#&gt; -------------------</span></span>
 <span><span class="co">#&gt; Technical details:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Class:                          specr.object -- version: 0.3.0 </span></span>
+<span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     4 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    206.872 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    3.768 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       24 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -303,12 +302,12 @@ explore specific models using the <code>pull</code> function.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Population-Level Effects: </span></span>
 <span><span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; Intercept    -1.09      0.04    -1.17    -1.02 1.00     1000      816</span></span>
-<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.70 1.00      953      739</span></span>
+<span><span class="co">#&gt; Intercept    -1.09      0.04    -1.16    -1.03 1.00     1007      851</span></span>
+<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.69 1.00      796      605</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family Specific Parameters: </span></span>
 <span><span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00     1010      751</span></span>
+<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00      999      578</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS</span></span>
 <span><span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span></span>
@@ -330,15 +329,15 @@ frame.</p>
 <span><span class="co">#&gt;    id    key   value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.686</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.643</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.692</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.658</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.621</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.607</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.638</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.608</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.613</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.574</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.564</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.585</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.657</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.577</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.668</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.639</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.624</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.717</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.690</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plotting-posterior-distributions-for-all-specifications">Plotting posterior distributions for all specifications<a class="anchor" aria-label="anchor" href="#plotting-posterior-distributions-for-all-specifications"></a>
@@ -413,6 +412,10 @@ consisting of posterior distributions.</p>
 <span>          axis <span class="op">=</span> <span class="st">"tblr"</span>,            </span>
 <span>          rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bayesian-models_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
+<p>At the end of our analysis, it makes sense to explicitly close
+multisession workers by switching the plan back to sequential.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span></code></pre></div>
 </div>
   </div>
 
