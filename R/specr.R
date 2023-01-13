@@ -14,8 +14,11 @@
 #'    assumend that most users will create an object of class "specr.setup" that they'll
 #'    pass to `specr()`.
 #' @param ... Further arguments that can be passed to \code{future_pmap}. This only becomes
-#'    important if parallelization by setting up a `furrr::plan()` upfront and a
-#'    custom model function is used.
+#'    important if parallelization is used. For example, if a custom model function is used
+#'    this involves passing `furrr_options` passing to the argument `.options`.
+#'    When a plan for parallelization is set, one can also set `.progress = TRUE`
+#'    to print a progress bar during the fitting process. See details for more information
+#'    on parallelization.
 #' @param message Logical value; indicates whether a short message should be
 #'   printed after the estimation including information about corse used and elapsed time.
 #'   Defaults to TRUE.
@@ -51,6 +54,25 @@
 #'    to use several generic function such as \code{summary()} or \code{plot()}.
 #'    Use \code{methods(class = "specr.object")} for an overview on available
 #'    methods and e.g., \code{?plot.specr.object} to view the dedicated help page.
+#'
+#'    \bold{Parallelization}
+#'
+#'    By default, the function fits models across all specifications sequentially
+#'    (one after the other). If the data set is large, the models complex (e.g.,
+#'    large structural equation models, negative binomial models, or Bayesian models),
+#'    and the number of specifications is large, it can make sense to parallelize
+#'    these operations. One simply has to load the package `furrr` (which
+#'    in turn, builds on `future`) up front. Then parallelizing the fitting process
+#'    works as specified in the package description of `furr`/`future` by setting a
+#'    "plan" before running `specr` such as:
+#'
+#'    `plan(multisession, workers = 4)`
+#'
+#'    However, there are many more ways to specifically set up the plan, including
+#'    different strategy than `multisession`. For more information, see
+#'    `vignette("parallelization")` and the
+#'    [reference page](https://future.futureverse.org/reference/plan.html)
+#'    for `plan()`.
 #'
 #'
 #'    \bold{Disclaimer}
@@ -114,7 +136,7 @@ specr <- function(x,
 
 
   # Start timing
-  tictoc::tic()
+  start <- Sys.time()
 
   . <- out <- term <- y <- NULL
 
@@ -140,7 +162,7 @@ specr <- function(x,
   }
 
   # Differentiate between 1 and >1 workers
-  if(is(plan(), "sequential")) {
+  if(methods::is(plan(), "sequential")) {
 
     res <- specs %>%
       dplyr::mutate(out = pmap(., function(...) {
@@ -213,21 +235,16 @@ specr <- function(x,
       dplyr::filter(term == x)
   }
 
-  pos_formula <- which(names(res) == "formula")
-  subsets_names <- res[5:pos_formula] %>%
-    dplyr::select(-formula) %>%
-    names
+  end <- Sys.time()
+  time <- end-start
+  time <- paste(round(as.numeric(time), 3), "sec elapsed")
 
   if(isTRUE(message)) {
 
   # Print short summary
   cat("Models fitted based on", nrow(res), "specifications\n")
   cat("Number of cores used:", future::nbrOfWorkers(), "\n")
-  time <- tictoc::toc()
 
-  } else {
-
-  time <- tictoc::toc(quiet = TRUE)
 
   }
 

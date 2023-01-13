@@ -3,11 +3,11 @@
 #' @import dplyr
 #' @importFrom lme4 VarCorr lmer
 #' @importFrom glue glue
-#' @importFrom tictoc tic toc
 #' @importFrom tidyr expand_grid unnest unite
 #' @importFrom rlang enquo enquos .data
 #' @importFrom tibble tibble as_tibble lst
 #' @importFrom igraph graph_from_data_frame
+#' @importFrom methods is
 #' @importFrom purrr map map2 map_df pmap reduce cross
 #' @importFrom furrr future_pmap
 #' @importFrom future nbrOfWorkers plan multisession
