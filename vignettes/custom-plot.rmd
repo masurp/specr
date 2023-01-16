@@ -1,117 +1,180 @@
 ---
-title: "Customizing plots"
+title: "Visualizing specification curve analyses"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Customizing plots}
+  %\VignetteIndexEntry{Visualizing specification curve analyses}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette exemplifies different ways to plot the specification curve. For most cases, the function `plot_specs()` takes care of the overall process. However, more specific customization is possible if we use the more specific functions `plot_curve()` and `plot_choices`. Furthermore, we can extend the overall plot with the additional function `plot_samplesizes()`. All of these functions produce objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html) that can be customized further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html).
+This vignette exemplifies different ways to plot results from specification curve analyses. Since version 0.3.0, running the function `specr()` creates an object of class `specr.object`, which can be investigated and plotted using generic function (e.g., `summary()` and `plot()`. For most cases, simply wrapping the function `plot()` around the results will already create a comprehensive visualization. However, more specific customization is possible if we use specify the argument `type` (e.g., `type = "curve"`). Different types are available. All of resulting plots are objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html), which means they can be customized and adjusted further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html). `specr` also exports the function `plot_grid()` from the package `cowplot`, which can be used to combine different types of plots. 
 
+# Specification curve analysis
 
-## 1. Run the specification curve analysis
+## Setting up specifications
 
-In order to have some data to work with, we run the minimal example included in the package.
+In order to have some data to work with, we will use the example data included in the package. 
 
 ```{r, message = F, warning = F}
+# Load packages
+library(tidyverse)
 library(specr)
-library(dplyr)
-library(ggplot2)
-library(cowplot)
 
-# run spec analysis
-results <- run_specs(example_data,
+# Setup specifications
+specs <- setup(example_data,
                      y = c("y1", "y2"),
                      x = c("x1", "x2"),
                      model = "lm",
-                     controls = c("c1", "c2"),
-                     subset = list(group1 = unique(example_data$group1),
-                                   group2 = unique(example_data$group2)))
+                     distinct(example_data, group1),
+                     distinct(example_data, group2),
+                     controls = c("c1", "c2"))
+
+# Summary of the specification setup
+summary(specs)
 ```
 
-Let's quickly get some ideas about the specification curve by using `summarise_specs()`
+We can see that we will estimate `r specs$n_specs` models. 
+
+## Fitting the models
+
+Next, we fit the models across these `r specs$n_specs` specifications. As this example
+won't take much time, we do not parallelize and stick to one core (by setting `workers = 1`).
+
+```{r}
+# Running specification curve analysis 
+results <- specr(specs)
+```
+
+## Investigating the results
+
+Let's quickly get some ideas about the specification curve by using the generic `summary()` function. 
 
 ```{r, message = F, warnings = F}
-summarise_specs(results)
-
-summarise_specs(results, x)
+# Overall summary
+summary(results)
 ```
 
-We see that it makes quite a difference whether `x1` or `x2` is used as independent variable. 
+The median effect size is b = 0.13 (mad = 0.45). Sample sizes range from 250 to 1000 (the full data set). We can also summarize different aspects in more detail. For example, by add `type = "curve"`, we are able to produce descriptive summaries of the multiverse of parameters.  
 
 
-## 2. A simple way to visualize the results 
-
-The simplest way to visualize most of the information contained in the results data frame is by using the `plot_specs()` function. 
-
-```{r, fig.height=10, fig.width=10, message=F, warning = F}
-plot_specs(results)
+```{r, message = F, warnings = F}
+# Specific descriptive analysis of the curve, grouped by x and y
+summary(results, 
+        type = "curve", 
+        group = c("x", "y"))
 ```
 
-We can further customize that function, e.g., by removing unnecessary information (in this case we only specified one model, this analytical choice is hence useless) or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).
+We see that it makes quite a difference what variables are actually used to estimate the relationship. 
 
-```{r, fig.height=10, fig.width=10, message=F, warning = F}
-plot_specs(results, 
-           choices = c("x", "y", "controls", "subsets"),  # "model is not plotted
-           rel_heights = c(1, 2))                         # changing relative heights
+# Visualizations
+
+The primary goal of this vignette is to provide some examples of how these results - and specifically the specification curve - can be visualized. Because received an object of class `specr.object`, we can create most visualizations using the generic `plot()` function. Different plots can be created by changing the argument `type` (e.g., `type = "boxplot"`). 
+
+## Comprehensive standard visualization
+
+The simplest way to visualize most of the information contained in the results data frame is by using the `plot()` function without any further arguments specified. In the background, the function is actually set to `type = "default"`, which creates both the specification curve plot and the choice panel and combines them into a larger figure.  
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+plot(results)
+```
+
+We can further customize that function, e.g., by removing unnecessary information (in this case we only specified one model, plotting this analytical choice is hence useless) or by reordering/transforming the analytical choices (and thereby visualize specific contrasts).
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Customizing plot
+plot(results, 
+     choices = c("x", "y", "controls", # model is not plotted
+                 "group1", "group2"),  # subset split into original groups
+     rel_heights = c(.75, 2))          # changing relative heights
 
 # Investigating specific contrasts
-results %>%
-  mutate(group1 = ifelse(grepl("group1 = 0", subsets), "0", "1"),
-         group2 = ifelse(grepl("group2 = A", subsets), "A", "B & C")) %>%
-  plot_specs(choices = c("x", "y", "controls", "group1", "group2"))
+results$data <- results$data %>%
+  mutate(gender = ifelse(grepl("female", subsets), "female", 
+                         ifelse(grepl("male", subsets), "male", "all")))
+
+# New variable as "choice"
+plot(results, 
+     choices = c("x", "y", "gender"))
 ```
 
 
-## 3. An alternative way to visualize the results
+## More advanced customization
 
-### 3.1. Plot curve and choices seperately
+### Plot curve and choices seperately
 
-The overall function `plot_specs()` is not very flexible. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots. 
+Using `plot(x, type = "default")` is not very flexible. It is designed to provided a quick, but meaningful visualization that covers the most important aspects of the analysis. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots (using ggplot-functions!) 
 
-```{r, fig.height=10, fig.width=10, message=F, warning = F}
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
 # Plot specification curve
-p1 <- plot_curve(results, 
-                 ci = FALSE, 
-                 ribbon = TRUE) +
+p1 <- plot(results, 
+           type = "curve",
+           ci = FALSE, 
+           ribbon = TRUE) +
   geom_hline(yintercept = 0, 
              linetype = "dashed", 
              color = "black") +
-  ylim(-8, 14) +
-  labs(x = "", y = "unstandarized regression coefficient") +
-  theme_half_open()
+  labs(x = "", y = "unstd. coefficients")
 
 # Plot choices
-p2 <- plot_choices(results, 
-                   choices = c("x", "y", "controls", "subsets")) +
-  labs(x = "specifications (ranked)") +
-  theme_half_open() +
-  theme(strip.text.x = element_blank())
+p2 <- plot(results, 
+           type = "choices",
+           choices = c("x", "y", "controls")) +
+  labs(x = "specifications (ranked)")
 
-# Combine plots
-plot_specs(plot_a = p1,
-           plot_b = p2,
-           labels = c("", ""),      # remove plot labels
-           rel_height = c(2, 2.5))  # adjust relative heights
+# Combine plots (see ?plot_grid for possible adjustments)
+plot_grid(p1, p2,
+          ncol = 1,           
+          align = "v",             # to align vertically
+          axis = "rbl",            # align axes
+          rel_heights = c(2, 2))   # adjust relative heights
 ```
 
-### 3.2. Include sample size histogram
+### Include sample size histogram
 
-By default, we do not know how many participants were included in each specification. If you remove missing values listwise, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. 
-The function `plot_samplesizes()` provides an additional panel that can then be added to the overall plot using `cowplot::plot_grid()`
+By default, we do not know how many participants were included in each specification. If you removed missing values listwise beforhand, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. Using `plot(x, type = "samplesizes")`, we get a barplot that shows the sample size per specification. 
 
-```{r, fig.height=10, fig.width=10, message=F, warning = F}
-p3 <- plot_samplesizes(results) +
-  theme_half_open()
+```{r, fig.height=8.5, fig.width=8, message=F, warning = F}
+p3 <- plot(results, type = "samplesizes") 
 
-# Combine via cowplot
+# Add to overall plot
 plot_grid(p1, p2, p3,
           ncol = 1,
           align = "v",
-          rel_heights = c(1.5, 2, 0.8),
-          axis = "rbl")
+          axis = "rbl",
+          rel_heights = c(1.5, 2, 0.8))
 ```
 
 
+## Alternative way to visualize specification results
+
+Although the above created figure is by far the most used in studies using specification curve analysis, there are alternative ways to visualize the results. As the parameters resulting from the different specifications are in fact a distribution of parameters, a box-n-whisker plot (short "boxplot") is a great alternative to investigate differences in results contingent on analytical chocies. We simply have to use the argument `type = "boxplot"` to create such plots. 
+
+```{r, message = F, warning = F}
+# ALl choices
+plot(results, 
+     type = "boxplot") 
+
+# Specific choices and further adjustments
+plot(results, 
+     type = "boxplot", 
+     choices = c("x", "y", "controls")) +
+  scale_fill_brewer(palette = 4)
+
+plot(results, 
+     type = "boxplot",
+     choices = c("group1", "group2")) +
+  scale_fill_manual(values = c("steelblue", "darkred"))
+```
+
+Bear in mind, however, that next to these generic functions, we can always use the resulting data frame and plot our own figures.
+
+```{r}
+results %>%
+  as_tibble %>%
+  ggplot(aes(x = group1, y = estimate, fill = group2)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Pastel1") +
+  theme_classic() +
+  labs(x = "age groups", fill = "gender")
+```
 

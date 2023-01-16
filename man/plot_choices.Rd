@@ -7,6 +7,7 @@
 plot_choices(
   df,
   var = .data$estimate,
+  group = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
   desc = FALSE,
   null = 0
@@ -16,6 +17,9 @@ plot_choices(
 \item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
+
+\item{group}{Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
 
 \item{choices}{a vector specifying which analytical choices should be plotted. By default, all choices are plotted.}
 
@@ -27,7 +31,11 @@ plot_choices(
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This functions plots how analytical choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+and adding the argument \code{type = "choices"}.
+This functions plots how analytic choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
 }
 \examples{
 # Run specification curve analysis

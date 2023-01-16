@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,56 +33,60 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
-  <a href="../articles/specr.html">Get started</a>
+  <a href="../articles/specr.html">Getting started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/custom-plot.html">Customizing plots</a>
+<li class="dropdown-header">Basics</li>
+    <li>
+      <a href="../articles/different-specifications.html">Setting up different types of specifications</a>
     </li>
     <li>
-      <a href="../articles/decompose_var.html">Identifying variance components</a>
+      <a href="../articles/custom-plot.html">Visualizing specification curve analyses</a>
     </li>
     <li>
       <a href="../articles/invest-spec.html">Investigating specific specifications</a>
     </li>
     <li>
-      <a href="../articles/measurement_models.html">Including latent measurement models</a>
+      <a href="../articles/parallelization.html">Parallelization</a>
+    </li>
+    <li class="divider">
+    </li>
+<li class="dropdown-header">Incorporating specific models</li>
+    <li>
+      <a href="../articles/measurement_models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="../articles/progress.html">Visualizing progress</a>
+      <a href="../articles/random_effects.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/random_effects.html">Including random effects</a>
+      <a href="../articles/bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">News</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/masurp/specr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/masurp/specr" class="external-link">
+    <span class="fa fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -94,147 +100,168 @@
 
       
 
-      </header><script src="invest-spec_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Investigating specific specifications</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/masurp/specr/blob/master/vignettes/invest-spec.rmd"><code>vignettes/invest-spec.rmd</code></a></small>
-      <div class="hidden name"><code>invest-spec.rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/masurp/specr/blob/HEAD/vignettes/invest-spec.Rmd" class="external-link"><code>vignettes/invest-spec.Rmd</code></a></small>
+      <div class="hidden name"><code>invest-spec.Rmd</code></div>
 
     </div>
 
     
     
-<p>Per default, <code><a href="../reference/run_specs.html">run_specs()</a></code> summarizes individual specifications by using <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">broom.mixed::tidy()</a></code> and “broom::glance()”. For most cases, this provides “sufficient” summary of the relationship of interest and model characteristics. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by the two functions (e.g., r-square). This vignette shows how to access individual models and extract further information from them.</p>
-<div id="run-specification-curve-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#run-specification-curve-analysis" class="anchor"></a>1. Run specification curve analysis</h2>
-<p>If we want to investigate individual models and particularly all aspects of that model, we need to use <code><a href="../reference/run_specs.html">run_specs()</a></code> with the additional argument <code>keep.results = TRUE</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/">specr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/">performance</a></span><span class="op">)</span>
-
-<span class="co"># Run specification curve analysis</span>
-<span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_specs.html">run_specs</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">example_data</span>, 
-                     y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>, 
-                     x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>, 
-                     model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>, 
-                     controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>, 
-                     subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group1</span><span class="op">)</span>,
-                                    group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group2</span><span class="op">)</span><span class="op">)</span>,
-                     keep.results <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<p>Per default, <code><a href="../reference/specr.html">specr()</a></code> summarizes individual
+specifications by using <code><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">broom.mixed::tidy()</a></code> and
+<code><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">broom::glance()</a></code>. For most cases, this provides a
+“sufficient” summary of the relationship of interest and model
+characteristics. Sometimes, however, it might be useful to investigate
+specific models in more detail or to investigate a specific parameter
+that is not provided by the two functions (e.g., r-square). This
+vignette shows how to access individual models and extract further
+information from them.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://easystats.github.io/performance/" class="external-link">performance</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="setup-specifications-with-a-specific-extract-function">Setup specifications with a specific extract function<a class="anchor" aria-label="anchor" href="#setup-specifications-with-a-specific-extract-function"></a>
+</h2>
+<p>If we want to investigate individual models and particularly all
+aspects of that model, we need to create a custom extract function that
+also stores the entire model object in the result data frame.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Custom function</span></span>
+<span><span class="va">tidy_new</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="va">fit</span><span class="op">$</span><span class="va">res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>  <span class="co"># Store model object</span></span>
+<span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="co"># Run specification curve analysis</span></span>
+<span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>, </span>
+<span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>, </span>
+<span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>, </span>
+<span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span><span class="op">)</span>, </span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span>
+<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,</span>
+<span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span>
+<span>               fun1 <span class="op">=</span> <span class="va">tidy_new</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="identify-models-of-interest" class="section level2">
-<h2 class="hasAnchor">
-<a href="#identify-models-of-interest" class="anchor"></a>2. Identify model(s) of interest</h2>
-<p>For this example, we are going to look at two specific models (same independent variables, all controls, all participants, but different dependent variables).</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="op">(</span><span class="va">y_models</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"x1"</span>, 
-         <span class="va">controls</span> <span class="op">==</span> <span class="st">"c1 + c2"</span>,
-         <span class="va">subsets</span> <span class="op">==</span> <span class="st">"all"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 24</span>
-<span class="co">#&gt;   x     y     model controls res   estimate std.error statistic  p.value</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;    &lt;lis&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 x1    y1    lm    c1 + c2  &lt;lm&gt;    6.17       0.412    15.0   4.70e-42</span>
-<span class="co">#&gt; 2 x1    y2    lm    c1 + c2  &lt;lm&gt;   -0.0545     0.267    -0.204 8.38e- 1</span>
-<span class="co">#&gt; # … with 15 more variables: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;int&gt;,</span>
-<span class="co">#&gt; #   fit_nobs &lt;int&gt;, subsets &lt;chr&gt;</span></pre></div>
-<p>As you can see, the resulting tibble includes an additional column called “res”. This column includes the entire “model object” and we can use it to further investigate each model.</p>
+<div class="section level2">
+<h2 id="identify-models-of-interest">Identify model(s) of interest<a class="anchor" aria-label="anchor" href="#identify-models-of-interest"></a>
+</h2>
+<p>For this example, we are going to look at two specific models (same
+independent variables, all controls, all participants, but different
+dependent variables).</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">(</span><span class="va">y_models</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">x</span> <span class="op">==</span> <span class="st">"x1"</span>, </span>
+<span>         <span class="va">controls</span> <span class="op">==</span> <span class="st">"c1 + c2"</span>,</span>
+<span>         <span class="va">subsets</span> <span class="op">==</span> <span class="st">"all"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span><span class="op">:</span><span class="va">group2</span>, <span class="va">estimate</span><span class="op">:</span><span class="va">res</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 14</span></span></span>
+<span><span class="co">#&gt;   x     y     model controls subsets group1 group2 estimate std.error statistic</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> x1    y1    lm    c1 + c2  all     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>        0.593    0.039<span style="text-decoration: underline;">3</span>     15.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> x1    y2    lm    c1 + c2  all     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.214</span>    0.038<span style="text-decoration: underline;">9</span>     -<span style="color: #BB0000;">5.51</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 4 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   res &lt;list&gt;</span></span></span></code></pre></div>
+<p>As you can see, the resulting tibble includes an additional column
+called “res”. This column includes the entire “model object” and we can
+use it to further investigate each model.</p>
 </div>
-<div id="investigate-models" class="section level2">
-<h2 class="hasAnchor">
-<a href="#investigate-models" class="anchor"></a>3. Investigate models</h2>
-<p>For example, we can now easily get a full summary of the models and compare individual coefficients and statistics.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">y_models</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">summary</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">coef</span><span class="op">)</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt;               Estimate Std. Error   t value     Pr(&gt;|t|)</span>
-<span class="co">#&gt; (Intercept) -13.155786  1.2877892 -10.21579 2.305561e-22</span>
-<span class="co">#&gt; x1            6.167539  0.4121184  14.96545 4.697951e-42</span>
-<span class="co">#&gt; c1            3.305519  0.2120368  15.58937 7.001986e-45</span>
-<span class="co">#&gt; c2            5.069924  0.2071211  24.47807 2.353281e-87</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt;               Estimate Std. Error    t value     Pr(&gt;|t|)</span>
-<span class="co">#&gt; (Intercept) -3.4181335  0.8345588 -4.0957372 4.913869e-05</span>
-<span class="co">#&gt; x1          -0.0545206  0.2670756 -0.2041392 8.383285e-01</span>
-<span class="co">#&gt; c1           3.3246890  0.1374116 24.1951149 5.457463e-86</span>
-<span class="co">#&gt; c2           2.3954736  0.1342259 17.8465776 2.162445e-55</span></pre></div>
+<div class="section level2">
+<h2 id="investigate-models">Investigate models<a class="anchor" aria-label="anchor" href="#investigate-models"></a>
+</h2>
+<p>For example, we can now easily get a full summary of the models and
+compare individual coefficients and statistics.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y_models</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">summary</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">coef</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt;                Estimate Std. Error    t value      Pr(&gt;|t|)</span></span>
+<span><span class="co">#&gt; (Intercept) -1.09466509 0.03582021 -30.559989 3.127670e-145</span></span>
+<span><span class="co">#&gt; x1           0.59291826 0.03933279  15.074403  2.084917e-46</span></span>
+<span><span class="co">#&gt; c1           0.06781034 0.03327698   2.037756  4.183823e-02</span></span>
+<span><span class="co">#&gt; c2          -0.04278267 0.03079000  -1.389499  1.649916e-01</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt;                Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span><span class="co">#&gt; (Intercept)  0.79394670 0.03540987 22.421621 1.828378e-90</span></span>
+<span><span class="co">#&gt; x1          -0.21413105 0.03888221 -5.507172 4.640637e-08</span></span>
+<span><span class="co">#&gt; c1           0.03921893 0.03289578  1.192218 2.334599e-01</span></span>
+<span><span class="co">#&gt; c2           0.54186302 0.03043728 17.802607 9.085852e-62</span></span></code></pre></div>
 <p>Or we could get r-squared values for both models.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">y_models</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span>       <span class="co"># r2 is include in the package "performance"</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; # R2 for Linear Regression</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;        R2: 0.702</span>
-<span class="co">#&gt;   adj. R2: 0.701</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; [[2]]</span>
-<span class="co">#&gt; # R2 for Linear Regression</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;        R2: 0.659</span>
-<span class="co">#&gt;   adj. R2: 0.657</span></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">y_models</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">res</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span>       <span class="co"># r2 is include in the package "performance"</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; # R2 for Linear Regression</span></span>
+<span><span class="co">#&gt;        R2: 0.217</span></span>
+<span><span class="co">#&gt;   adj. R2: 0.215</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; # R2 for Linear Regression</span></span>
+<span><span class="co">#&gt;        R2: 0.285</span></span>
+<span><span class="co">#&gt;   adj. R2: 0.282</span></span></code></pre></div>
 </div>
-<div id="some-more-examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#some-more-examples" class="anchor"></a>4. Some more examples</h2>
-<p>This way, we can analyze or compare such statistics across several models.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">r2_results</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">subsets</span> <span class="op">==</span> <span class="st">"all"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>r2 <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">r2</span><span class="op">)</span>, 
-         r2 <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span><span class="op">(</span><span class="va">r2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span>
-
-<span class="va">r2_results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">x</span><span class="op">:</span><span class="va">controls</span>, <span class="va">r2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 16 x 5</span>
-<span class="co">#&gt;    x     y     model controls           r2</span>
-<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 x1    y2    lm    no covariates 0.00263</span>
-<span class="co">#&gt;  2 x2    y2    lm    no covariates 0.0317 </span>
-<span class="co">#&gt;  3 x1    y1    lm    no covariates 0.170  </span>
-<span class="co">#&gt;  4 x1    y2    lm    c2            0.257  </span>
-<span class="co">#&gt;  5 x2    y2    lm    c2            0.277  </span>
-<span class="co">#&gt;  6 x2    y1    lm    no covariates 0.296  </span>
-<span class="co">#&gt;  7 x1    y1    lm    c1            0.343  </span>
-<span class="co">#&gt;  8 x1    y2    lm    c1            0.440  </span>
-<span class="co">#&gt;  9 x2    y2    lm    c1            0.461  </span>
-<span class="co">#&gt; 10 x2    y1    lm    c1            0.468  </span>
-<span class="co">#&gt; 11 x1    y1    lm    c2            0.557  </span>
-<span class="co">#&gt; 12 x1    y2    lm    c1 + c2       0.659  </span>
-<span class="co">#&gt; 13 x2    y1    lm    c2            0.661  </span>
-<span class="co">#&gt; 14 x2    y2    lm    c1 + c2       0.673  </span>
-<span class="co">#&gt; 15 x1    y1    lm    c1 + c2       0.702  </span>
-<span class="co">#&gt; 16 x2    y1    lm    c1 + c2       0.807</span></pre></div>
-<p>And we can plot comparisons.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="va">r2_results</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, 
-             y <span class="op">=</span> <span class="va">r2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>,
-        axis.line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span><span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
-        axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">)</span></pre></div>
-<p><img src="invest-spec_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
+<div class="section level2">
+<h2 id="some-more-examples">Some more examples<a class="anchor" aria-label="anchor" href="#some-more-examples"></a>
+</h2>
+<p>This way, we can analyze or compare such statistics across several
+models.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r2_results</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">subsets</span> <span class="op">==</span> <span class="st">"all"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>r2 <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">res</span>, <span class="va">r2</span><span class="op">)</span>, </span>
+<span>         r2 <span class="op">=</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map_dbl</a></span><span class="op">(</span><span class="va">r2</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">r2_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">x</span><span class="op">:</span><span class="va">controls</span>, <span class="va">r2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 16 × 5</span></span></span>
+<span><span class="co">#&gt;    x     y     model controls          r2</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> x2    y2    lm    no covariates 0.011<span style="text-decoration: underline;">0</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> x2    y2    lm    c1            0.011<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> x1    y2    lm    no covariates 0.055<span style="text-decoration: underline;">8</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> x1    y2    lm    c1            0.056<span style="text-decoration: underline;">9</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> x2    y1    lm    no covariates 0.082<span style="text-decoration: underline;">7</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> x2    y1    lm    c2            0.084<span style="text-decoration: underline;">4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> x2    y1    lm    c1            0.087<span style="text-decoration: underline;">2</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> x2    y1    lm    c1 + c2       0.089<span style="text-decoration: underline;">3</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    no covariates 0.213 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> x1    y1    lm    c2            0.214 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> x1    y1    lm    c1            0.216 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> x1    y1    lm    c1 + c2       0.217 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> x2    y2    lm    c2            0.265 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> x2    y2    lm    c1 + c2       0.265 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> x1    y2    lm    c2            0.284 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> x1    y2    lm    c1 + c2       0.285</span></span></code></pre></div>
+<p>And we can plot comparisons…</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r2_results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">r2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>rank <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">rank</span>, </span>
+<span>             y <span class="op">=</span> <span class="va">r2</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>strip.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_blank</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>        axis.line <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_line</a></span><span class="op">(</span><span class="st">"black"</span>, size <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,</span>
+<span>        axis.text <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="invest-spec_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
   </div>
 
@@ -249,11 +276,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Philipp K. Masur, Michael Scharkow.</p>
+  <p></p>
+<p>Developed by Philipp K. Masur, Michael Scharkow.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -261,6 +290,8 @@
 
   
 
+
+  
 
   </body>
 </html>

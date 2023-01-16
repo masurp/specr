@@ -1,0 +1,201 @@
+---
+title: "Incorporating structural equation models"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Incorporating structural equation models}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  #fig.path = "man/figures/README-",
+  out.width = "100%",
+  fig.retina = 2
+)
+```
+
+Sometimes, we may want to estimate relationships between latent variables and we are interested in the effect of different measurement models on the relationship of interest. Because specifically customized model-functions can be passed to `run_specs()` many different model types (including structural equation models, multilevel models...) can be estimated. This vignette exemplifies how to integrate latent measurement models and estimate structural equations models (SEM).
+
+
+# Preparations
+
+
+## Preparing the data set
+
+```{r, message=F, warning = F}
+# Load packages
+library(tidyverse)
+library(specr)
+library(lavaan)
+```
+
+For this example, we will us the `HolzingerSwineford1939` data set that is included in the `lavaan`-package. We quickly dummy-code the sex variable as we want to include it as a control. 
+
+```{r, message=F, warning = F}
+# Load data and recode
+d <- HolzingerSwineford1939 %>% 
+  mutate(sex = as.character(sex),
+         school = as.character(school)) %>%
+  as_tibble
+
+# Check data
+head(d)
+```
+
+Let's quickly run a simple structural equation model with lavaan. Note that there are separate regression formulas for the measurement models and the actual regression models in the string that represents the model. The regression formulas follows a similar pattern as formulas in linear models (e.g., using `lm()` or `glm()`) or multilevel models (e.g., using `lme4::lmer()`). This regression formula will automatically be built by the function `setup()`. The formulas denoting the measurement model (in this case only one), however, we need to actively paste into the formula string. 
+
+## Understanding `lavaan` syntax and output
+
+```{r}
+# Model syntax
+model <- "
+  # measures
+  visual  =~ x1 + x2 + x3
+
+  # regressions
+  visual ~ ageyr + grade
+"
+
+fit <- sem(model, d)
+broom::tidy(fit)
+```
+
+Whenever we want to include more complex models in "specr", it makes sense to check what output the `broom::tidy()` function produces. Here, we can see that the variable `term` does not only include the predictor (as it usually does with models such as "lm" or "glm"), but it includes the entire paths within the model. If we do not specify different types of model, this will not be a problem, but we we do (e.g., "sem" and "lm"), we need to adjust the paremeter extract function. 
+
+
+# Specification curve analysis with latent variables
+
+## Defining the customized sem model function
+
+In a first step, we thus need to create a specific function that defines the latent measurement models for the latent measures specified as `x` and `y` in `setup()` and incoporate them into a formula that follows the lavaan-syntax. The function needs to have two arguments: a) formula and b) data. The exact function now depends on the purpose and goals of the particular question. 
+
+In this case, we want to include three different latent measurement models for dependent variables. First, we have to define a a *named list* with these measurement models. This is important as the function makes use of the "names". 
+
+In a second step, we need to exclude the "+ 1" placeholder the specr automatically adds to each formula if no covariates are included (in contrast to `lm()` or `lme4::lmer()`, `lavaan::sem()` does not support such a placeholder). Third, we need to make sure that only those measurement models are integrated which are actually used in the regression formula (it does not matter whether these are independent or control variables). Fourth, we need to paste the remaining measurement models into the formula. Finally, we run the structural equation model (here, additional arguments such as `estimator` could be used).  
+
+```{r}
+sem_custom <- function(formula, data) {
+  
+  require(lavaan)
+  
+  # 1) Define latent variables as a named list
+  latent <- list(visual =  "visual  =~ x1 + x2 + x3",
+                 textual = "textual =~ x4 + x5 + x6",
+                 speed =   "speed   =~ x7 + x8 + x9")
+  
+  # 2) Remove placeholder for no covariates (lavaan does not like "+ 1")
+  formula <- str_remove_all(formula, "\\+ 1")
+  
+  # 3) Check which of the additional measurement models are actually used in the formula
+  valid <- purrr::keep(names(latent), 
+                       ~ stringr::str_detect(formula, .x))
+  
+  # 4) Include measurement models in the formula using lavaan syntax
+  formula <- paste(formula, "\n",
+                   paste(latent[valid], 
+                         collapse = " \n "))
+  
+  # 5) Run SEM with sem function
+  sem(formula, data)
+}
+
+# In short:
+sem_custom <- function(formula, data) {
+  require(lavaan)
+  latent <- list(visual =  "visual  =~ x1 + x2 + x3",
+                 textual = "textual =~ x4 + x5 + x6",
+                 speed =   "speed   =~ x7 + x8 + x9")
+  formula <- stringr::str_remove_all(formula, "\\+ 1")
+  valid <- purrr::keep(names(latent), ~ stringr::str_detect(formula, .x))
+  formula <- paste(formula, "\n", paste(latent[valid], collapse = " \n "))
+  sem(formula, data)
+}
+
+```
+
+
+## Run the specification curve analysis with additional parameters
+
+Now we use `setup()` like we are used to. We only include the new function as model parameter and use the latent variables (see named list in the custom function) as depended variables.  Warning messages may appear if models do not converge or have other issues. 
+
+```{r}
+# Setup specs
+specs <- setup(data = d,
+               y = c("textual", "visual", "speed"),
+               x = c("ageyr"),
+               model = c("sem_custom"),
+               distinct(d, sex),
+               distinct(d, school),
+               controls = c("grade"))
+
+# Summarize specifications
+summary(specs, row = 10)
+```
+
+Within the specification table, we don't really see much difference compared to standard models such as e.g., "lm". However, in the formula, variables refer to latent variables as specified in the custom function. 
+
+If we know pass it to `specr()`, actual structural equation models will be fitted in the background. 
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+results <- specr(specs)
+plot(results, choices = c("y", "controls", "model", "subsets"))
+```
+
+## Additional insights from "lavaan" objects
+
+Because the `broom::tidy()` functions also extracts standardized coefficients, we can plot them on top of the unstandarized coefficients with a little bit of extra code.
+
+```{r, fig.height=9, fig.width=9, message=F, warning = F}
+# Create curve with standardized coefficients
+plot_a <- plot(results, "curve") + 
+    geom_point(aes(y = std.all, alpha = .1, size = 1.25)) +
+    geom_hline(yintercept = 0, linetype = "dashed")
+
+# Choice panel
+plot_b <- plot(results, "choices",
+               choices = c("y", "controls", "subsets"))
+
+# Combine plots
+plot_grid(plot_a, plot_b,
+          ncol = 1,           
+          align = "v",            
+          axis = "rbl",            
+          rel_heights = c(1.5, 2))  
+```
+
+Some fit indices are already included in the result data frame by default.  With a few code lines, we can plot the distribution of these fit indices across all specifications.  
+
+```{r, fig.height=8, fig.width=8, message=F, warning = F}
+# Looking at included fit indices
+results %>%
+  as_tibble %>%
+  select(x, y, model, controls, subsets, 
+         fit_cfi, fit_tli, fit_rmsea) %>%
+  head
+
+# Create curve plot
+p1 <- plot(results, "curve", var = fit_cfi, ci = FALSE) +
+  geom_line(aes(x = specifications, y = fit_cfi), color = "grey") +
+  geom_point(size = 2, shape = 18) + # increasing size of points
+  geom_line(aes(x = specifications, y = fit_rmsea), color = "grey") +
+  geom_point(aes(x = specifications, y = fit_rmsea), shape = 20, size = 2) +
+  ylim(0, 1) +
+  labs(y = "cfi & rmsea")
+
+# Create choice panel with chisq arrangement
+p2 <- plot(results, "choices", var = fit_cfi, 
+           choices = c("y", "controls", "subsets"))
+
+# Bind together
+plot_grid(p1, p2,
+          ncol = 1,           
+          align = "v",            
+          axis = "rbl",            
+          rel_heights = c(1.5, 2))
+```
+
+
+

@@ -1,6 +1,8 @@
 #' Set up specifications
 #'
-#' This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within [run_specs()], which estimates all specified models based on the data that are provided.
+#' @description `r lifecycle::badge("deprecated")`
+#'   This function was deprecated because the new version of specr uses a new analytic framework. In this framework, you should use the function [setup()] instead.
+#'   This function creates a tibble that includes all possible specifications based the dependent and independent variables, model types, and control variables that are specified. This function simply produces a tibble of all combinations. It can be used to check the specified analytical choices. This function is called within [run_specs()], which estimates all specified models based on the data that are provided.
 #'
 #' @param y a vector denoting the dependent variables
 #' @param x a vector denoting independent variables
@@ -8,20 +10,15 @@
 #' @param controls a vector of the control variables that should be included. Defaults to NULL.
 #' @param all.comb a logical value indicating what type of combinations of the control variables should be specified. Defaults to FALSE (i.e., none, all, and each individually). If this argument is set to TRUE, all possible combinations between the control variables are specified (see examples).
 #'
-#' @return a [tibble][tibble::tibble-package] that includes all possible specifications based on combinations of the analytical choices.
+#' @keywords internal
+#' @return a [tibble][tibble::tibble-package] that includes all possible specifications based on combinations of the analytic choices.
 #' @export
 #'
 #' @examples
-#' setup_specs(y = c("y1"),
-#'             x = c("x1", "x2"),
-#'             model = c("lm"),
+#' setup_specs(x = c("x1", "x2"),
+#'             y = "y2",
+#'             model = "lm",
 #'             controls = c("c1", "c2"))
-#'
-#' setup_specs(y = c("y1"),
-#'             x = c("x1", "x2"),
-#'             model = c("lm"),
-#'             controls = c("c1", "c2", "c3"),
-#'             all.comb = TRUE)
 #'
 #'@seealso [run_specs()] to run the specification curve analysis.
 setup_specs <- function(x,
@@ -30,6 +27,8 @@ setup_specs <- function(x,
                         controls = NULL,
                         all.comb = FALSE) {
 
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "setup_specs()", "setup()")
 
   if (!rlang::is_null(controls) & length(controls) == 1) {
 

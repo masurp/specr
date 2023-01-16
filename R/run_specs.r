@@ -1,6 +1,8 @@
 #' Estimate all specifications
 #'
-#' This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. The function returns a tidy tibble which includes relevant model parameters for each specification. The function \link[broom]{tidy} is used to extract relevant model parameters. Exactly what tidy considers to be a model component varies across models but is usually self-evident.
+#' @description `r lifecycle::badge("deprecated")`
+#'   This function was deprecated because the new version of specr uses different analytical framework. In this framework, you should use the function [setup()] first and then run all specifications using [specr()].
+#'   This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. The function returns a tidy tibble which includes relevant model parameters for each specification. The function \link[broom]{tidy} is used to extract relevant model parameters. Exactly what tidy considers to be a model component varies across models but is usually self-evident.
 #'
 #' @param df a data frame that includes all relevant variables
 #' @param y a vector denoting the dependent variables
@@ -44,6 +46,9 @@ run_specs <- function(df,
                       conf.level = 0.95,
                       keep.results = FALSE) {
 
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "run_specs()", "specr()")
+
   if (rlang::is_missing(x)) {
     stop("You must specify at least one independent variable `x`.")
   }
@@ -60,7 +65,7 @@ run_specs <- function(df,
 
   if (!is.null(subsets)) {
 
-    if (class(subsets) != "list") {
+    if (!inherits(subsets, "list")) {
       wrong_class <- class(subsets)
       stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
     }
@@ -96,7 +101,7 @@ run_specs <- function(df,
     stop("The confidence level must be strictly greater than 0 and less than 1.")
   }
 
-  map_df(df_all, ~ run_spec(specs,
+  res <- map_df(df_all, ~ run_spec(specs,
                             .x,
                             conf.level = conf.level,
                             keep.results = keep.results) %>%
@@ -104,7 +109,7 @@ run_specs <- function(df,
 
   } else {
 
-  run_spec(specs,
+  res <- run_spec(specs,
            df,
            conf.level = conf.level,
            keep.results = keep.results) %>%
@@ -112,4 +117,10 @@ run_specs <- function(df,
 
   }
 
+ return(res)
+
 }
+
+
+
+

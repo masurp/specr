@@ -4,12 +4,15 @@
 \alias{plot_samplesizes}
 \title{Plot sample sizes}
 \usage{
-plot_samplesizes(df, var = .data$estimate, desc = FALSE)
+plot_samplesizes(df, var = .data$estimate, group = NULL, desc = FALSE)
 }
 \arguments{
 \item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
+
+\item{group}{Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }
@@ -17,7 +20,12 @@ plot_samplesizes(df, var = .data$estimate, desc = FALSE)
 a \link[ggplot2]{ggplot} object.
 }
 \description{
-This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes).
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can plot a similar figure simply by using the generic \code{plot()}
+function and adding the argument \code{type = "samplesizes"}. This function plots a histogram
+of sample sizes per specification. It can be added to the overall specification curve
+plot (see vignettes).
 }
 \examples{
 # load additional library

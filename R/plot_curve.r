@@ -1,9 +1,15 @@
 #' Plot ranked specification curve
 #'
-#' This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function and
+#'    adding the argument \code{type = "curve"}.
+#'    This function plots the a ranked specification curve. Confidence intervals can be included. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the upper panel in \code{plot_specs()}.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
+#' @param group Should the arrangement of the curve be grouped by a particular choice?
+#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be plotted.
@@ -37,17 +43,22 @@
 #'   theme_linedraw()
 plot_curve <- function(df,
                        var = .data$estimate,
+                       group = NULL,
                        desc = FALSE,
                        ci = TRUE,
                        ribbon = FALSE,
                        legend = FALSE,
                        null = 0){
 
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_curve()", "plot.specr.object()")
+
   var <- enquo(var)
+  group <- enquo(group)
 
   # Create basic plot
   plot <- df %>%
-    format_results(var = var, null = null, desc = desc) %>%
+    format_results(var = var, group = group, null = null, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
                y = !! var,
                ymin = .data$conf.low,

@@ -6,20 +6,75 @@ template:
   bootswatch: lumen
 
 reference:
-  - title: "Specification curve analyses"
+  - title: "Conduct specification curve analysis"
+    desc: >
+      Core functions of the package that allow to a) setup all specifications and b) then fit models across all specifications
+    contents:
+      - setup
+      - specr
+  - title: "Summarize results"
+    desc: >
+      Both functions above create S3 classes that can be investigated with the generic summary function and transformed to data frames.
+    contents:
+      - summary.specr.setup
+      - summary.specr.object
+  - title: "Visualizations"
+    desc: >
+      After running setup() or specr(), the resulting S3 class objects can be passed to the generic plot function to create visualizations.
+    contents:
+      - plot.specr.setup
+      - plot.specr.object
+  - title: "Data set(s)"
+    contents:
+      - example_data
+  - title: "Deprecated"
+    desc: >
+      The following function still exist and can be used, but are deprecated from version 0.3.0 on.
     contents:
       - setup_specs
       - run_specs
-  - title: "Summarize results"
-    contents:
-      - summarise_specs
-      - icc_specs
-  - title: "Plot results"
-    contents:
       - plot_specs
       - plot_curve
       - plot_choices
-      - plot_samplesizes
       - plot_summary
+      - plot_samplesizes
       - plot_variance
       - plot_decisiontree
+      - summarise_specs
+      - icc_specs
+
+navbar:
+  structure:
+    left:  [intro, reference, articles, news]
+    right: [search, github]
+  type: default
+  left:
+  - text: Getting started
+    href: articles/specr.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Basics
+    - text: Setting up different types of specifications
+      href: articles/different-specifications.html
+    - text: Visualizing specification curve analyses
+      href: articles/custom-plot.html
+    - text: Investigating specific specifications
+      href: articles/invest-spec.html
+    - text: Parallelization
+      href: articles/parallelization.html
+    - text: -------
+    - text: Incorporating specific models
+    - text: Structural equation models
+      href: articles/measurement_models.html
+    - text: Multilevel models
+      href: articles/random_effects.html
+    - text: Bayesian Modeling
+      href: articles/bayesian-models.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/masurp/specr
+

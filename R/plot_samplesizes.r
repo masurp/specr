@@ -1,9 +1,16 @@
 #' Plot sample sizes
 #'
-#' This function plots a histogram of sample sizes per specification. It can be added to the overall specification curve plot (see vignettes).
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()}
+#'    function and adding the argument \code{type = "samplesizes"}. This function plots a histogram
+#'    of sample sizes per specification. It can be added to the overall specification curve
+#'    plot (see vignettes).
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
+#' @param group Should the arrangement of the curve be grouped by a particular choice?
+#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
 #' @return a \link[ggplot2]{ggplot} object.
@@ -33,12 +40,17 @@
 #'   theme_linedraw()
 plot_samplesizes <- function(df,
                              var = .data$estimate,
+                             group = NULL,
                              desc = FALSE) {
 
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_samplesizes()", "plot.specr.object()")
+
   var <- enquo(var)
+  group <- enquo(group)
 
   df %>%
-    format_results(var = var, desc = desc) %>%
+    format_results(var = var, group = group, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
                y = .data$fit_nobs)) +
     geom_bar(stat = "identity",

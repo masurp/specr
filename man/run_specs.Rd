@@ -39,6 +39,8 @@ run_specs(
 a \link[tibble:tibble-package]{tibble} that includes all specifications and a tidy summary of model components.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function was deprecated because the new version of specr uses different analytical framework. In this framework, you should use the function \code{\link[=setup]{setup()}} first and then run all specifications using \code{\link[=specr]{specr()}}.
 This is the central function of the package. It runs the specification curve analysis. It takes the data frame and vectors for analytical choices related to the dependent variable, the independent variable, the type of models that should be estimated, the set of covariates that should be included (none, each individually, and all together), as well as a named list of potential subsets. The function returns a tidy tibble which includes relevant model parameters for each specification. The function \link[broom]{tidy} is used to extract relevant model parameters. Exactly what tidy considers to be a model component varies across models but is usually self-evident.
 }
 \examples{

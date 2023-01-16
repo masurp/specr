@@ -9,55 +9,82 @@
 
 # specr
 
+## Conducting and Visualizing Specification Curve Analyses
+
 <!-- badges: start -->
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
-[![Travis build
-status](https://travis-ci.org/masurp/specr.svg?branch=master)](https://travis-ci.org/masurp/specr)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/specr) [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://www.tidyverse.org/lifecycle/#stable)
 <!-- badges: end -->
 
-### Conducting and Visualizing Specification Curve Analyses
+### News
+
+-   5 January 2022: specr version 1.0.0 is now available via github.
+    This is a major update with several new features and functions.
+    Note: it introduces a new framework for conduction specification
+    curve analyses compared to earlier versions (see [version
+    history](https://masurp.github.io/specr/news/index.html) for more
+    details).
+
+-   4 December 2020: specr development version 0.2.2 is available via
+    github. Mostly minor updates and bug fixes.
+
+-   25 May 2020: specr version 0.2.1 has been released on CRAN.
+
+### What is specr?
 
 The goal of specr is to facilitate specification curve analyses
-(Simonsohn, Simmons & Nelson, 2019; also known as multiverse analyses,
-see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). It can be used to
-investigate how different (theoretically plausible) analytical choices
-affect outcome statistics within the universe of one single data set.
+(Simonsohn, Simmons & Nelson, 2020; also known as multiverse analyses,
+see Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016). The package can be
+used to investigate how different (theoretically plausible) analytical
+choices affect outcome statistics within the universe of one single data
+set. It provides functions to setup, run, evaluate, and plot the
+multiverse of specifications. A simple example of how to use specr is
+provided below. For more information about the various functions and
+specific use cases, visit the
+[documentation](https://masurp.github.io/specr/index.html).
 
-It provides functions to setup, run, evaluate, and plot the multiverse
-of specifications. A simple usage example is provided below. For more
-information about the various functions and specific use cases, visit
-the [documentation](https://masurp.github.io/specr/index.html).
-
-There are also some vignettes that exemplify and explain specific
-aspects and functions of the package:
+The following vignettes exemplify and explain specific aspects and
+functions of the package:
 
 -   [Getting
     started](https://masurp.github.io/specr/articles/specr.html): A
-    comprehensive example. This vignette illustrates the major functions
-    of the package.
--   [Customizing specification curve
-    plots](https://masurp.github.io/specr/articles/custom-plot.html):
-    This vignette exemplifies various ways to plot the specification
-    curve.
--   [Decomposing the variance of the specification
-    curve](https://masurp.github.io/specr/articles/decompose_var.html):
-    Investigating variance components of the specification curve.
--   [Including latent measurement
-    models](https://masurp.github.io/specr/articles/measurement_models.html):
+    comprehensive example of how to use specr (v.0.3.0). This vignette
+    illustrates the major functions of the package (`setup` and `specr`)
+    and introduces the typical workflow.
+-   [Setting up different types of
+    specifications](https://masurp.github.io/specr/articles/different-specifications.html):
+    This vignette shows how to implement different types of analytical
+    choices (incl. different model functions, subset analysis, outliers
+    with different thresholds and many mores)
+-   [Visualizing specification curve
+    analyses](https://masurp.github.io/specr/articles/custom-plot.html):
+    This vignette exemplifies how the results of different specification
+    can be investigated using a variety of visualizations. It furthers
+    outlines ways to customize these visualizations.  
+-   [Investing specific
+    specifications](https://masurp.github.io/specr/articles/invest-spec.html):
+    This vignette shows how entire models can be kept during the fitting
+    process and investigated individually afterwards.  
+-   [Using
+    parallelization](https://masurp.github.io/specr/articles/parallelization.html):
+    This vignette shows how to parallelize the fitting process.
+-   [Incorporating structural equation
+    modeling](https://masurp.github.io/specr/articles/measurement_models.html):
     This vignette exemplifies how to include latent measurement models
-    and estimate structural equations models using `lavaan`.
--   [Including random effects/Estimate multilevel
-    models](https://masurp.github.io/specr/articles/random_effects.html):
+    and estimate structural equations models using `lavaan` as part of a
+    specification curve analysis.
+-   [Incorporating multilevel
+    modeling](https://masurp.github.io/specr/articles/random_effects.html):
     This vignette exemplifies how to include random effects and estimate
-    multilevel models using `lme4`.
--   [Visualizing progress during
-    estimation](https://masurp.github.io/specr/articles/progress.html):
-    This vignette explains how to create a progress bar for longer
-    computations.
+    multilevel models using `lme4` as part of the specification curve
+    analysis.
+-   [Incorporating Bayesian
+    modeling](https://masurp.github.io/specr/articles/bayesian-models.html):
+    This vignette shows how `specr` can also be used with Bayesian
+    modeling based on the package `brms`.
 
 ### Disclaimer
 
@@ -74,7 +101,7 @@ and not a better way to estimate a correlation or effect.
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")
+install.packages("specr")   # version 0.2.1
 ```
 
 Or install the most recent development version from
@@ -82,42 +109,35 @@ Or install the most recent development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")
+devtools::install_github("masurp/specr")   # version 1.0.0
 ```
 
 ### Usage
 
-Using `specr` is comparatively simple. The main function is
-`run_specs()` in which analytical choices are specified as arguments.
-The function `plot_specs()` can then be used to visualize the results.
+Using `specr` is comparatively simple. The two main function are
+`setup()`, in which analytic choices are specified as arguments, and
+`specr()`, which fits the models across all specifications. The latter
+creates a class called “specr.object”, which can be summarized and
+plotted with generic function such as `summary` or `plot`.
 
 ``` r
-# Load package
+# Load package ----
 library(specr)
 
-# Run specs
-results <- run_specs(df = example_data, 
-                     y = c("y1", "y2"), 
-                     x = c("x1", "x2"), 
-                     model = c("lm"), 
-                     controls = c("c1", "c2"), 
-                     subsets = list(group1 = unique(example_data$group1),
-                                    group2 = unique(example_data$group2)))
-# Result frame
-head(results)
-#> # A tibble: 6 × 12
-#>   x     y     model controls estimate std.error statistic  p.value conf.low
-#>   <chr> <chr> <chr> <chr>       <dbl>     <dbl>     <dbl>    <dbl>    <dbl>
-#> 1 x1    y1    lm    c1 + c2     4.95      0.525     9.43  3.11e-18    3.92 
-#> 2 x2    y1    lm    c1 + c2     6.83      0.321    21.3   1.20e-57    6.20 
-#> 3 x1    y2    lm    c1 + c2    -0.227     0.373    -0.607 5.44e- 1   -0.961
-#> 4 x2    y2    lm    c1 + c2     0.985     0.324     3.04  2.62e- 3    0.347
-#> 5 x1    y1    lm    c1          5.53      0.794     6.97  2.95e-11    3.96 
-#> 6 x2    y1    lm    c1          8.07      0.557    14.5   6.90e-35    6.98 
-#> # … with 3 more variables: conf.high <dbl>, obs <int>, subsets <chr>
+# Setup Specifications ----
+specs <- setup(data = example_data, 
+               y = c("y1", "y2"), 
+               x = c("x1", "x2"), 
+               model = c("lm"), 
+               distinct(example_data, group1),
+               distinct(example_data, group2),
+               controls = c("c1", "c2"))
 
-# Plot
-plot_specs(results, choices = c("x", "y", "controls", "subsets"))
+# Run Specification Curve Analysis ----
+results <- specr(specs)
+
+# Plot Specification Curve ----
+plot(results)
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
@@ -129,17 +149,17 @@ citation("specr")
 #> 
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2019). specr: Statistical functions
-#>   for conducting specification curve analyses. Available from
-#>   https://github.com/masurp/specr.
+#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
+#>   Visualizing Specification Curve Analyses. Available from
+#>   https://CRAN.R-project.org/package=specr.
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
 #>   @Misc{,
-#>     title = {specr: Statistical functions for conducting specification curve analyses (Version 0.2.1)},
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 1.0.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2019},
-#>     url = {https://github.com/masurp/specr},
+#>     year = {2020},
+#>     url = {https://CRAN.R-project.org/package=specr},
 #>   }
 ```
 
@@ -215,7 +235,11 @@ like to be included in the following list, please send an email to
     Communication & Society.*
     <https://doi.org/10.1080/1369118X.2021.1963460>
 
--   Yuan, Q., Li, H., Du, B., Dang, W., Chang, Q., Zhang, Z., Zhang, M.,
-    Ding, G., Lu, C., & Guo, T. (2022). The cerebellum and cognition:
-    Further evidence for its role in language control. *Cerebral
-    Cortex*, bhac051, <https://doi.org/10.1093/cercor/bhac051>
+-   Rauvola, R. S., & Rudolph, C. W. (2023). Worker aging, control, and
+    well-being: A specification curve analysis. *Acta Psychologica,
+    233*, 103833.
+
+-   Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., … &
+    Guo, T. (2023). The cerebellum and cognition: further evidence for
+    its role in language control. *Cerebral Cortex, 33*(1), 35-49.
+    <https://doi.org/10.1093/cercor/bhac051>

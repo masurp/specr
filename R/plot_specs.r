@@ -1,7 +1,14 @@
 #' Plot specification curve and analytical choices
 #'
-#' This function plots an entire visualization of the specification curve
-#' analysis. The function uses the entire [tibble][tibble::tibble-package] that is produced by \code{run_specs()} to create a standard visualization of the specification curve analysis. Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects to the function. In this case, it simply combines them using \code{cowplot::plot_grid}. Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).
+#' @description `r lifecycle::badge("deprecated")`
+#'    This function is deprecated because the new version of specr uses a new analytic framework.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()}
+#'    function and adding the argument \code{type = "default"}.This function plots an entire visualization of the specification curve analysis.
+#'    The function uses the entire [tibble][tibble::tibble-package] that is produced by
+#'    \code{run_specs()} to create a standard visualization of the specification curve analysis.
+#'    Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects
+#'    to the function. In this case, it simply combines them using \code{cowplot::plot_grid}.
+#'    Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant).
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param plot_a a ggplot object resulting from \code{plot_curve()} (or \code{plot_choices()} respectively).
@@ -66,6 +73,9 @@ plot_specs <- function(df = NULL,
                        ci = TRUE,
                        ribbon = FALSE,
                        ...) {
+
+  # Deprecation warning
+  lifecycle::deprecate_warn("0.3.0", "plot_specs()", "plot.specr.object()")
 
   if (!is.null(df)) {
 
