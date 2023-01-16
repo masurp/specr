@@ -9,17 +9,18 @@ CRAN release: [soon]
 
 * A new function called `setup()` is introduced and replaces the original `setup_specs()` to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models. 
 
-   - Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue #26).
+   - Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue #23 and #26).
    - Excludes some non-meaningful specifications automatically (e.g., when control and independent or dependent variable are the same).
    - Allows to specify all combinations of control variables or to "simplify" and only include none, each individually and all together (github issue #11).
    - Resulting specification can be filtered using standard `tidyverse` functions such as e.g., `filter()`. This way, one can make sure a priori that only reasonable specifications are actually included. 
-   - Produces an object of class `specr.setup`, which can be investigated using e.g., `summary()`. 
+   - Produces an object of class `specr.setup`, which can be investigated using e.g., `summary()` or `plot()`. 
 
 * The function `run_specs()` is replaced by `specr()`, which now only wraps around `setup()` to estimate all models. Most changes are related to increasing speed of the computations. 
 
    - Most importantly, the estimation process can now be parallelized (based on `furrr`) to reduce fitting time (finally solving github issue #1).
    - Deals better and faster with subset analyses.
    - Produces an object of class `specr.object`, which can be investigated using generic function such as `summary()` and `plot()`. 
+   - Plotting function have been updated and e.g. also allow to group specification according to specific choices (github issue #19)
 
 * For more information about these major changes and how to use the new version of specr, see this [vignette](https://masurp.github.io/specr/articles/specr.html). 
 
@@ -87,10 +88,3 @@ CRAN release: 2020-03-26
 * Does not allow to specify sets of control variables (github issue #11)
 
 
-# Pre-release version
-
-* This version is still in development but main functions and features are established. 
-
-## Known issues
-
-* Some further performance enhancements, customizations, debugging, and cosmetic changes will take place before any official release.
