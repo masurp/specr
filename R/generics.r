@@ -372,6 +372,8 @@ print.specr.object <- function(x, ...) {
 #' @param var Which parameter should be plotted in the curve? Defaults to
 #'    \code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
 #'    can be plotted too.
+#' @param group Should the arrangement of the curve be grouped by a particular choice?
+#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)
 #' @param choices A vector specifying which analytic choices should be plotted.
 #'     By default, all choices (x, y, model, controls, subsets) are plotted.
 #' @param labels Labels for the two parts of the plot
@@ -384,8 +386,6 @@ print.specr.object <- function(x, ...) {
 #'   plotted.
 #' @param ribbon Logical value indicating whether a ribbon instead should be
 #'   plotted
-#' @param legend Logical value indicating whether a legend should be plotted.
-#'   Defaults to FALSE.
 #' @param formula In combination with \code{type = "variance"}, you can provide
 #'   a specific formula to extract specific variance components. The syntax of the
 #'   formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
@@ -432,6 +432,9 @@ print.specr.object <- function(x, ...) {
 #' plot(results, type = "boxplot")
 #'
 #'
+#' # Grouped plot
+#' plot(results, group = controls)
+#'
 #' # Alternative and specific visualizations ----
 #' # Other variables in the resulting data set can be plotted too
 #' plot(results,
@@ -469,6 +472,7 @@ print.specr.object <- function(x, ...) {
 plot.specr.object <- function(x,
                               type = "default",
                               var = .data$estimate,
+                              group = NULL,
                               choices = c("x", "y", "model", "controls", "subsets"),
                               labels = c("A", "B"),
                               rel_heights = c(2, 3),
@@ -476,17 +480,17 @@ plot.specr.object <- function(x,
                               null = 0,
                               ci = TRUE,
                               ribbon = FALSE,
-                              legend = FALSE,
                               formula = NULL,
                               print = TRUE,
                               ...){
 
 
   var <- enquo(var)
+  group <- enquo(group)
 
   # Create specification curve plot
   plot_a <- x$data %>%
-    format_results(var = var, null = null, desc = desc) %>%
+    format_results(var = var, group = group, null = null, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
                y = !! var,
                ymin = .data$conf.low,
@@ -502,12 +506,6 @@ plot.specr.object <- function(x,
           panel.spacing = unit(.75, "lines"),
           axis.text = element_text(colour = "black")) +
     labs(x = "")
-
-  # add legends if necessary
-  if (isFALSE(legend)) {
-    plot_a <- plot_a +
-      theme(legend.position = "none")
-  }
 
   # add CIs if necessary
   if (isTRUE(ci)) {
@@ -531,7 +529,7 @@ plot.specr.object <- function(x,
   value <- key <- NULL
 
   plot_b <- x$data %>%
-    format_results(var = var, null = null, desc = desc) %>%
+    format_results(var = var, group = group, null = null, desc = desc) %>%
     tidyr::gather(key, value, choices) %>%
     dplyr::mutate(key = factor(key, levels = choices)) %>%
     ggplot(aes(x = .data$specifications,
@@ -675,7 +673,7 @@ plot.specr.object <- function(x,
   if(type == "samplesizes") {
 
     plot_e <- x$data %>%
-      format_results(var = var, desc = desc) %>%
+      format_results(var = var, group = group, desc = desc) %>%
       ggplot(aes(x = .data$specifications,
                  y = .data$fit_nobs)) +
       geom_bar(stat = "identity",

@@ -56,16 +56,26 @@ tidy_model <- function(f, fun1, fun2) {
 }
 
 # formats results
-format_results <- function(df, var, null = 0, desc = FALSE) {
+format_results <- function(df, var, group, null = 0, desc = FALSE) {
 
-  # rank specs
-  if (isFALSE(desc)) {
-    df <- df %>%
-      dplyr::arrange(!! var)
+  if(is.null(group)) {
+    if (isFALSE(desc)) {
+      df <- df %>%
+        dplyr::arrange(!! var)
+    } else {
+      df <- df %>%
+        dplyr::arrange(desc(!! var))
+    }
   } else {
-    df <- df %>%
-      dplyr::arrange(desc(!! var))
+    if (isFALSE(desc)) {
+      df <- df %>%
+        dplyr::arrange(!! group, !! var)
+    } else {
+      df <- df %>%
+        dplyr::arrange(!! group, desc(!! var))
+    }
   }
+
 
   # create rank variable and color significance
   df <- df %>%

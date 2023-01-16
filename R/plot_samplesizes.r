@@ -9,6 +9,8 @@
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
 #' @param var which variable should be evaluated? Defaults to estimate (the effect sizes computed by [run_specs()]).
+#' @param group Should the arrangement of the curve be grouped by a particular choice?
+#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #'
 #' @return a \link[ggplot2]{ggplot} object.
@@ -38,15 +40,17 @@
 #'   theme_linedraw()
 plot_samplesizes <- function(df,
                              var = .data$estimate,
+                             group = NULL,
                              desc = FALSE) {
 
   # Deprecation warning
   lifecycle::deprecate_warn("0.3.0", "plot_samplesizes()", "plot.specr.object()")
 
   var <- enquo(var)
+  group <- enquo(group)
 
   df %>%
-    format_results(var = var, desc = desc) %>%
+    format_results(var = var, group = group, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
                y = .data$fit_nobs)) +
     geom_bar(stat = "identity",
