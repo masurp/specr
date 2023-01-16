@@ -17,6 +17,7 @@
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/specr) [![Lifecycle:
 stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://www.tidyverse.org/lifecycle/#stable)
+[![R-CMD-check](https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ### News
