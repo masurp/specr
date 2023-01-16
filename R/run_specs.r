@@ -47,7 +47,7 @@ run_specs <- function(df,
                       keep.results = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "run_specs()", "specr()")
+  lifecycle::deprecate_warn("1.0.0", "run_specs()", "specr()")
 
   if (rlang::is_missing(x)) {
     stop("You must specify at least one independent variable `x`.")
