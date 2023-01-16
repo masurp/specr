@@ -3,7 +3,7 @@ context("setup")
 # Test 1:
 
 test_that("setup returns an object of class specr.setup", {
-  expect_is(setup(data = example_data,
+  expect_is(specr::setup(data = example_data,
                   x = c("x1", "x2"),
                   y = c("y1", "y2"),
                   model = "lm",
@@ -15,7 +15,7 @@ test_that("setup returns an object of class specr.setup", {
 # Test 2:
 
 test_that("setup requires a data set", {
-  expect_error(setup(x = c("x1", "x2"),
+  expect_error(specr::setup(x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      model = "lm",
                      controls = c("c1", "c2", "c3")),
@@ -25,7 +25,7 @@ test_that("setup requires a data set", {
 # Test 3:
 
 test_that("setup requires an x variable", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      y = c("y1", "y2"),
                      model = "lm",
                      controls = c("c1", "c2", "c3"),
@@ -36,7 +36,7 @@ test_that("setup requires an x variable", {
 # Test 4:
 
 test_that("setup requires a y variable", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2"),
                      model = "lm",
                      controls = c("c1", "c2", "c3"),
@@ -47,7 +47,7 @@ test_that("setup requires a y variable", {
 # Test 5:
 
 test_that("setup requires a model function", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      controls = c("c1", "c2", "c3")))
@@ -56,7 +56,7 @@ test_that("setup requires a model function", {
 # Test 6a:
 
 test_that("setup does not accept duplicates in x", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2", "x2"),
                      y = c("y1", "y2"),
                      model = "lm",
@@ -69,7 +69,7 @@ test_that("setup does not accept duplicates in x", {
 # Test 6b:
 
 test_that("setup does not accept duplicates in y", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2"),
                      y = c("y1", "y2", "y1"),
                      model = "lm",
@@ -82,7 +82,7 @@ test_that("setup does not accept duplicates in y", {
 # Test6c:
 
 test_that("setup does not accept duplicates in models", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      model = c("lm", "lm", "glm"),
@@ -95,7 +95,7 @@ test_that("setup does not accept duplicates in models", {
 # Test6c:
 
 test_that("setup does not accept duplicates in controls", {
-  expect_error(setup(data = example_data,
+  expect_error(specr::setup(data = example_data,
                      x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      model = c("lm", "lm", "glm"),
@@ -108,7 +108,7 @@ test_that("setup does not accept duplicates in controls", {
 # Test 7:
 
 test_that("setup creates all combinations", {
-  specs <- setup(data = example_data,
+  specs <- specr::setup(data = example_data,
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
@@ -124,7 +124,7 @@ test_that("setup creates all combinations", {
 # Test 8:
 
 test_that("setup creates a formula for each specification", {
-  specs <- setup(data = example_data,
+  specs <- specr::setup(data = example_data,
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
@@ -137,7 +137,7 @@ test_that("setup creates a formula for each specification", {
 # Test 9:
 
 test_that("setup creates a model function for each specification", {
-  specs <- setup(data = example_data,
+  specs <- specr::setup(data = example_data,
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
@@ -151,7 +151,7 @@ test_that("setup creates a model function for each specification", {
 # Test 10:
 
 test_that("setup creates a subsets variable", {
-  specs <- setup(data = example_data,
+  specs <- specr::setup(data = example_data,
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
@@ -165,7 +165,7 @@ test_that("setup creates a subsets variable", {
 # Test 11:
 
 test_that("setup creates object of class `specr.setup`", {
-  specs <- setup(data = example_data,
+  specs <- specr::setup(data = example_data,
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",

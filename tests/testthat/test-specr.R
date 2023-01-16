@@ -1,6 +1,6 @@
-context("setup")
+context("specr")
 
-specs <- setup(data = example_data,
+specs <- specr::setup(data = example_data,
       x = c("x1", "x2"),
       y = c("y1"),
       model = "lm",
@@ -31,3 +31,20 @@ test_that("function returns an object of class 'tibble' when no specr.setup is p
                              workers = 1),
                        "tbl_df"))
 })
+
+
+# test 4
+test_that("Specs and results have the same number of rows", {
+  results <- specr(specs)
+  expect_equal(nrow(specs), nrow(results))
+})
+
+# test 5
+test_that("Results include confidence intervals", {
+  results <- specr(specs)
+  expect_true(any(c("conf.low", "conf.high") %in% names(results$data)))
+})
+
+
+
+
