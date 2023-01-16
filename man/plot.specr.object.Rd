@@ -8,6 +8,7 @@
   x,
   type = "default",
   var = .data$estimate,
+  group = NULL,
   choices = c("x", "y", "model", "controls", "subsets"),
   labels = c("A", "B"),
   rel_heights = c(2, 3),
@@ -15,7 +16,6 @@
   null = 0,
   ci = TRUE,
   ribbon = FALSE,
-  legend = FALSE,
   formula = NULL,
   print = TRUE,
   ...
@@ -39,6 +39,9 @@ plotted.  See examples for more information.}
 \code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
 can be plotted too.}
 
+\item{group}{Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
+
 \item{choices}{A vector specifying which analytic choices should be plotted.
 By default, all choices (x, y, model, controls, subsets) are plotted.}
 
@@ -57,9 +60,6 @@ plotted.}
 
 \item{ribbon}{Logical value indicating whether a ribbon instead should be
 plotted}
-
-\item{legend}{Logical value indicating whether a legend should be plotted.
-Defaults to FALSE.}
 
 \item{formula}{In combination with \code{type = "variance"}, you can provide
 a specific formula to extract specific variance components. The syntax of the
@@ -113,6 +113,9 @@ plot(results, type = "choices")
 plot(results, type = "samplesizes")
 plot(results, type = "boxplot")
 
+
+# Grouped plot
+plot(results, group = controls)
 
 # Alternative and specific visualizations ----
 # Other variables in the resulting data set can be plotted too

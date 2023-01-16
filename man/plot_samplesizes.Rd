@@ -4,12 +4,15 @@
 \alias{plot_samplesizes}
 \title{Plot sample sizes}
 \usage{
-plot_samplesizes(df, var = .data$estimate, desc = FALSE)
+plot_samplesizes(df, var = .data$estimate, group = NULL, desc = FALSE)
 }
 \arguments{
 \item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
+
+\item{group}{Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 }

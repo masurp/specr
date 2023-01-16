@@ -97,7 +97,7 @@ plot (see vignettes).</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_samplesizes</span><span class="op">(</span><span class="va">df</span>, var <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">estimate</span>, desc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_samplesizes</span><span class="op">(</span><span class="va">df</span>, var <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">estimate</span>, group <span class="op">=</span> <span class="cn">NULL</span>, desc <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -108,6 +108,11 @@ plot (see vignettes).</p>
 
 <dt>var</dt>
 <dd><p>which variable should be evaluated? Defaults to estimate (the effect sizes computed by <code><a href="run_specs.html">run_specs()</a></code>).</p></dd>
+
+
+<dt>group</dt>
+<dd><p>Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)</p></dd>
 
 
 <dt>desc</dt>

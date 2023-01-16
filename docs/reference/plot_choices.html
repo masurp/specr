@@ -98,6 +98,7 @@ This functions plots how analytic choices affect the obtained results (i.e., the
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_choices</span><span class="op">(</span></span>
 <span>  <span class="va">df</span>,</span>
 <span>  var <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">estimate</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"model"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span><span class="op">)</span>,</span>
 <span>  desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  null <span class="op">=</span> <span class="fl">0</span></span>
@@ -112,6 +113,11 @@ This functions plots how analytic choices affect the obtained results (i.e., the
 
 <dt>var</dt>
 <dd><p>which variable should be evaluated? Defaults to estimate (the effect sizes computed by <code><a href="run_specs.html">run_specs()</a></code>).</p></dd>
+
+
+<dt>group</dt>
+<dd><p>Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)</p></dd>
 
 
 <dt>choices</dt>
@@ -143,6 +149,12 @@ This functions plots how analytic choices affect the obtained results (i.e., the
 <span class="r-in"><span>                     controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                     subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                    group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`run_specs()` was deprecated in specr 0.3.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `specr()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`setup_specs()` was deprecated in specr 0.3.0.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `setup()` instead.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">specr</span> package.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://github.com/masurp/specr/issues" class="external-link"><span style="color: #0000BB; font-style: italic;">https://github.com/masurp/specr/issues</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span>.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot simple table of choices</span></span></span>
 <span class="r-in"><span><span class="fu">plot_choices</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>

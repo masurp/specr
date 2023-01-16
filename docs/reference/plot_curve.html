@@ -98,6 +98,7 @@ This function plots the a ranked specification curve. Confidence intervals can b
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">plot_curve</span><span class="op">(</span></span>
 <span>  <span class="va">df</span>,</span>
 <span>  var <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">estimate</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  desc <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  ci <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ribbon <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -114,6 +115,11 @@ This function plots the a ranked specification curve. Confidence intervals can b
 
 <dt>var</dt>
 <dd><p>which variable should be evaluated? Defaults to estimate (the effect sizes computed by <code><a href="run_specs.html">run_specs()</a></code>).</p></dd>
+
+
+<dt>group</dt>
+<dd><p>Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)</p></dd>
 
 
 <dt>desc</dt>

@@ -98,6 +98,7 @@ specification curve analysis. Several types of visualizations are possible.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  type <span class="op">=</span> <span class="st">"default"</span>,</span>
 <span>  var <span class="op">=</span> <span class="va">.data</span><span class="op">$</span><span class="va">estimate</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"model"</span>, <span class="st">"controls"</span>, <span class="st">"subsets"</span><span class="op">)</span>,</span>
 <span>  labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,</span>
 <span>  rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span>,</span>
@@ -105,7 +106,6 @@ specification curve analysis. Several types of visualizations are possible.</p>
 <span>  null <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  ci <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  ribbon <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  print <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
@@ -135,6 +135,11 @@ plotted.  See examples for more information.</p></dd>
 <dd><p>Which parameter should be plotted in the curve? Defaults to
 <code>estimate</code>, but other parameters (e.g., p.value, fit_r.squared,...)
 can be plotted too.</p></dd>
+
+
+<dt>group</dt>
+<dd><p>Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)</p></dd>
 
 
 <dt>choices</dt>
@@ -168,11 +173,6 @@ plotted.</p></dd>
 <dt>ribbon</dt>
 <dd><p>Logical value indicating whether a ribbon instead should be
 plotted</p></dd>
-
-
-<dt>legend</dt>
-<dd><p>Logical value indicating whether a legend should be plotted.
-Defaults to FALSE.</p></dd>
 
 
 <dt>formula</dt>
@@ -259,13 +259,17 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-plt img"><img src="plot.specr.object-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Grouped plot</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, group <span class="op">=</span> <span class="va">controls</span><span class="op">)</span></span></span>
+<span class="r-plt img"><img src="plot.specr.object-8.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Alternative and specific visualizations ----</span></span></span>
 <span class="r-in"><span><span class="co"># Other variables in the resulting data set can be plotted too</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>,</span></span>
 <span class="r-in"><span>     type <span class="op">=</span> <span class="st">"curve"</span>,</span></span>
 <span class="r-in"><span>     var <span class="op">=</span> <span class="va">fit_r.squared</span>,   <span class="co"># extract "r-square" instead of "estimate"</span></span></span>
 <span class="r-in"><span>     ci <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-8.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.specr.object-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Such a plot can also be extended (e.g., by again adding the estimates with</span></span></span>
 <span class="r-in"><span><span class="co"># confidence intervals)</span></span></span>
@@ -273,7 +277,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, var <span class="op">=</span> <span class="va">fit_r.squared</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"specifications"</span>, y <span class="op">=</span> <span class="st">"r-squared | estimate"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-9.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.specr.object-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We can also investigate how much variance is explained by each analytical choice</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"variance"</span><span class="op">)</span></span></span>
@@ -284,7 +288,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3        y 0.16 0.83   83.34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4        x 0.00 0.01    0.57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Residual 0.03 0.16   15.69</span>
-<span class="r-plt img"><img src="plot.specr.object-10.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.specr.object-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices</span></span></span>
 <span class="r-in"><span><span class="co"># and also include interactions between chocies</span></span></span>
@@ -297,7 +301,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3        y 0.13 0.69   69.49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4        x 0.00 0.00    0.00</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 Residual 0.01 0.03    3.44</span>
-<span class="r-plt img"><img src="plot.specr.object-11.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.specr.object-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Combining several plots ----</span></span></span>
 <span class="r-in"><span><span class="co"># `specr` also exports the function `plot_grid()` from the package `cowplot`, which</span></span></span>
@@ -310,7 +314,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span>          axis <span class="op">=</span> <span class="st">"rbl"</span>,</span></span>
 <span class="r-in"><span>          rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>          ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-12.png" alt="" width="700" height="433"></span>
+<span class="r-plt img"><img src="plot.specr.object-13.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
   </div>

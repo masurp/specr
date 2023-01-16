@@ -7,6 +7,7 @@
 plot_curve(
   df,
   var = .data$estimate,
+  group = NULL,
   desc = FALSE,
   ci = TRUE,
   ribbon = FALSE,
@@ -18,6 +19,9 @@ plot_curve(
 \item{df}{a data frame resulting from \code{run_specs()}.}
 
 \item{var}{which variable should be evaluated? Defaults to estimate (the effect sizes computed by \code{\link[=run_specs]{run_specs()}}).}
+
+\item{group}{Should the arrangement of the curve be grouped by a particular choice?
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
 
 \item{desc}{logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.}
 
