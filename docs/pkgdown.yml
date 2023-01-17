@@ -2,15 +2,15 @@ pandoc: '2.18'
 pkgdown: 2.0.6
 pkgdown_sha: ~
 articles:
-  bayesian-models: bayesian-models.html
   custom-plot: custom-plot.html
   different-specifications: different-specifications.html
+  getting-started: getting-started.html
   invest-spec: invest-spec.html
-  measurement_models: measurement_models.html
+  measurement-models: measurement-models.html
+  multilevel-models: multilevel-models.html
+  parallel-bayesian-models: parallel-bayesian-models.html
   parallelization: parallelization.html
-  random_effects: random_effects.html
-  specr: specr.html
-last_built: 2023-01-13T14:14Z
+last_built: 2023-01-17T10:06Z
 urls:
   reference: https://masurp.github.io/specr/index.html/reference
   article: https://masurp.github.io/specr/index.html/articles

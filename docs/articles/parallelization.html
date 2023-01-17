@@ -40,7 +40,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../articles/specr.html">Getting started</a>
+  <a href="../articles/getting-started.html">Getting started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -69,13 +69,13 @@
     </li>
 <li class="dropdown-header">Incorporating specific models</li>
     <li>
-      <a href="../articles/measurement_models.html">Structural equation models</a>
+      <a href="../articles/measurement-models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="../articles/random_effects.html">Multilevel models</a>
+      <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/bayesian-models.html">Bayesian Modeling</a>
+      <a href="../articles/parallel-bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul>
 </li>
@@ -133,7 +133,6 @@ specify more than 1000 specifications.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jabiru/tictoc" class="external-link">tictoc</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data generating function</span></span>
 <span><span class="va">generate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">seed</span> <span class="op">=</span> <span class="fl">42</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
@@ -156,7 +155,7 @@ specify more than 1000 specifications.</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="co"># Generate very large data set (n = 100,000, 9.2 MB on disk)</span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">generate_data</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">generate_data</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="simple-parallelization-without-custom-functions">Simple parallelization without custom functions<a class="anchor" aria-label="anchor" href="#simple-parallelization-without-custom-functions"></a>
 </h2>
@@ -187,11 +186,11 @@ running in the background on the same machine) and specify
 <span><span class="co"># Comparison</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Sequential: "</span>, <span class="va">results_simple</span><span class="op">$</span><span class="va">time</span>, <span class="st">"\n"</span>,</span>
 <span>    <span class="st">"Parallel:   "</span>, <span class="va">results_parall</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Sequential:  1.071 sec elapsed </span></span>
-<span><span class="co">##  Parallel:    39.311 sec elapsed</span></span></code></pre>
+<pre><code><span><span class="co">## Sequential:  55.294 sec elapsed </span></span>
+<span><span class="co">##  Parallel:    33.274 sec elapsed</span></span></code></pre>
 <p>As we can see, the default (sequential) computation took around a
-minute (1.071 sec elapsed) and the parallel computation about half a
-minute (39.311 sec elapsed).</p>
+minute (55.294 sec elapsed) and the parallel computation about half a
+minute (33.274 sec elapsed).</p>
 <p>We have to acknowledge that even with this comparatively large data
 set and more than 1,000 specifications, the reduction in time not too
 much. Thus, parallelization only makes sense if you have a truly large
@@ -259,30 +258,30 @@ prints a rudimentary progress bar during the fitting process.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     4 </span></span>
-<span><span class="co">##   Duration of fitting process:    46.767 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    38.398 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       72 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##  median  mad   min  max q25  q75</span></span>
-<span><span class="co">##    0.01 0.01 -0.02 0.03   0 0.01</span></span>
+<span><span class="co">##  median  mad   min  max   q25  q75</span></span>
+<span><span class="co">##       0 0.01 -0.03 0.02 -0.01 0.01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of sample sizes: </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  median   min   max</span></span>
-<span><span class="co">##   20038 19844 1e+05</span></span>
+<span><span class="co">##   20079 19757 1e+05</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of the specification results (first 6 rows): </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 21</span></span></span>
 <span><span class="co">##   x     y     model  controls subsets group formula estimate std.error statistic</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… no cova… e       e     y4 ~ x…     0.01      0.01      0.38</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… no cova… a       a     y4 ~ x…     0.01      0.01      0.62</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… no cova… d       d     y4 ~ x…    -<span style="color: #BB0000;">0.02</span>      0.01     -<span style="color: #BB0000;">1.17</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… no cova… c       c     y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.16</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… no cova… b       b     y4 ~ x…     0.03      0.01      1.84</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… no cova… all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01      0.66</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… no cova… c       c     y4 ~ x…     0.01      0.01      0.49</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… no cova… d       d     y4 ~ x…     0.01      0.01      0.8 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… no cova… e       e     y4 ~ x…    -<span style="color: #BB0000;">0.03</span>      0.01     -<span style="color: #BB0000;">1.93</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… no cova… a       a     y4 ~ x…     0         0.01      0.03</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… no cova… b       b     y4 ~ x…     0         0.01      0.1 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… no cova… all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.23</span></span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 11 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_null.deviance &lt;dbl&gt;, fit_df.null &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span></span>

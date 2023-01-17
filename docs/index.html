@@ -40,7 +40,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="articles/specr.html">Getting started</a>
+  <a href="articles/getting-started.html">Getting started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -69,13 +69,13 @@
     </li>
 <li class="dropdown-header">Incorporating specific models</li>
     <li>
-      <a href="articles/measurement_models.html">Structural equation models</a>
+      <a href="articles/measurement-models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="articles/random_effects.html">Multilevel models</a>
+      <a href="articles/multilevel-models.html">Multilevel models</a>
     </li>
     <li>
-      <a href="articles/bayesian-models.html">Bayesian Modeling</a>
+      <a href="articles/parallel-bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul>
 </li>
@@ -126,28 +126,7 @@
 <div class="section level3">
 <h3 id="what-is-specr">What is specr?<a class="anchor" aria-label="anchor" href="#what-is-specr"></a>
 </h3>
-<p>The goal of specr is to facilitate specification curve analyses (Simonsohn, Simmons &amp; Nelson, 2020; also known as multiverse analyses, see Steegen, Tuerlinckx, Gelman &amp; Vanpaemel, 2016). The package can be used to investigate how different (theoretically plausible) analytical choices affect outcome statistics within the universe of one single data set. It provides functions to setup, run, evaluate, and plot the multiverse of specifications. A simple example of how to use specr is provided below. For more information about the various functions and specific use cases, visit the <a href="https://masurp.github.io/specr/index.html">documentation</a>.</p>
-<p>The following vignettes exemplify and explain specific aspects and functions of the package:</p>
-<ul>
-<li>
-<a href="https://masurp.github.io/specr/articles/specr.html" class="external-link">Getting started</a>: A comprehensive example of how to use specr (v.0.3.0). This vignette illustrates the major functions of the package (<code>setup</code> and <code>specr</code>) and introduces the typical workflow.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/different-specifications.html" class="external-link">Setting up different types of specifications</a>: This vignette shows how to implement different types of analytical choices (incl. different model functions, subset analysis, outliers with different thresholds and many mores)</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/custom-plot.html" class="external-link">Visualizing specification curve analyses</a>: This vignette exemplifies how the results of different specification can be investigated using a variety of visualizations. It furthers outlines ways to customize these visualizations.<br>
-</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/invest-spec.html" class="external-link">Investing specific specifications</a>: This vignette shows how entire models can be kept during the fitting process and investigated individually afterwards.<br>
-</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/parallelization.html" class="external-link">Using parallelization</a>: This vignette shows how to parallelize the fitting process.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/measurement_models.html" class="external-link">Incorporating structural equation modeling</a>: This vignette exemplifies how to include latent measurement models and estimate structural equations models using <code>lavaan</code> as part of a specification curve analysis.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/random_effects.html" class="external-link">Incorporating multilevel modeling</a>: This vignette exemplifies how to include random effects and estimate multilevel models using <code>lme4</code> as part of the specification curve analysis.</li>
-<li>
-<a href="https://masurp.github.io/specr/articles/bayesian-models.html" class="external-link">Incorporating Bayesian modeling</a>: This vignette shows how <code>specr</code> can also be used with Bayesian modeling based on the package <code>brms</code>.</li>
-</ul>
+<p>The goal of specr is to facilitate specification curve analyses (Simonsohn, Simmons &amp; Nelson, 2020; also known as multiverse analyses, see Steegen, Tuerlinckx, Gelman &amp; Vanpaemel, 2016). The package can be used to investigate how different (theoretically plausible) analytical choices affect outcome statistics within the universe of one single data set. It provides functions to setup, run, evaluate, and plot the multiverse of specifications. A simple example of how to use specr is provided below. For more information about the various functions and specific vignettes and use cases, visit the <a href="https://masurp.github.io/specr/index.html">documentation</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="disclaimer">Disclaimer<a class="anchor" aria-label="anchor" href="#disclaimer"></a>
@@ -288,6 +267,7 @@
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=specr" class="external-link"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 

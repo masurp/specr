@@ -27,7 +27,7 @@ This functions plots how analytic choices affect the obtained results (i.e., the
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav"><li>
-  <a href="../articles/specr.html">Getting started</a>
+  <a href="../articles/getting-started.html">Getting started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -54,13 +54,13 @@ This functions plots how analytic choices affect the obtained results (i.e., the
     <li class="divider">
     <li class="dropdown-header">Incorporating specific models</li>
     <li>
-      <a href="../articles/measurement_models.html">Structural equation models</a>
+      <a href="../articles/measurement-models.html">Structural equation models</a>
     </li>
     <li>
-      <a href="../articles/random_effects.html">Multilevel models</a>
+      <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/bayesian-models.html">Bayesian Modeling</a>
+      <a href="../articles/parallel-bayesian-models.html">Bayesian Modeling</a>
     </li>
   </ul></li>
 <li>
@@ -149,12 +149,6 @@ Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...
 <span class="r-in"><span>                     controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                     subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>                                    group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group2</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`run_specs()` was deprecated in specr 0.3.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `specr()` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>`setup_specs()` was deprecated in specr 0.3.0.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Please use `setup()` instead.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> The deprecated feature was likely used in the <span style="color: #0000BB;">specr</span> package.</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span>   Please report the issue at <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://github.com/masurp/specr/issues" class="external-link"><span style="color: #0000BB; font-style: italic;">https://github.com/masurp/specr/issues</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span>.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Plot simple table of choices</span></span></span>
 <span class="r-in"><span><span class="fu">plot_choices</span><span class="op">(</span><span class="va">results</span><span class="op">)</span></span></span>
