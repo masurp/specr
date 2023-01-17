@@ -29,7 +29,7 @@ reference:
       - example_data
   - title: "Deprecated"
     desc: >
-      The following function still exist and can be used, but are deprecated from version 0.3.0 on.
+      The following function still exist and can be used, but are deprecated from version 1.0.0 on.
     contents:
       - setup_specs
       - run_specs
