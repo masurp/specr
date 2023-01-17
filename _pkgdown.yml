@@ -50,7 +50,7 @@ navbar:
   type: default
   left:
   - text: Getting started
-    href: articles/specr.html
+    href: articles/getting-started.html
   - text: Reference
     href: reference/index.html
   - text: Articles
@@ -67,11 +67,11 @@ navbar:
     - text: -------
     - text: Incorporating specific models
     - text: Structural equation models
-      href: articles/measurement_models.html
+      href: articles/measurement-models.html
     - text: Multilevel models
-      href: articles/random_effects.html
+      href: articles/multilevel-models.html
     - text: Bayesian Modeling
-      href: articles/bayesian-models.html
+      href: articles/parallel-bayesian-models.html
   - text: News
     href: news/index.html
   right:
