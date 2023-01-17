@@ -35,7 +35,7 @@
 plot_variance <- function(model) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_variance()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_variance()", "plot.specr.object()")
 
 
   icc_specs(model) %>%

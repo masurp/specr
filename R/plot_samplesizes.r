@@ -44,7 +44,7 @@ plot_samplesizes <- function(df,
                              desc = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_samplesizes()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_samplesizes()", "plot.specr.object()")
 
   var <- enquo(var)
   group <- enquo(group)

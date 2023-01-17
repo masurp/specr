@@ -28,7 +28,7 @@ plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_summary()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_summary()", "plot.specr.object()")
 
   value <- key <- NULL
 

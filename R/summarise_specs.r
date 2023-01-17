@@ -55,7 +55,7 @@ summarise_specs <- function(df,
 
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "summarise_specs()", "summary.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "summarise_specs()", "summary.specr.object()")
 
   group_var <- enquos(...)
 

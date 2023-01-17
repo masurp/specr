@@ -41,7 +41,7 @@ plot_choices <- function(df,
                          null = 0) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_choices()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_choices()", "plot.specr.object()")
 
   value <- key <- NULL
 

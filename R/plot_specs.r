@@ -75,7 +75,7 @@ plot_specs <- function(df = NULL,
                        ...) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_specs()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_specs()", "plot.specr.object()")
 
   if (!is.null(df)) {
 

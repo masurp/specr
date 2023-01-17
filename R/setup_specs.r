@@ -28,7 +28,7 @@ setup_specs <- function(x,
                         all.comb = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "setup_specs()", "setup()")
+  lifecycle::deprecate_warn("1.0.0", "setup_specs()", "setup()")
 
   if (!rlang::is_null(controls) & length(controls) == 1) {
 

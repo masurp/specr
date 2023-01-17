@@ -33,7 +33,7 @@ plot_decisiontree <- function(df,
                               legend = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("0.3.0", "plot_decisiontree()", "plot.specr.setup()")
+  lifecycle::deprecate_warn("1.0.0", "plot_decisiontree()", "plot.specr.setup()")
 
   # Create data set for graph transformation
   df <- df %>%
