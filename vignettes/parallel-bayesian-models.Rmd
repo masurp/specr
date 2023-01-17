@@ -50,6 +50,7 @@ brm_new <- function(formula, data) {
       silent = 2,   # Don't print progress
       refresh = 0,  # Remove message (not necessary, but nicer in the output)
       cores = 1,    # set cores to 1 to not interfere with `furrr`
+      iter = 1000,
       chains = 1)   # I just set this here to reduce computing time, can be higher, of course
 }
 
@@ -81,14 +82,14 @@ Because we are estimating 24 Bayesian models, it makes sense to parallelize this
 opts <- furrr_options(
   seed = TRUE,
   globals = list(brm_new = brm_new, glance_brm = glance_brm),
-  packages = c("brms", "broom.mixed", "broom")
+  packages = c("brms", "broom.mixed", "broom", "rstanarm")
 )
 
 # Specify future session
 plan(multisession, workers = 4)
 
 # Run analysis with furrr_options
-results <- specr(specs, .options = opts, .progress = TRUE)
+results <- specr(specs, .options = opts)
 ```
 
 Now we can again summarize and plot our results.

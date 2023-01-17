@@ -102,7 +102,7 @@ plan()
 # Run results
 results_parall_2 <- specr(specs, 
                           .options = opts,
-                          .progress = TRUE, # To add progress bar
+                          .progress = TRUE, # To add progress bar (not shown in output)
                           message = FALSE)  # To omit message
 
 # Summarize results
