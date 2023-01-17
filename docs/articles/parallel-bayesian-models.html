@@ -170,6 +170,7 @@ aspects of the Bayesian models.</p>
 <span>      silent <span class="op">=</span> <span class="fl">2</span>,   <span class="co"># Don't print progress</span></span>
 <span>      refresh <span class="op">=</span> <span class="fl">0</span>,  <span class="co"># Remove message (not necessary, but nicer in the output)</span></span>
 <span>      cores <span class="op">=</span> <span class="fl">1</span>,    <span class="co"># set cores to 1 to not interfere with `furrr`</span></span>
+<span>      iter <span class="op">=</span> <span class="fl">1000</span>,</span>
 <span>      chains <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>   <span class="co"># I just set this here to reduce computing time, can be higher, of course</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -205,7 +206,7 @@ aspects of the Bayesian models.</p>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fec5988b7b0&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f8eb9a4b900&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
@@ -231,14 +232,14 @@ want to use. Here, I am using 4 cores.</p>
 <span><span class="va">opts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://furrr.futureverse.org/reference/furrr_options.html" class="external-link">furrr_options</a></span><span class="op">(</span></span>
 <span>  seed <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  globals <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>brm_new <span class="op">=</span> <span class="va">brm_new</span>, glance_brm <span class="op">=</span> <span class="va">glance_brm</span><span class="op">)</span>,</span>
-<span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brms"</span>, <span class="st">"broom.mixed"</span>, <span class="st">"broom"</span><span class="op">)</span></span>
+<span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"brms"</span>, <span class="st">"broom.mixed"</span>, <span class="st">"broom"</span>, <span class="st">"rstanarm"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Specify future session</span></span>
 <span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">multisession</span>, workers <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run analysis with furrr_options</span></span>
-<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span>, .progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, .options <span class="op">=</span> <span class="va">opts</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can again summarize and plot our results.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Summarize and plot results</span></span>
@@ -249,7 +250,7 @@ want to use. Here, I am using 4 cores.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     4 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    3.828 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    3.584 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       24 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -270,8 +271,8 @@ want to use. Here, I am using 4 cores.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> x1    y1    brm_new no covari… all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.62</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> x1    y1    brm_new c1         all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.6 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> x1    y1    brm_new c2         all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.61</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> x1    y1    brm_new c1 + c2    all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> x1    y2    brm_new no covari… all     y2 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.33</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> x1    y1    brm_new c1 + c2    all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.59</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> x1    y2    brm_new no covari… all     y2 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.32</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> x1    y2    brm_new c1         all     y2 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.34</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: std.error &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_algorithm &lt;chr&gt;, fit_pss &lt;dbl&gt;, fit_nobs &lt;dbl&gt;, fit_sigma &lt;dbl&gt;,</span></span></span>
@@ -298,17 +299,17 @@ explore specific models using the <code>pull</code> function.</p>
 <span><span class="co">#&gt;   Links: mu = identity; sigma = identity </span></span>
 <span><span class="co">#&gt; Formula: y1 ~ x1 + 1 </span></span>
 <span><span class="co">#&gt;    Data: data (Number of observations: 1000) </span></span>
-<span><span class="co">#&gt;   Draws: 1 chains, each with iter = 2000; warmup = 1000; thin = 1;</span></span>
-<span><span class="co">#&gt;          total post-warmup draws = 1000</span></span>
+<span><span class="co">#&gt;   Draws: 1 chains, each with iter = 1000; warmup = 500; thin = 1;</span></span>
+<span><span class="co">#&gt;          total post-warmup draws = 500</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Population-Level Effects: </span></span>
 <span><span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; Intercept    -1.09      0.04    -1.16    -1.02 1.01     1031      755</span></span>
-<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.69 1.01      959      698</span></span>
+<span><span class="co">#&gt; Intercept    -1.09      0.04    -1.16    -1.02 1.01      386      333</span></span>
+<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.70 1.00      386      309</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family Specific Parameters: </span></span>
 <span><span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00     1040      761</span></span>
+<span><span class="co">#&gt; sigma     1.13      0.02     1.09     1.18 1.00      457      304</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS</span></span>
 <span><span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span></span>
@@ -329,16 +330,16 @@ frame.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
 <span><span class="co">#&gt;    id    key   value</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.631</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.586</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.571</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.553</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.659</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.584</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.626</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.564</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.651</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.537</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.607</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.708</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.563</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.591</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.592</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.598</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.609</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.620</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.576</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.580</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plotting-posterior-distributions-for-all-specifications">Plotting posterior distributions for all specifications<a class="anchor" aria-label="anchor" href="#plotting-posterior-distributions-for-all-specifications"></a>
