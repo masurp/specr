@@ -27,6 +27,7 @@ We are also loading the library `furrr` as we want to parallelize the computatio
 ```{r, warning = F, message = F}
 library(tidyverse)
 library(specr)
+library(rstanarm)
 library(brms)
 library(broom.mixed)
 library(ggridges)
@@ -78,6 +79,7 @@ Because we are estimating 24 Bayesian models, it makes sense to parallelize this
 ```{r, warning = F, message = F, results = 'hide'}
 # Specify furrr_options
 opts <- furrr_options(
+  seed = TRUE,
   globals = list(brm_new = brm_new, glance_brm = glance_brm),
   packages = c("brms", "broom.mixed", "broom")
 )
@@ -86,7 +88,7 @@ opts <- furrr_options(
 plan(multisession, workers = 4)
 
 # Run analysis with furrr_options
-results <- specr(specs, .options = opts)
+results <- specr(specs, .options = opts, .progress = TRUE)
 ```
 
 Now we can again summarize and plot our results.

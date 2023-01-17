@@ -16,7 +16,6 @@ Before we start to run some examples, bear in mind that using parallelization do
 library(tidyverse)
 library(specr)
 library(furrr)
-library(tictoc)
 
 # Data generating function
 generate_data <- function(seed = 42, n = 1e5) {
@@ -39,7 +38,7 @@ generate_data <- function(seed = 42, n = 1e5) {
 }
 
 # Generate very large data set (n = 100,000, 9.2 MB on disk)
-dat <- generate_data(9)
+dat <- generate_data(42)
 ```
 
 ## Simple parallelization without custom functions
