@@ -244,9 +244,9 @@ specs <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
                model = c("lm"),
+               controls = "c1",
                distinct(example_data, group1),
-               distinct(example_data, group2),
-               controls = "c1")
+               distinct(example_data, group2))
 
 # Summary of specifications
 summary(specs)
@@ -287,13 +287,13 @@ specs <- setup(data = data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
                model = "lm",
+               controls = c("c1", "c2"),
                distinct(data, outlier1),
                distinct(data, outlier2),
                distinct(data, outlier3),
                distinct(data, outlier4),
                distinct(data, outlier5),
-               distinct(data, outlier6),
-               controls = c("c1", "c2"))
+               distinct(data, outlier6))
 
 # Remove unnecessary combinations
 specs$specs <- specs$specs %>%

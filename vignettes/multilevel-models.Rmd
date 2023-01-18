@@ -109,10 +109,10 @@ We can now use these function to estimate these models. In this example, we inve
 ```{r, message=F, warning = F}
 # Setup specifications with customized functions
 specs <- setup(data = gapminder,
-                y = c("lifeExp"),
-                x = c("gdpPercap_log"), 
-                model = c("lmer_ri_1", "lmer_ri_2", 
-                          "lmer_rs_1", "lmer_rs_2"),
+               y = c("lifeExp"),
+               x = c("gdpPercap_log"), 
+               model = c("lmer_ri_1", "lmer_ri_2", 
+                         "lmer_rs_1", "lmer_rs_2"),
                controls = "pop")
 
 # Check specifications

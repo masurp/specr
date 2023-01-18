@@ -127,9 +127,9 @@ specs <- setup(data = d,
                y = c("textual", "visual", "speed"),
                x = c("ageyr"),
                model = c("sem_custom"),
+               controls = c("grade"),
                distinct(d, sex),
-               distinct(d, school),
-               controls = c("grade"))
+               distinct(d, school))
 
 # Summarize specifications
 summary(specs, row = 10)

@@ -27,12 +27,9 @@ We are also loading the library `furrr` as we want to parallelize the computatio
 ```{r, warning = F, message = F}
 library(tidyverse)
 library(specr)
-library(rstanarm)
 library(brms)
-library(BH)
 library(broom.mixed)
 library(ggridges)
-library(furrr)
 ```
 
 
@@ -48,11 +45,9 @@ Furthermore, I also create a custom fit extract function. Most importantly, I ad
 # Customized function, not necessary if standard values are to be used
 brm_new <- function(formula, data) {
   brm(formula, data,
-      silent = 2,   # Don't print progress
-      refresh = 0,  # Remove message (not necessary, but nicer in the output)
-      cores = 1,    # set cores to 1 to not interfere with `furrr`
-      iter = 400,
-      chains = 1)   # I just set this here to reduce computing time, can be higher, of course
+      silent = 2,    # Don't print progress
+      refresh = 0,   # Remove message (not necessary, but nicer in the output)
+      iter = 1000)   # I just set this here to reduce computing time, can be higher, of course
 }
 
 # New fun2, fit extract function
@@ -67,7 +62,7 @@ specs <- setup(data = example_data,
               x = c("x1", "x2", "x3"),
               y = c("y1", "y2"),
               model = "brm_new",
-              #controls = c("c1", "c2"),
+              controls = c("c1", "c2"),
               fun2 = glance_brm)
 # Check specs
 summary(specs)
@@ -76,27 +71,15 @@ summary(specs)
 
 ## Estimating the models
 
-Because we are estimating 24 Bayesian models, it makes sense to parallelize this process. We hence again set up `furrr_options` and then specify the number of workers we want to use. Here, I am using 4 cores. 
+Because we are estimating 24 Bayesian models, this may take a while, but `brms` automatically parallelizes the computations. 
 
-```{r, warning = F, message = F, results = 'hide'}
-# Specify furrr_options
-opts <- furrr_options(
-  seed = TRUE,
-  globals = list(brm_new = brm_new, glance_brm = glance_brm),
-  packages = c("brms", "broom.mixed", "broom", "rstanarm", "BH")
-)
-
-# Specify future session
-plan(multisession, workers = 4)
-
-# Run analysis with furrr_options
-results <- specr(specs, .options = opts)
+```{r, warning = F, message = F}
+results <- specr(specs)
 ```
 
 Now we can again summarize and plot our results.
 
 ```{r, warning = F, message = F, fig.height=8, fig.width=8}
-# Summarize and plot results
 summary(results)
 plot(results, choices = c("x", "y", "controls"))
 ```
@@ -205,9 +188,4 @@ plot_grid(p1, p2,
           rel_heights = c(3, 2))
 ```
 
-At the end of our analysis, it makes sense to explicitly close multisession workers by switching the plan back to sequential. 
-
-```{r}
-plan(sequential)
-```
 

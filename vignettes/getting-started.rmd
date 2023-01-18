@@ -58,9 +58,10 @@ specs <- setup(data = example_data,            # First, we provide the data set
                y = c("y1", "y2"),              # We choose only one dependent variable
                x = c("x1", "x2"),              # Two independent variables
                model = c("lm", "lm_gaussian"), # We estimate two types of models
+               controls = c("c1", "c2"),       # We include two control variable 
                distinct(example_data, group1), # Subset 1
-               distinct(example_data, group2), # Subset 2
-               controls = c("c1", "c2"))       # We include two control variable 
+               distinct(example_data, group2)) # Subset 2
+                      
 
 # Overview of the specifications/multiverse
 summary(specs, rows = 20)
