@@ -29,6 +29,7 @@ library(tidyverse)
 library(specr)
 library(rstanarm)
 library(brms)
+library(BH)
 library(broom.mixed)
 library(ggridges)
 library(furrr)
@@ -50,7 +51,7 @@ brm_new <- function(formula, data) {
       silent = 2,   # Don't print progress
       refresh = 0,  # Remove message (not necessary, but nicer in the output)
       cores = 1,    # set cores to 1 to not interfere with `furrr`
-      iter = 1000,
+      iter = 400,
       chains = 1)   # I just set this here to reduce computing time, can be higher, of course
 }
 
@@ -66,7 +67,7 @@ specs <- setup(data = example_data,
               x = c("x1", "x2", "x3"),
               y = c("y1", "y2"),
               model = "brm_new",
-              controls = c("c1", "c2"),
+              #controls = c("c1", "c2"),
               fun2 = glance_brm)
 # Check specs
 summary(specs)
@@ -82,7 +83,7 @@ Because we are estimating 24 Bayesian models, it makes sense to parallelize this
 opts <- furrr_options(
   seed = TRUE,
   globals = list(brm_new = brm_new, glance_brm = glance_brm),
-  packages = c("brms", "broom.mixed", "broom", "rstanarm")
+  packages = c("brms", "broom.mixed", "broom", "rstanarm", "BH")
 )
 
 # Specify future session
