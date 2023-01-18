@@ -62,9 +62,6 @@ all specifications."><!-- mathjax --><script src="https://cdnjs.cloudflare.com/a
     <li>
       <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
-    <li>
-      <a href="../articles/parallel-bayesian-models.html">Bayesian Modeling</a>
-    </li>
   </ul></li>
 <li>
   <a href="../news/index.html">News</a>
@@ -107,7 +104,7 @@ all specifications.</p>
 <span>  <span class="va">y</span>,</span>
 <span>  <span class="va">model</span>,</span>
 <span>  controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  <span class="va">...</span>,</span>
+<span>  subsets <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  add_to_formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fun1 <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  fun2 <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -138,14 +135,19 @@ all specifications.</p>
 Defaults to NULL.</p></dd>
 
 
-<dt>...</dt>
-<dd><p>Specification of potential subsets/groups. As the subsetting
-variable should be in the data set, please specify as follows
-(<code>distinct(data, variable)</code>). Note: This variable needs to be a numeric
-(<code>&lt;dbl&gt;</code> or <code>&lt;int&gt;</code>) or a character (<code>&lt;chr&gt;</code>) variable in the the data set!
-It will not work with a factor (<code>&lt;fct&gt;</code>) variable. If your grouping variable
-is a factor, please recode to a character variable beforehand. See also
-examples further below.</p></dd>
+<dt>subsets</dt>
+<dd><p>Specification of potential subsets/groups as list.  There are two ways
+in which these can be specified that both start from the assumption that the
+"grouping" variable is in the data set. The simplest way is to provide a named
+vector within the list, whose name is the variable that should be used for
+subsetting and whose values are the values that reflect the subsets (e.g.,
+<code>list(group2 = c("female", "male")</code>). In this case, the specifications will
+includes "all", "only female" and "only male". Alternatively, you can also use
+the <code>unique</code> function to extract that vector directly from the data set
+(e.g., <code>list(group2 = unique(example_data$group2</code>). Both approaches lead to the
+same result. The former, however, has the advantages that one can also remove some of the
+subgroups (e.g. <code>list(group2 = c("female")</code>). In this case, the specifications
+will include "all" (no subset) and "only females". See examples for more details.</p></dd>
 
 
 <dt>add_to_formula</dt>
@@ -231,14 +233,14 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">## Example 1 ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setting up typical specifications</span></span></span>
-<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,             <span class="co"># data to be used</span></span></span>
-<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,               <span class="co"># independent variables</span></span></span>
-<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,               <span class="co"># dependent variables</span></span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,                    <span class="co"># model estimation function</span></span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,  <span class="co"># control variables</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,  <span class="co"># first grouping variable for subsets</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,  <span class="co"># second grouping variable for subsets</span></span></span>
-<span class="r-in"><span>               simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>                 <span class="co"># limited combinations of controls</span></span></span>
+<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
+<span class="r-in"><span>   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   model <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
+<span class="r-in"><span>   controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"middle"</span>, <span class="st">"old"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                  group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"female"</span>, <span class="st">"male"</span><span class="op">)</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
@@ -253,13 +255,13 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lm </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates, c1, c2, c3, all covariates </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         middle &amp; female, old &amp; female, young &amp; female, female, middle &amp; male, old &amp; male, young &amp; male, male, middle, old, young, all </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         young &amp; female, middle &amp; female, old &amp; female, female, young &amp; male, middle &amp; male, old &amp; male, male, young, middle, old, all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff1023f1608&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fe7761fb3f8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 18 rows):</span>
@@ -267,42 +269,43 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 18 × 8</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    x     y     model controls      subsets         group1 group2 formula     </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> x1    y1    lm    no covariates young &amp; male    young  male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> x1    y1    lm    no covariates young &amp; male    young  male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> x1    y1    lm    no covariates male            <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    no covariates middle          middle <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> x1    y1    lm    no covariates old             old    <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> x1    y1    lm    no covariates young           young  <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    no covariates young           young  <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> x1    y1    lm    no covariates middle          middle <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span> x1    y1    lm    no covariates old             old    <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span> x1    y1    lm    no covariates all             <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> x1    y1    lm    c1            middle &amp; female middle female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> x1    y1    lm    c1            old &amp; female    old    female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> x1    y1    lm    c1            young &amp; female  young  female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">13</span> x1    y1    lm    c1            young &amp; female  young  female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">14</span> x1    y1    lm    c1            middle &amp; female middle female y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">15</span> x1    y1    lm    c1            old &amp; female    old    female y1 ~ x1 + c1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">16</span> x1    y1    lm    c1            female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> x1    y1    lm    c1            middle &amp; male   middle male   y1 ~ x1 + c1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> x1    y1    lm    c1            old &amp; male      old    male   y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">17</span> x1    y1    lm    c1            young &amp; male    young  male   y1 ~ x1 + c1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">18</span> x1    y1    lm    c1            middle &amp; male   middle male   y1 ~ x1 + c1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 2 ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setting up specifications for multilevel models</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
-<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span>,               <span class="co"># multilevel model</span></span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               add_to_formula <span class="op">=</span> <span class="st">"(1|group2)"</span><span class="op">)</span>   <span class="co"># random effect in all models</span></span></span>
+<span class="r-in"><span>   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span>,                                   <span class="co"># multilevel model</span></span></span>
+<span class="r-in"><span>   subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>,           <span class="co"># only young and old!</span></span></span>
+<span class="r-in"><span>                  group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">example_data</span><span class="op">$</span><span class="va">group2</span><span class="op">)</span><span class="op">)</span>,<span class="co"># alternative specification</span></span></span>
+<span class="r-in"><span>   controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   add_to_formula <span class="op">=</span> <span class="st">"(1|group2)"</span><span class="op">)</span>                       <span class="co"># random effect in all models</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Setup for the Specification Curve Analysis</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> -------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Class:                      specr.setup -- version: 1.0.0 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Number of specifications:   64 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of specifications:   144 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Specifications:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -310,26 +313,26 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Dependent variable:       y1, y2 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Models:                   lmer </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Covariates:               no covariates, c1, c2, c1 + c2 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         middle, old, young, all </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Subsets analyses:         young &amp; female, old &amp; female, female, young &amp; male, old &amp; male, male, young, old, all </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Function used to extract parameters:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff1030f5a58&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fe77ae729e8&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 7</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets group1 formula                  </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lmer  no covariates middle  middle y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lmer  no covariates old     old    y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lmer  no covariates young   young  y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lmer  no covariates all     <span style="color: #BB0000;">NA</span>     y1 ~ x1 + 1 + (1|group2) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lmer  c1            middle  middle y1 ~ x1 + c1 + (1|group2)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lmer  c1            old     old    y1 ~ x1 + c1 + (1|group2)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 8</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   x     y     model controls      subsets        group1 group2 formula          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> x1    y1    lmer  no covariates young &amp; female young  female y1 ~ x1 + 1 + (1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> x1    y1    lmer  no covariates old &amp; female   old    female y1 ~ x1 + 1 + (1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> x1    y1    lmer  no covariates female         <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1 + (1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> x1    y1    lmer  no covariates young &amp; male   young  male   y1 ~ x1 + 1 + (1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> x1    y1    lmer  no covariates old &amp; male     old    male   y1 ~ x1 + 1 + (1…</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> x1    y1    lmer  no covariates male           <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + 1 + (1…</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Example 3 ----</span></span></span>
@@ -346,11 +349,11 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Setup specs</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu">setup</span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
-<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
-<span class="r-in"><span>               fun1 <span class="op">=</span> <span class="va">tidy_99</span>,             <span class="co"># pass new function to setup</span></span></span>
-<span class="r-in"><span>               add_to_formula <span class="op">=</span> <span class="st">"c1 + c2"</span><span class="op">)</span> <span class="co"># set of covariates in all models</span></span></span>
+<span class="r-in"><span>   x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>   model <span class="op">=</span> <span class="st">"lm"</span>,</span></span>
+<span class="r-in"><span>   fun1 <span class="op">=</span> <span class="va">tidy_99</span>,             <span class="co"># pass new function to setup</span></span></span>
+<span class="r-in"><span>   add_to_formula <span class="op">=</span> <span class="st">"c1 + c2"</span><span class="op">)</span> <span class="co"># set of covariates in all models</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
@@ -376,7 +379,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fit$full_model = list(x)     # include entire model fit object as list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   return(fit)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff10246bc60&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fe77625b548&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>

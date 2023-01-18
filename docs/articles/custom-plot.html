@@ -74,9 +74,6 @@
     <li>
       <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
-    <li>
-      <a href="../articles/parallel-bayesian-models.html">Bayesian Modeling</a>
-    </li>
   </ul>
 </li>
 <li>
@@ -147,8 +144,8 @@ included in the package.</p>
 <span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span>
 <span>               model <span class="op">=</span> <span class="st">"lm"</span>,</span>
 <span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span>
-<span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span><span class="op">)</span></span>
+<span>               subsets <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>group1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"middle"</span>, <span class="st">"old"</span><span class="op">)</span>,</span>
+<span>                              group2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"female"</span>, <span class="st">"male"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Summary of the specification setup</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
@@ -163,25 +160,25 @@ included in the package.</p>
 <span><span class="co">##   Dependent variable:       y1, y2 </span></span>
 <span><span class="co">##   Models:                   lm </span></span>
 <span><span class="co">##   Covariates:               no covariates, c1, c2, c1 + c2 </span></span>
-<span><span class="co">##   Subsets analyses:         middle &amp; female, old &amp; female, young &amp; female, female, middle &amp; male, old &amp; male, young &amp; male, male, middle, old, young, all </span></span>
+<span><span class="co">##   Subsets analyses:         young &amp; female, middle &amp; female, old &amp; female, female, young &amp; male, middle &amp; male, old &amp; male, male, young, middle, old, all </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7f88d7d80588&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fc81aab8468&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
 <pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
 <span><span class="co">##   x     y     model controls      subsets         group1 group2 formula    </span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covariates young &amp; female  young  female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covariates middle &amp; female middle female y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covariates old &amp; female    old    female y1 ~ x1 + 1</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covariates female          <span style="color: #BB0000;">NA</span>     female y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates old &amp; male      old    male   y1 ~ x1 + 1</span></span></code></pre>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates young &amp; male    young  male   y1 ~ x1 + 1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates middle &amp; male   middle male   y1 ~ x1 + 1</span></span></code></pre>
 <p>We can see that we will estimate 192 models.</p>
 </div>
 <div class="section level3">
@@ -208,7 +205,7 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     1 </span></span>
-<span><span class="co">##   Duration of fitting process:    2.119 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    1.718 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       192 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
@@ -226,12 +223,12 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 26</span></span></span>
 <span><span class="co">##   x     y     model controls    subsets group1 group2 formula estimate std.error</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covaria… middle… middle female y1 ~ x…     0.6       0.1 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covaria… old &amp; … old    female y1 ~ x…     0.65      0.08</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covaria… young … young  female y1 ~ x…     0.48      0.08</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y1    lm    no covaria… young … young  female y1 ~ x…     0.48      0.08</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y1    lm    no covaria… middle… middle female y1 ~ x…     0.6       0.1 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y1    lm    no covaria… old &amp; … old    female y1 ~ x…     0.65      0.08</span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covaria… female  <span style="color: #BB0000;">NA</span>     female y1 ~ x…     0.61      0.05</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covaria… middle… middle male   y1 ~ x…     0.61      0.09</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covaria… old &amp; … old    male   y1 ~ x…     0.68      0.1 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covaria… young … young  male   y1 ~ x…     0.65      0.08</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covaria… middle… middle male   y1 ~ x…     0.61      0.09</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 16 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span></span>
