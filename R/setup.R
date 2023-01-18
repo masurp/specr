@@ -13,15 +13,20 @@
 #' @param y A vector denoting the dependent variables
 #' @param x A vector denoting independent variables
 #' @param model A vector denoting the model(s) that should be estimated.
+#' @param subsets Specification of potential subsets/groups as list.  There are two ways
+#'    in which these can be specified that both start from the assumption that the
+#'    "grouping" variable is in the data set. The simplest way is to provide a named
+#'    vector within the list, whose name is the variable that should be used for
+#'    subsetting and whose values are the values that reflect the subsets (e.g.,
+#'    `list(group2 = c("female", "male")`). In this case, the specifications will
+#'    includes "all", "only female" and "only male". Alternatively, you can also use
+#'    the `unique` function to extract that vector directly from the data set
+#'    (e.g., `list(group2 = unique(example_data$group2`). Both approaches lead to the
+#'    same result. The former, however, has the advantages that one can also remove some of the
+#'    subgroups (e.g. `list(group2 = c("female")`). In this case, the specifications
+#'    will include "all" (no subset) and "only females". See examples for more details.
 #' @param controls A vector of the control variables that should be included.
 #'    Defaults to NULL.
-#' @param ... Specification of potential subsets/groups. As the subsetting
-#'    variable should be in the data set, please specify as follows
-#'    (`distinct(data, variable)`). Note: This variable needs to be a numeric
-#'    (`<dbl>` or `<int>`) or a character (`<chr>`) variable in the the data set!
-#'    It will not work with a factor (`<fct>`) variable. If your grouping variable
-#'    is a factor, please recode to a character variable beforehand. See also
-#'    examples further below.
 #' @param add_to_formula A string specifying aspects that should always be
 #'    included in the formula (e.g. a constant covariate, random effect structures...)
 #' @param fun1 A function that extracts the parameters of interest from the
@@ -87,14 +92,14 @@
 #' @examples
 #' ## Example 1 ----
 #' # Setting up typical specifications
-#' specs <- setup(data = example_data,             # data to be used
-#'                x = c("x1", "x2"),               # independent variables
-#'                y = c("y1", "y2"),               # dependent variables
-#'                model = "lm",                    # model estimation function
-#'                controls = c("c1", "c2", "c3"),  # control variables
-#'                distinct(example_data, group1),  # first grouping variable for subsets
-#'                distinct(example_data, group2),  # second grouping variable for subsets
-#'                simplify = TRUE)                 # limited combinations of controls
+#' specs <- setup(data = example_data,
+#'    x = c("x1", "x2"),
+#'    y = c("y1", "y2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2", "c3"),
+#'    subsets = list(group1 = c("young", "middle", "old"),
+#'                   group2 = c("female", "male")),
+#'    simplify = TRUE)
 #'
 #' # Check specifications
 #' summary(specs, rows = 18)
@@ -103,12 +108,13 @@
 #' ## Example 2 ----
 #' # Setting up specifications for multilevel models
 #' specs <- setup(data = example_data,
-#'                x = c("x1", "x2"),
-#'                y = c("y1", "y2"),
-#'                model = c("lmer"),               # multilevel model
-#'                controls = c("c1", "c2"),
-#'                distinct(example_data, group1),
-#'                add_to_formula = "(1|group2)")   # random effect in all models
+#'    x = c("x1", "x2"),
+#'    y = c("y1", "y2"),
+#'    model = c("lmer"),                                   # multilevel model
+#'    subsets = list(group1 = c("young", "old"),           # only young and old!
+#'                   group2 = unique(example_data$group2)),# alternative specification
+#'    controls = c("c1", "c2"),
+#'    add_to_formula = "(1|group2)")                       # random effect in all models
 #'
 #' # Check specifications
 #' summary(specs)
@@ -128,11 +134,11 @@
 #'
 #' # Setup specs
 #' specs <- setup(data = example_data,
-#'                x = c("x1", "x2"),
-#'                y = c("y1", "y2"),
-#'                model = "lm",
-#'                fun1 = tidy_99,             # pass new function to setup
-#'                add_to_formula = "c1 + c2") # set of covariates in all models
+#'    x = c("x1", "x2"),
+#'    y = c("y1", "y2"),
+#'    model = "lm",
+#'    fun1 = tidy_99,             # pass new function to setup
+#'    add_to_formula = "c1 + c2") # set of covariates in all models
 #'
 #' # Check specifications
 #' summary(specs)
@@ -141,13 +147,13 @@ setup <- function(data,
                   y,
                   model,
                   controls = NULL,
-                  ...,
+                  subsets = NULL,
                   add_to_formula = NULL,
                   fun1 = function(x) broom::tidy(x, conf.int = TRUE),
                   fun2 = function(x) broom::glance(x),
                   simplify = FALSE) {
 
-  . <- subsets <- group_var <- check <- check2 <- NULL
+  . <- group_var <- check <- check2 <- NULL
 
   if (rlang::is_missing(data)) {
     stop("You must provide the data set that should be used in the analyses.")
@@ -169,35 +175,24 @@ setup <- function(data,
     stop("Duplicate values in x, y, model, and controls are not allowed.")
   }
 
-  # Create all subset combinations
-  group_vars <- c(...) %>%
-    map(function(x) append(x, NA)) %>%
-    expand.grid
-
-  if(isTRUE(simplify)) {
-
-    controls <- expand_covariate_simple(controls)
-
-  } else {
-
-    controls <- expand_covariate(controls)
-
+  if (!is.null(subsets) & !inherits(subsets, "list")) {
+    stop("Subsets must be an object of class 'list'")
   }
 
-  # In case there are no subsets:
-  if(length(group_vars) == 0) {
-
-    grid <- expand_grid(
-      x,
-      y,
-      model,
-      controls,
-      group_var = "all"
-    )
-
-  # In case there are subsets
+  if(isTRUE(simplify)) {
+    controls <- expand_covariate_simple(controls)
   } else {
+    controls <- expand_covariate(controls)
+  }
 
+  if(!is.null(subsets)) {
+
+    # Create all subset combinations
+    group_vars <- subsets %>%
+      map(function(x) append(x, NA)) %>%
+      expand.grid
+
+    # Exand across choices
     grid <- expand_grid(
       x,
       y,
@@ -206,7 +201,18 @@ setup <- function(data,
       group_vars
     )
 
-  }
+  } else {
+
+    # Expand across choices
+    grid <- expand_grid(
+      x,
+      y,
+      model,
+      controls,
+      group_var = "all"
+    )
+
+}
 
   # Filter out non-meaningful specs (e.g., where control and independent are the same)
   grid <- grid %>%

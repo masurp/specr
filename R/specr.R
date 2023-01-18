@@ -97,12 +97,12 @@
 #' @examples
 #' # Example 1 ----
 #' # Setup up typical specifications
-#' specs <- setup(data = example_data,            # providing data
-#'                y = c("y1", "y2"),              # different y variables
-#'                x = c("x1", "x2"),              # different x variables
-#'                model = "lm",                   # only one model type
-#'                controls = c("c1", "c2"),       # Control for these variables
-#'                distinct(example_data, group1)) # Subsets
+#' specs <- setup(data = example_data,
+#'    y = c("y1", "y2"),
+#'    x = c("x1", "x2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2"),
+#'    subsets = list(group1 = unique(example_data$group1)))
 #'
 #' # Run analysis (not parallelized)
 #' results <- specr(specs)
@@ -114,10 +114,10 @@
 #' # Example 2 ----
 #' # Working without S3 classes
 #' specs2 <- setup(data = example_data,
-#'                 y = c("y1", "y2"),
-#'                 x = c("x1", "x2"),
-#'                 model = "lm",
-#'                 controls = "c1")
+#'     y = c("y1", "y2"),
+#'     x = c("x1", "x2"),
+#'     model = "lm",
+#'     controls = "c1")
 #'
 #' # Working with tibbles
 #' specs_tibble <- as_tibble(specs2)      # extract tibble from setup

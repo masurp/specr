@@ -21,11 +21,11 @@
 #' @examples
 #' # Setup specifications
 #' specs <- setup(data = example_data,
-#'                x = c("x1", "x2"),
-#'                y = c("y1", "y2"),
-#'                model = c("lm", "glm"),
-#'                controls = c("c1", "c2", "c3"),
-#'                distinct(example_data, group3))
+#'   x = c("x1", "x2"),
+#'   y = c("y1", "y2"),
+#'   model = c("lm", "glm"),
+#'   controls = c("c1", "c2", "c3"),
+#'   subsets = list(group3 = unique(example_data$group3)))
 #'
 #' # Summarize specifications
 #' summary(specs)
@@ -88,11 +88,11 @@ print.specr.setup <- function(x, ...) {
 #'
 #' @examples
 #' specs <- setup(data = example_data,
-#'                x = c("x1", "x2", "x3"),
-#'                y = c("y1", "y2"),
-#'                model = c("lm", "glm"),
-#'                controls = "c1",
-#'                distinct(example_data, group2))
+#'    x = c("x1", "x2", "x3"),
+#'    y = c("y1", "y2"),
+#'    model = c("lm", "glm"),
+#'    controls = "c1",
+#'    subsets = list(group2 = unique(example_data$group2)))
 #'
 #' plot(specs)
 #' plot(specs, circular = TRUE)
@@ -215,11 +215,11 @@ as.data.frame.specr.setup <- function(x, ...) {
 #' @examples
 #' # Setup up specifications (returns object of class "specr.setup")
 #' specs <- setup(data = example_data,
-#'                y = c("y1", "y2"),
-#'                x = c("x1", "x2"),
-#'                model = "lm",
-#'                controls = c("c1", "c2"),
-#'                distinct(example_data, group1))
+#'    y = c("y1", "y2"),
+#'    x = c("x1", "x2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2"),
+#'    subsets = list(group1 = unique(example_data$group1)))
 #'
 #' # Run analysis (returns object of class "specr.object")
 #' results <- specr(specs)
@@ -407,12 +407,12 @@ print.specr.object <- function(x, ...) {
 #' # Specification Curve analysis ----
 #' # Setup specifications
 #' specs <- setup(data = example_data,
-#'                y = c("y1", "y2"),
-#'                x = c("x1", "x2"),
-#'                model = "lm",
-#'                controls = c("c1", "c2"),
-#'                distinct(example_data, group1),
-#'                distinct(example_data, group2))
+#'    y = c("y1", "y2"),
+#'    x = c("x1", "x2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2"),
+#'    subsets = list(group1 = unique(example_data$group1),
+#'                   group2 = unique(example_data$group2)))
 #'
 #' # Run analysis
 #' results <- specr(specs)
