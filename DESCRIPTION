@@ -40,13 +40,11 @@ Imports:
     tidyr
 Suggests: 
     broom.mixed,
-    brms,
     gapminder,
     ggridges,
     knitr,
     lavaan,
     testthat,
-    tictoc,
     tidyverse,
     performance,
     rmarkdown
