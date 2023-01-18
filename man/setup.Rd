@@ -10,7 +10,7 @@ setup(
   y,
   model,
   controls = NULL,
-  ...,
+  subsets = NULL,
   add_to_formula = NULL,
   fun1 = function(x) broom::tidy(x, conf.int = TRUE),
   fun2 = function(x) broom::glance(x),
@@ -29,13 +29,18 @@ setup(
 \item{controls}{A vector of the control variables that should be included.
 Defaults to NULL.}
 
-\item{...}{Specification of potential subsets/groups. As the subsetting
-variable should be in the data set, please specify as follows
-(\code{distinct(data, variable)}). Note: This variable needs to be a numeric
-(\verb{<dbl>} or \verb{<int>}) or a character (\verb{<chr>}) variable in the the data set!
-It will not work with a factor (\verb{<fct>}) variable. If your grouping variable
-is a factor, please recode to a character variable beforehand. See also
-examples further below.}
+\item{subsets}{Specification of potential subsets/groups as list.  There are two ways
+in which these can be specified that both start from the assumption that the
+"grouping" variable is in the data set. The simplest way is to provide a named
+vector within the list, whose name is the variable that should be used for
+subsetting and whose values are the values that reflect the subsets (e.g.,
+\verb{list(group2 = c("female", "male")}). In this case, the specifications will
+includes "all", "only female" and "only male". Alternatively, you can also use
+the \code{unique} function to extract that vector directly from the data set
+(e.g., \verb{list(group2 = unique(example_data$group2}). Both approaches lead to the
+same result. The former, however, has the advantages that one can also remove some of the
+subgroups (e.g. \verb{list(group2 = c("female")}). In this case, the specifications
+will include "all" (no subset) and "only females". See examples for more details.}
 
 \item{add_to_formula}{A string specifying aspects that should always be
 included in the formula (e.g. a constant covariate, random effect structures...)}
@@ -107,14 +112,14 @@ e.g., \code{?summary.specr.setup} to view the dedicated help page.
 \examples{
 ## Example 1 ----
 # Setting up typical specifications
-specs <- setup(data = example_data,             # data to be used
-               x = c("x1", "x2"),               # independent variables
-               y = c("y1", "y2"),               # dependent variables
-               model = "lm",                    # model estimation function
-               controls = c("c1", "c2", "c3"),  # control variables
-               distinct(example_data, group1),  # first grouping variable for subsets
-               distinct(example_data, group2),  # second grouping variable for subsets
-               simplify = TRUE)                 # limited combinations of controls
+specs <- setup(data = example_data,
+   x = c("x1", "x2"),
+   y = c("y1", "y2"),
+   model = "lm",
+   controls = c("c1", "c2", "c3"),
+   subsets = list(group1 = c("young", "middle", "old"),
+                  group2 = c("female", "male")),
+   simplify = TRUE)
 
 # Check specifications
 summary(specs, rows = 18)
@@ -123,12 +128,13 @@ summary(specs, rows = 18)
 ## Example 2 ----
 # Setting up specifications for multilevel models
 specs <- setup(data = example_data,
-               x = c("x1", "x2"),
-               y = c("y1", "y2"),
-               model = c("lmer"),               # multilevel model
-               controls = c("c1", "c2"),
-               distinct(example_data, group1),
-               add_to_formula = "(1|group2)")   # random effect in all models
+   x = c("x1", "x2"),
+   y = c("y1", "y2"),
+   model = c("lmer"),                                   # multilevel model
+   subsets = list(group1 = c("young", "old"),           # only young and old!
+                  group2 = unique(example_data$group2)),# alternative specification
+   controls = c("c1", "c2"),
+   add_to_formula = "(1|group2)")                       # random effect in all models
 
 # Check specifications
 summary(specs)
@@ -148,11 +154,11 @@ tidy_99 <- function(x) {
 
 # Setup specs
 specs <- setup(data = example_data,
-               x = c("x1", "x2"),
-               y = c("y1", "y2"),
-               model = "lm",
-               fun1 = tidy_99,             # pass new function to setup
-               add_to_formula = "c1 + c2") # set of covariates in all models
+   x = c("x1", "x2"),
+   y = c("y1", "y2"),
+   model = "lm",
+   fun1 = tidy_99,             # pass new function to setup
+   add_to_formula = "c1 + c2") # set of covariates in all models
 
 # Check specifications
 summary(specs)

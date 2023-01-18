@@ -25,11 +25,11 @@ the result of calling \code{setup()}.
 }
 \examples{
 specs <- setup(data = example_data,
-               x = c("x1", "x2", "x3"),
-               y = c("y1", "y2"),
-               model = c("lm", "glm"),
-               controls = "c1",
-               distinct(example_data, group2))
+   x = c("x1", "x2", "x3"),
+   y = c("y1", "y2"),
+   model = c("lm", "glm"),
+   controls = "c1",
+   subsets = list(group2 = unique(example_data$group2)))
 
 plot(specs)
 plot(specs, circular = TRUE)

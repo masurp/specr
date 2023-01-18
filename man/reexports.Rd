@@ -5,7 +5,6 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{as_tibble}
-\alias{distinct}
 \alias{plot_grid}
 \title{Objects exported from other packages}
 \keyword{internal}
@@ -15,8 +14,6 @@ below to see their documentation.
 
 \describe{
   \item{cowplot}{\code{\link[cowplot]{plot_grid}}}
-
-  \item{dplyr}{\code{\link[dplyr]{distinct}}}
 
   \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 

@@ -45,11 +45,11 @@ a descriptive summary of the resulting sample sizes, and a head of the results.
 \examples{
 # Setup up specifications (returns object of class "specr.setup")
 specs <- setup(data = example_data,
-               y = c("y1", "y2"),
-               x = c("x1", "x2"),
-               model = "lm",
-               controls = c("c1", "c2"),
-               distinct(example_data, group1))
+   y = c("y1", "y2"),
+   x = c("x1", "x2"),
+   model = "lm",
+   controls = c("c1", "c2"),
+   subsets = list(group1 = unique(example_data$group1)))
 
 # Run analysis (returns object of class "specr.object")
 results <- specr(specs)
