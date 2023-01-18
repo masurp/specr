@@ -7,8 +7,6 @@ test_that("setup returns an object of class specr.setup", {
                   x = c("x1", "x2"),
                   y = c("y1", "y2"),
                   model = "lm",
-                  distinct(example_data, group1),
-                  distinct(example_data, group2),
                   controls = c("c1", "c2", "c3")), "specr.setup")
 })
 
@@ -60,8 +58,6 @@ test_that("setup does not accept duplicates in x", {
                      x = c("x1", "x2", "x2"),
                      y = c("y1", "y2"),
                      model = "lm",
-                     distinct(example_data, group1),
-                     distinct(example_data, group2),
                      controls = c("c1", "c2", "c3")),
                "Duplicate values in x, y, model, and controls are not allowed.")
 })
@@ -73,8 +69,6 @@ test_that("setup does not accept duplicates in y", {
                      x = c("x1", "x2"),
                      y = c("y1", "y2", "y1"),
                      model = "lm",
-                     distinct(example_data, group1),
-                     distinct(example_data, group2),
                      controls = c("c1", "c2", "c3")),
                "Duplicate values in x, y, model, and controls are not allowed.")
 })
@@ -86,8 +80,6 @@ test_that("setup does not accept duplicates in models", {
                      x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      model = c("lm", "lm", "glm"),
-                     distinct(example_data, group1),
-                     distinct(example_data, group2),
                      controls = c("c1", "c2", "c3")),
                "Duplicate values in x, y, model, and controls are not allowed.")
 })
@@ -99,8 +91,6 @@ test_that("setup does not accept duplicates in controls", {
                      x = c("x1", "x2"),
                      y = c("y1", "y2"),
                      model = c("lm", "lm", "glm"),
-                     distinct(example_data, group1),
-                     distinct(example_data, group2),
                      controls = c("c1", "c2", "c3", "c2", "c3")),
                "Duplicate values in x, y, model, and controls are not allowed.")
 })
@@ -112,11 +102,11 @@ test_that("setup creates all combinations", {
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
-                 distinct(example_data, group1),
-                 distinct(example_data, group2))
+                 subsets = list(group1 = unique(example_data$group1),
+                                group2 = unique(example_data$group2)))
   expect_equal(nrow(specs$specs),
-               (nrow(distinct(example_data, group1)) + 1) *
-               (nrow(distinct(example_data, group2)) + 1) *
+               (nrow(dplyr::distinct(example_data, group1)) + 1) *
+               (nrow(dplyr::distinct(example_data, group2)) + 1) *
                length(c("x1", "x2")) *
                length(c("y1", "y2")))
 })
@@ -128,8 +118,6 @@ test_that("setup creates a formula for each specification", {
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
-                 distinct(example_data, group1),
-                 distinct(example_data, group2),
                  controls = c("c1", "c2", "c3"))
   expect_true(all(!is.na(specs$specs$formula)))
 })
@@ -141,8 +129,6 @@ test_that("setup creates a model function for each specification", {
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
-                 distinct(example_data, group1),
-                 distinct(example_data, group2),
                  controls = c("c1", "c2", "c3"),
                  simplify = TRUE)
   expect_true(all(!is.na(specs$specs$model_function)))
@@ -155,8 +141,7 @@ test_that("setup creates a subsets variable", {
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
-                 distinct(example_data, group1),
-                 distinct(example_data, group2),
+                 subsets = list(group1 = unique(example_data$group1)),
                  controls = c("c1", "c2", "c3"),
                  simplify = TRUE)
   expect_true(all(!is.na(specs$specs$subsets)))
@@ -169,8 +154,7 @@ test_that("setup creates object of class `specr.setup`", {
                  x = c("x1", "x2"),
                  y = c("y1", "y2"),
                  model = "lm",
-                 distinct(example_data, group1),
-                 distinct(example_data, group2),
+                 subsets = list(group1 = unique(example_data$group1)),
                  controls = c("c1", "c2", "c3"),
                  simplify = TRUE)
   expect_true(inherits(specs, "specr.setup"))

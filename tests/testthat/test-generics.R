@@ -4,7 +4,7 @@ specs <- specr::setup(data = example_data,
                x = c("x1", "x2"),
                y = "y1",
                model = "lm",
-               distinct(example_data, group1),
+               subsets = list(group1 = unique(example_data$group1)),
                controls = c("c1", "c2"))
 results <- specr(specs)
 
