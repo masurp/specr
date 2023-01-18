@@ -89,10 +89,10 @@ library(specr)
 specs <- setup(data = example_data, 
                y = c("y1", "y2"), 
                x = c("x1", "x2"), 
-               model = c("lm"), 
+               model = c("lm"),
+               controls = c("c1", "c2"),
                distinct(example_data, group1),
-               distinct(example_data, group2),
-               controls = c("c1", "c2"))
+               distinct(example_data, group2))
 
 # Run Specification Curve Analysis ----
 results <- specr(specs)
