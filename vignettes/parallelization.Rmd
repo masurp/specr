@@ -37,8 +37,8 @@ generate_data <- function(seed = 42, n = 1e5) {
   )
 }
 
-# Generate very large data set (n = 100,000, 9.2 MB on disk)
-dat <- generate_data(42)
+# Generate very large data set (n = 100,000, 9.9 MB on disk)
+dat <- generate_data(9)
 ```
 
 ## Simple parallelization without custom functions
@@ -101,9 +101,8 @@ plan()
 
 # Run results
 results_parall_2 <- specr(specs, 
-                          .options = opts,
-                          .progress = TRUE, # To add progress bar (not shown in output)
-                          message = FALSE)  # To omit message
+                          .options = opts,   # Pass ops to specr
+                          .progress = TRUE)  # To add progress bar (not shown in output)
 
 # Summarize results
 summary(results_parall_2)

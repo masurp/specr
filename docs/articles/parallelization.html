@@ -151,8 +151,8 @@ specify more than 1000 specifications.</p>
 <span>  <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
-<span><span class="co"># Generate very large data set (n = 100,000, 9.2 MB on disk)</span></span>
-<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">generate_data</span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># Generate very large data set (n = 100,000, 9.9 MB on disk)</span></span>
+<span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu">generate_data</span><span class="op">(</span><span class="fl">9</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="simple-parallelization-without-custom-functions">Simple parallelization without custom functions<a class="anchor" aria-label="anchor" href="#simple-parallelization-without-custom-functions"></a>
 </h2>
@@ -183,11 +183,11 @@ running in the background on the same machine) and specify
 <span><span class="co"># Comparison</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"Sequential: "</span>, <span class="va">results_simple</span><span class="op">$</span><span class="va">time</span>, <span class="st">"\n"</span>,</span>
 <span>    <span class="st">"Parallel:   "</span>, <span class="va">results_parall</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Sequential:  1.097 sec elapsed </span></span>
-<span><span class="co">##  Parallel:    34.744 sec elapsed</span></span></code></pre>
+<pre><code><span><span class="co">## Sequential:  58.607 sec elapsed </span></span>
+<span><span class="co">##  Parallel:    33.577 sec elapsed</span></span></code></pre>
 <p>As we can see, the default (sequential) computation took around a
-minute (1.097 sec elapsed) and the parallel computation about half a
-minute (34.744 sec elapsed).</p>
+minute (58.607 sec elapsed) and the parallel computation about half a
+minute (33.577 sec elapsed).</p>
 <p>We have to acknowledge that even with this comparatively large data
 set and more than 1,000 specifications, the reduction in time not too
 much. Thus, parallelization only makes sense if you have a truly large
@@ -243,9 +243,8 @@ prints a rudimentary progress bar during the fitting process.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run results</span></span>
 <span><span class="va">results_parall_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span>, </span>
-<span>                          .options <span class="op">=</span> <span class="va">opts</span>,</span>
-<span>                          .progress <span class="op">=</span> <span class="cn">TRUE</span>, <span class="co"># To add progress bar (not shown in output)</span></span>
-<span>                          message <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>  <span class="co"># To omit message</span></span>
+<span>                          .options <span class="op">=</span> <span class="va">opts</span>,   <span class="co"># Pass ops to specr</span></span>
+<span>                          .progress <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>  <span class="co"># To add progress bar (not shown in output)</span></span>
 <span></span>
 <span><span class="co"># Summarize results</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">results_parall_2</span><span class="op">)</span></span></code></pre></div>
@@ -255,30 +254,30 @@ prints a rudimentary progress bar during the fitting process.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     4 </span></span>
-<span><span class="co">##   Duration of fitting process:    38.469 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    34.714 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       72 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##  median  mad   min  max   q25  q75</span></span>
-<span><span class="co">##       0 0.01 -0.03 0.02 -0.01 0.01</span></span>
+<span><span class="co">##  median  mad   min  max q25  q75</span></span>
+<span><span class="co">##    0.01 0.01 -0.02 0.03   0 0.01</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of sample sizes: </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##  median   min   max</span></span>
-<span><span class="co">##   20079 19757 1e+05</span></span>
+<span><span class="co">##   20038 19844 1e+05</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of the specification results (first 6 rows): </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 21</span></span></span>
 <span><span class="co">##   x     y     model  controls subsets group formula estimate std.error statistic</span></span>
 <span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… no cova… c       c     y4 ~ x…     0.01      0.01      0.49</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… no cova… d       d     y4 ~ x…     0.01      0.01      0.8 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… no cova… e       e     y4 ~ x…    -<span style="color: #BB0000;">0.03</span>      0.01     -<span style="color: #BB0000;">1.93</span></span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… no cova… a       a     y4 ~ x…     0         0.01      0.03</span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… no cova… b       b     y4 ~ x…     0         0.01      0.1 </span></span>
-<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… no cova… all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.23</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> x1    y4    log_m… no cova… e       e     y4 ~ x…     0.01      0.01      0.38</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> x1    y4    log_m… no cova… a       a     y4 ~ x…     0.01      0.01      0.62</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> x1    y4    log_m… no cova… d       d     y4 ~ x…    -<span style="color: #BB0000;">0.02</span>      0.01     -<span style="color: #BB0000;">1.17</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y4    log_m… no cova… c       c     y4 ~ x…     0         0.01     -<span style="color: #BB0000;">0.16</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y4    log_m… no cova… b       b     y4 ~ x…     0.03      0.01      1.84</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y4    log_m… no cova… all     <span style="color: #BB0000;">NA</span>    y4 ~ x…     0         0.01      0.66</span></span>
 <span><span class="co">## <span style="color: #949494;"># … with 11 more variables: p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_null.deviance &lt;dbl&gt;, fit_df.null &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span></span>
