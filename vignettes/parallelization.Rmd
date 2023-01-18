@@ -52,7 +52,7 @@ specs <- setup(data = dat,
                x = c("x1", "x2", "x3", "x4"),               
                model = c("lm"), 
                controls = c("c1", "c2", "c3", "c4"),
-               distinct(dat, group))   
+               subsets = list(group = unique(dat$group)))   
 
 # Default: Sequential ---
 results_simple <- specr(specs)
@@ -88,8 +88,8 @@ specs <- setup(data = dat,
                y = c("y4"),                    
                x = c("x1", "x2", "x3"),               
                model = c("log_model"), 
-               distinct(dat, group),
-               controls = c("c1", "c2"))   
+               controls = c("c1", "c2"),
+               subsets = list(group = unique(dat$group)))   
 
 # Create furrr_options to be passed to specr() (only works if `furrr` is loaded)
 opts <- furrr_options(

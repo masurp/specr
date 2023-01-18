@@ -58,7 +58,8 @@ specs <- setup(data = data,
                y = c("y1", "y2", "y3", "y_dich"),
                model = c("lm", "log_glm"))
 # Check
-specs$specs
+specs %>%
+  as_tibble
 ```
 
 As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 0.3.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `sprec.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
@@ -81,7 +82,7 @@ head(results$data)
 
 In some cases, we may want to add mean indices or even latent measurement models of our variables of interest to explore how latent vs. manifest measurement affects our results. This requires a bit more upfront work as we need to work with `lavaan` for the latent measurement. Furthermore, we need to adjust the extract functions (`fun1` and `fun2` in `setup()`) so that the extraction of parameters aligns across different type of models. The beauty of `broom::tidy()` and `broom::glance()` (which are used by default) is that they adapt to the different model types that are passed to `setup`. Although the same parameters are extracted for most models, they sometimes differ for specific models (e.g., structural equation models resulting from `lavaan::sem()`). This means we need to adjust them to extract the same parameters across different models. 
 
-```{r}
+```{r, warning = F, message = F}
 # Add mean (one choice)
 data <- data %>%
   rowwise %>%
@@ -228,15 +229,25 @@ specs5$specs
 
 # Subset analyses
 
-One of the most powerful arguments within the `setup()` framework is the `...` (dot dot dot), which can be used for so-called "subset analyses". With this argument, a variety of analytical choices can be included. 
+One of the most powerful arguments within the `setup()` framework is `subsets`, which can be used for so-called "subset analyses". With this argument, a variety of analytical choices can be included. 
 
 ## Simple subset analysis based on grouping variables
 
-In simple cases, we may want to investigate whether a relationship differs across certain subgroups. In the example data, we can for example investigate whether the relationship between `x` and `y` differs across age groups (`group1`) and gender (`group2`). We need to add them at the position of the `...` using the following syntax:
+In simple cases, we may want to investigate whether a relationship differs across certain subgroups. In the example data, we can for example investigate whether the relationship between `x` and `y` differs across age groups (`group1`) and gender (`group2`). We need to can add such subset analyses by specifying a list in two alternative ways. The easiest way refers to simply providing named vectors that refer to the respective variables in the data set and their unique values:
 
-`distinct(data, variable)`
+```
+list(group1 = c("young", "middle", "old),
+      group2 = c("female", "male"))
+```
 
-The function `distinct()` extracts all distinct values of the grouping variable and then passes these as combinatorial factors to the expand function within `setup()`. If two or more grouping variables are provided in this way (you can provide as many as you want, but it quickly becomes messy), `setup()` automatically adds them as "choice" columns to the specification setup data frame. Note how it automatically adds the value `NA` to make sure that also the simple subsets and not only the combinations between the two groups are included in the specifications. It further creates a new column "subsets", which represents the combination of the subsetting factors. 
+Alternatively, we can achieve the same thing by using the function `unique()`, which extracts the unique values from each variable in the data set:
+
+```
+list(group1 = unique(example_data$group1),
+     group2 = unique(example_data$group2))
+```
+
+These lists are then passed as combinatorial factors to the expand function within `setup()`. If two or more grouping variables are provided in this way (you can provide as many as you want, but it quickly becomes messy), `setup()` automatically adds them as "choice" columns to the specification setup data frame. Note how it automatically adds the value `NA` to make sure that also the simple subsets and not only the combinations between the two groups are included in the specifications. It further creates a new column "subsets", which represents the combination of the subsetting factors. 
 
 ```{r}
 # Setup specifications
@@ -245,8 +256,8 @@ specs <- setup(data = example_data,
                y = c("y1", "y2"),
                model = c("lm"),
                controls = "c1",
-               distinct(example_data, group1),
-               distinct(example_data, group2))
+               subsets = list(group1 = unique(example_data$group1),
+                              group2 = unique(example_data$group2)))
 
 # Summary of specifications
 summary(specs)
@@ -263,16 +274,11 @@ plot(results, choices = c("x", "y", "subsets"))
 
 ## More complex analysis using the subsets functionality
 
-The true potential of this type of subsetting can only be grapsed with another example. Let's imagine we want to include the removal of outliers as an analytical choice in our specification curve analysis. Perhaps we are unsure about the cut-off value and want to investigate different (arbitrary) ones. This can again be seen as a subset analysis. 
+The true potential of this type of subsetting can only be grasped with another example. Let's imagine we want to include the removal of outliers as an analytical choice in our specification curve analysis. Perhaps we are unsure about the cut-off value and want to investigate different (arbitrary) ones. This can again be seen as a subset analysis. 
 
-We first create variables that denote who is an outlier and who is not according to the rule we want to use. We then pass these variables as subsets to the `setup()` function. This again produces non-meaningful specifications (e.g., a subset that includes outliers, a subset that includes people who align with different outlier rules, etc.). So we want to keep only the meaningful specifications. In this case, these are just 7 different types of specifications. 
+We first create variables that denote who is an outlier and who is not according to the rule we want to use. We then pass these variables as subsets to the `setup()` function. This again produces non-meaningful specifications (e.g., a subset that includes outliers, a subset that includes people who align with different outlier rules, etc.). So we want to keep only the meaningful specifications. In this case, these are just 7 different types of specifications.
 
 ```{r}
-# Check for outliers in `y1` (should of course be more elaborate than eye-balling)
-ggplot(data, aes(x = y1)) +
-  geom_histogram(color = "white") +
-  theme_minimal()
-
 # Create variables that denote outliers (here with a range of arbitrary thresholds)
 data <- data %>%
   mutate(outlier1 = ifelse(y1 < mean(y1) - 2*sd(y1) | y1 > mean(y1) + 2*sd(y1), "outlier", "2.0*SD"),
@@ -288,12 +294,12 @@ specs <- setup(data = data,
                y = c("y1", "y2"),
                model = "lm",
                controls = c("c1", "c2"),
-               distinct(data, outlier1),
-               distinct(data, outlier2),
-               distinct(data, outlier3),
-               distinct(data, outlier4),
-               distinct(data, outlier5),
-               distinct(data, outlier6))
+               subsets = list(outlier1 = c("2.0*SD"),
+                              outlier2 = c("2.1*SD"),
+                              outlier3 = c("2.2*SD"),
+                              outlier4 = c("2.3*SD"),
+                              outlier5 = c("2.4*SD"),
+                              outlier6 = c("2.5*SD")))
 
 # Remove unnecessary combinations
 specs$specs <- specs$specs %>%

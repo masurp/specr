@@ -128,8 +128,8 @@ specs <- setup(data = d,
                x = c("ageyr"),
                model = c("sem_custom"),
                controls = c("grade"),
-               distinct(d, sex),
-               distinct(d, school))
+               subsets = list(sex = unique(d$sex),
+                              school = unique(d$school)))
 
 # Summarize specifications
 summary(specs, row = 10)
