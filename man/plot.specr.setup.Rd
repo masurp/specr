@@ -28,8 +28,8 @@ specs <- setup(data = example_data,
                x = c("x1", "x2", "x3"),
                y = c("y1", "y2"),
                model = c("lm", "glm"),
-               distinct(example_data, group2),
-               controls = "c1")
+               controls = "c1",
+               distinct(example_data, group2))
 
 plot(specs)
 plot(specs, circular = TRUE)

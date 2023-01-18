@@ -29,12 +29,12 @@ the function used to extract the parameters from the model. Finally, if
 }
 \examples{
 # Setup specifications
-specs <- setup(data = example_data,                   # data
-               x = c("x1", "x2"),                     # independent variables
-               y = c("y1", "y2"),                     # dependent variable
-               model = c("lm", "glm"),                # model functions
-               distinct(example_data, group3),        # subsets
-               controls = c("c1", "c2", "c3"))        # covariates to be added
+specs <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = c("lm", "glm"),
+               controls = c("c1", "c2", "c3"),
+               distinct(example_data, group3))
 
 # Summarize specifications
 summary(specs)

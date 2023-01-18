@@ -20,12 +20,12 @@
 #'
 #' @examples
 #' # Setup specifications
-#' specs <- setup(data = example_data,                   # data
-#'                x = c("x1", "x2"),                     # independent variables
-#'                y = c("y1", "y2"),                     # dependent variable
-#'                model = c("lm", "glm"),                # model functions
-#'                distinct(example_data, group3),        # subsets
-#'                controls = c("c1", "c2", "c3"))        # covariates to be added
+#' specs <- setup(data = example_data,
+#'                x = c("x1", "x2"),
+#'                y = c("y1", "y2"),
+#'                model = c("lm", "glm"),
+#'                controls = c("c1", "c2", "c3"),
+#'                distinct(example_data, group3))
 #'
 #' # Summarize specifications
 #' summary(specs)
@@ -91,8 +91,8 @@ print.specr.setup <- function(x, ...) {
 #'                x = c("x1", "x2", "x3"),
 #'                y = c("y1", "y2"),
 #'                model = c("lm", "glm"),
-#'                distinct(example_data, group2),
-#'                controls = "c1")
+#'                controls = "c1",
+#'                distinct(example_data, group2))
 #'
 #' plot(specs)
 #' plot(specs, circular = TRUE)
@@ -218,8 +218,8 @@ as.data.frame.specr.setup <- function(x, ...) {
 #'                y = c("y1", "y2"),
 #'                x = c("x1", "x2"),
 #'                model = "lm",
-#'                distinct(example_data, group1),
-#'                controls = c("c1", "c2"))
+#'                controls = c("c1", "c2"),
+#'                distinct(example_data, group1))
 #'
 #' # Run analysis (returns object of class "specr.object")
 #' results <- specr(specs)
@@ -410,9 +410,9 @@ print.specr.object <- function(x, ...) {
 #'                y = c("y1", "y2"),
 #'                x = c("x1", "x2"),
 #'                model = "lm",
+#'                controls = c("c1", "c2"),
 #'                distinct(example_data, group1),
-#'                distinct(example_data, group2),
-#'                controls = c("c1", "c2"))
+#'                distinct(example_data, group2))
 #'
 #' # Run analysis
 #' results <- specr(specs)

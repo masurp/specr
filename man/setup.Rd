@@ -9,8 +9,8 @@ setup(
   x,
   y,
   model,
-  ...,
   controls = NULL,
+  ...,
   add_to_formula = NULL,
   fun1 = function(x) broom::tidy(x, conf.int = TRUE),
   fun2 = function(x) broom::glance(x),
@@ -26,6 +26,9 @@ setup(
 
 \item{model}{A vector denoting the model(s) that should be estimated.}
 
+\item{controls}{A vector of the control variables that should be included.
+Defaults to NULL.}
+
 \item{...}{Specification of potential subsets/groups. As the subsetting
 variable should be in the data set, please specify as follows
 (\code{distinct(data, variable)}). Note: This variable needs to be a numeric
@@ -33,9 +36,6 @@ variable should be in the data set, please specify as follows
 It will not work with a factor (\verb{<fct>}) variable. If your grouping variable
 is a factor, please recode to a character variable beforehand. See also
 examples further below.}
-
-\item{controls}{A vector of the control variables that should be included.
-Defaults to NULL.}
 
 \item{add_to_formula}{A string specifying aspects that should always be
 included in the formula (e.g. a constant covariate, random effect structures...)}
@@ -111,9 +111,9 @@ specs <- setup(data = example_data,             # data to be used
                x = c("x1", "x2"),               # independent variables
                y = c("y1", "y2"),               # dependent variables
                model = "lm",                    # model estimation function
+               controls = c("c1", "c2", "c3"),  # control variables
                distinct(example_data, group1),  # first grouping variable for subsets
                distinct(example_data, group2),  # second grouping variable for subsets
-               controls = c("c1", "c2", "c3"),  # control variables
                simplify = TRUE)                 # limited combinations of controls
 
 # Check specifications
@@ -126,8 +126,8 @@ specs <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
                model = c("lmer"),               # multilevel model
-               distinct(example_data, group1),
                controls = c("c1", "c2"),
+               distinct(example_data, group1),
                add_to_formula = "(1|group2)")   # random effect in all models
 
 # Check specifications

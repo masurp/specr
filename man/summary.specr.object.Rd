@@ -48,8 +48,8 @@ specs <- setup(data = example_data,
                y = c("y1", "y2"),
                x = c("x1", "x2"),
                model = "lm",
-               distinct(example_data, group1),
-               controls = c("c1", "c2"))
+               controls = c("c1", "c2"),
+               distinct(example_data, group1))
 
 # Run analysis (returns object of class "specr.object")
 results <- specr(specs)

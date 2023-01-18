@@ -101,8 +101,8 @@ specs <- setup(data = example_data,            # providing data
                y = c("y1", "y2"),              # different y variables
                x = c("x1", "x2"),              # different x variables
                model = "lm",                   # only one model type
-               distinct(example_data, group1), # subsets
-               controls = c("c1", "c2"))       # Control for these variables
+               controls = c("c1", "c2"),       # Control for these variables
+               distinct(example_data, group1)) # Subsets
 
 # Run analysis (not parallelized)
 results <- specr(specs)
