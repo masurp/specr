@@ -134,12 +134,12 @@ is returned and printed.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Setup specifications</span></span></span>
-<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,                   <span class="co"># data</span></span></span>
-<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,                     <span class="co"># independent variables</span></span></span>
-<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,                     <span class="co"># dependent variable</span></span></span>
-<span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span>, <span class="st">"glm"</span><span class="op">)</span>,                <span class="co"># model functions</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group3</span><span class="op">)</span>,        <span class="co"># subsets</span></span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span><span class="op">)</span>        <span class="co"># covariates to be added</span></span></span>
+<span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
+<span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lm"</span>, <span class="st">"glm"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group3</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Summarize specifications</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></span>
@@ -160,7 +160,7 @@ is returned and printed.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc94ce635c8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff0eeec6748&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>

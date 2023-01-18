@@ -106,8 +106,8 @@ all specifications.</p>
 <span>  <span class="va">x</span>,</span>
 <span>  <span class="va">y</span>,</span>
 <span>  <span class="va">model</span>,</span>
-<span>  <span class="va">...</span>,</span>
 <span>  controls <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  <span class="va">...</span>,</span>
 <span>  add_to_formula <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  fun1 <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">x</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  fun2 <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/glance.html" class="external-link">glance</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
@@ -133,6 +133,11 @@ all specifications.</p>
 <dd><p>A vector denoting the model(s) that should be estimated.</p></dd>
 
 
+<dt>controls</dt>
+<dd><p>A vector of the control variables that should be included.
+Defaults to NULL.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Specification of potential subsets/groups. As the subsetting
 variable should be in the data set, please specify as follows
@@ -141,11 +146,6 @@ variable should be in the data set, please specify as follows
 It will not work with a factor (<code>&lt;fct&gt;</code>) variable. If your grouping variable
 is a factor, please recode to a character variable beforehand. See also
 examples further below.</p></dd>
-
-
-<dt>controls</dt>
-<dd><p>A vector of the control variables that should be included.
-Defaults to NULL.</p></dd>
 
 
 <dt>add_to_formula</dt>
@@ -235,9 +235,9 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,               <span class="co"># independent variables</span></span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,               <span class="co"># dependent variables</span></span></span>
 <span class="r-in"><span>               model <span class="op">=</span> <span class="st">"lm"</span>,                    <span class="co"># model estimation function</span></span></span>
+<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,  <span class="co"># control variables</span></span></span>
 <span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,  <span class="co"># first grouping variable for subsets</span></span></span>
 <span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group2</span><span class="op">)</span>,  <span class="co"># second grouping variable for subsets</span></span></span>
-<span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span>, <span class="st">"c3"</span><span class="op">)</span>,  <span class="co"># control variables</span></span></span>
 <span class="r-in"><span>               simplify <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>                 <span class="co"># limited combinations of controls</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
@@ -259,7 +259,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc92bb0e3c0&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff1023f1608&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 18 rows):</span>
@@ -293,8 +293,8 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-in"><span>               x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               model <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lmer"</span><span class="op">)</span>,               <span class="co"># multilevel model</span></span></span>
-<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               controls <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"c1"</span>, <span class="st">"c2"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>               <span class="fu"><a href="https://dplyr.tidyverse.org/reference/distinct.html" class="external-link">distinct</a></span><span class="op">(</span><span class="va">example_data</span>, <span class="va">group1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               add_to_formula <span class="op">=</span> <span class="st">"(1|group2)"</span><span class="op">)</span>   <span class="co"># random effect in all models</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Check specifications</span></span></span>
@@ -316,7 +316,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   function (x) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> broom::tidy(x, conf.int = TRUE)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc93cc96d60&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff1030f5a58&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
@@ -376,7 +376,7 @@ e.g., <code><a href="summary.specr.setup.html">?summary.specr.setup</a></code> t
 <span class="r-out co"><span class="r-pr">#&gt;</span>   fit$full_model = list(x)     # include entire model fit object as list</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   return(fit)</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7fc92bae7af8&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: 0x7ff10246bc60&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Head of specifications table (first 6 rows):</span>
