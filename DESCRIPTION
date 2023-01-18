@@ -40,8 +40,6 @@ Imports:
     tidyr
 Suggests: 
     broom.mixed,
-    rstanarm,
-    BH,
     brms,
     gapminder,
     ggridges,
