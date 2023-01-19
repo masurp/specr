@@ -37,8 +37,8 @@ generate_data <- function(seed = 42, n = 1e5) {
   )
 }
 
-# Generate very large data set (n = 100,000, 9.9 MB on disk)
-dat <- generate_data(9)
+# Generate very large data set (n = 50,000, 2 MB on disk)
+dat <- generate_data(n = 1000)
 ```
 
 ## Simple parallelization without custom functions
