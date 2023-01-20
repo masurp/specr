@@ -70,6 +70,8 @@ navbar:
       href: articles/measurement-models.html
     - text: Multilevel models
       href: articles/multilevel-models.html
+    - text: Bayesian models
+      href: articles/parallel-bayesian-models.html
   - text: News
     href: news/index.html
   right:

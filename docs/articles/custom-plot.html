@@ -74,6 +74,9 @@
     <li>
       <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
+    <li>
+      <a href="../articles/parallel-bayesian-models.html">Bayesian models</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -121,10 +124,10 @@ more specific customization is possible if we use specify the argument
 <code>type</code> (e.g., <code>type = "curve"</code>). Different types
 are available. All of resulting plots are objects of the class <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot</a>, which means
 they can be customized and adjusted further using the grammar of
-graphics provided by the package <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a>.
-<code>specr</code> also exports the function <code><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid()</a></code>
-from the package <code>cowplot</code>, which can be used to combine
-different types of plots.</p>
+graphics provided by the package <a href="https://ggplot2.tidyverse.org/index.html" class="external-link">ggplot2</a>. specr also
+exports the function <code><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid()</a></code> from the package
+<code>cowplot</code>, which can be used to combine different types of
+plots.</p>
 <div class="section level2">
 <h2 id="specification-curve-analysis">Specification curve analysis<a class="anchor" aria-label="anchor" href="#specification-curve-analysis"></a>
 </h2>
@@ -166,7 +169,7 @@ included in the package.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">##   function (x) </span></span>
 <span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7fc81aab8468&gt;</span></span>
+<span><span class="co">## &lt;environment: 0x7fdb6e42bf08&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
@@ -205,7 +208,7 @@ the generic <code><a href="https://rdrr.io/r/base/summary.html" class="external-
 <span><span class="co">## </span></span>
 <span><span class="co">##   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">##   Cores used:                     1 </span></span>
-<span><span class="co">##   Duration of fitting process:    1.718 sec elapsed </span></span>
+<span><span class="co">##   Duration of fitting process:    1.924 sec elapsed </span></span>
 <span><span class="co">##   Number of specifications:       192 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Descriptive summary of the specification curve:</span></span>

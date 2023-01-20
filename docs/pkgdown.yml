@@ -8,8 +8,9 @@ articles:
   invest-spec: invest-spec.html
   measurement-models: measurement-models.html
   multilevel-models: multilevel-models.html
+  parallel-bayesian-models: parallel-bayesian-models.html
   parallelization: parallelization.html
-last_built: 2023-01-18T14:40Z
+last_built: 2023-01-20T09:32Z
 urls:
   reference: https://masurp.github.io/specr/index.html/reference
   article: https://masurp.github.io/specr/index.html/articles

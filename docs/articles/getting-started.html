@@ -74,6 +74,9 @@
     <li>
       <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
+    <li>
+      <a href="../articles/parallel-bayesian-models.html">Bayesian models</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -112,12 +115,11 @@
     
 <p>The following vignette is a more comprehensive version of the short
 example on the homepage and exemplifies how to use the core functions of
-this package. Although using <code>specr</code> strictly speaking does
-not require any other package, we recommend to also load the
-<code>tidyverse</code> as it provides valuable functions for data
-wrangling and adapting outputs from <code>specr</code> functions.
-Furthermore, the <code>tidyverse</code> includes <code>ggplot2</code>
-which can be used to modify the layout of the plots.</p>
+this package. Although using specr strictly speaking does not require
+any other package, we recommend to also load the <a href="https://www.tidyverse.org/" class="external-link">tidyverse</a> as it provides valuable
+functions for data wrangling and adapting outputs from specr functions.
+Furthermore, the tidyverse includes <a href="https://ggplot2.tidyverse.org/" class="external-link">ggplot2</a> which can be used to
+modify the layout of the plots.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load library</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
@@ -209,7 +211,7 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   function (x) </span></span>
 <span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7f87932c9620&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f8d6acf4e78&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 20 rows):</span></span>
@@ -238,8 +240,8 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> x1    y1    lm    c1            male            <span style="color: #BB0000;">NA</span>     male   y1 ~ x1 + c1</span></span></code></pre></div>
 <p>The resulting S3 class (“specr.setup”) includes a data frame with 96
 different specifications. We can also see that the analysis will use the
-function <code>tidy()</code> from the <code>broom</code>-package to
-extract parameters from the models.</p>
+function <code>tidy()</code> from the <a href="https://broom.tidymodels.org/" class="external-link">broom</a> package to extract
+parameters from the models.</p>
 <p>We can also get a “visual summary” of the specifications and the
 resulting “garden of forking paths” using the generic
 <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> function.</p>
@@ -267,7 +269,7 @@ results.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    6.283 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    6.556 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       384 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -381,8 +383,8 @@ of interest (B). Red represents negative and significant effects (based
 on the chosen significance level, by default <span class="math inline">\(\alpha = .05\)</span>). Blue represents positive
 and significant effects. Grey refers to non-significant effects.</p>
 <p>We can also just plot the curve and adjust the style and layout using
-<code>ggplot2</code>- functions. Here, I am also order the curve by
-control variables and rank them in a descending order.</p>
+ggplot2 functions. Here, I am also order the curve by control variables
+and rank them in a descending order.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Plot </span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, group <span class="op">=</span> <span class="va">controls</span>, desc <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span></span>

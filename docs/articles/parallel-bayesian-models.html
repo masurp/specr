@@ -75,7 +75,7 @@
       <a href="../articles/multilevel-models.html">Multilevel models</a>
     </li>
     <li>
-      <a href="../articles/parallel-bayesian-models.html">Bayesian Modeling</a>
+      <a href="../articles/parallel-bayesian-models.html">Bayesian models</a>
     </li>
   </ul>
 </li>
@@ -113,23 +113,23 @@
 
     
     
-<p>This vignette shows how one can incorporate Bayesian modeling using
-the package <code>brms</code> in <code>specr</code>. When we fit a model
-with <code>brms</code>, the package actually calls Rstan in the
-background, which, in turn, is an R interface to the statistical
-programming language <code>Stan</code>. Stan is built in the programming
-language C++ and models have to be compiled using C++ to be run. This is
-all taken care of by brms, so you just need to run <code>brm(…)</code>
-to fit any model. <code>brms</code> uses a syntax for specifying model
-formulae that is based on the syntax of the commonly known
-<code>lme4</code> package (for multilevel modeling). The comparatively
+<p>This vignette shows how to incorporate Bayesian modeling using the
+package <a href="https://paul-buerkner.github.io/brms/" class="external-link">brms</a> in
+specr. When we fit a model with <code>brms</code>, the package actually
+calls Rstan in the background, which, in turn, is an R interface to the
+statistical programming language <code>Stan</code>. Stan is built in the
+programming language C++ and models have to be compiled using C++ to be
+run. This is all taken care of by brms, so you just need to run
+<code>brm(…)</code> to fit any model. <code>brms</code> uses a syntax
+for specifying model formulae that is based on the syntax of the
+commonly known lme4 package (for multilevel modeling). The comparatively
 easy syntax of <code>brms</code> is then converted into Stan code
 automatically.</p>
 <p>That said, since the models have to be compiled in C++, you need to
 set up your computer so that it can actually use C++. This has to be
 done only once, before installing brms. Unfortunately, as almost always,
 how you install C++ depends on your operating system. Check <a href="https://github.com/masurp/workshop_bayes/blob/main/exercises/Exercise_02.md" class="external-link">this
-vignette</a> to if you have problems installing <code>brms</code>.</p>
+vignette</a> to if you have problems installing brms.</p>
 <p>We are also loading the library <code>furrr</code> as we want to
 parallelize the computations.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -142,8 +142,8 @@ parallelize the computations.</p>
 <h2 id="setting-up-custom-functions">Setting up custom functions<a class="anchor" aria-label="anchor" href="#setting-up-custom-functions"></a>
 </h2>
 <p>Although you can simply pass the function <code>brm</code> to
-<code>setup</code> and run <code><a href="../reference/specr.html">specr()</a></code>with
-<code>workers = 1</code> without any specific custim function, it
+<code>setup</code> and run <code><a href="../reference/specr.html">specr()</a></code> with
+<code>workers = 1</code> without any specific custum function, it
 usually make sense to set up some custom model fitting and extraction
 functions to make sure <code><a href="../reference/specr.html">specr()</a></code> does exactly what we
 want.</p>
@@ -201,27 +201,26 @@ aspects of the Bayesian models.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function (x) </span></span>
-<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fa4cb4c3618&gt;</span></span>
+<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f9c7371bad0&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 6</span></span>
 <span><span class="co">#&gt;   x     y     model   controls      subsets formula          </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>           </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> x1    y1    brm_new no covariates all     y1 ~ x1 + 1      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> x1    y1    brm_new c1            all     y1 ~ x1 + c1     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> x1    y1    brm_new c2            all     y1 ~ x1 + c2     </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> x1    y1    brm_new c1 + c2       all     y1 ~ x1 + c1 + c2</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> x1    y2    brm_new no covariates all     y2 ~ x1 + 1      </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> x1    y2    brm_new c1            all     y2 ~ x1 + c1</span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;glue&gt;           </span></span>
+<span><span class="co">#&gt; 1 x1    y1    brm_new no covariates all     y1 ~ x1 + 1      </span></span>
+<span><span class="co">#&gt; 2 x1    y1    brm_new c1            all     y1 ~ x1 + c1     </span></span>
+<span><span class="co">#&gt; 3 x1    y1    brm_new c2            all     y1 ~ x1 + c2     </span></span>
+<span><span class="co">#&gt; 4 x1    y1    brm_new c1 + c2       all     y1 ~ x1 + c1 + c2</span></span>
+<span><span class="co">#&gt; 5 x1    y2    brm_new no covariates all     y2 ~ x1 + 1      </span></span>
+<span><span class="co">#&gt; 6 x1    y2    brm_new c1            all     y2 ~ x1 + c1</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="estimating-the-models">Estimating the models<a class="anchor" aria-label="anchor" href="#estimating-the-models"></a>
 </h2>
 <p>Because we are estimating 24 Bayesian models, this may take a while,
-but <code>brms</code> automatically parallelizes the computations.</p>
+but brms automatically parallelizes the computations.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can again summarize and plot our results.</p>
@@ -233,13 +232,13 @@ but <code>brms</code> automatically parallelizes the computations.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    11.525 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    9.25 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       24 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  median  mad   min  max   q25  q75</span></span>
-<span><span class="co">#&gt;    0.17 0.25 -0.34 0.62 -0.07 0.25</span></span>
+<span><span class="co">#&gt;    0.16 0.25 -0.34 0.62 -0.07 0.25</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of sample sizes: </span></span>
 <span><span class="co">#&gt; </span></span>
@@ -248,20 +247,19 @@ but <code>brms</code> automatically parallelizes the computations.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of the specification results (first 6 rows): </span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 18</span></span></span>
-<span><span class="co">#&gt;   x     y     model   controls   subsets formula effect component group estimate</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> x1    y1    brm_new no covari… all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.62</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> x1    y1    brm_new c1         all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.6 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> x1    y1    brm_new c2         all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.61</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> x1    y1    brm_new c1 + c2    all     y1 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>        0.59</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> x1    y2    brm_new no covari… all     y2 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.33</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> x1    y2    brm_new c1         all     y2 ~ x… fixed  cond      <span style="color: #BB0000;">NA</span>       -<span style="color: #BB0000;">0.34</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 8 more variables: std.error &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fit_algorithm &lt;chr&gt;, fit_pss &lt;dbl&gt;, fit_nobs &lt;dbl&gt;, fit_sigma &lt;dbl&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   fit_full_model &lt;list&gt;</span></span></span>
+<span><span class="co">#&gt; # A tibble: 6 × 18</span></span>
+<span><span class="co">#&gt;   x     y     model   controls      subsets formula      effect component group estimate std.error </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;         &lt;chr&gt;   &lt;glue&gt;       &lt;chr&gt;  &lt;chr&gt;     &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt; </span></span>
+<span><span class="co">#&gt; 1 x1    y1    brm_new no covariates all     y1 ~ x1 + 1  fixed  cond      &lt;NA&gt;      0.62      0.04 </span></span>
+<span><span class="co">#&gt; 2 x1    y1    brm_new c1            all     y1 ~ x1 + c1 fixed  cond      &lt;NA&gt;      0.6       0.04 </span></span>
+<span><span class="co">#&gt; 3 x1    y1    brm_new c2            all     y1 ~ x1 + c2 fixed  cond      &lt;NA&gt;      0.61      0.04 </span></span>
+<span><span class="co">#&gt; 4 x1    y1    brm_new c1 + c2       all     y1 ~ x1 + c… fixed  cond      &lt;NA&gt;      0.59      0.04 </span></span>
+<span><span class="co">#&gt; 5 x1    y2    brm_new no covariates all     y2 ~ x1 + 1  fixed  cond      &lt;NA&gt;     -0.33      0.04 </span></span>
+<span><span class="co">#&gt; 6 x1    y2    brm_new c1            all     y2 ~ x1 + c1 fixed  cond      &lt;NA&gt;     -0.34      0.04 </span></span>
+<span><span class="co">#&gt; # … with 7 more variable: conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_algorithm &lt;chr&gt;, fit_pss &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; #   fit_nobs &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_full_model &lt;list&gt;</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="parallel-bayesian-models_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="100%"></p>
 <p>Again, the coefficients are median estimates from the posterior and
 their respective 95% HDIs.</p>
 </div>
@@ -287,12 +285,12 @@ explore specific models using the <code>pull</code> function.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Population-Level Effects: </span></span>
 <span><span class="co">#&gt;           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; Intercept    -1.10      0.04    -1.16    -1.03 1.00     1791     1267</span></span>
-<span><span class="co">#&gt; x1            0.62      0.04     0.54     0.70 1.00     2040     1591</span></span>
+<span><span class="co">#&gt; Intercept    -1.10      0.04    -1.17    -1.02 1.00     1915     1356</span></span>
+<span><span class="co">#&gt; x1            0.62      0.04     0.55     0.69 1.00     1900     1631</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family Specific Parameters: </span></span>
 <span><span class="co">#&gt;       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS</span></span>
-<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.19 1.00     2099     1583</span></span>
+<span><span class="co">#&gt; sigma     1.14      0.03     1.09     1.18 1.00     2903     1542</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS</span></span>
 <span><span class="co">#&gt; and Tail_ESS are effective sample size measures, and Rhat is the potential</span></span>
@@ -304,25 +302,25 @@ frame.</p>
 <code class="sourceCode R"><span><span class="va">posteriors</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html" class="external-link">pull</a></span><span class="op">(</span><span class="va">fit_full_model</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://mc-stan.org/posterior/reference/draws_df.html" class="external-link">as_draws_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="fu"><a href="https://mc-stan.org/posterior/reference/draws_df.html" class="external-link">as_draws_df</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">[</span>, <span class="fl">2</span><span class="op">]</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>        <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">key</span>, <span class="va">value</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_rows</a></span><span class="op">(</span><span class="va">.</span>, .id <span class="op">=</span> <span class="st">"id"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># First 10 draws from the first specification for predictor `x2`</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">posteriors</span>, n <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 3</span></span></span>
+<span><span class="co">#&gt; # A tibble: 10 × 3</span></span>
 <span><span class="co">#&gt;    id    key   value</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1     b_x1  0.650</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1     b_x1  0.601</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1     b_x1  0.654</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1     b_x1  0.654</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1     b_x1  0.660</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1     b_x1  0.605</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1     b_x1  0.635</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1     b_x1  0.616</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1     b_x1  0.641</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1     b_x1  0.643</span></span></code></pre></div>
+<span><span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 1     b_x1  0.642</span></span>
+<span><span class="co">#&gt;  2 1     b_x1  0.655</span></span>
+<span><span class="co">#&gt;  3 1     b_x1  0.647</span></span>
+<span><span class="co">#&gt;  4 1     b_x1  0.650</span></span>
+<span><span class="co">#&gt;  5 1     b_x1  0.611</span></span>
+<span><span class="co">#&gt;  6 1     b_x1  0.736</span></span>
+<span><span class="co">#&gt;  7 1     b_x1  0.565</span></span>
+<span><span class="co">#&gt;  8 1     b_x1  0.624</span></span>
+<span><span class="co">#&gt;  9 1     b_x1  0.602</span></span>
+<span><span class="co">#&gt; 10 1     b_x1  0.611</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="plotting-posterior-distributions-for-all-specifications">Plotting posterior distributions for all specifications<a class="anchor" aria-label="anchor" href="#plotting-posterior-distributions-for-all-specifications"></a>
@@ -336,10 +334,10 @@ distributions of the different specifications.</p>
 <span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/geom_density_ridges.html" class="external-link">geom_density_ridges</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html" class="external-link">scale_fill_brewer</a></span><span class="op">(</span>palette <span class="op">=</span> <span class="st">"Blues"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Posterior"</span>, </span>
-<span>       y <span class="op">=</span> <span class="st">"Specifications"</span>, </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Posterior"</span>,</span>
+<span>       y <span class="op">=</span> <span class="st">"Specifications"</span>,</span>
 <span>       fill <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span></code></pre></div>
-<p><img src="parallel-bayesian-models_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="100%"></p>
 <p>Of course, the posterior distributions are not sorted in any way.
 With a bit of data wrangling, we can create a specification curve
 consisting of posterior distributions.</p>
@@ -349,14 +347,14 @@ consisting of posterior distributions.</p>
 <span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>specifications <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>specifications <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                 levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">posteriors</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">value</span>, y <span class="op">=</span> <span class="va">specifications</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/stat_density_ridges.html" class="external-link">stat_density_ridges</a></span><span class="op">(</span>quantile_lines <span class="op">=</span> <span class="cn">TRUE</span>, </span>
-<span>                      quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://wilkelab.org/ggridges/reference/stat_density_ridges.html" class="external-link">stat_density_ridges</a></span><span class="op">(</span>quantile_lines <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                      quantiles <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.025</span>, <span class="fl">0.975</span><span class="op">)</span>,</span>
 <span>                      alpha <span class="op">=</span> <span class="fl">.5</span>,</span>
-<span>                      fill <span class="op">=</span> <span class="st">"lightblue"</span>, </span>
+<span>                      fill <span class="op">=</span> <span class="st">"lightblue"</span>,</span>
 <span>                      color <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html" class="external-link">coord_flip</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -371,7 +369,7 @@ consisting of posterior distributions.</p>
 <span><span class="va">p2</span> <span class="op">&lt;-</span> <span class="va">results</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="va">as_tibble</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">estimate</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>specifications <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>specifications <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>                                 levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">24</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/gather.html" class="external-link">gather</a></span><span class="op">(</span><span class="va">key</span>, <span class="va">value</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>key <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">key</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span>, <span class="st">"controls"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
@@ -392,11 +390,11 @@ consisting of posterior distributions.</p>
 <span></span>
 <span><span class="co"># Combine</span></span>
 <span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html" class="external-link">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>,</span>
-<span>          ncol <span class="op">=</span> <span class="fl">1</span>,           </span>
-<span>          align <span class="op">=</span> <span class="st">"hv"</span>,            </span>
-<span>          axis <span class="op">=</span> <span class="st">"tblr"</span>,            </span>
+<span>          ncol <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>          align <span class="op">=</span> <span class="st">"hv"</span>,</span>
+<span>          axis <span class="op">=</span> <span class="st">"tblr"</span>,</span>
 <span>          rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="parallel-bayesian-models_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
+<p><img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="100%"></p>
 </div>
   </div>
 
