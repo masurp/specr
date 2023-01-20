@@ -1,7 +1,12 @@
 ## Test environments
 
 * local OS 11.6 install, R 4.2.1
-* win-builder (devel and release)
+* via github actions
+    - macos-latest (release)
+    - ubuntu-latest (devel)
+    - ubuntu-latest (old-rel-1)
+    - ubuntu-latest (release)
+    - windows-latest (release)
 
 ## R CMD check results
 
