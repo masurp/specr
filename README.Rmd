@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 
 ### News
 
-- 20 January 2022: specr version 1.0.0 is now available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
+- 20 January 2022: specr version 1.0.0 is now available via [CRAN](https://cran.r-project.org/package=specr). This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
 
 - 4 December 2020: specr development version 0.2.2 is available via github. Mostly minor updates and bug fixes.
 
@@ -53,19 +53,19 @@ We do see a lot of value in investigating how analytical choices affect a statis
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")   # version 0.2.1
+install.packages("specr")  
 ```
 
 Or install the most recent development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")   # version 1.0.0
+devtools::install_github("masurp/specr")  
 ```
 
 ### Usage
 
-Using `specr` is comparatively simple. The two main function are `setup()`, in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
+Using specr is comparatively simple. The two main function are `setup()`, in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
 
 ```{r, message=F, warning = F, fig.height=10, fig.width=10}
 # Load package ----

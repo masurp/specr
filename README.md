@@ -23,10 +23,11 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
--   20 January 2022: specr version 1.0.0 is now available via github.
-    This is a major update with several new features and functions.
-    Note: it introduces a new framework for conduction specification
-    curve analyses compared to earlier versions (see [version
+-   20 January 2022: specr version 1.0.0 is now available via
+    [CRAN](https://cran.r-project.org/package=specr). This is a major
+    update with several new features and functions. Note: it introduces
+    a new framework for conduction specification curve analyses compared
+    to earlier versions (see [version
     history](https://masurp.github.io/specr/news/index.html) for more
     details).
 
@@ -63,7 +64,7 @@ and not a better way to estimate a correlation or effect.
 Install specr from CRAN:
 
 ``` r
-install.packages("specr")   # version 0.2.1
+install.packages("specr")  
 ```
 
 Or install the most recent development version from
@@ -71,12 +72,12 @@ Or install the most recent development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("masurp/specr")   # version 1.0.0
+devtools::install_github("masurp/specr")  
 ```
 
 ### Usage
 
-Using `specr` is comparatively simple. The two main function are
+Using specr is comparatively simple. The two main function are
 `setup()`, in which analytic choices are specified as arguments, and
 `specr()`, which fits the models across all specifications. The latter
 creates a class called “specr.object”, which can be summarized and

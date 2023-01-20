@@ -1,7 +1,7 @@
 
 # specr 1.0.0
 
-CRAN release: [soon]
+CRAN release: 2022-01-20
 
 ## Breaking changes
 
