@@ -17,8 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Sometimes, we may want to estimate relationships between latent variables and we are interested in the effect of different measurement models on the relationship of interest. Because specifically customized model-functions can be passed to `run_specs()` many different model types (including structural equation models, multilevel models...) can be estimated. This vignette exemplifies how to integrate latent measurement models and estimate structural equations models (SEM).
-
+Sometimes, we may want to estimate relationships between latent variables and we are interested in the effect of different measurement models on the relationship of interest. Because specifically customized model-functions can be passed to `specr()` many different model types (including structural equation models, multilevel models...) can be estimated. This vignette exemplifies how to integrate latent measurement models and estimate structural equations models (SEM).
 
 # Preparations
 
@@ -32,7 +31,7 @@ library(specr)
 library(lavaan)
 ```
 
-For this example, we will us the `HolzingerSwineford1939` data set that is included in the `lavaan`-package. We quickly dummy-code the sex variable as we want to include it as a control. 
+For this example, we will us the `HolzingerSwineford1939` data set that is included in the [lavaan](https://lavaan.ugent.be/) package. We quickly dummy-code the sex variable as we want to include it as a covariate. 
 
 ```{r, message=F, warning = F}
 # Load data and recode
@@ -47,7 +46,7 @@ head(d)
 
 Let's quickly run a simple structural equation model with lavaan. Note that there are separate regression formulas for the measurement models and the actual regression models in the string that represents the model. The regression formulas follows a similar pattern as formulas in linear models (e.g., using `lm()` or `glm()`) or multilevel models (e.g., using `lme4::lmer()`). This regression formula will automatically be built by the function `setup()`. The formulas denoting the measurement model (in this case only one), however, we need to actively paste into the formula string. 
 
-## Understanding `lavaan` syntax and output
+## Understanding lavaan syntax and output
 
 ```{r}
 # Model syntax

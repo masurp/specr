@@ -8,7 +8,7 @@ vignette: >
 ---
 
 
-The function `setup()` seems rather simple, but it is in fact very versatile and allows to incorporate (almost?) any analytic choice that one might engage in during data analysis. In this vignette, I am going to exemplify how this function can be used to "create" several analytical choices. 
+The function `setup()` seems rather simple, but it is in fact very versatile and allows to incorporate (almost) any analytic choice that one might engage in during data analysis. In this vignette, I am going to exemplify how this function can be used to create several analytical choices. 
 
 ```{r, message = F, warning = F}
 library(tidyverse)
@@ -17,7 +17,7 @@ library(specr)
 
 # Different independent and dependent variables
 
-One analytical choice may refer to choosing different independent or dependent variables (e.g., different scales that measure the same construct) or different ways in how these variables are compute (e.g., mean vs. latent measurement, log-transformation, etc). 
+One analytic choice may refer to choosing different independent or dependent variables (e.g., different scales that measure the same construct) or different ways in how these variables are compute (e.g., mean vs. latent measurement, log-transformation, etc). 
 
 ## Simply providing different variable as vectors
 
@@ -62,7 +62,7 @@ specs %>%
   as_tibble
 ```
 
-As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 0.3.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `sprec.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
+As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 0.3.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `specr.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
 
 ```{r}
 # Filter out models that are not meaningful (here only keep log_glm, when y == "y4")
@@ -80,7 +80,7 @@ head(results$data)
 
 ## Adding composite and latent variables
 
-In some cases, we may want to add mean indices or even latent measurement models of our variables of interest to explore how latent vs. manifest measurement affects our results. This requires a bit more upfront work as we need to work with `lavaan` for the latent measurement. Furthermore, we need to adjust the extract functions (`fun1` and `fun2` in `setup()`) so that the extraction of parameters aligns across different type of models. The beauty of `broom::tidy()` and `broom::glance()` (which are used by default) is that they adapt to the different model types that are passed to `setup`. Although the same parameters are extracted for most models, they sometimes differ for specific models (e.g., structural equation models resulting from `lavaan::sem()`). This means we need to adjust them to extract the same parameters across different models. 
+In some cases, we may want to add mean indices or even latent measurement models of our variables of interest to explore how latent vs. manifest measurement affects our results. This requires a bit more upfront work as we need to work with [lavaan](https://lavaan.ugent.be/) for the latent measurement. Furthermore, we need to adjust the extract functions (`fun1` and `fun2` in `setup()`) so that the extraction of parameters aligns across different type of models. The beauty of `broom::tidy()` and `broom::glance()` (which are used by default) is that they adapt to the different model types that are passed to `setup`. Although the same parameters are extracted for most models, they sometimes differ for specific models (e.g., structural equation models resulting from `lavaan::sem()`). This means we need to adjust them to extract the same parameters across different models. 
 
 ```{r, warning = F, message = F}
 # Add mean (one choice)

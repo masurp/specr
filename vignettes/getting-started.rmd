@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-The following vignette is a more comprehensive version of the short example on the homepage and exemplifies how to use the core functions of this package. Although using `specr` strictly speaking does not require any other package, we recommend to also load the `tidyverse` as it provides valuable functions for data wrangling and adapting outputs from `specr` functions. Furthermore, the `tidyverse` includes `ggplot2` which can be used to modify the layout of the plots. 
+The following vignette is a more comprehensive version of the short example on the homepage and exemplifies how to use the core functions of this package. Although using specr strictly speaking does not require any other package, we recommend to also load the [tidyverse](https://www.tidyverse.org/) as it provides valuable functions for data wrangling and adapting outputs from specr functions. Furthermore, the tidyverse includes [ggplot2](https://ggplot2.tidyverse.org/) which can be used to modify the layout of the plots. 
 
 ```{r, message=F, warning = F}
 # Load library
@@ -67,7 +67,7 @@ specs <- setup(data = example_data,            # First, we provide the data set
 summary(specs, rows = 20)
 ```
 
-The resulting S3 class ("specr.setup") includes a data frame with 96 different specifications. We can also see that the analysis will use the function `tidy()` from the `broom`-package to extract parameters from the models. 
+The resulting S3 class ("specr.setup") includes a data frame with 96 different specifications. We can also see that the analysis will use the function `tidy()` from the [broom](https://broom.tidymodels.org/) package to extract parameters from the models. 
 
 We can also get a "visual summary" of the specifications and the resulting "garden of forking paths" using the generic `plot()` function. 
 
@@ -125,7 +125,7 @@ plot(results)
 
 The resulting plot includes the ranked specification curve (A) and an overview about how the different analytical choices affect the estimate of interest (B). Red represents negative and significant effects (based on the chosen significance level, by default $\alpha = .05$). Blue represents positive and significant effects. Grey refers to non-significant effects. 
 
-We can also just plot the curve and adjust the style and layout using `ggplot2`- functions. Here, I am also order the curve by control variables and rank them in a descending order. 
+We can also just plot the curve and adjust the style and layout using ggplot2 functions. Here, I am also order the curve by control variables and rank them in a descending order. 
 
 ```{r, fig.height=5, fig.width=10, message=F, warning = F}
 # Plot 

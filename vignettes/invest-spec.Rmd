@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-Per default, `specr()` summarizes individual specifications by using `broom.mixed::tidy()` and `broom::glance()`. For most cases, this provides a "sufficient" summary of the relationship of interest and model characteristics. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by the two functions (e.g., r-square). This vignette shows how to access individual models and extract further information from them.
+Per default, `specr()` summarizes individual specifications by using `broom::tidy()` and `broom::glance()`. For most cases, this provides a sufficient and appropriate summary of the relationship of interest and model characteristics. Sometimes, however, it might be useful to investigate specific models in more detail or to investigate a specific parameter that is not provided by the two functions (e.g., r-square). This vignette shows how to access individual models and extract further information from them.
 
 ```{r, message = F, warning = F}
 library(tidyverse)
@@ -64,7 +64,7 @@ For this example, we are going to look at two specific models (same independent 
   select(x:group2, estimate:res)
 ```
 
-As you can see, the resulting tibble includes an additional column called "res". This column includes the entire "model object" and we can use it to further investigate each model. 
+As you can see, the resulting tibble includes an additional column called `res`. This column includes the entire "model object" and we can use it to further investigate each model. 
 
 ## Investigate models
 
@@ -77,7 +77,7 @@ y_models %>%
   map(coef)
 ```
 
-Or we could get r-squared values for both models.
+Or we could get r-squared values for both models (here using the function `r2()` from the [performance](https://easystats.github.io/performance/) package).
 
 ```{r}
 y_models %>%
