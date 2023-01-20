@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
 
 ### News
 
-- 5 January 2022: specr version 1.0.0 is now available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
+- 20 January 2022: specr version 1.0.0 is now available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
 
 - 4 December 2020: specr development version 0.2.2 is available via github. Mostly minor updates and bug fixes.
 

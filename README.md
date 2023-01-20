@@ -22,7 +22,7 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
--   5 January 2022: specr version 1.0.0 is now available via github.
+-   20 January 2022: specr version 1.0.0 is now available via github.
     This is a major update with several new features and functions.
     Note: it introduces a new framework for conduction specification
     curve analyses compared to earlier versions (see [version
