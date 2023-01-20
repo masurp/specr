@@ -82,10 +82,10 @@
     </div>
 
     <div class="section level2">
-<h2 class="page-header" data-toc-text="0.3.0" id="specr-030">specr 0.3.0<a class="anchor" aria-label="anchor" href="#specr-030"></a></h2>
+<h2 class="page-header" data-toc-text="1.0.0" id="specr-100">specr 1.0.0<a class="anchor" aria-label="anchor" href="#specr-100"></a></h2>
 <p>CRAN release: [soon]</p>
 <div class="section level3">
-<h3 id="breaking-changes-0-3-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-3-0"></a></h3>
+<h3 id="breaking-changes-1-0-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
 <ul><li><p>This new version introduces a completely new analytic framework which breaks with earlier versions of specr. See <a href="https://masurp.github.io/specr/articles/specr.html" class="external-link">this vignette</a> for a comprehensive tutorial on how to use this new framework.</p></li>
 <li>
 <p>A new function called <code><a href="../reference/setup.html">setup()</a></code> is introduced and replaces the original <code><a href="../reference/setup_specs.html">setup_specs()</a></code> to make the specification of analytical choices more intuitive and comprehensive. Most importantly, it allows to set up all specifications (now also including subset analyses, additions to the formula, etc.) a priori, i.e., before the estimation of all models.</p>
@@ -106,14 +106,15 @@
 <li><p>Please note that the functions from earlier versions are still available, but deprecated. It is hence still possible to use the older framework as implemented in version 0.2.1, but we suggest to move to the new framework of version 0.3.0 due to its increased speed and flexibility.</p></li>
 </ul></div>
 <div class="section level3">
-<h3 id="known-issuesbugs-0-3-0">Known issues/bugs<a class="anchor" aria-label="anchor" href="#known-issuesbugs-0-3-0"></a></h3>
+<h3 id="known-issuesbugs-1-0-0">Known issues/bugs<a class="anchor" aria-label="anchor" href="#known-issuesbugs-1-0-0"></a></h3>
 <ul><li>So far none…</li>
 </ul></div>
 <div class="section level3">
-<h3 id="acknowledgements-0-3-0">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements-0-3-0"></a></h3>
+<h3 id="acknowledgements-1-0-0">Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements-1-0-0"></a></h3>
 <p>This version of <code>specr</code> was something I wanted to tackle for a while. Although the previous versions seem to have embraced by the community and several relevant papers used them in interesting ways, certain issues kept coming up (ranging from slow fitting process to wanting to incorporate more complex analytical decisions and choices). This version is thus heavily inspired by the growing community of scholars who provide feedback and suggestions via <a href="https://github.com/masurp/specr/issues" class="external-link">github</a>. Thank you to all of you! But for this version, I want to thank two people particularly:</p>
 <ul><li><p>Big thanks go to <a href="https://github.com/mvuorre" class="external-link">Matti Vuorre</a> who explored ways to parallelize specification curve analysis in this <a href="https://vuorre.netlify.app/posts/parallel-multiverse/" class="external-link">blogpost</a>, which became the basis for the implementation in specr.</p></li>
-<li><p>Thanks also to <a href="https://github.com/kasperwelbers" class="external-link">Kasper Welbers</a> who contributed some essential code within the core function.</p></li>
+<li><p>Many thanks to <a href="https://github.com/kasperwelbers" class="external-link">Kasper Welbers</a> who contributed some essential code within the core function.</p></li>
+<li><p>Thanks also to <a href="https://github.com/JBGruber" class="external-link">Johannes Gruber</a> who provided support in the final stages of building this package.</p></li>
 </ul></div>
 </div>
     <div class="section level2">
