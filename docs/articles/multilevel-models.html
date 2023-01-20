@@ -119,7 +119,7 @@ models. We again have to write a customized function that we can pass
 first to <code><a href="../reference/setup.html">setup()</a></code> and the <code><a href="../reference/specr.html">specr()</a></code> will do the
 rest.</p>
 <p>For this example, we will us the <code>gapminder</code> data set that
-is included in the <a href="https://cran.r-project.org/web/packages/gapminder/index.html" class="external-link">gapminder</a>
+is included in the <a href="https://cran.r-project.org/package=gapminder" class="external-link">gapminder</a>
 package. We quickly recode some variable to get more interpretable
 estimates.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -148,10 +148,10 @@ estimates.</p>
 <div class="section level2">
 <h2 id="simply-adding-a-random-effect-structure">Simply adding a random effect structure<a class="anchor" aria-label="anchor" href="#simply-adding-a-random-effect-structure"></a>
 </h2>
-<p>For this example, we use the package <a href="https://cran.r-project.org/web/packages/lme4/index.html" class="external-link">lme4</a>
-and more specifically the function <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer()</a></code> to estimate the
-multilevel model (more complex models such as poisson or negative
-binomial multilevel models can likewise be estimated).</p>
+<p>For this example, we use the package <a href="https://cran.r-project.org/package=lme4" class="external-link">lme4</a> and more
+specifically the function <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer()</a></code> to estimate the multilevel
+model (more complex models such as poisson or negative binomial
+multilevel models can likewise be estimated).</p>
 <p>Based on the data set, we want to estimate the relationship between
 <code>gdpPercap</code> (GDP per capita) and <code>lifeExp</code> (life
 expectancy). Both variables are nested within both countries and years.
@@ -289,9 +289,8 @@ the fixed effect between GDP per capita and life expectancy.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Function used to extract parameters:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   function (x) </span></span>
-<span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7fd125effbb8&gt;</span></span>
+<span><span class="co">#&gt;   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f808b8855f0&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 6 rows):</span></span>

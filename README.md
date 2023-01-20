@@ -15,8 +15,9 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/specr)](https://CRAN.R-project.org/package=specr)
-![](https://cranlogs.r-pkg.org/badges/grand-total/specr) [![Lifecycle:
-stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://www.tidyverse.org/lifecycle/#stable)
+![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/specr)
+[![Lifecycle:
+stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
@@ -160,7 +161,7 @@ like to be included in the following list, please send an email to
 
 -   Burton, J.W., Cruz, N. & Hahn, U. (2021). Reconsidering evidence of
     moral contagion in online social networks. *Nature Human Behaviour.*
-    <https://doi-org.vu-nl.idm.oclc.org/10.1038/s41562-021-01133-5>
+    <https://doi.org/10.1038/s41562-021-01133-5>
 
 -   Cosme, D., & Lopez, R. B. (2020, March 7). Neural indicators of food
     cue reactivity, regulation, and valuation and their associations
