@@ -1,0 +1,121 @@
+---
+title: "Using parallelization"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using parallelization}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+A major improvement in version 0.3.0 of specr is that we can parallelize the computations, which can reduce fitting time. For this, specr uses functions from the package [furrr](https://furrr.futureverse.org/). I suggest to check out the website of the package for further information. To be to use relevant functions, we load the package furrr upfront.
+
+Before we start to run some examples, bear in mind that using parallelization does not always mean that the computations are automatically faster. If the overall computation time is not very long, using parallelization may even lead to a longer fitting process as setting up several "workers" (essentially setting up procedures on several cores) produces a considerable "overhead". A true reduction in fitting time is thus only achieved when the data set is large, the number of specification are high, and the computed models are complex. I thus first simulate a comparatively large data set that allows to specify more than 1000 specifications.
+
+```{r, message = F, warning = F}
+# Load packages
+library(tidyverse)
+library(specr)
+library(furrr)
+
+# Data generating function
+generate_data <- function(seed = 42, n = 1e5) {
+  if (!is.na(seed)) set.seed(seed)
+  dat <- tibble(
+    x1 = rnorm(n),
+    x2 = rnorm(n)+ 0.9*x1,
+    x3 = rnorm(n)+ 0.9*x2,
+    x4 = rnorm(n)+ 0.9*x3,
+    y4 = rep(c(1, 0), times = n/2),
+    y1 = rnorm(n) + x1*.1 * 0.9*y4,
+    y2 = rnorm(n) + x1*.2,
+    y3 = rnorm(n) + x1*.2 + -0.4*x2,
+    c1 = rnorm(n) + x1*.3,
+    c2 = rnorm(n),
+    c3 = rnorm(n) + 0.9*c1,
+    c4 = rnorm(n),
+    group = sample(c("a", "b", "c", "d", "e"), n, replace = TRUE)
+  )
+}
+
+# Generate very large data set (n = 50,000, 2 MB on disk)
+dat <- generate_data(9)
+head(dat)
+```
+
+## Simple parallelization without custom functions
+
+If we use standard model fitting function (e.g., "lm") that are included in the base package, parallelization is comparatively simple. We only need to load the package furrr and specify a "plan for how to resolve a future" (for more information see `?future::plan`). In this case, I am choosing `multisession` (resolve the computations separate R sessions running in the background on the same machine) and specify `workers = 4` so that it runs on 4 cores in parallel.
+
+```{r}
+# Setup of specifications (number of specs = 1152)
+specs <- setup(data = dat,
+               y = c("y1", "y2", "y3"),
+               x = c("x1", "x2", "x3", "x4"),
+               model = c("lm"),
+               controls = c("c1", "c2", "c3", "c4"),
+               subsets = list(group = unique(dat$group)))
+
+# Default: Sequential ---
+results_simple <- specr(specs)
+
+# Parallel: Multisession (only works when `furrr` is loaded!)
+plan(strategy = multisession, workers = 4)
+results_parall <- specr(specs)
+
+# Comparison
+cat("Sequential: ", results_simple$time, "\n",
+    "Parallel:   ", results_parall$time)
+```
+
+As we can see, the default (sequential) computation took around a minute (`r results_simple$time`) and the parallel computation about half a minute (`r results_parall$time`).
+
+We have to acknowledge that even with this comparatively large data set and more than 1,000 specifications, the reduction in time is maybe not too exciting. Thus, parallelization only makes sense if you have a truly large data set and thousands of specifications *or* the type of model you are estimating takes a really long time (e.g., a complex structural equation model, a negative binomial model, etc.). The true power of parallelization furthermore only come into play if you are using a considerable large number of cores.
+
+
+## Parallelization with custom functions from different packages
+
+If we use a custom function, we need to make sure that this function is passed to the different workers. This can be done by specifying so called `furrr_options()`. We need to pass objects from the global environment (and potentially also packages) as shown below. Please note that we do not have to specify the "future plan" again, because have specified it already earlier in this session (see above). If we are unsure what plan is currently specified, we can simply run `plan()` and get some information about the current setup.
+
+As computation can take a long time, it would be nice if we would see some kind of progress indication. This can easily be done by simply adding the argument `.progress = TRUE` to `specr()`. This passes this argument to the `future_pmap()` function within `specr()` and prints a rudimentary progress bar during the fitting process.
+
+```{r}
+# Custom function
+log_model <- function(formula, data) {
+  glm(formula, data, family = binomial())
+}
+
+# Setup specs
+specs <- setup(data = dat,
+               y = c("y4"),
+               x = c("x1", "x2", "x3"),
+               model = c("log_model"),
+               controls = c("c1", "c2"),
+               subsets = list(group = unique(dat$group)))
+
+# Create furrr_options to be passed to specr() (only works if `furrr` is loaded)
+opts <- furrr_options(
+  globals = list(log_model = log_model)
+)
+
+# What "plan" is currently specified?
+plan()
+
+# Run results
+results_parall_2 <- specr(specs,
+                          .options = opts,   # Pass ops to specr
+                          .progress = TRUE)  # To add progress bar (not shown in output)
+
+# Summarize results
+summary(results_parall_2)
+```
+
+Note: In the technical details of the summary, we also always see how many cores were used and how long the fitting process has taken.
+
+At the end of our analysis, it makes sense to explicitly close multisession workers by switching the plan back to sequential.
+
+```{r}
+plan(sequential)
+```
+
+
+
