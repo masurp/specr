@@ -86,6 +86,7 @@ the results of calling \code{specr()} to create a standard visualization of the
 specification curve analysis. Several types of visualizations are possible.
 }
 \examples{
+\dontrun{
 # Specification Curve analysis ----
 # Setup specifications
 specs <- setup(data = example_data,
@@ -151,4 +152,5 @@ plot_grid(a, b, c,
           axis = "rbl",
           rel_heights = c(2, 3, 1),
           ncol = 1)
+}
 }

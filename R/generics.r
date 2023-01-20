@@ -87,6 +87,7 @@ print.specr.setup <- function(x, ...) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' specs <- setup(data = example_data,
 #'    x = c("x1", "x2", "x3"),
 #'    y = c("y1", "y2"),
@@ -96,6 +97,7 @@ print.specr.setup <- function(x, ...) {
 #'
 #' plot(specs)
 #' plot(specs, circular = TRUE)
+#' }
 plot.specr.setup <- function(x,
                              layout = "dendrogram",
                              circular = FALSE,
@@ -404,6 +406,7 @@ print.specr.object <- function(x, ...) {
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' # Specification Curve analysis ----
 #' # Setup specifications
 #' specs <- setup(data = example_data,
@@ -469,6 +472,7 @@ print.specr.object <- function(x, ...) {
 #'           axis = "rbl",
 #'           rel_heights = c(2, 3, 1),
 #'           ncol = 1)
+#'}
 plot.specr.object <- function(x,
                               type = "default",
                               var = .data$estimate,
