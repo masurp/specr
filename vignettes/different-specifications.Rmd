@@ -62,7 +62,7 @@ specs %>%
   as_tibble
 ```
 
-As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 0.3.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `specr.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
+As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 1.0.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `specr.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
 
 ```{r}
 # Filter out models that are not meaningful (here only keep log_glm, when y == "y4")
