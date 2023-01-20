@@ -1,5 +1,5 @@
 
-# specr 0.3.0
+# specr 1.0.0
 
 CRAN release: [soon]
 
@@ -36,7 +36,9 @@ This version of `specr` was something I wanted to tackle for a while. Although t
 
 * Big thanks go to [Matti Vuorre](https://github.com/mvuorre) who explored ways to parallelize specification curve analysis in this [blogpost](https://vuorre.netlify.app/posts/parallel-multiverse/), which became the basis for the implementation in specr. 
 
-* Thanks also to [Kasper Welbers](https://github.com/kasperwelbers) who contributed some essential code within the core function. 
+* Many thanks to [Kasper Welbers](https://github.com/kasperwelbers) who contributed some essential code within the core function. 
+
+* Thanks also to [Johannes Gruber](https://github.com/JBGruber) who provided support in the final stages of building this package. 
 
 
 # specr 0.2.2
