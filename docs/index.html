@@ -118,7 +118,7 @@
 <h3 id="news">News<a class="anchor" aria-label="anchor" href="#news"></a>
 </h3>
 <ul>
-<li><p>20 January 2022: specr version 1.0.0 is now available via github. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see <a href="https://masurp.github.io/specr/news/index.html" class="external-link">version history</a> for more details).</p></li>
+<li><p>20 January 2022: specr version 1.0.0 is now available via <a href="https://cran.r-project.org/package=specr" class="external-link">CRAN</a>. This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see <a href="https://masurp.github.io/specr/news/index.html" class="external-link">version history</a> for more details).</p></li>
 <li><p>4 December 2020: specr development version 0.2.2 is available via github. Mostly minor updates and bug fixes.</p></li>
 <li><p>25 May 2020: specr version 0.2.1 has been released on CRAN.</p></li>
 </ul>
@@ -138,16 +138,16 @@
 </h3>
 <p>Install specr from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"specr"</span><span class="op">)</span>   <span class="co"># version 0.2.1</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"specr"</span><span class="op">)</span>  </span></code></pre></div>
 <p>Or install the most recent development version from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"masurp/specr"</span><span class="op">)</span>   <span class="co"># version 1.0.0</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"masurp/specr"</span><span class="op">)</span>  </span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h3>
-<p>Using <code>specr</code> is comparatively simple. The two main function are <code><a href="reference/setup.html">setup()</a></code>, in which analytic choices are specified as arguments, and <code><a href="reference/specr.html">specr()</a></code>, which fits the models across all specifications. The latter creates a class called “specr.object”, which can be summarized and plotted with generic function such as <code>summary</code> or <code>plot</code>.</p>
+<p>Using specr is comparatively simple. The two main function are <code><a href="reference/setup.html">setup()</a></code>, in which analytic choices are specified as arguments, and <code><a href="reference/specr.html">specr()</a></code>, which fits the models across all specifications. The latter creates a class called “specr.object”, which can be summarized and plotted with generic function such as <code>summary</code> or <code>plot</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load package ----</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
@@ -205,7 +205,7 @@
 <li><p>Akaliyski, P., Minkov, M., Li, J., Bond, M. H., &amp; Gehring, S. (2022). The weight of culture: Societal individualism and flexibility explain large global variations in obesity. <em>Social Science &amp; Medicine</em>, 307. <a href="https://doi.org/10.1016/j.socscimed.2022.115167" class="external-link uri">https://doi.org/10.1016/j.socscimed.2022.115167</a></p></li>
 <li><p>Ballou, N., &amp; van Rooij, A. J. (2021). The relationship between mental well-being and dysregulated gaming: a specification curve analysis of core and peripheral criteria in five gaming disorder scales. <em>The Royal Society Open Science.</em> <a href="https://doi.org/10.1098/rsos.201385" class="external-link uri">https://doi.org/10.1098/rsos.201385</a></p></li>
 <li><p>Ballou, N., &amp; Zendle, D. (2022). “Clinically significant distress” in internet gaming disorder: An individual participant meta-analysis. <em>Computers in Human Behavior, 129</em>. <a href="https://doi.org/10.1016/j.chb.2021.107140" class="external-link uri">https://doi.org/10.1016/j.chb.2021.107140</a></p></li>
-<li><p>Burton, J.W., Cruz, N. &amp; Hahn, U. (2021). Reconsidering evidence of moral contagion in online social networks. <em>Nature Human Behaviour.</em> <a href="https://doi-org.vu-nl.idm.oclc.org/10.1038/s41562-021-01133-5" class="external-link uri">https://doi-org.vu-nl.idm.oclc.org/10.1038/s41562-021-01133-5</a></p></li>
+<li><p>Burton, J.W., Cruz, N. &amp; Hahn, U. (2021). Reconsidering evidence of moral contagion in online social networks. <em>Nature Human Behaviour.</em> <a href="https://doi.org/10.1038/s41562-021-01133-5" class="external-link uri">https://doi.org/10.1038/s41562-021-01133-5</a></p></li>
 <li><p>Cosme, D., &amp; Lopez, R. B. (2020, March 7). Neural indicators of food cue reactivity, regulation, and valuation and their associations with body composition and daily eating behavior. <a href="https://doi.org/10.1093/scan/nsaa155" class="external-link uri">https://doi.org/10.1093/scan/nsaa155</a></p></li>
 <li><p>Del Giudice, M., &amp; Gangestad, S. W. (2021). A Traveler’s Guide to the Multiverse: Promises, Pitfalls, and a Framework for the Evaluation of Analytic Decisions. <em>Advances in Methods and Practices in Psychological Science.</em> <a href="https://doi.org/10.1177/2515245920954925" class="external-link uri">https://doi.org/10.1177/2515245920954925</a></p></li>
 <li><p>Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating Associations Between Screen Time and Symptomatology in Individuals With Serious Mental Illness: Longitudinal Observational Study <em>Journal of Medical Internet Research, 23</em>(3), e23144. <a href="https://doi.org/10.2196/23144" class="external-link uri">https://doi.org/10.2196/23144</a></p></li>
@@ -266,7 +266,7 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=specr" class="external-link"><img src="https://www.r-pkg.org/badges/version/specr" alt="CRAN status"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: stable"></a></li>
+<li><a href="https://lifecycle.r-lib.org/articles/stages.html#stable" class="external-link"><img src="https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg" alt="Lifecycle: stable"></a></li>
 <li><a href="https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/masurp/specr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
