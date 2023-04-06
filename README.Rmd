@@ -126,6 +126,10 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Rauvola, R. S., & Rudolph, C. W. (2023). Worker aging, control, and well-being: A specification curve analysis. *Acta Psychologica, 233*, 103833.
 
+- Tisdall, L., & Mata, R. (2023). Age differences in the neural basis of decision-making under uncertainty. *Cognitive, Affective, & Behavioral Neuroscience.* https://doi.org/10.3758/s13415-022-01060-6
+
+- van Veelen, H.P.J., Ibáñez-Álamo, J.D., Horrocks, N.P.C. et al. (2023). Cloacal microbiota are biogeographically structured in larks from desert, tropical and temperate areas. *BMC Microbiol 23*(40). https://doi.org/10.1186/s12866-023-02768-2
+
 - Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., ... & Guo, T. (2023). The cerebellum and cognition: further evidence for its role in language control. *Cerebral Cortex, 33*(1), 35-49. https://doi.org/10.1093/cercor/bhac051
 
 
