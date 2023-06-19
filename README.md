@@ -164,9 +164,10 @@ like to be included in the following list, please send an email to
     moral contagion in online social networks. *Nature Human Behaviour.*
     <https://doi.org/10.1038/s41562-021-01133-5>
 
--   Cosme, D., & Lopez, R. B. (2020, March 7). Neural indicators of food
-    cue reactivity, regulation, and valuation and their associations
-    with body composition and daily eating behavior.
+-   Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue
+    reactivity, regulation, and valuation and their associations with
+    body composition and daily eating behavior. Social Cognitive and
+    Affective Neuroscience, 18(1).
     <https://doi.org/10.1093/scan/nsaa155>
 
 -   Del Giudice, M., & Gangestad, S. W. (2021). A Traveler’s Guide to
@@ -211,6 +212,13 @@ like to be included in the following list, please send an email to
     al. (2023). Cloacal microbiota are biogeographically structured in
     larks from desert, tropical and temperate areas. *BMC Microbiol
     23*(40). <https://doi.org/10.1186/s12866-023-02768-2>
+
+-   Visontay, R., Mewton, L., Sunderland, M., Bell, S., Britton, A.,
+    Osman, B., … & Slade, T. (2023). A comprehensive evaluation of the
+    longitudinal association between alcohol consumption and a measure
+    of inflammation: Multiverse and vibration of effects analyses. *Drug
+    and Alcohol Dependence*, 247.
+    <https://doi.org/10.1016/j.drugalcdep.2023.109886>
 
 -   Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., … &
     Guo, T. (2023). The cerebellum and cognition: further evidence for
