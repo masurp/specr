@@ -164,6 +164,10 @@ like to be included in the following list, please send an email to
     moral contagion in online social networks. *Nature Human Behaviour.*
     <https://doi.org/10.1038/s41562-021-01133-5>
 
+-   Cantone, G. G., & Tomaselli, V. (2023). Theory and methods of the
+    multiverse: an application for panel-based models. *Quality &
+    Quantity*, 1-34.
+
 -   Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue
     reactivity, regulation, and valuation and their associations with
     body composition and daily eating behavior. Social Cognitive and
@@ -175,6 +179,11 @@ like to be included in the following list, please send an email to
     Evaluation of Analytic Decisions. *Advances in Methods and Practices
     in Psychological Science.*
     <https://doi.org/10.1177/2515245920954925>
+
+-   Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and
+    Objective-Descriptive Event Characteristics Explain Individual
+    Differences in Changes in Subjective Well-Being After Negative Life
+    Events? A Specification Curve Analysis.
 
 -   Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating
     Associations Between Screen Time and Symptomatology in Individuals
@@ -192,6 +201,9 @@ like to be included in the following list, please send an email to
     Appropriately: Exploring Associations Between Incongruent
     Personality States and Positive Affect, Tiredness, and Cognitive
     Performance. <https://doi.org/10.31234/osf.io/9utyj>
+
+-   Mao, Z., Li, Q., Wang, Y., & Zhou, J. (2023). Pro-religion attitude
+    predicts lower vaccination coverage at country level.
 
 -   Masur, P. K. (2021). Understanding the Effects of Conceptual and
     Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification

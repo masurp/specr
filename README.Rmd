@@ -111,9 +111,13 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Burton, J.W., Cruz, N. & Hahn, U. (2021). Reconsidering evidence of moral contagion in online social networks. *Nature Human Behaviour.* https://doi.org/10.1038/s41562-021-01133-5
 
+- Cantone, G. G., & Tomaselli, V. (2023). Theory and methods of the multiverse: an application for panel-based models. *Quality & Quantity*, 1-34.
+
 - Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue reactivity, regulation, and valuation and their associations with body composition and daily eating behavior. Social Cognitive and Affective Neuroscience, 18(1).  https://doi.org/10.1093/scan/nsaa155
 
 - Del Giudice, M., & Gangestad, S. W. (2021). A Traveler’s Guide to the Multiverse: Promises, Pitfalls, and a Framework for the Evaluation of Analytic Decisions. *Advances in Methods and Practices in Psychological Science.* https://doi.org/10.1177/2515245920954925
+
+- Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and Objective-Descriptive Event Characteristics Explain Individual Differences in Changes in Subjective Well-Being After Negative Life Events? A Specification Curve Analysis.
 
 - Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating Associations Between Screen Time and Symptomatology in Individuals With Serious Mental Illness: Longitudinal Observational Study
 *Journal of Medical Internet Research, 23*(3), e23144. https://doi.org/10.2196/23144
@@ -121,6 +125,8 @@ If you have published a paper in which you used `specr` and you would like to be
 - Huang, S., Lai, X., Zhao, X., Dai, X., Yao, Y., Zhang, C., & Wang, Y., (2022). Beyond screen time: Exploring associations between types of smartphone use content and adolescents' social relationships. *International Journal of Environmental Research and Public Health, 19*, 8940. https://doi.org/10.3390/ijerph19158940
 
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. https://doi.org/10.31234/osf.io/9utyj
+
+- Mao, Z., Li, Q., Wang, Y., & Zhou, J. (2023). Pro-religion attitude predicts lower vaccination coverage at country level.
 
 - Masur, P. K. (2021). Understanding the Effects of Conceptual and Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification Curve Analysis of Large-Scale Survey Data. *Information, Communication & Society.* https://doi.org/10.1080/1369118X.2021.1963460 
 
