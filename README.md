@@ -137,6 +137,40 @@ citation("specr")
     on Psychological Science*, 11(5), 702-712.
     <https://doi.org/10.1177/1745691616658637>
 
+### Other resources on multiverse/specification curve analyses
+
+The following papers and websites are interesting resources to explore
+the method further and learn about potential promises and pitfalls:
+
+-   Good discussion of the multiverse analysis method: Del Giudice, M.,
+    & Gangestad, S. W. (2021). A traveler’s guide to the multiverse:
+    Promises, pitfalls, and a framework for the evaluation of analytic
+    decisions. *Advances in Methods and Practices in Psychological
+    Science, 4*(1).
+    <https://journals.sagepub.com/doi/abs/10.1177/2515245920954925>
+
+-   A systematic comparison of visualization techniques for multiverse
+    analyses: Hall, B. D., Liu, Y., Jansen, Y., Dragicevic, P.,
+    Chevalier, F., & Kay, M. (2022,). A survey of tasks and
+    visualizations in multiverse analysis reports. In *Computer Graphics
+    Forum* (Vol. 41, No. 1,
+    pp. 402-426).https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14443
+
+-   Proposal to include data collection decisions as choices within the
+    multiverse: Harder, J. A. (2020). The multiverse of methods:
+    Extending the multiverse analysis to address data-collection
+    decisions. *Perspectives on Psychological Science, 15*(5),
+    1158-1177.
+    <https://journals.sagepub.com/doi/abs/10.1177/1745691620917678>
+
+-   Proposal on how the multiverse approach can be implemented in
+    student research projects: Heyman, T., & Vanpaemel, W. (2022).
+    Multiverse analyses in the classroom. *Meta-Psychology, 6.*
+    <https://open.lnu.se/index.php/metapsychology/article/view/2718>
+
+-   Overview of different packages for specification curve/multiverse
+    analysis: <https://urisohn.com/specification-curve/>
+
 ### Papers that used ‘specr’
 
 If you have published a paper in which you used `specr` and you would
