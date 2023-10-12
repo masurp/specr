@@ -1,6 +1,6 @@
 Package: specr
 Title: Conducting and Visualizing Specification Curve Analyses
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(given = "Philipp K.",
            family = "Masur",
