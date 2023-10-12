@@ -711,3 +711,207 @@ as_tibble.specr.object <- function(x,...) {
 as.data.frame.specr.object <- function(x, ...) {
   as.data.frame(x$data, ...)
 }
+
+#' Summarizing the bootstrapped results
+#'
+#' Generic summary function for an object of class `specr.boot` (resulting from
+#' `boot_null()`. Provides an approach to inference for specification curve analysis
+#' consists of obtaining the median effect estimated across all specifications,
+#' and then testing whether this median estimated effect is more extreme than
+#' would be expected if all specifications had a true effect of zero.
+#'
+#' @param x A `specr.boot` object, resulting from calling \code{boot_null()}.
+#' @param group Variables indicating which variables to summarize the results by
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#'
+#'
+#' @return A tibble.
+#'
+#' @export
+summary.specr.boot <- function(x, group = NULL, ...) {
+
+  obs_summary <- x$observed_model %>%
+    as_tibble %>%
+    mutate(pos = ifelse(estimate > 0, 1, 0),
+           neg = ifelse(estimate < 0, 1, 0),
+           sig = ifelse(p.value < .05, 1, 0),
+           pos_sig = ifelse(pos == 1 & sig == 1, 1, 0),
+           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0))
+
+  if(is.null(group)) {
+    obs_summary <- obs_summary %>%
+      summarize(obs_median = median(estimate),
+                obs_n = n(),
+                obs_n_positive_sig = sum(pos_sig),
+                obs_n_negative_sig = sum(neg_sig)) %>%
+      select(obs_median, everything()) %>%
+      mutate(id2 = "bind")
+
+  } else {
+
+    obs_summary <- obs_summary %>%
+      group_by(!!as.name(group)) %>%
+      summarize(obs_median = median(estimate),obs_n = n(),
+                obs_n_positive_sig = sum(pos_sig),
+                obs_n_negative_sig = sum(neg_sig)) %>%
+      select(!!as.name(group), obs_median, everything()) %>%
+      mutate(id2 = "bind")
+  }
+
+  boot_summary = x$boot_models %>%
+    select(-splits) %>%
+    unnest(cols = c(fit)) %>%
+    group_by(id) %>%
+    mutate(pos = ifelse(estimate > 0, 1, 0),
+           neg = ifelse(estimate < 0, 1, 0),
+           sig = ifelse(p.value < .05, 1, 0),
+           pos_sig = ifelse(pos == 1 & sig == 1, 1, 0),
+           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0))
+
+  if(is.null(group)){
+
+    boot_summary <- boot_summary %>%
+      group_by(id) %>%
+      summarize(median = median(estimate),
+                n = n(),
+                n_positive_sig = sum(pos_sig),
+                n_negative_sig = sum(neg_sig)) %>%
+      ungroup() %>%
+      mutate(id2 = "bind")
+
+    temp = boot_summary %>%
+      left_join(., obs_summary, by = "id2") %>%
+      mutate(extreme_median = ifelse(obs_median > 0 & median >= obs_median, 1,
+                                     ifelse(obs_median < 0 & median <= obs_median, 1, 0)),
+             extreme_positive_sig = ifelse(n_positive_sig >= obs_n_positive_sig, 1, 0),
+             extreme_negative_sig = ifelse(n_negative_sig >= obs_n_negative_sig, 1, 0))
+
+  } else {
+
+    boot_summary <- boot_summary %>%
+      group_by(id, !!as.name(group)) %>%
+      summarize(median = median(estimate),
+                n = n(),
+                n_positive_sig = sum(pos_sig),
+                n_negative_sig = sum(neg_sig)) %>%
+      ungroup() %>%
+      mutate(id2 = "bind")
+
+    temp = suppressMessages(left_join(boot_summary, obs_summary)) %>%
+      mutate(extreme_median = ifelse(obs_median > 0 & median >= obs_median, 1,
+                                     ifelse(obs_median < 0 & median <= obs_median, 1, 0)),
+             extreme_positive_sig = ifelse(n_positive_sig >= obs_n_positive_sig, 1, 0),
+             extreme_negative_sig = ifelse(n_negative_sig >= obs_n_negative_sig, 1, 0))
+
+  }
+
+
+  if(is.null(group)) {
+
+    summary <- temp %>%
+      summarize(n = n(),
+                extreme_median = sum(extreme_median),
+                extreme_positive_sig = sum(extreme_positive_sig),
+                extreme_negative_sig = sum(extreme_negative_sig)) %>%
+      tidyr::gather(variable, n_extreme, contains("extreme")) %>%
+      mutate(p_value = n_extreme / n,
+             p_value = ifelse(p_value == 1.000, "1.000",
+                              ifelse(p_value < .001, "< .001", gsub("0.(.*)", ".\\1", sprintf("%.3f", p_value))))) %>%
+      select(variable, p_value) %>%
+      tidyr::spread(variable, p_value) %>%
+      cbind(., obs_summary) %>%
+      mutate(Mdn = sprintf("%.2f", obs_median),
+             obs_n_positive_sig = sprintf("%s / %s", obs_n_positive_sig, obs_n),
+             obs_n_negative_sig = sprintf("%s / %s", obs_n_negative_sig, obs_n)) %>%
+      select(median = Mdn, extreme_median,
+             obs_n_positive_sig,
+             extreme_positive_sig,
+             obs_n_negative_sig,
+             extreme_negative_sig) %>%
+      rename("median p" = extreme_median,
+             "pos. share n" = obs_n_positive_sig,
+             "pos. share p" = extreme_positive_sig,
+             "neg. share n" = obs_n_negative_sig,
+             "neg. share p" = extreme_negative_sig)
+  } else {
+
+    summary <- temp %>%
+      group_by(!!as.name(group)) %>%
+      summarize(n = n(),
+                extreme_median = sum(extreme_median),
+                extreme_positive_sig = sum(extreme_positive_sig),
+                extreme_negative_sig = sum(extreme_negative_sig)) %>%
+      tidyr::gather(variable, n_extreme, contains("extreme")) %>%
+      mutate(p_value = n_extreme / n,
+             p_value = ifelse(p_value == 1.000, "1.000",
+                              ifelse(p_value < .001, "< .001", gsub("0.(.*)", ".\\1", sprintf("%.3f", p_value))))) %>%
+      select(!!as.name(group), variable, p_value) %>%
+      tidyr::spread(variable, p_value)
+    summary <- suppressMessages(left_join(summary, obs_summary)) %>%
+      mutate(Mdn = sprintf("%.2f", obs_median),
+             obs_n_positive_sig = sprintf("%s / %s", obs_n_positive_sig, obs_n),
+             obs_n_negative_sig = sprintf("%s / %s", obs_n_negative_sig, obs_n)) %>%
+      select(!!as.name(group), median = Mdn,
+             extreme_median,
+             obs_n_positive_sig,
+             extreme_positive_sig,
+             obs_n_negative_sig,
+             extreme_negative_sig) %>%
+      rename("median p" = extreme_median,
+             "pos. share n" = obs_n_positive_sig,
+             "pos. share p" = extreme_positive_sig,
+             "neg. share n" = obs_n_negative_sig,
+             "neg. share p" = extreme_negative_sig)
+
+  }
+
+  return(summary)
+
+}
+
+#' Plot specification curve and under-the-null distributions
+#'
+#' @description This function plots the original specification curve on top of
+#'   95% quantiles of the bootstrapped under-the-null distributions.
+#'
+#' @param x A `specr.boot` object, resulting from calling \code{boot_null()}.
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#'
+#' @return A \link[ggplot2]{ggplot} object that can be customized further.
+#'
+#' @export
+plot.specr.boot <- function(x, ...) {
+
+  x$boot_models %>%
+    unnest(cols = c(fit)) %>%
+    select(-splits) %>%
+    group_by(id) %>%
+    arrange(id, estimate) %>%
+    select(id, x, y, estimate) %>%
+    dplyr::mutate(rank = 1:n()) %>%
+    group_by(rank) %>%
+    summarize(low = quantile(estimate, c(.025)),
+              mid = quantile(estimate, c(.5)),
+              high = quantile(estimate, c(.975))) %>%
+    left_join(x$observed_model %>%
+                as_tibble %>%
+                arrange(estimate) %>%
+                mutate(rank = 1:n()) %>%
+                select(rank, observed = estimate),
+              by = "rank") %>%
+    tidyr::gather(key, value, -rank) %>%
+    ggplot(aes(x = rank, y = value, color = key, linetype = key)) +
+    scale_color_manual(values = c("grey40", "grey40", "grey40", "steelblue")) +
+    scale_linetype_manual(values = c(3, 3, 4, 1)) +
+    geom_line(size = .75) +
+    theme_minimal() +
+    theme(
+      axis.line = element_line("black", size = .5),
+      panel.spacing = unit(.75, "lines"),
+      axis.text = element_text(colour = "black")
+    ) +
+    labs(x = "Specifications (ranked)", y = "estimate", color = "", linetype = "")
+
+}
+
+
