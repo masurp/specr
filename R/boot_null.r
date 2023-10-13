@@ -95,7 +95,8 @@ boot_null <- function(x, y, n_samples = 500) {
     select(-splits)
 
   # create list
-  boot_result <- list(observed_model = as_tibble(x),
+  boot_result <- list(observed_model = as_tibble(x) %>%
+                        select(-res),
                       boot_models = boot_models)
 
   # Name class
