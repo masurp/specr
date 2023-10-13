@@ -37,7 +37,7 @@
 #' results <- specr(specs)
 #'
 #' # Run bootstrapping
-#' boot_models <- boot_null(results, specs, n_samples = 10) # better 1,000!
+#' boot_models <- boot_null(results, specs, n_samples = 2) # better 1,000!
 #'
 #' # Summarize findings
 #' summary(boot_models)
@@ -91,10 +91,11 @@ boot_null <- function(x, y, n_samples = 500) {
 
   # run function on each bootstrapped sample in boots
   boot_models = boots %>%
-    dplyr::mutate(fit = map(splits, fit_sca))
+    dplyr::mutate(fit = map(splits, fit_sca)) %>%
+    select(-splits)
 
   # create list
-  boot_result <- list(observed_model = x,
+  boot_result <- list(observed_model = as_tibble(x),
                       boot_models = boot_models)
 
   # Name class

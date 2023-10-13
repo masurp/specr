@@ -731,7 +731,6 @@ as.data.frame.specr.object <- function(x, ...) {
 summary.specr.boot <- function(x, group = NULL, ...) {
 
   obs_summary <- x$observed_model %>%
-    as_tibble %>%
     mutate(pos = ifelse(estimate > 0, 1, 0),
            neg = ifelse(estimate < 0, 1, 0),
            sig = ifelse(p.value < .05, 1, 0),
@@ -759,7 +758,6 @@ summary.specr.boot <- function(x, group = NULL, ...) {
   }
 
   boot_summary = x$boot_models %>%
-    select(-splits) %>%
     unnest(cols = c(fit)) %>%
     group_by(id) %>%
     mutate(pos = ifelse(estimate > 0, 1, 0),
@@ -884,7 +882,6 @@ plot.specr.boot <- function(x, ...) {
 
   x$boot_models %>%
     unnest(cols = c(fit)) %>%
-    select(-splits) %>%
     group_by(id) %>%
     arrange(id, estimate) %>%
     select(id, x, y, estimate) %>%
