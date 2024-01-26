@@ -16,5 +16,5 @@ A \link[ggplot2]{ggplot} object that can be customized further.
 }
 \description{
 This function plots the original specification curve on top of
-95\% quantiles of the bootstrapped under-the-null distributions.
+95\% quantiles of the bootstrapped 'under-the-null' distributions.
 }

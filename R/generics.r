@@ -712,6 +712,52 @@ as.data.frame.specr.object <- function(x, ...) {
   as.data.frame(x$data, ...)
 }
 
+
+
+
+#' Print method for S3 class "specr.book"
+#' @keywords internal
+#' @export
+print.specr.boot <- function(x, ...) {
+
+  # Short technical summary
+  cat("Results of bootstrapping 'under-the-null' procedure\n")
+  cat("-------------------\n")
+
+  cat("Technical details:\n\n")
+  cat("  Class:                          ", class(x), "-- version:", as.character(utils::packageVersion("specr")), "\n")
+  cat("  Cores used:                     ", x$workers, "\n")
+  cat("  Duration of fitting process:    ", x$time, "\n")
+  cat("  Number of bootstrapped samples: ", x$n_samples, "\n\n")
+
+  cat("Descriptive summary of the specification curves 'under-the-null' (head):\n\n")
+
+  med1 <- x$boot_models %>%
+    unnest(cols = c(fit)) %>%
+    group_by(id) %>%
+    summarize(median = median(estimate),
+              min = min(estimate),
+              max = max(estimate))
+
+  med1 %>%
+    head(n = 6) %>%
+    mutate_if(is.numeric, round, 2) %>%
+    as.data.frame %>%
+    print(row.names = F)
+
+  cat("\n\nOverall median across all resamples (should be close to NULL):\n\n")
+
+  med1 %>%
+    ungroup %>%
+    summarize(median = median(median),
+              min = min(median),
+              max = max(median)) %>%
+    mutate_if(is.numeric, round, 2) %>%
+    as.data.frame %>%
+    print(row.names = F)
+
+}
+
 #' Summarizing the bootstrapped results
 #'
 #' Generic summary function for an object of class `specr.boot` (resulting from
@@ -730,6 +776,9 @@ as.data.frame.specr.object <- function(x, ...) {
 #' @export
 summary.specr.boot <- function(x, group = NULL, ...) {
 
+  options(dplyr.summarise.inform = FALSE)
+
+  # Summarizing observed specification curve
   obs_summary <- x$observed_model %>%
     mutate(pos = ifelse(estimate > 0, 1, 0),
            neg = ifelse(estimate < 0, 1, 0),
@@ -738,38 +787,44 @@ summary.specr.boot <- function(x, group = NULL, ...) {
            neg_sig = ifelse(neg == 1 & sig == 1, 1, 0))
 
   if(is.null(group)) {
+
     obs_summary <- obs_summary %>%
       summarize(obs_median = median(estimate),
                 obs_n = n(),
                 obs_n_positive_sig = sum(pos_sig),
                 obs_n_negative_sig = sum(neg_sig)) %>%
       select(obs_median, everything()) %>%
+      ungroup %>%
       mutate(id2 = "bind")
 
   } else {
 
     obs_summary <- obs_summary %>%
-      group_by(!!as.name(group)) %>%
+      dplyr::group_by_at(group) %>%
       summarize(obs_median = median(estimate),obs_n = n(),
                 obs_n_positive_sig = sum(pos_sig),
                 obs_n_negative_sig = sum(neg_sig)) %>%
-      select(!!as.name(group), obs_median, everything()) %>%
+      select(!!group, obs_median, everything()) %>%
+      ungroup %>%
       mutate(id2 = "bind")
   }
 
+
+  # Summarizing the specification curves 'under-the
   boot_summary = x$boot_models %>%
     unnest(cols = c(fit)) %>%
-    group_by(id) %>%
+    dplyr::group_by_at(vars(id)) %>%
     mutate(pos = ifelse(estimate > 0, 1, 0),
            neg = ifelse(estimate < 0, 1, 0),
            sig = ifelse(p.value < .05, 1, 0),
            pos_sig = ifelse(pos == 1 & sig == 1, 1, 0),
-           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0))
+           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0)) %>%
+    ungroup
 
   if(is.null(group)){
 
     boot_summary <- boot_summary %>%
-      group_by(id) %>%
+      group_by_at(vars(id)) %>%
       summarize(median = median(estimate),
                 n = n(),
                 n_positive_sig = sum(pos_sig),
@@ -787,7 +842,7 @@ summary.specr.boot <- function(x, group = NULL, ...) {
   } else {
 
     boot_summary <- boot_summary %>%
-      group_by(id, !!as.name(group)) %>%
+      dplyr::group_by_at(vars(id, group)) %>%
       summarize(median = median(estimate),
                 n = n(),
                 n_positive_sig = sum(pos_sig),
@@ -803,7 +858,6 @@ summary.specr.boot <- function(x, group = NULL, ...) {
 
   }
 
-
   if(is.null(group)) {
 
     summary <- temp %>%
@@ -811,6 +865,7 @@ summary.specr.boot <- function(x, group = NULL, ...) {
                 extreme_median = sum(extreme_median),
                 extreme_positive_sig = sum(extreme_positive_sig),
                 extreme_negative_sig = sum(extreme_negative_sig)) %>%
+      ungroup %>%
       tidyr::gather(variable, n_extreme, contains("extreme")) %>%
       mutate(p_value = n_extreme / n,
              p_value = ifelse(p_value == 1.000, "1.000",
@@ -825,52 +880,57 @@ summary.specr.boot <- function(x, group = NULL, ...) {
              obs_n_positive_sig,
              extreme_positive_sig,
              obs_n_negative_sig,
-             extreme_negative_sig) %>%
-      rename("median p" = extreme_median,
-             "pos. share n" = obs_n_positive_sig,
-             "pos. share p" = extreme_positive_sig,
-             "neg. share n" = obs_n_negative_sig,
-             "neg. share p" = extreme_negative_sig)
+             extreme_negative_sig)
+
   } else {
 
     summary <- temp %>%
-      group_by(!!as.name(group)) %>%
+      group_by_at(group) %>%
       summarize(n = n(),
                 extreme_median = sum(extreme_median),
                 extreme_positive_sig = sum(extreme_positive_sig),
                 extreme_negative_sig = sum(extreme_negative_sig)) %>%
+      ungroup %>%
       tidyr::gather(variable, n_extreme, contains("extreme")) %>%
       mutate(p_value = n_extreme / n,
              p_value = ifelse(p_value == 1.000, "1.000",
                               ifelse(p_value < .001, "< .001", gsub("0.(.*)", ".\\1", sprintf("%.3f", p_value))))) %>%
-      select(!!as.name(group), variable, p_value) %>%
+      select(!!group, variable, p_value) %>%
       tidyr::spread(variable, p_value)
     summary <- suppressMessages(left_join(summary, obs_summary)) %>%
       mutate(Mdn = sprintf("%.2f", obs_median),
              obs_n_positive_sig = sprintf("%s / %s", obs_n_positive_sig, obs_n),
              obs_n_negative_sig = sprintf("%s / %s", obs_n_negative_sig, obs_n)) %>%
-      select(!!as.name(group), median = Mdn,
+      select(!!group, median = Mdn,
              extreme_median,
              obs_n_positive_sig,
              extreme_positive_sig,
              obs_n_negative_sig,
-             extreme_negative_sig) %>%
-      rename("median p" = extreme_median,
-             "pos. share n" = obs_n_positive_sig,
-             "pos. share p" = extreme_positive_sig,
-             "neg. share n" = obs_n_negative_sig,
-             "neg. share p" = extreme_negative_sig)
+             extreme_negative_sig)
 
   }
 
+  summary <- summary %>%
+    rename("median" = median,
+           "median p" = extreme_median,
+           "share positive" = obs_n_positive_sig,
+           "share positive p" = extreme_positive_sig,
+           "share negative" = obs_n_negative_sig,
+           "share negative p" = extreme_negative_sig) %>%
+    as.data.frame()
+
+
+  #cat("Inference on the specification curve:\n\n")
+
   return(summary)
+
 
 }
 
 #' Plot specification curve and under-the-null distributions
 #'
 #' @description This function plots the original specification curve on top of
-#'   95% quantiles of the bootstrapped under-the-null distributions.
+#'   95% quantiles of the bootstrapped 'under-the-null' distributions.
 #'
 #' @param x A `specr.boot` object, resulting from calling \code{boot_null()}.
 #' @param ... further arguments passed to or from other methods (currently ignored).
