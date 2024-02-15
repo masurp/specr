@@ -141,11 +141,15 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. https://doi.org/10.31234/osf.io/9utyj
 
-- Mao, Z., Li, Q., Wang, Y., & Zhou, J. (2023). Pro-religion attitude predicts lower vaccination coverage at country level.
+- Mao, Z. F., Li, Q. W., Wang, Y. M., & Zhou, J. (2024). Pro-religion attitude predicts lower vaccination coverage at country level. Humanities and Social Sciences Communications, 11(1), 1-9.
 
 - Masur, P. K. (2021). Understanding the Effects of Conceptual and Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification Curve Analysis of Large-Scale Survey Data. *Information, Communication & Society.* https://doi.org/10.1080/1369118X.2021.1963460 
 
+- Prasad, S., Knight, E. L., Sarkar, A., Welker, K. M., Lassetter, B., & Mehta, P. H. (2021). Testosterone fluctuations in response to a democratic election predict partisan attitudes toward the elected leader. *Psychoneuroendocrinology, 133*, 105396.
+
 - Rauvola, R. S., & Rudolph, C. W. (2023). Worker aging, control, and well-being: A specification curve analysis. *Acta Psychologica, 233*, 103833.
+
+- Sekścińska, K., Jaworska, D., & Rudzinska‐Wojciechowska, J. (2024). The effect of state and trait power on financial risk taking: The mediating and moderating roles of focus on rewards versus threats. *Journal of Behavioral Decision Making, 37*(1), e2363. https://doi.org/10.1002/bdm.2363
 
 - Tisdall, L., & Mata, R. (2023). Age differences in the neural basis of decision-making under uncertainty. *Cognitive, Affective, & Behavioral Neuroscience.* https://doi.org/10.3758/s13415-022-01060-6
 
@@ -153,6 +157,10 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Visontay, R., Mewton, L., Sunderland, M., Bell, S., Britton, A., Osman, B., ... & Slade, T. (2023). A comprehensive evaluation of the longitudinal association between alcohol consumption and a measure of inflammation: Multiverse and vibration of effects analyses. *Drug and Alcohol Dependence*, 247. https://doi.org/10.1016/j.drugalcdep.2023.109886
 
+- Wang, Y., Pitre, T., Wallach, J. D., de Souza, R. J., Jassal, T., Bier, D., ... & Zeraatkar, D. (2024). Grilling the data: Application of specification curve analysis to red meat and all-cause mortality. *Journal of Clinical Epidemiology, 111278.*  https://doi.org/10.1016/j.jclinepi.2024.111278
+
 - Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., ... & Guo, T. (2023). The cerebellum and cognition: further evidence for its role in language control. *Cerebral Cortex, 33*(1), 35-49. https://doi.org/10.1093/cercor/bhac051
+
+
 
 
