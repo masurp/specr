@@ -226,6 +226,10 @@ like to be included in the following list, please send an email to
   *International Journal of Environmental Research and Public Health,
   19*, 8940. <https://doi.org/10.3390/ijerph19158940>
 
+- Kleinert, M. (2024). Reconsidering the Relationship Between
+  Anti-immigration Attitudes and Preferences for the AfD Using Implicit
+  Attitudes Measures. Politische Vierteljahresschrift, 65(1), 71-98.
+
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave
   Appropriately: Exploring Associations Between Incongruent Personality
   States and Positive Affect, Tiredness, and Cognitive Performance.
@@ -239,6 +243,11 @@ like to be included in the following list, please send an email to
   Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification
   Curve Analysis of Large-Scale Survey Data. *Information, Communication
   & Society.* <https://doi.org/10.1080/1369118X.2021.1963460>
+
+- Masur, P. K., & Ranzini, G. (2024). Privacy Calculus, Privacy Paradox,
+  and Context Collapse: A Replication of Three Key Studies in
+  Communication Privacy Research. *SocArXiv.*
+  <https://osf.io/preprints/socarxiv/8tr2k>
 
 - Prasad, S., Knight, E. L., Sarkar, A., Welker, K. M., Lassetter, B., &
   Mehta, P. H. (2021). Testosterone fluctuations in response to a
