@@ -199,6 +199,10 @@ like to be included in the following list, please send an email to
   multiverse: an application for panel-based models. *Quality &
   Quantity*, 1-34.
 
+- Cantone, G. G., & Tomaselli, V. (2024). Characterisation and
+  Calibration of Multiversal Models. Preprint:
+  <https://osf.io/download/6627aeecc5851a0791f66f6c/>
+
 - Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue
   reactivity, regulation, and valuation and their associations with body
   composition and daily eating behavior. Social Cognitive and Affective
@@ -208,6 +212,12 @@ like to be included in the following list, please send an email to
   Multiverse: Promises, Pitfalls, and a Framework for the Evaluation of
   Analytic Decisions. *Advances in Methods and Practices in
   Psychological Science.* <https://doi.org/10.1177/2515245920954925>
+
+- De Vries, I., Baglivio, M., & Reid, J. A. (2024). Examining individual
+  and contextual correlates of victimization for juvenile human
+  trafficking in Florida. Journal of interpersonal
+  violence, 08862605241243332.
+  <https://journals.sagepub.com/doi/abs/10.1177/08862605241243332>
 
 - Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and
   Objective-Descriptive Event Characteristics Explain Individual
@@ -225,6 +235,11 @@ like to be included in the following list, please send an email to
   smartphone use content and adolescents’ social relationships.
   *International Journal of Environmental Research and Public Health,
   19*, 8940. <https://doi.org/10.3390/ijerph19158940>
+
+- Jones, A., Petrovskaya, E., & Stafford, T. (2024). Exploring the
+  multiverse of analysis options for the alcohol Stroop. Behavior
+  Research Methods, 1-11.
+  <https://link.springer.com/article/10.3758/s13428-024-02377-5>
 
 - Kleinert, M. (2024). Reconsidering the Relationship Between
   Anti-immigration Attitudes and Preferences for the AfD Using Implicit
@@ -255,8 +270,7 @@ like to be included in the following list, please send an email to
   leader. *Psychoneuroendocrinology, 133*, 105396.
 
 - Rauvola, R. S., & Rudolph, C. W. (2023). Worker aging, control, and
-  well-being: A specification curve analysis. *Acta Psychologica, 233*,
-  103833.
+  well-being: A specification curve analysis. *Acta Psychologica, 233*.
 
 - Sekścińska, K., Jaworska, D., & Rudzinska‐Wojciechowska, J. (2024).
   The effect of state and trait power on financial risk taking: The
