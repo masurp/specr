@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -61,6 +61,9 @@
     </li>
     <li>
       <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+    </li>
+    <li>
+      <a href="../articles/inferences.html">Inferences with specification curve analysis</a>
     </li>
     <li>
       <a href="../articles/parallelization.html">Parallelization</a>
@@ -145,7 +148,7 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   12 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -158,8 +161,9 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7ff69f8cc268&gt;</span></span>
+<span><span class="co">##   function (x) </span></span>
+<span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">## &lt;environment: 0x7f9c37823040&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 12 rows):</span></span></code></pre>
@@ -191,7 +195,7 @@ set and provide them as alternative choices in setup.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> x2    y1    lm    no covariates all     y1 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y2    lm    no covariates all     y2 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y3    lm    no covariates all     y3 ~ x2… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.073</span><span style="color: #BB0000; text-decoration: underline;">5</span></span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 17 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 17 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;,</span></span></span>
@@ -269,7 +273,7 @@ position of the list: the data frame that includes the specifications
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">8</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   16 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -282,8 +286,9 @@ position of the list: the data frame that includes the specifications
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7ff69e096320&gt;</span></span>
+<span><span class="co">##   function (x) </span></span>
+<span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">## &lt;environment: 0x7f9c32e50ba8&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 8 rows):</span></span></code></pre>
@@ -311,7 +316,7 @@ position of the list: the data frame that includes the specifications
 <span><span class="co">## <span style="color: #BCBCBC;">4</span> x1    y_dich log_glm no covaria… all     y_dich… <span style="color: #949494;">&lt;fn&gt;</span>           x1      0.753 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> x2    y1     lm      no covaria… all     y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x2      0.272 </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x2    y2     lm      no covaria… all     y2 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x2     -<span style="color: #BB0000;">0.102</span> </span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 19 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># ℹ 19 more variables: std.error &lt;dbl&gt;, statistic &lt;dbl&gt;, p.value &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;,</span></span></span>
 <span><span class="co">## <span style="color: #949494;">#   fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;,</span></span></span>
@@ -390,7 +395,7 @@ extract the same parameters across different models.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   24 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -443,7 +448,7 @@ extract the same parameters across different models.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">12</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   24 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -687,7 +692,7 @@ factors.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   96 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -700,8 +705,9 @@ factors.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7ff69b57e1c0&gt;</span></span>
+<span><span class="co">##   function (x) </span></span>
+<span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">## &lt;environment: 0x7f9c34e41358&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 6 rows):</span></span></code></pre>
@@ -789,7 +795,7 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">7</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">## -------------------------------------------</span></span>
-<span><span class="co">## Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">## Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">## Number of specifications:   1024 </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Specifications:</span></span>
@@ -802,8 +808,9 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="co">## </span></span>
 <span><span class="co">## Function used to extract parameters:</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">##   function(x) broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">## &lt;environment: 0x7ff6b7c0d778&gt;</span></span>
+<span><span class="co">##   function (x) </span></span>
+<span><span class="co">## broom::tidy(x, conf.int = TRUE)</span></span>
+<span><span class="co">## &lt;environment: 0x7f9c34649be8&gt;</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## Head of specifications table (first 7 rows):</span></span></code></pre>
@@ -817,7 +824,7 @@ case, these are just 7 different types of specifications.</p>
 <span><span class="co">## <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covariates 2.1*SD  <span style="color: #BB0000;">NA</span>       2.1*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covariates 2.0*SD  2.0*SD   <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
 <span><span class="co">## <span style="color: #BCBCBC;">7</span> x1    y1    lm    no covariates all     <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      </span></span>
-<span><span class="co">## <span style="color: #949494;"># … with 3 more variables: outlier5 &lt;fct&gt;, outlier6 &lt;fct&gt;, formula &lt;glue&gt;</span></span></span></code></pre>
+<span><span class="co">## <span style="color: #949494;"># ℹ 3 more variables: outlier5 &lt;fct&gt;, outlier6 &lt;fct&gt;, formula &lt;glue&gt;</span></span></span></code></pre>
 <div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Run analysis and plot results</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span>
@@ -848,7 +855,7 @@ free to open an issue on github.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

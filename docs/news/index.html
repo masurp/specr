@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -43,6 +43,9 @@
     </li>
     <li>
       <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+    </li>
+    <li>
+      <a href="../articles/inferences.html">Inferences with specification curve analysis</a>
     </li>
     <li>
       <a href="../articles/parallelization.html">Parallelization</a>
@@ -82,6 +85,22 @@
     </div>
 
     <div class="section level2">
+<h2 class="page-header" data-toc-text="1.0.1" id="specr-101">specr 1.0.1<a class="anchor" aria-label="anchor" href="#specr-101"></a></h2>
+<p>Development version released: 2024-05-222</p>
+<div class="section level3">
+<h3 id="breaking-changes-1-0-1">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-1"></a></h3>
+<p>None</p>
+</div>
+<div class="section level3">
+<h3 id="updates-1-0-1">Updates<a class="anchor" aria-label="anchor" href="#updates-1-0-1"></a></h3>
+<ul><li>
+<p>This new development version includes new functions to conduct inferences on the specification curve analysis (the third step outlined Simohnsohn et al., 2020).</p>
+<ul><li>It thereby facilitates resampling under-the-null to obtain test statistics to evaluate the extremity of the specification curve analysis results.</li>
+<li>See <a href="https://masurp.github.io/specr/articles/inferences.html" class="external-link">this vignette</a> for a comprehensive tutorial.</li>
+</ul></li>
+</ul></div>
+</div>
+    <div class="section level2">
 <h2 class="page-header" data-toc-text="1.0.0" id="specr-100">specr 1.0.0<small>2023-01-20</small><a class="anchor" aria-label="anchor" href="#specr-100"></a></h2>
 <p>CRAN release: 2023-01-20</p>
 <div class="section level3">
@@ -92,7 +111,7 @@
 <ul><li>Data, analytic choices, and even parameter extraction functions can be specified before the fitting process (solving github issue <a href="https://github.com/masurp/specr/issues/23" class="external-link">#23</a> and <a href="https://github.com/masurp/specr/issues/26" class="external-link">#26</a>).</li>
 <li>Excludes some non-meaningful specifications automatically (e.g., when control and independent or dependent variable are the same).</li>
 <li>Allows to specify all combinations of control variables or to “simplify” and only include none, each individually and all together (github issue <a href="https://github.com/masurp/specr/issues/11" class="external-link">#11</a>).</li>
-<li>Resulting specification can be filtered using standard <code>tidyverse</code> functions such as e.g., <code><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter()</a></code>. This way, one can make sure a priori that only reasonable specifications are actually included.</li>
+<li>Resulting specification can be filtered using standard <code>tidyverse</code> functions such as e.g., <code><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter()</a></code>. This way, one can make sure a priori that only reasonable specifications are actually included.</li>
 <li>Produces an object of class <code>specr.setup</code>, which can be investigated using e.g., <code><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary()</a></code> or <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code>.</li>
 </ul></li>
 <li>
@@ -177,7 +196,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

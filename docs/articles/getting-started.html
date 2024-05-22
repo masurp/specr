@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -61,6 +61,9 @@
     </li>
     <li>
       <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+    </li>
+    <li>
+      <a href="../articles/inferences.html">Inferences with specification curve analysis</a>
     </li>
     <li>
       <a href="../articles/parallelization.html">Parallelization</a>
@@ -144,7 +147,7 @@ closely. For this example, we are going to use a simulated data set
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> old    female B      -<span style="color: #BB0000;">0.507</span> -<span style="color: #BB0000;">0.970</span>  -<span style="color: #BB0000;">0.086</span><span style="color: #BB0000; text-decoration: underline;">7</span> -<span style="color: #BB0000;">0.978</span>  1.79  -<span style="color: #BB0000;">0.138</span>  -<span style="color: #BB0000;">0.431</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> old    male   A      -<span style="color: #BB0000;">0.999</span>  0.546   0.901   2.57  -<span style="color: #BB0000;">0.245</span>  2.02    2.83 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> middle male   A      -<span style="color: #BB0000;">0.177</span> -<span style="color: #BB0000;">1.37</span>    0.094<span style="text-decoration: underline;">7</span> -<span style="color: #BB0000;">2.53</span>   0.315 -<span style="color: #BB0000;">0.688</span>  -<span style="color: #BB0000;">1.33</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: c4 &lt;dbl&gt;, y1 &lt;dbl&gt;, y2 &lt;dbl&gt;, y3 &lt;dbl&gt;, y4 &lt;dbl&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 5 more variables: c4 &lt;dbl&gt;, y1 &lt;dbl&gt;, y2 &lt;dbl&gt;, y3 &lt;dbl&gt;, y4 &lt;dbl&gt;</span></span></span></code></pre></div>
 <p>In this example, we assume that <code>x</code> represents independent
 variables, <code>y</code> represents dependent variables, <code>c</code>
 represents control variables, and <code>group</code> denotes potential
@@ -196,7 +199,7 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">specs</span>, rows <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Setup for the Specification Curve Analysis</span></span>
 <span><span class="co">#&gt; -------------------------------------------</span></span>
-<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.0 </span></span>
+<span><span class="co">#&gt; Class:                      specr.setup -- version: 1.0.1 </span></span>
 <span><span class="co">#&gt; Number of specifications:   384 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
@@ -211,7 +214,7 @@ the summary function to get a quick overview of the multiverse.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   function (x) </span></span>
 <span><span class="co">#&gt; broom::tidy(x, conf.int = TRUE)</span></span>
-<span><span class="co">#&gt; &lt;environment: 0x7f8d6acf4e78&gt;</span></span>
+<span><span class="co">#&gt; &lt;environment: 0x7f8cc2ba9680&gt;</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Head of specifications table (first 20 rows):</span></span>
@@ -267,9 +270,9 @@ results.</p>
 <span><span class="co">#&gt; -------------------</span></span>
 <span><span class="co">#&gt; Technical details:</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.0 </span></span>
+<span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.1 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    6.556 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    5.65 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       384 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -293,7 +296,7 @@ results.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> x1    y1    lm    no covaria… female  <span style="color: #BB0000;">NA</span>     female y1 ~ x…     0.61      0.05</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> x1    y1    lm    no covaria… middle… middle male   y1 ~ x…     0.61      0.09</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> x1    y1    lm    no covaria… old &amp; … old    male   y1 ~ x…     0.68      0.1 </span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 18 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 18 more variables: statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   conf.high &lt;dbl&gt;, fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_sigma &lt;dbl&gt;, fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_logLik &lt;dbl&gt;, fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;,</span></span></span>
@@ -440,7 +443,7 @@ curve.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

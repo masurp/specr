@@ -12,18 +12,21 @@ reference:
     contents:
       - setup
       - specr
+      - boot_null
   - title: "Summarize results"
     desc: >
-      Both functions above create S3 classes that can be investigated with the generic summary function and transformed to data frames.
+      All functions above create S3 classes that can be investigated with the generic summary function and transformed to data frames.
     contents:
       - summary.specr.setup
       - summary.specr.object
+      - summary.specr.boot
   - title: "Visualizations"
     desc: >
       After running setup() or specr(), the resulting S3 class objects can be passed to the generic plot function to create visualizations.
     contents:
       - plot.specr.setup
       - plot.specr.object
+      - plot.specr.boot
   - title: "Data set(s)"
     contents:
       - example_data
@@ -62,6 +65,8 @@ navbar:
       href: articles/custom-plot.html
     - text: Investigating specific specifications
       href: articles/invest-spec.html
+    - text: Inferences with specification curve analysis
+      href: articles/inferences.html
     - text: Parallelization
       href: articles/parallelization.html
     - text: -------

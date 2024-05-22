@@ -20,7 +20,7 @@ specification curve analysis. Several types of visualizations are possible."><!-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
@@ -46,6 +46,9 @@ specification curve analysis. Several types of visualizations are possible."><!-
     </li>
     <li>
       <a href="../articles/invest-spec.html">Investigating specific specifications</a>
+    </li>
+    <li>
+      <a href="../articles/inferences.html">Inferences with specification curve analysis</a>
     </li>
     <li>
       <a href="../articles/parallelization.html">Parallelization</a>
@@ -205,7 +208,8 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Specification Curve analysis ----</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Specification Curve analysis ----</span></span></span>
 <span class="r-in"><span><span class="co"># Setup specifications</span></span></span>
 <span class="r-in"><span><span class="va">specs</span> <span class="op">&lt;-</span> <span class="fu"><a href="setup.html">setup</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">example_data</span>,</span></span>
 <span class="r-in"><span>   y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"y1"</span>, <span class="st">"y2"</span><span class="op">)</span>,</span></span>
@@ -220,48 +224,21 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Resulting data frame with estimates</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>  <span class="co"># This will be used for plotting</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 192 × 28</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    x     y     model controls subsets group1 group2 formula model_function term </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;glue&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> x1    y1    lm    no cova… middle… middle female y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span> x1    y1    lm    no cova… old &amp; … old    female y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> x1    y1    lm    no cova… young … young  female y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span> x1    y1    lm    no cova… female  <span style="color: #BB0000;">NA</span>     female y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span> x1    y1    lm    no cova… middle… middle male   y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span> x1    y1    lm    no cova… old &amp; … old    male   y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span> x1    y1    lm    no cova… young … young  male   y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> x1    y1    lm    no cova… male    <span style="color: #BB0000;">NA</span>     male   y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> x1    y1    lm    no cova… middle  middle <span style="color: #BB0000;">NA</span>     y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> x1    y1    lm    no cova… old     old    <span style="color: #BB0000;">NA</span>     y1 ~ x… <span style="color: #949494;">&lt;fn&gt;</span>           x1   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 182 more rows, and 18 more variables: estimate &lt;dbl&gt;, std.error &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   statistic &lt;dbl&gt;, p.value &lt;dbl&gt;, conf.low &lt;dbl&gt;, conf.high &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_r.squared &lt;dbl&gt;, fit_adj.r.squared &lt;dbl&gt;, fit_sigma &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;int&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   fit_nobs &lt;int&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Visualizations ---</span></span></span>
 <span class="r-in"><span><span class="co"># Plot results in various ways</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span>                            <span class="co"># default</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"y"</span><span class="op">)</span><span class="op">)</span>     <span class="co"># specific choices</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-2.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, ci <span class="op">=</span> <span class="cn">FALSE</span>, ribbon <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co"># exclude CI and add ribbon instead</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-3.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-4.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"choices"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-5.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"samplesizes"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-6.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"boxplot"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-7.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Grouped plot</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, group <span class="op">=</span> <span class="va">controls</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-8.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Alternative and specific visualizations ----</span></span></span>
 <span class="r-in"><span><span class="co"># Other variables in the resulting data set can be plotted too</span></span></span>
@@ -269,7 +246,6 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span>     type <span class="op">=</span> <span class="st">"curve"</span>,</span></span>
 <span class="r-in"><span>     var <span class="op">=</span> <span class="va">fit_r.squared</span>,   <span class="co"># extract "r-square" instead of "estimate"</span></span></span>
 <span class="r-in"><span>     ci <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-9.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Such a plot can also be extended (e.g., by again adding the estimates with</span></span></span>
 <span class="r-in"><span><span class="co"># confidence intervals)</span></span></span>
@@ -277,31 +253,15 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"curve"</span>, var <span class="op">=</span> <span class="va">fit_r.squared</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">estimate</span><span class="op">)</span>, shape <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"specifications"</span>, y <span class="op">=</span> <span class="st">"r-squared | estimate"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-10.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># We can also investigate how much variance is explained by each analytical choice</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>, type <span class="op">=</span> <span class="st">"variance"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> boundary (singular) fit: see help('isSingular')</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        grp vcov  icc percent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  subsets 0.00 0.00    0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2 controls 0.00 0.00    0.41</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        y 0.16 0.83   83.34</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        x 0.00 0.01    0.57</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Residual 0.03 0.16   15.69</span>
-<span class="r-plt img"><img src="plot.specr.object-11.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices</span></span></span>
 <span class="r-in"><span><span class="co"># and also include interactions between chocies</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">results</span>,</span></span>
 <span class="r-in"><span>     type <span class="op">=</span> <span class="st">"variance"</span>,</span></span>
 <span class="r-in"><span>     formula <span class="op">=</span> <span class="st">"estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        grp vcov  icc percent</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1      x:y 0.05 0.26   26.29</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2   group1 0.00 0.01    0.79</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        y 0.13 0.69   69.49</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        x 0.00 0.00    0.00</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 Residual 0.01 0.03    3.44</span>
-<span class="r-plt img"><img src="plot.specr.object-12.png" alt="" width="700" height="433"></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## Combining several plots ----</span></span></span>
 <span class="r-in"><span><span class="co"># `specr` also exports the function `plot_grid()` from the package `cowplot`, which</span></span></span>
@@ -314,7 +274,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 <span class="r-in"><span>          axis <span class="op">=</span> <span class="st">"rbl"</span>,</span></span>
 <span class="r-in"><span>          rel_heights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">1</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>          ncol <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="plot.specr.object-13.png" alt="" width="700" height="433"></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -329,7 +289,7 @@ analstical choices) should be printed or not. Defaults to TRUE.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

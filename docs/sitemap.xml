@@ -28,6 +28,9 @@
     <loc>https://masurp.github.io/specr/index.html/articles/index.html</loc>
   </url>
   <url>
+    <loc>https://masurp.github.io/specr/index.html/articles/inferences.html</loc>
+  </url>
+  <url>
     <loc>https://masurp.github.io/specr/index.html/articles/invest-spec.html</loc>
   </url>
   <url>
@@ -76,6 +79,9 @@
     <loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.setup.html</loc>
   </url>
   <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/boot_null.html</loc>
+  </url>
+  <url>
     <loc>https://masurp.github.io/specr/index.html/reference/example_data.html</loc>
   </url>
   <url>
@@ -83,6 +89,9 @@
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.boot.html</loc>
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.object.html</loc>
@@ -112,6 +121,9 @@
     <loc>https://masurp.github.io/specr/index.html/reference/plot_variance.html</loc>
   </url>
   <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/print.specr.boot.html</loc>
+  </url>
+  <url>
     <loc>https://masurp.github.io/specr/index.html/reference/print.specr.object.html</loc>
   </url>
   <url>
@@ -134,6 +146,9 @@
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/summarise_specs.html</loc>
+  </url>
+  <url>
+    <loc>https://masurp.github.io/specr/index.html/reference/summary.specr.boot.html</loc>
   </url>
   <url>
     <loc>https://masurp.github.io/specr/index.html/reference/summary.specr.object.html</loc>
