@@ -23,6 +23,13 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
+- 22 May 2024: The new development version (specr version 1.0.1)
+  includes new functions to conduct inferences on the specification
+  curve analysis (the third step outlined Simohnsohn et al., 2020). See
+  [this
+  vignette](https://masurp.github.io/specr/articles/inferences.html) for
+  further details.
+
 - 20 January 2022: specr version 1.0.0 is now available via
   [CRAN](https://cran.r-project.org/package=specr). This is a major
   update with several new features and functions. Note: it introduces a
