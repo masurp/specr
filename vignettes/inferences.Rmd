@@ -88,7 +88,7 @@ The idea behind this inference approach is that one forces the null on the data.
 
 
 ```{r, out.width="50%", echo = F}
-knitr::include_graphics("simonsohn_inference.png")
+knitr::include_graphics("https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png")
 ```
 
 ## Run bootstrap sampling procedure
