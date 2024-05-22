@@ -1,4 +1,19 @@
 
+# specr 1.0.1
+
+Development version released: 2024-05-222
+
+## Breaking changes
+
+None
+
+## Updates
+
+* This new development version includes new functions to conduct inferences on the specification curve analysis (the third step outlined Simohnsohn et al., 2020). 
+
+    - It thereby facilitates resampling under-the-null to obtain test statistics to evaluate the extremity of the specification curve analysis results. 
+    - See [this vignette](https://masurp.github.io/specr/articles/inferences.html) for a comprehensive tutorial.
+
 # specr 1.0.0
 
 CRAN release: 2023-01-20
