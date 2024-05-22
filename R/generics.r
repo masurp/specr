@@ -899,8 +899,8 @@ summary.specr.boot <- function(x, group = NULL, ...) {
       tidyr::spread(variable, p_value)
     summary <- suppressMessages(left_join(summary, obs_summary)) %>%
       mutate(Mdn = sprintf("%.2f", obs_median),
-             obs_n_positive_sig = sprintf("%s / %s", obs_n_positive_sig, obs_n),
-             obs_n_negative_sig = sprintf("%s / %s", obs_n_negative_sig, obs_n)) %>%
+             obs_n_positive_sig = sprintf("%s/%s", obs_n_positive_sig, obs_n),
+             obs_n_negative_sig = sprintf("%s/%s", obs_n_negative_sig, obs_n)) %>%
       select(!!group, median = Mdn,
              extreme_median,
              obs_n_positive_sig,
@@ -917,15 +917,21 @@ summary.specr.boot <- function(x, group = NULL, ...) {
            "share positive p" = extreme_positive_sig,
            "share negative" = obs_n_negative_sig,
            "share negative p" = extreme_negative_sig) %>%
-    as.data.frame()
-
-
-  #cat("Inference on the specification curve:\n\n")
+    as.data.frame() |>
+    gather(key, value)  |>
+    mutate(key = gsub(" p(?=$)", "", key, perl = TRUE)) |>
+    group_by(grp = str_c('Column', rep(1:2, length.out = n()))) %>%
+    mutate(rn = row_number()) %>%
+    ungroup %>%
+    pivot_wider(names_from = grp, values_from = value) %>%
+    select(-rn) |>
+    rename(type = key, estimate = Column1, p.value = Column2)
 
   return(summary)
 
 
 }
+
 
 #' Plot specification curve and under-the-null distributions
 #'
