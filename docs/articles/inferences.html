@@ -116,36 +116,50 @@
 
     
     
-<p>In their paper, Simonsohn et al. (2020) propose a third step, which
-represent “inference with specification curve analysis. Here, we try to
-answer the following question:”considering the full set of reasonable
-specifications jointly, how inconsistent are the results with the null
-hypothesis of no effect?” (p. 1212). We have been thinking a lot about
-implementing this “third” step in this package. Until now, we have been
-concluding that there is still too much uncertainty about when such
-joint inferences make sense (see e.g., the very recent discussion by Del
-Giudice &amp; Gangestad, 2021 of differences between truly arbitrary and
-non-arbitrary decision and the limits of multiverse analyses: <a href="https://journals.sagepub.com/doi/full/10.1177/2515245920954925" class="external-link uri">https://journals.sagepub.com/doi/full/10.1177/2515245920954925</a>).
-To quote some of these concerns:</p>
+<p>In their paper, Simonsohn et al. (2020) propose a third step within
+the logic of specification curve analysis, which refers to conducting
+inference tests across the entire range of the specification curve. This
+step aims to address the following question: <em>Considering the full
+set of reasonable specifications jointly, how inconsistent are the
+results with the null hypothesis of no effect?</em></p>
+<p>We have been contemplating the implementation of this third step in
+our package. Until recently, we have concluded that there remains
+significant uncertainty regarding when such joint inferences are
+appropriate (see, for example, the recent discussion by Del Giudice
+&amp; Gangestad, 2021), who highlight:</p>
 <blockquote>
-<p>By inflating the size of the analysis space, the combinatorial
-explosion of unjustified specifications may, ironically, exaggerate the
-perceived exhaustiveness and authoritativeness of the multiverse while
-greatly reducing the informative fraction of the multiverse. At the same
-time, the size of the specification space can make it harder to inspect
-the results for potentially relevant findings. If unchecked,
-multiverse-style analyses can generate analytic “black holes”: massive
-analyses that swallow true effects of interest but, because of their
-perceived exhaustiveness and sheer size, trap whatever information is
-present in impenetrable displays and summaries.</p>
+<p>“In principle, multiverse-style analyses can be highly instructive.
+At the same time, analyses that explore multiverse spaces that are not
+homogeneous can produce misleading results and interpretations, lead
+scholars to dismiss the robustness of theoretically important findings
+that do exist, and discourage them from following fruitful avenues of
+research. This can hinder scientific progress just as much as the
+proliferation of false, unreplicable findings does” (p. 2).</p>
 </blockquote>
-<p>We were (and still are) a bit concerned that tools for such an
-inference test could lead to misuse or wrongly conducted robustness
-test. Due to frequent questions, we nonetheless now integrated a
-function called <code><a href="../reference/boot_null.html">boot_null()</a></code> in the newest development
-version of <code>specr</code>. For details on the procedure, please have
-a look at the paper. Please note that the implemented procedure refers
-to the section “Inference with non-experimental data” in the paper.</p>
+<p>The issue is as follows: Multiverse or specification curve analyses
+can serve different purposes. In the simplest form, it may serve to
+explore and discover differences in effect sizes that relate to specific
+theoretical or analytical decisions. Yet, the method is also suggestive
+of being a “somehow better approach to testing a relationship”. The aim
+of this second purpose, which is akin to a robustness test, is to
+exhaust the multiverse of truly arbitrary decisions in order to gain
+some sort of aggregate finding that can be use to refute or support a
+hypothesis. As Del Giudice and Gangestad point out very convincingly,
+however, it is often not straight-forward to decide whether
+specification is truly arbitrary (or in their terms: exhibits principled
+equivalence) compared to another specification. Yet, if this is not the
+case, running any inference tests is futile as “Just a few decisions
+incorrectly treated as arbitrary can quickly explode the size of the
+multiverse, drowning reasonable effect estimates in a sea of unjustified
+alternatives.” (Del Giudice &amp; Gangestad, 2021, p. 2).</p>
+<p>For these reasons, we have been, and continue to be, concerned that
+tools for such an inference test could be misused or lead to improperly
+conducted robustness tests. Nevertheless, due to frequent inquiries, we
+have now integrated a function called <code><a href="../reference/boot_null.html">boot_null()</a></code> in the
+latest development version of <code>specr</code>. For details on the
+procedure, please refer to the paper by Simonsohn et al. (2020). Please
+note that the implemented procedure pertains to the section “Inference
+with non-experimental data” in the paper.</p>
 <div class="section level2">
 <h2 id="preparations">Preparations<a class="anchor" aria-label="anchor" href="#preparations"></a>
 </h2>
@@ -183,9 +197,9 @@ package, which we can call using <code>example_data</code>.</p>
 </h3>
 <p>To prepare the inference under-the-null bootstrapping procedure, we
 need to run the standard specification curve analysis, but make sure
-that we keep the entire model object. By default, the function specr
-only keeps the relevant coefficient, but by creating a customized
-fitting function, we can add a colum e.g., <code>res</code> that
+that we keep the entire model object. By default, the function
+<code><a href="../reference/specr.html">specr()</a></code> only keeps the relevant coefficient, but by
+creating a customized fitting function, we can add a column that
 contains the full model.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Requires to keep full model</span></span>
@@ -222,7 +236,7 @@ the core function <code>specr</code>.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                          specr.object -- version: 1.0.1 </span></span>
 <span><span class="co">#&gt;   Cores used:                     1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:    0.251 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:    0.265 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of specifications:       16 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curve:</span></span>
@@ -251,7 +265,8 @@ the core function <code>specr</code>.</p>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_statistic &lt;dbl&gt;, fit_p.value &lt;dbl&gt;, fit_df &lt;dbl&gt;, fit_logLik &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_AIC &lt;dbl&gt;, fit_BIC &lt;dbl&gt;, fit_deviance &lt;dbl&gt;, fit_df.residual &lt;dbl&gt;,</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   fit_nobs &lt;dbl&gt;</span></span></span></code></pre></div>
-<p>So far, nothing new in this tutorial.</p>
+<p>So far, nothing new. We get the results of the specification curve
+analysis and can explore them descriptively or visually.</p>
 </div>
 </div>
 <div class="section level2">
@@ -260,7 +275,7 @@ the core function <code>specr</code>.</p>
 <p>The idea behind this inference approach is that one forces the null
 on the data. Have a look at the following section of the Simonsohn et
 al. (2020) paper (p. 1213):</p>
-<p><img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png" width="50%"></p>
+<p><img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png" width="45%"></p>
 <div class="section level3">
 <h3 id="run-bootstrap-sampling-procedure">Run bootstrap sampling procedure<a class="anchor" aria-label="anchor" href="#run-bootstrap-sampling-procedure"></a>
 </h3>
@@ -268,10 +283,12 @@ al. (2020) paper (p. 1213):</p>
 <code><a href="../reference/boot_null.html">boot_null()</a></code>, which requires the results, the specification
 setup, and the number of samples that should be drawn (Simonsohn et
 al. suggest n_samples = 500, here I am only demonstrating it with 10
-resamples).</p>
+resamples). Technically, we would suggest to run at least 1,000 or
+better 10,000 samples to obtain robust results (as is common in
+bootstrapping procedures or Monte Carlo simulations).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">42</span><span class="op">)</span></span>
-<span><span class="va">boot_models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boot_null.html">boot_null</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">specs</span>, n_samples <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># better 1,000!</span></span>
+<span><span class="va">boot_models</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/boot_null.html">boot_null</a></span><span class="op">(</span><span class="va">results</span>, <span class="va">specs</span>, n_samples <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="co"># better 1,000 - 10,000!</span></span>
 <span><span class="va">boot_models</span></span>
 <span><span class="co">#&gt; Results of bootstrapping 'under-the-null' procedure</span></span>
 <span><span class="co">#&gt; -------------------</span></span>
@@ -279,7 +296,7 @@ resamples).</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   Class:                           specr.boot -- version: 1.0.1 </span></span>
 <span><span class="co">#&gt;   Cores used:                      1 </span></span>
-<span><span class="co">#&gt;   Duration of fitting process:     20.2 sec elapsed </span></span>
+<span><span class="co">#&gt;   Duration of fitting process:     20.001 sec elapsed </span></span>
 <span><span class="co">#&gt;   Number of bootstrapped samples:  10 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Descriptive summary of the specification curves 'under-the-null' (head):</span></span>
@@ -304,8 +321,8 @@ output shows the first 6 curves summarized).</p>
 <h3 id="summarize-findings">Summarize findings<a class="anchor" aria-label="anchor" href="#summarize-findings"></a>
 </h3>
 <p>Based on these resamples, we can compute several test statistics.
-Simonsohn et al. propose three, but here, we implemented the first
-two:</p>
+Simonsohn et al. propose three, but we implemented the first two for
+now:</p>
 <ol style="list-style-type: decimal">
 <li><p>Obtaining the median effect estimated across all specifications,
 and then testing whether this median estimated effect is more extreme
@@ -339,21 +356,27 @@ was zero is again low (p &lt; .001).</p>
 </h3>
 <p>Simonsohn et al. also suggest that the observed specification curve
 can be plotted against the expected under-the-null specification curves.
-The expected curves are in this case based on the 10 resamples
-under-the-null. The curve show here the 2.5th (low), the 50th (mid) and
-the 97.5th percentiles of these resamples.</p>
+In the figure, we see three expected curves that are based on the 10
+resamples under-the-null (if more resamples are drawn, they are based on
+those resamples). The three curves here represent the 2.5th (low), the
+50th (mid) and the 97.5th percentiles of these resamples.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">boot_models</span><span class="op">)</span></span></code></pre></div>
 <p><img src="inferences_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
+<p>As we can see, the observed curve is clearly different than the
+simulated curves unter the assumption that the true effect is zero.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
 <ul>
-<li>Simonsohn, U., Simmons, J.P. &amp; Nelson, L.D. (2020).
-Specification curve analysis. Nature Human Behaviour, 4, 1208–1214. <a href="https://doi.org/10.1038/s41562-020-0912-z" class="external-link uri">https://doi.org/10.1038/s41562-020-0912-z</a>
-</li>
+<li><p>Del Giudice, M., &amp; Gangestad, S. W. (2021). A traveler’s
+guide to the multiverse: Promises, pitfalls, and a framework for the
+evaluation of analytic decisions. Advances in Methods and Practices in
+Psychological Science, 4(1), <a href="https://journals.sagepub.com/doi/full/10.1177/2515245920954925" class="external-link uri">https://journals.sagepub.com/doi/full/10.1177/2515245920954925</a>.</p></li>
+<li><p>Simonsohn, U., Simmons, J.P. &amp; Nelson, L.D. (2020).
+Specification curve analysis. Nature Human Behaviour, 4, 1208–1214. <a href="https://doi.org/10.1038/s41562-020-0912-z" class="external-link uri">https://doi.org/10.1038/s41562-020-0912-z</a></p></li>
 </ul>
 </div>
   </div>

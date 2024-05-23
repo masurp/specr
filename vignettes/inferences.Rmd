@@ -17,14 +17,21 @@ knitr::opts_chunk$set(
 )
 ```
 
-In their paper, Simonsohn et al. (2020) propose a third step, which represent "inference with specification curve analysis. Here, we try to answer the following question: "considering the full set of reasonable specifications jointly, how inconsistent are the results with the null hypothesis of no effect?" (p. 1212). We have been thinking a lot about implementing this "third" step in this package. Until now, we have been concluding that there is still too much uncertainty about when such joint inferences make sense (see e.g., the very recent discussion by Del Giudice & Gangestad, 2021 of differences between truly arbitrary and non-arbitrary decision and the limits of multiverse analyses: https://journals.sagepub.com/doi/full/10.1177/2515245920954925). To quote some of these concerns:
+In their paper, Simonsohn et al. (2020) propose a third step within the logic of specification curve analysis, which refers to conducting inference tests across the entire range of the specification curve. This step aims to address the following question: 
+*Considering the full set of reasonable specifications jointly, how inconsistent are the results with the null hypothesis of no effect?* 
 
->By inflating the size of the analysis space, the combinatorial explosion of unjustified specifications may, ironically, exaggerate the perceived exhaustiveness and authoritativeness of the multiverse while greatly reducing the informative fraction of the multiverse. At the same time, the size of the specification space can make it harder to inspect the results for potentially relevant findings. If unchecked, multiverse-style analyses can generate analytic “black holes”: massive analyses that swallow true effects of interest but, because of their perceived exhaustiveness and sheer size, trap whatever information is present in impenetrable displays and summaries.
+We have been contemplating the implementation of this third step in our package. Until recently, we have concluded that there remains significant uncertainty regarding when such joint inferences are appropriate (see, for example, the recent discussion by Del Giudice & Gangestad, 2021), who highlight:
 
-We were (and still are) a bit concerned that tools for such an inference test could lead to misuse or wrongly conducted robustness test. Due to frequent questions, we nonetheless now integrated a function called `boot_null()` in the newest development version of `specr`. For details on the procedure, please have a look at the paper. Please note that the implemented procedure refers to the section "Inference with non-experimental data" in the paper. 
+>"In principle, multiverse-style analyses can be highly instructive. At the same time, analyses that explore multiverse spaces that are not homogeneous can produce misleading results and interpretations, lead scholars to dismiss the robustness of theoretically important findings that do exist, and discourage them from following fruitful avenues of research. This can hinder scientific progress just as much as the proliferation of false, unreplicable findings does" (p. 2).
+
+The issue is as follows: Multiverse or specification curve analyses can serve different purposes. In the simplest form, it may serve to explore and discover differences in effect sizes that relate to specific theoretical or analytical decisions. Yet, the method is also suggestive of being a "somehow better approach to testing a relationship". The aim of this second purpose, which is akin to a robustness test, is to exhaust the multiverse of truly arbitrary decisions in order to gain some sort of aggregate finding that can be use to refute or support a hypothesis. As Del Giudice and Gangestad point out very convincingly, however, it is often not straight-forward to decide whether specification is truly arbitrary (or in their terms: exhibits principled equivalence) compared to another specification. Yet, if this is not the case, running any inference tests is futile as "Just a few decisions incorrectly treated as arbitrary can quickly explode the size of the multiverse, drowning reasonable
+effect estimates in a sea of unjustified alternatives." (Del Giudice & Gangestad, 2021, p. 2).   
+
+
+For these reasons, we have been, and continue to be, concerned that tools for such an inference test could be misused or lead to improperly conducted robustness tests. Nevertheless, due to frequent inquiries, we have now integrated a function called `boot_null()` in the latest development version of `specr`. For details on the procedure, please refer to the paper by Simonsohn et al. (2020). Please note that the implemented procedure pertains to the section "Inference with non-experimental data" in the paper.
+
 
 # Preparations
-
 
 ## Loading packages and data
 
@@ -33,7 +40,6 @@ We were (and still are) a bit concerned that tools for such an inference test co
 library(specr)
 library(tidyverse)
 ```
-
 
 For this tutorial, we will simple use the data set included in the package, which we can call using `example_data`. 
 
@@ -44,7 +50,7 @@ glimpse(example_data)
 
 ## Creating a custom function to extract full model
 
-To prepare the inference under-the-null bootstrapping procedure, we need to run the standard specification curve analysis, but make sure that we keep the entire model object. By default, the function specr only keeps the relevant coefficient, but by creating a customized fitting function, we can add a colum e.g., `res` that contains the full model. 
+To prepare the inference under-the-null bootstrapping procedure, we need to run the standard specification curve analysis, but make sure that we keep the entire model object. By default, the function `specr()` only keeps the relevant coefficient, but by creating a customized fitting function, we can add a column that contains the full model. 
 
 
 ```{r}
@@ -80,24 +86,24 @@ results <- specr(specs)
 summary(results)
 ```
 
-So far, nothing new in this tutorial. 
+So far, nothing new. We get the results of the specification curve analysis and can explore them descriptively or visually.
 
 # Refit the models under-the-null
 
 The idea behind this inference approach is that one forces the null on the data. Have a look at the following section of the Simonsohn et al. (2020) paper (p. 1213):
 
 
-```{r, out.width="50%", echo = F}
+```{r, out.width="45%", echo = F}
 knitr::include_graphics("https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png")
 ```
 
 ## Run bootstrap sampling procedure
 
-To run this procedure, we simply use the function `boot_null()`, which requires the results, the specification setup, and the number of samples that should be drawn (Simonsohn et al. suggest n_samples = 500, here I am only demonstrating it with 10 resamples). 
+To run this procedure, we simply use the function `boot_null()`, which requires the results, the specification setup, and the number of samples that should be drawn (Simonsohn et al. suggest n_samples = 500, here I am only demonstrating it with 10 resamples). Technically, we would suggest to run at least 1,000 or better 10,000 samples to obtain robust results (as is common in bootstrapping procedures or Monte Carlo simulations).
 
 ```{r}
 set.seed(42)
-boot_models <- boot_null(results, specs, n_samples = 10) # better 1,000!
+boot_models <- boot_null(results, specs, n_samples = 10) # better 1,000 - 10,000!
 boot_models
 ```
 
@@ -105,7 +111,7 @@ The resulting fit object includes all resamples under the null (the output shows
 
 ## Summarize findings
 
-Based on these resamples, we can compute several test statistics. Simonsohn et al. propose three, but here, we implemented the first two:
+Based on these resamples, we can compute several test statistics. Simonsohn et al. propose three, but we implemented the first two for now:
 
 1. Obtaining the median effect estimated across all specifications, and then testing whether this median estimated
 effect is more extreme than would be expected if all specifications had a true effect of zero.
@@ -123,13 +129,19 @@ As we can see here, first, the likelihood of obtaining a median of 0.14 under th
 
 ## Plot inference curve
 
-Simonsohn et al. also suggest that the observed specification curve can be plotted against the expected under-the-null specification curves. The expected curves are in this case based on the 10 resamples under-the-null. The curve show here the 2.5th (low), the 50th (mid) and the 97.5th percentiles of these resamples. 
+Simonsohn et al. also suggest that the observed specification curve can be plotted against the expected under-the-null specification curves. In the figure, we see three expected curves that are based on the 10 resamples under-the-null (if more resamples are drawn, they are based on those resamples). The three curves here represent the 2.5th (low), the 50th (mid) and the 97.5th percentiles of these resamples. 
 
 ```{r, fig.width=9, fig.height = 7, warning = F}
 plot(boot_models)
 ```
 
 
+As we can see, the observed curve is clearly different than the simulated curves unter the assumption that the true effect is zero. 
+
 # References
 
+- Del Giudice, M., & Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. Advances in Methods and Practices in Psychological Science, 4(1), https://journals.sagepub.com/doi/full/10.1177/2515245920954925.
+
 - Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. Nature Human Behaviour, 4, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+
+
