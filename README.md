@@ -222,8 +222,8 @@ like to be included in the following list, please send an email to
 
 - De Vries, I., Baglivio, M., & Reid, J. A. (2024). Examining individual
   and contextual correlates of victimization for juvenile human
-  trafficking in Florida. Journal of interpersonal
-  violence, 08862605241243332.
+  trafficking in Florida. *Journal of interpersonal
+  violence*, 08862605241243332.
   <https://journals.sagepub.com/doi/abs/10.1177/08862605241243332>
 
 - Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and
@@ -244,13 +244,13 @@ like to be included in the following list, please send an email to
   19*, 8940. <https://doi.org/10.3390/ijerph19158940>
 
 - Jones, A., Petrovskaya, E., & Stafford, T. (2024). Exploring the
-  multiverse of analysis options for the alcohol Stroop. Behavior
-  Research Methods, 1-11.
+  multiverse of analysis options for the alcohol Stroop. *Behavior
+  Research Methods*, 1-11.
   <https://link.springer.com/article/10.3758/s13428-024-02377-5>
 
 - Kleinert, M. (2024). Reconsidering the Relationship Between
   Anti-immigration Attitudes and Preferences for the AfD Using Implicit
-  Attitudes Measures. Politische Vierteljahresschrift, 65(1), 71-98.
+  Attitudes Measures. *Politische Vierteljahresschrift, 65*(1), 71-98.
 
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave
   Appropriately: Exploring Associations Between Incongruent Personality
@@ -259,7 +259,7 @@ like to be included in the following list, please send an email to
 
 - Mao, Z. F., Li, Q. W., Wang, Y. M., & Zhou, J. (2024). Pro-religion
   attitude predicts lower vaccination coverage at country level.
-  Humanities and Social Sciences Communications, 11(1), 1-9.
+  *Humanities and Social Sciences Communications, 11*(1), 1-9.
 
 - Masur, P. K. (2021). Understanding the Effects of Conceptual and
   Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification
@@ -306,6 +306,11 @@ like to be included in the following list, please send an email to
   specification curve analysis to red meat and all-cause mortality.
   *Journal of Clinical Epidemiology, 111278.*
   <https://doi.org/10.1016/j.jclinepi.2024.111278>
+
+- Yu, R. P. (2024). Divides in News Verification: Antecedents and
+  Political Outcomes of News Verification by Age. *Digital Journalism*,
+  1-21.
+  <https://www.tandfonline.com/doi/abs/10.1080/21670811.2024.2314582>
 
 - Yuan, Q., Li, H., Du, B., Dang, Q., Chang, Q., Zhang, Z., … & Guo, T.
   (2023). The cerebellum and cognition: further evidence for its role in
