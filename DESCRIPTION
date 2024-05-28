@@ -35,6 +35,7 @@ Imports:
     parallelly,
     purrr,
     rlang, 
+    rsample,
     stringr,
     tibble,
     tidyr

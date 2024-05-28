@@ -15,5 +15,6 @@
 #' @importFrom stats formula mad median nobs quantile start vcov
 #' @importFrom stringr str_glue str_remove_all
 #' @importFrom utils stack head packageVersion
+#' @importFrom rsample bootstraps analysis
 ## usethis namespace: end
 NULL
