@@ -165,6 +165,8 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Tisdall, L., & Mata, R. (2023). Age differences in the neural basis of decision-making under uncertainty. *Cognitive, Affective, & Behavioral Neuroscience.* https://doi.org/10.3758/s13415-022-01060-6
 
+- Tünte, M. R., Hoehl, S., Wunderwald, M., Bullinger, J., Boyadziheva, A., Maister, L., ... & Kayhan, E. (2023). Respiratory and Cardiac Interoceptive Sensitivity in the First Two Years of Life. *eLife, 12*. https://elifesciences.org/reviewed-preprints/91579
+
 - van Veelen, H.P.J., Ibáñez-Álamo, J.D., Horrocks, N.P.C. et al. (2023). Cloacal microbiota are biogeographically structured in larks from desert, tropical and temperate areas. *BMC Microbiol 23*(40). https://doi.org/10.1186/s12866-023-02768-2
 
 - Visontay, R., Mewton, L., Sunderland, M., Bell, S., Britton, A., Osman, B., ... & Slade, T. (2023). A comprehensive evaluation of the longitudinal association between alcohol consumption and a measure of inflammation: Multiverse and vibration of effects analyses. *Drug and Alcohol Dependence*, 247. https://doi.org/10.1016/j.drugalcdep.2023.109886
