@@ -146,21 +146,27 @@ parallelize the computations.</p>
 </h2>
 <p>Although you can simply pass the function <code>brm</code> to
 <code>setup</code> and run <code><a href="../reference/specr.html">specr()</a></code> with
-<code>workers = 1</code> without any specific custum function, it
+<code>workers = 1</code> without any specific custom function, it
 usually make sense to set up some custom model fitting and extraction
 functions to make sure <code><a href="../reference/specr.html">specr()</a></code> does exactly what we
 want.</p>
-<p>For example, I would suggest to create a custom model fitting
-function and specify relevant parameters for the Bayesian models. Here,
-I switch off parallel processing as I want to do this via
-<code><a href="../reference/specr.html">specr()</a></code> (i.e., setting <code>cores = 1</code> in
-<code>brm</code>). I also reduce the number of chains to 1 to speed up
-the fitting process (but we can bump this up if we want). This custom
-function also allows me to load <code>brms</code> itself and
-<code>broom.mixed</code>, which provides the tidy function to extract
-parameters from the <code>brm.fit</code> object.</p>
-<p>Furthermore, I also create a custom fit extract function. Most
-importantly, I add the full <code>brms.fit</code> object to the
+<p>Here, I am creating a custom model fitting function and specify
+relevant parameters for the Bayesian models. Here, I am only switching
+of the progress indication and messages, and reduce the iteration to
+1000 to save time. Of course, we can bump this up to wherever we need it
+to be.</p>
+<p>Note that you can use specr to parallize the process (then you would
+set <code>workers = 1</code> in the brm function) and use the
+parallelization via <code>furrr</code> as outlined in <a href="https://masurp.github.io/specr/articles/parallelization.html" class="external-link">this
+vignette</a>. Alternatively, we can let <code>brms</code> parallelize
+the process (e.g., by setting e.g., <code>cores = 4</code>). Then, we
+would not use the parallelization procedure by <code>specr</code>. Here,
+I keep it simple and just do all computations sequentially. Thus, all
+chains per specifications as well as the specifications themselves are
+fitted one after the other.</p>
+<p>If you want to be able to inspect each brms-object after the
+computation, I suggest to also create a custom fit extract function.
+Here, I added the full <code>brms.fit</code> object to the
 <code>glance</code> output. This way, we can later access the entire
 object in order to e.g., extract posterior distributions or other
 aspects of the Bayesian models.</p>
@@ -223,7 +229,8 @@ aspects of the Bayesian models.</p>
 <h2 id="estimating-the-models">Estimating the models<a class="anchor" aria-label="anchor" href="#estimating-the-models"></a>
 </h2>
 <p>Because we are estimating 24 Bayesian models, this may take a while,
-but brms automatically parallelizes the computations.</p>
+but, again, brms automatically parallelizes the computations if we do
+not</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/specr.html">specr</a></span><span class="op">(</span><span class="va">specs</span><span class="op">)</span></span></code></pre></div>
 <p>Now we can again summarize and plot our results.</p>
