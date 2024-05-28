@@ -923,7 +923,7 @@ summary.specr.boot <- function(x, group = NULL, ...) {
     group_by(grp = str_c('Column', rep(1:2, length.out = n()))) %>%
     mutate(rn = row_number()) %>%
     ungroup %>%
-    pivot_wider(names_from = grp, values_from = value) %>%
+    tidyr::pivot_wider(names_from = grp, values_from = value) %>%
     select(-rn) |>
     rename(type = key, estimate = Column1, p.value = Column2)
 

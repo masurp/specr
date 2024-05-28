@@ -3,7 +3,7 @@
 #' @import dplyr
 #' @importFrom lme4 VarCorr lmer
 #' @importFrom glue glue
-#' @importFrom tidyr expand_grid unnest unite
+#' @importFrom tidyr expand_grid unnest unite pivot_wider
 #' @importFrom rlang enquo enquos .data
 #' @importFrom tibble tibble as_tibble lst
 #' @importFrom igraph graph_from_data_frame
