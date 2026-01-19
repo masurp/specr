@@ -116,7 +116,6 @@ plot(results)
 
 ``` r
 citation("specr")
-#> 
 #> To cite 'specr' in publications use:
 #> 
 #>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
@@ -210,6 +209,11 @@ like to be included in the following list, please send an email to
   Calibration of Multiversal Models. Preprint:
   <https://osf.io/download/6627aeecc5851a0791f66f6c/>
 
+- Chang, Q., Ma, F., Yuan, Q., Chen, M., & Guo, T. (2025). Short‐term
+  language switching training reveals an adaptive cerebellar network for
+  bilingual language control. *Annals of the New York Academy of
+  Sciences*.
+
 - Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue
   reactivity, regulation, and valuation and their associations with body
   composition and daily eating behavior. Social Cognitive and Affective
@@ -225,6 +229,11 @@ like to be included in the following list, please send an email to
   trafficking in Florida. *Journal of interpersonal
   violence*, 08862605241243332.
   <https://journals.sagepub.com/doi/abs/10.1177/08862605241243332>
+
+- Gould, E., Fraser, H. S., Parker, T. H., Nakagawa, S., Griffith, S.
+  C., Vesk, P. A., … & Lagisz, M. (2025). Same data, different analysts:
+  variation in effect sizes due to analytical decisions in ecology and
+  evolutionary biology. *BMC biology, 23*(1), 35.
 
 - Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and
   Objective-Descriptive Event Characteristics Explain Individual
@@ -257,6 +266,11 @@ like to be included in the following list, please send an email to
   States and Positive Affect, Tiredness, and Cognitive Performance.
   <https://doi.org/10.31234/osf.io/9utyj>
 
+- Liu, D., Meng, Y., Liu, L., Liu, S., Schwieter, J. W., & Chen, B.
+  (2025). The dynamic influence of language‐switching contexts on
+  domain‐general cognitive control: An EEG study. Psychophysiology,
+  62(2), e14736
+
 - Mao, Z. F., Li, Q. W., Wang, Y. M., & Zhou, J. (2024). Pro-religion
   attitude predicts lower vaccination coverage at country level.
   *Humanities and Social Sciences Communications, 11*(1), 1-9.
@@ -266,9 +280,9 @@ like to be included in the following list, please send an email to
   Curve Analysis of Large-Scale Survey Data. *Information, Communication
   & Society.* <https://doi.org/10.1080/1369118X.2021.1963460>
 
-- Masur, P. K., & Ranzini, G. (2024). Privacy Calculus, Privacy Paradox,
-  and Context Collapse: A Replication of Three Key Studies in
-  Communication Privacy Research. *SocArXiv.*
+- Masur, P. K., & Ranzini, G. (2025). Privacy calculus, privacy paradox,
+  and context collapse: A replication of three key studies in
+  communication privacy research. *Journal of Communication*, jqaf007.
   <https://osf.io/preprints/socarxiv/8tr2k>
 
 - Prasad, S., Knight, E. L., Sarkar, A., Welker, K. M., Lassetter, B., &

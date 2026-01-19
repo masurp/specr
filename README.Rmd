@@ -132,11 +132,15 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Cantone, G. G., & Tomaselli, V. (2024). Characterisation and Calibration of Multiversal Models. Preprint: https://osf.io/download/6627aeecc5851a0791f66f6c/
 
+- Chang, Q., Ma, F., Yuan, Q., Chen, M., & Guo, T. (2025). Short‐term language switching training reveals an adaptive cerebellar network for bilingual language control. *Annals of the New York Academy of Sciences*.
+
 - Cosme, D., & Lopez, R. B. (2023). Neural indicators of food cue reactivity, regulation, and valuation and their associations with body composition and daily eating behavior. Social Cognitive and Affective Neuroscience, 18(1).  https://doi.org/10.1093/scan/nsaa155
 
 - Del Giudice, M., & Gangestad, S. W. (2021). A Traveler’s Guide to the Multiverse: Promises, Pitfalls, and a Framework for the Evaluation of Analytic Decisions. *Advances in Methods and Practices in Psychological Science.* https://doi.org/10.1177/2515245920954925
 
-- De Vries, I., Baglivio, M., & Reid, J. A. (2024). Examining individual and contextual correlates of victimization for juvenile human trafficking in Florida. *Journal of interpersonal violence*, 08862605241243332. https://journals.sagepub.com/doi/abs/10.1177/08862605241243332 
+- De Vries, I., Baglivio, M., & Reid, J. A. (2024). Examining individual and contextual correlates of victimization for juvenile human trafficking in Florida. *Journal of interpersonal violence*, 08862605241243332. https://journals.sagepub.com/doi/abs/10.1177/08862605241243332
+
+- Gould, E., Fraser, H. S., Parker, T. H., Nakagawa, S., Griffith, S. C., Vesk, P. A., ... & Lagisz, M. (2025). Same data, different analysts: variation in effect sizes due to analytical decisions in ecology and evolutionary biology. *BMC biology, 23*(1), 35.
 
 - Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and Objective-Descriptive Event Characteristics Explain Individual Differences in Changes in Subjective Well-Being After Negative Life Events? A Specification Curve Analysis.
 
@@ -151,11 +155,13 @@ If you have published a paper in which you used `specr` and you would like to be
 
 - Kritzler, S., & Luhmann, M. (2021, March 25). Be Yourself and Behave Appropriately: Exploring Associations Between Incongruent Personality States and Positive Affect, Tiredness, and Cognitive Performance. https://doi.org/10.31234/osf.io/9utyj
 
+- Liu, D., Meng, Y., Liu, L., Liu, S., Schwieter, J. W., & Chen, B. (2025). The dynamic influence of language‐switching contexts on domain‐general cognitive control: An EEG study. Psychophysiology, 62(2), e14736
+
 - Mao, Z. F., Li, Q. W., Wang, Y. M., & Zhou, J. (2024). Pro-religion attitude predicts lower vaccination coverage at country level. *Humanities and Social Sciences Communications, 11*(1), 1-9.
 
 - Masur, P. K. (2021). Understanding the Effects of Conceptual and Analytical Choices on ‘Finding’ the Privacy Paradox: A Specification Curve Analysis of Large-Scale Survey Data. *Information, Communication & Society.* https://doi.org/10.1080/1369118X.2021.1963460 
 
-- Masur, P. K., & Ranzini, G. (2024). Privacy Calculus, Privacy Paradox, and Context Collapse: A Replication of Three Key Studies in Communication Privacy Research. *SocArXiv.* https://osf.io/preprints/socarxiv/8tr2k
+- Masur, P. K., & Ranzini, G. (2025). Privacy calculus, privacy paradox, and context collapse: A replication of three key studies in communication privacy research. *Journal of Communication*, jqaf007. https://osf.io/preprints/socarxiv/8tr2k
 
 - Prasad, S., Knight, E. L., Sarkar, A., Welker, K. M., Lassetter, B., & Mehta, P. H. (2021). Testosterone fluctuations in response to a democratic election predict partisan attitudes toward the elected leader. *Psychoneuroendocrinology, 133*, 105396.
 
