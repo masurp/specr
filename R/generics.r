@@ -534,8 +534,7 @@ plot.specr.object <- function(x,
 
   plot_b <- x$data %>%
     format_results(var = var, group = group, null = null, desc = desc) %>%
-    tidyr::gather(key, value, choices) %>%
-    dplyr::mutate(key = factor(key, levels = choices)) %>%
+    format_choice_panel(choices = choices) %>%
     ggplot(aes(x = .data$specifications,
                y = value,
                color = .data$color)) +
@@ -976,5 +975,4 @@ plot.specr.boot <- function(x, ...) {
     labs(x = "Specifications (ranked)", y = "estimate", color = "", linetype = "")
 
 }
-
 

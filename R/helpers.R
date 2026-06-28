@@ -86,11 +86,66 @@ format_results <- function(df, var, group, null = 0, desc = FALSE) {
   return(df)
 }
 
+format_choice_panel <- function(df, choices) {
+
+  value <- key <- NULL
+
+  choice_panel <- df %>%
+    tidyr::gather(key, value, choices) %>%
+    dplyr::mutate(key = factor(.data$key, levels = choices))
+
+  if (!"controls" %in% choices) {
+    return(choice_panel)
+  }
+
+  controls_rows <- choice_panel[as.character(choice_panel$key) == "controls", , drop = FALSE]
+
+  if (nrow(controls_rows) == 0) {
+    return(choice_panel)
+  }
+
+  other_rows <- choice_panel[as.character(choice_panel$key) != "controls", , drop = FALSE]
+
+  controls_values <- as.character(controls_rows$value)
+  individual_controls <- controls_values[
+    !is.na(controls_values) &
+      controls_values != "no covariates" &
+      controls_values != "all covariates" &
+      !grepl("\\+", controls_values)
+  ]
+  individual_controls <- unique(trimws(individual_controls))
+  individual_controls <- individual_controls[nzchar(individual_controls)]
+
+  split_control_values <- lapply(controls_values, function(value) {
+    if (is.na(value)) {
+      return(NA_character_)
+    }
+
+    value <- trimws(value)
+
+    if (value == "all covariates" && length(individual_controls) > 0) {
+      return(individual_controls)
+    }
+
+    if (grepl("\\+", value)) {
+      split_values <- trimws(strsplit(value, "\\+")[[1]])
+      return(split_values[nzchar(split_values)])
+    }
+
+    value
+  })
+
+  row_indices <- rep(seq_len(nrow(controls_rows)), lengths(split_control_values))
+  controls_rows <- controls_rows[row_indices, , drop = FALSE]
+  controls_rows$value <- unlist(split_control_values, use.names = FALSE)
+
+  dplyr::bind_rows(other_rows, controls_rows)
+}
+
 # get names from dots
 names_from_dots <- function(...) {
 
   sapply(substitute(list(...))[-1], deparse)
 
 }
-
 
