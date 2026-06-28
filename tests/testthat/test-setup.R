@@ -159,3 +159,17 @@ test_that("setup creates object of class `specr.setup`", {
                  simplify = TRUE)
   expect_true(inherits(specs, "specr.setup"))
 })
+
+# Test 12:
+
+test_that("setup preserves grouped control labels when simplified", {
+  specs <- specr::setup(data = example_data,
+                 x = "x1",
+                 y = "y1",
+                 model = "lm",
+                 controls = c("c1 + c2", "c3 + c4"),
+                 simplify = TRUE)
+
+  expect_equal(unique(specs$specs$controls),
+               c("no covariates", "c1 + c2", "c3 + c4", "all covariates"))
+})

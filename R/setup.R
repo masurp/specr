@@ -179,6 +179,8 @@ setup <- function(data,
     stop("Subsets must be an object of class 'list'")
   }
 
+  original_controls <- controls
+
   if(isTRUE(simplify)) {
     controls <- expand_covariate_simple(controls)
   } else {
@@ -275,7 +277,9 @@ setup <- function(data,
   if(isTRUE(simplify)) {
 
     grid <- grid %>%
-      mutate(controls = ifelse(grepl("\\+", controls), "all covariates", controls))
+      mutate(controls = ifelse(grepl("\\+", controls) & !(controls %in% original_controls),
+                               "all covariates",
+                               controls))
 
   }
 
@@ -298,5 +302,4 @@ setup <- function(data,
     return(res)
 
 }
-
 
