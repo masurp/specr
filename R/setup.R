@@ -279,7 +279,7 @@ setup <- function(data,
 
   pos_formula <- which(names(grid) == "formula")
   subsets_names <- grid[5:pos_formula] %>%
-    select(-formula) %>%
+    select(-"formula") %>%
     names
 
   if(subsets_names[1] != "group_var") {

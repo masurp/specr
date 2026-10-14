@@ -56,7 +56,7 @@ summary.specr.setup <- function(object,
   if(isTRUE(print.specs)) {
   cat("\n\nHead of specifications table (first", rows, "rows):\n\n")
   object$specs %>%
-    select(-.data$model_function) %>%
+    select(-"model_function") %>%
     mutate_if(is.numeric, round, digits) %>%
     utils::head(n = rows) %>%
     print
@@ -125,46 +125,26 @@ plot.specr.setup <- function(x,
     labs(x = "", y = "number of options")
 
   df <- x$specs %>%
-    select(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
+    select("model", "x", "y", "controls", "subsets") %>%
     arrange(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
-    mutate(start = "raw data") %>%
-    select(start, dplyr::everything()) %>%
+    mutate(start = "raw data", .before = 1) %>%
     mutate(x = paste0(.data$x, " & ", .data$model),
            y = paste0(.data$y, " & ", .data$x),
            controls = paste0(.data$controls, " & ", .data$y),
            subsets = paste0(.data$subsets, " & ", .data$controls))
 
-  # Create edges
-  edges_level1 <- df %>%
-    select(.data$start, .data$model) %>%
-    rename(from = .data$start, to = .data$model) %>%
-    unique %>%
-    mutate(decisions = "model")
-  edges_level2 <- df %>%
-    select(.data$model, .data$x) %>%
-    rename(from = .data$model, to = .data$x) %>%
-    unique %>%
-    mutate(decisions = "independent variable")
-  edges_level3 <- df %>%
-    select(.data$x, .data$y) %>%
-    rename(from = .data$x, to = .data$y) %>%
-    unique %>%
-    mutate(decisions = "dependent variable")
-  edges_level4 = df %>%
-    select(.data$y, .data$controls) %>%
-    rename(from = .data$y, to = .data$controls) %>%
-    mutate(decisions = "control variables")
-  edges_level5 <- df %>%
-    select(.data$controls, .data$subsets) %>%
-    rename(from = .data$controls, to = .data$subsets) %>%
-    mutate(decisions = "subsets")
+  # Create edges between successive levels of decisions
+  nodes <- c("start", "model", "x", "y", "controls", "subsets")
+  edge_labels <- c("model", "independent variable", "dependent variable",
+                   "control variables", "subsets")
 
-  # Combine edges
-  edge_list <- rbind(edges_level1,
-                     edges_level2,
-                     edges_level3,
-                     edges_level4,
-                     edges_level5)
+  edge_list <- purrr::map(seq_along(edge_labels), function(i) {
+    df %>%
+      select(from = all_of(nodes[i]), to = all_of(nodes[i + 1])) %>%
+      distinct() %>%
+      mutate(decisions = edge_labels[i])
+  }) %>%
+    bind_rows()
   # Plot edges
   p2 <- edge_list %>%
     graph_from_data_frame %>%
@@ -282,7 +262,8 @@ summary.specr.object <- function(object,
     cat("Descriptive summary of the specification curve:\n\n")
 
     object$data %>%
-      summarize_at(vars(!! var), stats) %>%
+      mutate(.specr_var = !! var) %>%
+      summarize_at(".specr_var", stats) %>%
       as.data.frame %>%
       round(digits) %>%
       print(row.names = FALSE)
@@ -306,7 +287,7 @@ summary.specr.object <- function(object,
     # Head of the result table
     cat("Head of the specification results (first", rows, "rows): \n\n")
     object$data %>%
-      select(-.data$model_function, -.data$term) %>%
+      select(-"model_function", -"term") %>%
       mutate_if(is.numeric, round, digits) %>%
       utils::head(n = rows) %>%
       print
@@ -319,7 +300,8 @@ summary.specr.object <- function(object,
     if (length(group) == 0) {
 
       res <- object$data %>%
-        summarize_at(vars(!! var), stats)
+        mutate(.specr_var = !! var) %>%
+        summarize_at(".specr_var", stats)
 
       if (has_nobs) {
         res <- dplyr::bind_cols(
@@ -333,7 +315,8 @@ summary.specr.object <- function(object,
 
       res <- object$data %>%
         dplyr::group_by_at(group) %>%
-        summarize_at(vars(!! var), stats) %>%
+        mutate(.specr_var = !! var) %>%
+        summarize_at(".specr_var", stats) %>%
         ungroup()
 
       if (has_nobs) {
@@ -365,7 +348,7 @@ print.specr.object <- function(x, ...) {
   cat("Descriptive summary of the specification curve:\n\n")
 
   x$data %>%
-    summarize_at(vars(.data$estimate),
+    summarize_at("estimate",
                  list(median = median, mad = mad, min = min, max = max,
                       q25 = function(x) quantile(x, prob = .25),
                       q75 = function(x) quantile(x, prob = .75))) %>%
@@ -538,7 +521,7 @@ plot.specr.object <- function(x,
     theme_minimal() +
     scale_color_identity() +
     theme(strip.text = element_blank(),
-          axis.line = element_line("black", size = .5),
+          axis.line = element_line("black", linewidth = .5),
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
           axis.text = element_text(colour = "black")) +
@@ -548,8 +531,7 @@ plot.specr.object <- function(x,
   if (isTRUE(ci)) {
     plot_a <- plot_a +
       geom_pointrange(alpha = 0.5,
-                      size = .6,
-                      fatten = 1)
+                      size = .15)   # points are size * 4 (= .6), as before
   }
 
   # add ribbon if necessary
@@ -570,7 +552,7 @@ plot.specr.object <- function(x,
 
   plot_b <- x$data %>%
     format_results(var = var, group = group, null = null, desc = desc) %>%
-    tidyr::gather(key, value, choices) %>%
+    tidyr::pivot_longer(all_of(choices), names_to = "key", values_to = "value") %>%
     dplyr::mutate(key = factor(key, levels = choices)) %>%
     ggplot(aes(x = .data$specifications,
                y = value,
@@ -583,7 +565,7 @@ plot.specr.object <- function(x,
     theme_minimal() +
     facet_grid(key~1, scales = "free_y", space = "free_y") +
     theme(
-      axis.line = element_line("black", size = .5),
+      axis.line = element_line("black", linewidth = .5),
       legend.position = "none",
       panel.spacing = unit(.75, "lines"),
       axis.text = element_text(colour = "black"),
@@ -619,7 +601,7 @@ plot.specr.object <- function(x,
   if(type == "boxplot") {
 
     plot_c <- x$data %>%
-      tidyr::gather(key, value, all_of(choices)) %>%
+      tidyr::pivot_longer(all_of(choices), names_to = "key", values_to = "value") %>%
       ggplot(aes(x = value,
                  y = !! var,
                  fill = key)) +
@@ -629,7 +611,7 @@ plot.specr.object <- function(x,
       facet_grid(key~1, scales = "free_y", space = "free") +
       theme_minimal() +
       theme(legend.position = "none",
-            axis.line = element_line("black", size = .5),
+            axis.line = element_line("black", linewidth = .5),
             axis.text = element_text(colour = "black"),
             strip.text.x = element_blank()) +
       labs(x = "")
@@ -638,8 +620,6 @@ plot.specr.object <- function(x,
   }
 
   if(type == "variance") {
-
-  grp <- NULL
 
    if(is.null(formula)) {
 
@@ -689,14 +669,14 @@ plot.specr.object <- function(x,
 
     var <- lme4::VarCorr(model) %>%
       as.data.frame %>%
-      select(grp, vcov)
+      select("grp", "vcov")
 
     # sum up all variance components
     sum_var <- sum(var$vcov)
 
     # estimate icc
     var <- var %>%
-      mutate(icc = vcov/sum_var,
+      mutate(icc = .data$vcov/sum_var,
              percent = .data$icc*100)
 
     if(isTRUE(print)) {
@@ -714,7 +694,7 @@ plot.specr.object <- function(x,
       theme(axis.text = element_text(colour = "black"),
             axis.line.y = element_line(colour = "black"),
             axis.line.x = element_line(colour = "black")) +
-      labs(x = "", y = "proportion of variance", fill = "analytical choices")
+      labs(x = "", y = "proportion of variance")
 
     return(plot_d)
 
@@ -730,12 +710,10 @@ plot.specr.object <- function(x,
       format_results(var = var, group = group, desc = desc) %>%
       ggplot(aes(x = .data$specifications,
                  y = .data$fit_nobs)) +
-      geom_bar(stat = "identity",
-               fill = "grey",
-               size = .2) +
+      geom_col(fill = "grey") +
       theme_minimal() +
       theme(
-        axis.line = element_line("black", size = .5),
+        axis.line = element_line("black", linewidth = .5),
         legend.position = "none",
         panel.spacing = unit(.75, "lines"),
         axis.text = element_text(colour = "black")) +

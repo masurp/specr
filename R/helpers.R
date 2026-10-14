@@ -10,7 +10,7 @@ expand_covariate <- function(covariate) {
         "c",
         purrr::map(
           seq_along(covariate),
-          ~combn(covariate, .x, FUN = list))
+          ~utils::combn(covariate, .x, FUN = list))
       ) %>%
         purrr::map(~paste(.x, collapse = " + "))
     ) %>%

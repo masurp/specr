@@ -32,7 +32,6 @@ Imports:
     lme4,
     magrittr,
     methods,
-    parallelly,
     purrr,
     rlang, 
     stringr,
