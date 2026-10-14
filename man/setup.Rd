@@ -24,7 +24,14 @@ setup(
 
 \item{y}{A vector denoting the dependent variables}
 
-\item{model}{A vector denoting the model(s) that should be estimated.}
+\item{model}{A character vector with the names of the model functions that
+should be estimated (e.g., \code{"lm"} or the name of a custom function), or a
+named list of functions (e.g., \code{list(ols = lm, robust = MASS::rlm)}), in
+which case the names are used as labels for the models. Any function that
+accepts the arguments \code{formula} and \code{data} can be used, including custom
+wrappers around other model functions (e.g., for survival models, fixed
+effects models, or weighted regressions; see
+\code{vignette("different-specifications")}).}
 
 \item{controls}{A vector of the control variables that should be included.
 Defaults to NULL.}
@@ -159,6 +166,26 @@ specs <- setup(data = example_data,
    model = "lm",
    fun1 = tidy_99,             # pass new function to setup
    add_to_formula = "c1 + c2") # set of covariates in all models
+
+# Check specifications
+summary(specs)
+
+
+## Example 4 ----
+# Model functions as a named list (the names are used as labels)
+
+# Custom function, e.g. a weighted regression (any function with the
+# arguments `formula` and `data` works, e.g. also wrappers around
+# fixest::feols() or survival::coxph(), see vignette("different-specifications"))
+weighted_lm <- function(formula, data) {
+  lm(formula, data = data, weights = rep(1:2, length.out = nrow(data)))
+}
+
+specs <- setup(data = example_data,
+   x = c("x1", "x2"),
+   y = "y1",
+   model = list(ols = lm, weighted = weighted_lm),
+   controls = "c1")
 
 # Check specifications
 summary(specs)

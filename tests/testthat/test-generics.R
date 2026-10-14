@@ -125,3 +125,16 @@ test_that("print counts filtered specifications and print/summary return invisib
   expect_output(summary(specs), "Head of specifications table")
   expect_false(any(grepl("(none)", capture.output(summary(specs)), fixed = TRUE)))
 })
+
+# GitHub issues (overhaul phase 4) ----
+
+test_that("choice labels can be shown on the left (GitHub issue #39)", {
+  right <- plot(results, type = "choices")
+  left <- plot(results, type = "choices", choice_labels = "left")
+  expect_s3_class(left, "gg")
+  expect_equal(left$facet$params$switch, "y")
+  expect_equal(left$theme$strip.placement, "outside")
+  expect_null(right$facet$params$switch)
+  expect_s3_class(plot(results, choice_labels = "left"), "gg")
+  expect_error(plot(results, choice_labels = "top"), "should be one of")
+})

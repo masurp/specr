@@ -317,5 +317,114 @@ plot(results, choices = c("x", "y", "subsets"))
 ```
 
 
-There are of course many more types of analytical decisions. For some more examples, see some of the other vignettes. If you have a specific type of analytical decision that you don't know how to include, feel free to open an issue on github. 
+# Other types of models
+
+The argument `model` in `setup()` accepts any function that has the arguments `formula` and `data` (e.g., `lm`, `glm`, or `lme4::lmer`). Other models can be included by writing a small custom function (a "wrapper") that passes these two arguments on to the respective model function and sets everything else that is needed. Custom functions can be provided by name (`model = "my_function"`) or, as in the following examples, as a named list of functions. The names in the list are then used as labels for the models.
+
+As `specr()` extracts the estimate whose term equals the independent variable, the extraction function (`fun1`) has to return a term that is named like `x`. The independent variables should hence be numeric (factors result in terms such as "xB"; recode them as dummy variables instead).
+
+## Weighted regression
+
+Survey data, for example, often require weights. If the weights are a variable in the data set, a custom function can pass them on to `lm()`. Here, we simulate a weight variable and compare unweighted and weighted models:
+
+```{r}
+# Simulate weights
+set.seed(42)
+data_weights <- example_data %>%
+  mutate(weight = runif(n(), min = .5, max = 1.5))
+
+# Custom model function
+lm_weighted <- function(formula, data) {
+  lm(formula, data = data, weights = weight)
+}
+
+# Setup specs
+specs <- setup(data = data_weights,
+               x = c("x1", "x2"),
+               y = "y1",
+               model = list(unweighted = lm, weighted = lm_weighted),
+               controls = c("c1", "c2"))
+
+# Run analysis and plot results
+results <- specr(specs)
+plot(results, choices = c("x", "model", "controls"))
+```
+
+For complex survey designs, wrappers around e.g. `survey::svyglm()` can be used in the same way.
+
+## Survival models
+
+Survival outcomes consist of two variables (the survival time and the status). They can be used as dependent variable by writing them as `Surv(time, status)` (from the package `survival`), and Cox regressions can be fitted with a wrapper around `survival::coxph()`. With `exponentiate = TRUE`, the extraction function returns hazard ratios. As no effect corresponds to a hazard ratio of 1, we pass `null = 1` to `plot()` to highlight the significant specifications correctly.
+
+```{r, eval = requireNamespace("survival", quietly = TRUE)}
+library(survival)
+
+# Deaths in the data set `colon` from the package survival
+colon_death <- colon %>%
+  filter(etype == 2)
+
+# Custom model function
+cox_model <- function(formula, data) {
+  coxph(as.formula(formula), data = data)
+}
+
+# Setup specs
+specs <- setup(data = colon_death,
+               x = c("age", "nodes"),
+               y = "Surv(time, status)",
+               model = list(cox = cox_model),
+               controls = c("sex", "obstruct", "perfor"),
+               fun1 = function(x) broom::tidy(x, exponentiate = TRUE, conf.int = TRUE))
+
+# Run analysis and plot results (hazard ratios)
+results <- specr(specs)
+plot(results, null = 1, choices = c("x", "controls"))
+```
+
+## Fixed effects models
+
+With `fixest::feols()`, fixed effects are added after a `|` in the formula. A wrapper can add the fixed effects to the formula that `setup()` creates and also set the type of standard errors:
+
+```{r, eval = requireNamespace("fixest", quietly = TRUE)}
+# Custom model function (fixed effects for group3 and heteroskedasticity-robust
+# standard errors; with real panel data, they can be clustered e.g. via `cluster = ~id`)
+feols_fe <- function(formula, data) {
+  fixest::feols(as.formula(paste(formula, "| group3")),
+                vcov = "hetero",
+                data = data)
+}
+
+# Setup specs
+specs <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = list(ols = lm, fixed_effects = feols_fe),
+               controls = c("c1", "c2"),
+               fun2 = NULL)  # different fit indices for lm and feols
+
+# Run analysis and plot results
+results <- specr(specs)
+plot(results, choices = c("x", "y", "model", "controls"))
+```
+
+## Multilevel models with p-values
+
+Models fitted with `lme4::lmer()` do not report p-values. Using `lmerTest::lmer()` instead, the estimates are reported with p-values (based on Satterthwaite's degrees of freedom), which are extracted with `broom.mixed::tidy()`. For more details on multilevel models, see `vignette("multilevel-models")`.
+
+```{r, eval = FALSE}
+specs <- setup(data = example_data,
+               x = c("x1", "x2"),
+               y = c("y1", "y2"),
+               model = list(lmer = lmerTest::lmer),
+               controls = "c1",
+               add_to_formula = "(1|group3)",
+               fun1 = function(x) broom.mixed::tidy(x, conf.int = TRUE),
+               fun2 = NULL)
+
+results <- specr(specs)
+plot(results)
+```
+
+
+There are of course many more types of analytical decisions. For some more examples, see some of the other vignettes. If you have a specific type of analytical decision that you don't know how to include, feel free to open an issue on github.
 

@@ -244,3 +244,15 @@ test_that("the tests are calibrated when no specification has an effect", {
   expect_gt(mean(p < .5), .3)
   expect_lt(mean(p < .5), .7)
 })
+
+
+# Models given as a named list (overhaul phase 4) ----
+
+test_that("lm given as a function in a named list uses the fast route", {
+  specs_list <- setup(data = example_data, x = c("x1", "x2"), y = "y1",
+                      model = list(ols = lm), controls = "c1")
+  set.seed(13)
+  inf <- infer_curve(specr(specs_list), specs_list, n_samples = 10)
+  expect_equal(inf$n_fast, 4)
+  expect_equal(inf$n_failed, 0)
+})

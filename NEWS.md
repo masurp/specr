@@ -26,6 +26,14 @@ Development version released: 2024-05-222
 
 * The package no longer depends on `rsample`.
 
+* The argument `model` of `setup()` now also accepts a named list of functions, e.g. `model = list(ols = lm, weighted = my_function)`. The names are used as labels for the models, and the functions are used directly (instead of being looked up by name, which failed e.g. for functions stored in lists; GitHub issue #29). 
+
+* `plot()` gains the argument `choice_labels`: with `choice_labels = "left"`, the names of the analytical choices are shown on the left, next to their options (GitHub issue #39).
+
+* `setup()` warns if an independent variable is not numeric, because no estimates can be extracted for factors or character variables (GitHub issue #47).
+
+* New section "Other types of models" in `vignette("different-specifications")` with examples for weighted regressions (GitHub issue #27), survival models with `survival::coxph()` (#44), fixed effects models with `fixest::feols()` (#41, #43), and multilevel models with p-values from `lmerTest` (#48).
+
 ## Bug fixes
 
 * `specr()` stored the model names instead of the control variables in the `controls` element of the resulting `specr.object`.

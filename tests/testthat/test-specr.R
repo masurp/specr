@@ -82,7 +82,8 @@ test_that("the duration is reported in seconds", {
 
 test_that("specifications without a parameter for x are reported", {
   d <- data.frame(x = rep(c("A", "B", "C"), 10), y = rnorm(30), cov = rnorm(30))
-  specs_factor <- specr::setup(data = d, x = "x", y = "y", model = "lm", controls = "cov")
+  expect_warning(specs_factor <- specr::setup(data = d, x = "x", y = "y", model = "lm", controls = "cov"),
+                 "x are not numeric")
   expect_warning(results <- specr(specs_factor), "2 of 2 specification\\(s\\) returned no estimate")
   expect_equal(nrow(results$data), 0)
 })

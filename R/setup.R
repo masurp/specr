@@ -12,7 +12,14 @@
 #' @param data The data set that should be used for the analysis
 #' @param y A vector denoting the dependent variables
 #' @param x A vector denoting independent variables
-#' @param model A vector denoting the model(s) that should be estimated.
+#' @param model A character vector with the names of the model functions that
+#'    should be estimated (e.g., `"lm"` or the name of a custom function), or a
+#'    named list of functions (e.g., `list(ols = lm, robust = MASS::rlm)`), in
+#'    which case the names are used as labels for the models. Any function that
+#'    accepts the arguments `formula` and `data` can be used, including custom
+#'    wrappers around other model functions (e.g., for survival models, fixed
+#'    effects models, or weighted regressions; see
+#'    `vignette("different-specifications")`).
 #' @param subsets Specification of potential subsets/groups as list.  There are two ways
 #'    in which these can be specified that both start from the assumption that the
 #'    "grouping" variable is in the data set. The simplest way is to provide a named
@@ -142,6 +149,26 @@
 #'
 #' # Check specifications
 #' summary(specs)
+#'
+#'
+#' ## Example 4 ----
+#' # Model functions as a named list (the names are used as labels)
+#'
+#' # Custom function, e.g. a weighted regression (any function with the
+#' # arguments `formula` and `data` works, e.g. also wrappers around
+#' # fixest::feols() or survival::coxph(), see vignette("different-specifications"))
+#' weighted_lm <- function(formula, data) {
+#'   lm(formula, data = data, weights = rep(1:2, length.out = nrow(data)))
+#' }
+#'
+#' specs <- setup(data = example_data,
+#'    x = c("x1", "x2"),
+#'    y = "y1",
+#'    model = list(ols = lm, weighted = weighted_lm),
+#'    controls = "c1")
+#'
+#' # Check specifications
+#' summary(specs)
 setup <- function(data,
                   x,
                   y,
@@ -171,8 +198,31 @@ setup <- function(data,
     stop("You must name at least one model function (e.g., 'lm').")
   }
 
-  if (!is.character(model)) {
-    stop("`model` must be a character vector with the name(s) of the model function(s), e.g. \"lm\".")
+  # Models can be given as names of functions, or as a named list of functions
+  # (whose names are then used as labels)
+  if (is.list(model)) {
+    if (is.null(names(model)) || any(names(model) == "") ||
+        !all(purrr::map_lgl(model, is.function))) {
+      stop("If `model` is a list, it must be a named list of functions, e.g. `list(ols = lm)`.")
+    }
+    model_functions <- model
+    model <- names(model)
+  } else if (is.character(model)) {
+    model_functions <- stats::setNames(as.list(model), model)
+  } else {
+    stop("`model` must be a character vector with the name(s) of the model function(s), e.g. \"lm\", or a named list of functions, e.g. `list(ols = lm)`.")
+  }
+
+  # Independent variables must be numeric, as only the estimate whose term
+  # equals x is extracted (factors would result in terms such as "xB")
+  x_in_data <- x[x %in% names(data)]
+  non_numeric <- x_in_data[!purrr::map_lgl(x_in_data, function(v) is.numeric(data[[v]]))]
+  if (length(non_numeric) > 0) {
+    warning("The independent variable(s) ", paste(non_numeric, collapse = ", "), " are not numeric. ",
+            "specr() extracts the estimate whose term equals `x`, but for factor, character, or logical ",
+            "variables, models return terms such as '", non_numeric[1], "B' instead, so that no estimates ",
+            "would be extracted. Please recode such variables as numeric (e.g., dummy) variables.",
+            call. = FALSE)
   }
 
   if (any(duplicated(x))| any(duplicated(y)) | any(duplicated(model)) | any(duplicated(controls))) {
@@ -273,7 +323,7 @@ setup <- function(data,
   # Transform model string into actual function that also extracts parameters
   grid <- grid %>%
     mutate(model_function = purrr::map(model,
-                                       function(x) tidy_model(x,
+                                       function(x) tidy_model(model_functions[[x]],
                                                               fun1 = fun1,
                                                               fun2 = fun2)))
 

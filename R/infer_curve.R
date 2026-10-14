@@ -251,8 +251,13 @@ prepare_null_specs <- function(results, data, fast = TRUE) {
   # One lean fitting function per model (fits the model and extracts the
   # parameters with the extraction function used for the observed results)
   fitters <- list()
+  is_lm <- list()
   for (m in unique(results$model)) {
-    fitters[[m]] <- lean_model_function(results$model_function[[match(m, results$model)]])
+    model_function <- results$model_function[[match(m, results$model)]]
+    fitters[[m]] <- lean_model_function(model_function)
+    # lm given by name ("lm") or as function (e.g., model = list(ols = lm))
+    f <- environment(model_function)$f
+    is_lm[[m]] <- identical(f, "lm") || identical(f, stats::lm)
   }
 
   specs <- vector("list", n_specs)
@@ -263,7 +268,7 @@ prepare_null_specs <- function(results, data, fast = TRUE) {
 
     spec <- NULL
 
-    if (fast && identical(results$model[k], "lm")) {
+    if (fast && is_lm[[results$model[k]]]) {
       ols <- prepare_ols_spec(formulas[k], results$x[k], results$estimate[k], p_obs[k],
                               data, masks[[mask_id[k]]])
       if (!is.null(ols)) {

@@ -18,6 +18,7 @@
   ribbon = FALSE,
   formula = NULL,
   print = TRUE,
+  choice_labels = c("right", "left"),
   ...
 )
 }
@@ -74,6 +75,10 @@ are included. See examples for further details.}
 whether the intra-class correlations (i.e., percentages of variance explained by
 analstical choices) should be printed or not. Defaults to TRUE.}
 
+\item{choice_labels}{Where should the names of the analytical choices (x, y,
+model, ...) be shown in the panel of choices (\code{type = "default"} or
+\code{"choices"})? Either \code{"right"} (default) or \code{"left"}, next to their options.}
+
 \item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
@@ -113,6 +118,9 @@ plot(results, type = "curve")
 plot(results, type = "choices")
 plot(results, type = "samplesizes")
 plot(results, type = "boxplot")
+
+# Names of the choices on the left, next to their options
+plot(results, choice_labels = "left")
 
 
 # Grouped plot

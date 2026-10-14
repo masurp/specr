@@ -228,3 +228,37 @@ test_that("specifications do not keep a copy of the data", {
   # the results contain no copy of the data
   expect_lt(length(serialize(specr(s), NULL)), size_data / 2)
 })
+
+
+# GitHub issues (overhaul phase 4) ----
+
+test_that("models can be given as a named list of functions (GitHub issue #29)", {
+  weighted_lm <- function(formula, data) {
+    lm(formula, data = data, weights = rep(1:2, length.out = nrow(data)))
+  }
+  s <- specr::setup(data = example_data, x = c("x1", "x2"), y = "y1",
+                    model = list(ols = lm, weighted = weighted_lm), controls = "c1")
+  expect_equal(s$model, c("ols", "weighted"))
+  expect_setequal(s$specs$model, c("ols", "weighted"))
+
+  # the functions are used (no lookup by name), and lm via list equals "lm"
+  results <- specr(s)
+  results_string <- specr(specr::setup(data = example_data, x = c("x1", "x2"), y = "y1",
+                                       model = "lm", controls = "c1"))
+  expect_equal(results$data$estimate[results$data$model == "ols"], results_string$data$estimate)
+  expect_false(isTRUE(all.equal(results$data$estimate[results$data$model == "weighted"],
+                                results_string$data$estimate)))
+})
+
+test_that("invalid model lists are refused", {
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = list(lm)),
+               "named list of functions")
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = list(ols = "lm")),
+               "named list of functions")
+})
+
+test_that("non-numeric independent variables give a warning (GitHub issue #47)", {
+  expect_warning(specr::setup(data = example_data, x = c("x1", "group1"), y = "y1", model = "lm"),
+                 "group1 are not numeric")
+  expect_silent(specr::setup(data = example_data, x = c("x1", "x2"), y = "y1", model = "lm"))
+})

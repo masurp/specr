@@ -407,6 +407,9 @@ print.specr.object <- function(x, ...) {
 #' @param print In combination with \code{type = "variance"}, logical value indicating
 #'   whether the intra-class correlations (i.e., percentages of variance explained by
 #'   analstical choices) should be printed or not. Defaults to TRUE.
+#' @param choice_labels Where should the names of the analytical choices (x, y,
+#'   model, ...) be shown in the panel of choices (`type = "default"` or
+#'   `"choices"`)? Either `"right"` (default) or `"left"`, next to their options.
 #' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A \link[ggplot2]{ggplot} object that can be customized further.
@@ -441,6 +444,9 @@ print.specr.object <- function(x, ...) {
 #' plot(results, type = "choices")
 #' plot(results, type = "samplesizes")
 #' plot(results, type = "boxplot")
+#'
+#' # Names of the choices on the left, next to their options
+#' plot(results, choice_labels = "left")
 #'
 #'
 #' # Grouped plot
@@ -494,12 +500,14 @@ plot.specr.object <- function(x,
                               ribbon = FALSE,
                               formula = NULL,
                               print = TRUE,
+                              choice_labels = c("right", "left"),
                               ...){
 
 
   var <- enquo(var)
   group <- enquo(group)
   type <- match.arg(type, c("default", "curve", "choices", "boxplot", "variance", "samplesizes"))
+  choice_labels <- match.arg(choice_labels)
 
   # `group` can also be given as a string (as in summary())
   if (is.character(rlang::quo_get_expr(group))) {
@@ -571,6 +579,14 @@ plot.specr.object <- function(x,
       axis.text = element_text(colour = "black"),
       strip.text.x = element_blank()) +
     labs(x = "", y = "")
+
+  # Names of the choices on the left, next to their options
+  if (choice_labels == "left") {
+    plot_b <- plot_b +
+      facet_grid(key~1, scales = "free_y", space = "free_y", switch = "y") +
+      theme(strip.placement = "outside",
+            strip.text.y.left = element_text(angle = 90, face = "bold"))
+  }
 
   }
 
