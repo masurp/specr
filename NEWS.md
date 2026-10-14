@@ -52,6 +52,16 @@ Development version released: 2024-05-222
 
 * `print()` of a specification setup now counts the specifications after filtering, the summary of a setup always prints the head of the specifications table, and all `print()` and `summary()` methods return their input invisibly.
 
+* The variance decomposition (`plot(..., type = "variance")` and `icc_specs()`) counted covariances of random slopes (possible with a custom `formula`) as variance components.
+
+* The functions of the old framework (deprecated since version 1.0.0) keep working with current versions of ggplot2, dplyr, tidyr, and purrr (no longer using the deprecated `purrr::cross()`, which would have made specr fail to install once it is removed from purrr). Furthermore:
+
+    - Each function now emits only one deprecation warning (instead of additional ones from deprecated functions it called internally), and the warnings name the replacement in the new framework.
+    - `run_specs()` checks the confidence level also without subsets, and no longer counts duplicated rows of the data several times in combined subsets.
+    - `plot_summary()` no longer merges different sets of control variables into one "all covariates" box when `all.comb = TRUE`.
+    - `setup_specs()` accepts an empty vector of control variables.
+    - `icc_specs()` is now formally deprecated (it was already listed as deprecated in the documentation).
+
 # specr 1.0.0
 
 CRAN release: 2023-01-20

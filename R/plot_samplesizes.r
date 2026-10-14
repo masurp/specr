@@ -44,7 +44,7 @@ plot_samplesizes <- function(df,
                              desc = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_samplesizes()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_samplesizes()", I('`plot(<specr.object>, type = "samplesizes")`'))
 
   var <- enquo(var)
   group <- enquo(group)
@@ -54,11 +54,10 @@ plot_samplesizes <- function(df,
     ggplot(aes(x = .data$specifications,
                y = .data$fit_nobs)) +
     geom_bar(stat = "identity",
-             fill = "grey",
-             size = .2) +
+             fill = "grey") +
     theme_minimal() +
     theme(
-      axis.line = element_line("black", size = .5),
+      axis.line = element_line("black", linewidth = .5),
       legend.position = "none",
       panel.spacing = unit(.75, "lines"),
       axis.text = element_text(colour = "black")) +

@@ -3,7 +3,7 @@
 #' @description `r lifecycle::badge("deprecated")`
 #'    This function is deprecated because the new version of specr uses a new analytic framework.
 #'    In this framework, you can plot a similar figure simply by using the generic \code{plot()}
-#'    function and adding the argument \code{type = "default"}.This function plots an entire visualization of the specification curve analysis.
+#'    function and adding the argument \code{type = "default"}. This function plots an entire visualization of the specification curve analysis.
 #'    The function uses the entire [tibble][tibble::tibble-package] that is produced by
 #'    \code{run_specs()} to create a standard visualization of the specification curve analysis.
 #'    Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects
@@ -40,7 +40,7 @@
 #'                      x = c("x1", "x2"),
 #'                      model = "lm",
 #'                      controls = c("c1", "c2"),
-#'                      subset = list(group1 = unique(example_data$group1)))
+#'                      subsets = list(group1 = unique(example_data$group1)))
 #'
 #' # plot results directly
 #' plot_specs(results)
@@ -56,7 +56,7 @@
 #'
 #' plot_specs(plot_a = p1,    # arguments must be called directly!
 #'            plot_b = p2,
-#'            rel_height = c(2, 2))
+#'            rel_heights = c(2, 2))
 #'@seealso \itemize{
 #'  \item [plot_curve()] to plot only the specification curve.
 #'  \item [plot_choices()] to plot only the choices panel.
@@ -75,13 +75,13 @@ plot_specs <- function(df = NULL,
                        ...) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_specs()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_specs()", I("`plot(<specr.object>)`"))
 
   if (!is.null(df)) {
 
   # Create both plots
-  plot_a <- plot_curve(df, ci = ci, ribbon = ribbon, desc = desc, null = null)
-  plot_b <- plot_choices(df, choices = choices, desc = desc, null = null)
+  plot_a <- plot_curve_(df, ci = ci, ribbon = ribbon, desc = desc, null = null)
+  plot_b <- plot_choices_(df, choices = choices, desc = desc, null = null)
 
   }
 

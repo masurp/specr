@@ -30,6 +30,21 @@ setup_specs <- function(x,
   # Deprecation warning
   lifecycle::deprecate_warn("1.0.0", "setup_specs()", "setup()")
 
+  setup_specs_(x = x, y = y, model = model, controls = controls, all.comb = all.comb)
+}
+
+# Internal version without deprecation warning (also used by run_specs())
+setup_specs_ <- function(x,
+                         y,
+                         model,
+                         controls = NULL,
+                         all.comb = FALSE) {
+
+  # No controls (also if an empty vector is provided)
+  if (length(controls) == 0) {
+    controls <- NULL
+  }
+
   if (!rlang::is_null(controls) & length(controls) == 1) {
 
     controls <- list(controls, "no covariates") %>%

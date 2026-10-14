@@ -17,9 +17,9 @@ run_spec <- function(specs,
                      keep.results = FALSE) {
   results <- specs %>%
     dplyr::mutate(formula = pmap(specs, create_formula)) %>%
-    tidyr::unnest(formula) %>%
+    tidyr::unnest("formula") %>%
     dplyr::mutate(res = map2(.data$model,
-                             formula,
+                             .data$formula,
                              ~ do.call(.x, list(data = df,
                                                 formula = .y)))) %>%
     dplyr::mutate(coefs = map(.data$res,
@@ -27,8 +27,8 @@ run_spec <- function(specs,
                               conf.int = TRUE,
                               conf.level = conf.level),
                   fit = map(.data$res, broom::glance)) %>%
-    tidyr::unnest(.data$coefs) %>%
-    tidyr::unnest(.data$fit, names_sep = "_")
+    tidyr::unnest("coefs") %>%
+    tidyr::unnest("fit", names_sep = "_")
 
   if("op" %in% names(results)) {
     results <- results %>%
@@ -39,11 +39,11 @@ run_spec <- function(specs,
     }
 
   results <- results %>%
-    dplyr::select(-.data$formula, -.data$term)
+    dplyr::select(-"formula", -"term")
 
   if (isFALSE(keep.results)) {
     results <- results %>%
-      dplyr::select(-.data$res)
+      dplyr::select(-"res")
   }
 
   return(results)
@@ -55,7 +55,7 @@ create_subsets <- function(df,
 
   subsets %>%
     stack %>%
-    pmap(~ dplyr::filter(df, get(as.character(..2)) == ..1) %>%
+    pmap(~ dplyr::filter(df, .data[[as.character(..2)]] == ..1) %>%
     dplyr::mutate(filter = paste(..2, "=", ..1)))
 }
 

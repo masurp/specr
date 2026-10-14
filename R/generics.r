@@ -667,8 +667,10 @@ plot.specr.object <- function(x,
 
     model <- lme4::lmer(formula = formula, data = x$data)
 
+    # only variances (no covariances of random slopes in custom formulas)
     var <- lme4::VarCorr(model) %>%
       as.data.frame %>%
+      filter(is.na(.data$var2)) %>%
       select("grp", "vcov")
 
     # sum up all variance components

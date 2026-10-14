@@ -13,7 +13,7 @@
 #' @param desc logical value indicating whether the curve should the arranged in a descending order. Defaults to FALSE.
 #' @param ci logical value indicating whether confidence intervals should be plotted.
 #' @param ribbon logical value indicating whether a ribbon instead should be plotted.
-#' @param legend logical value indicating whether the legend should be plotted Defaults to FALSE.
+#' @param legend logical value indicating whether the legend should be plotted. Defaults to FALSE. Currently has no effect, because the colors are set directly and no legend is created.
 #' @param null Indicate what value represents the null hypothesis (Defaults to zero)
 #'
 #' @return a \link[ggplot2]{ggplot} object.
@@ -51,7 +51,21 @@ plot_curve <- function(df,
                        null = 0){
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_curve()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_curve()", I('`plot(<specr.object>, type = "curve")`'))
+
+  plot_curve_(df, var = {{ var }}, group = {{ group }}, desc = desc, ci = ci,
+              ribbon = ribbon, legend = legend, null = null)
+}
+
+# Internal version without deprecation warning (also used by plot_specs())
+plot_curve_ <- function(df,
+                        var = .data$estimate,
+                        group = NULL,
+                        desc = FALSE,
+                        ci = TRUE,
+                        ribbon = FALSE,
+                        legend = FALSE,
+                        null = 0){
 
   var <- enquo(var)
   group <- enquo(group)
@@ -69,7 +83,7 @@ plot_curve <- function(df,
     theme_minimal() +
     scale_color_identity() +
     theme(strip.text = element_blank(),
-          axis.line = element_line("black", size = .5),
+          axis.line = element_line("black", linewidth = .5),
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
           axis.text = element_text(colour = "black")) +
@@ -85,8 +99,7 @@ plot_curve <- function(df,
   if (isTRUE(ci)) {
     plot <- plot +
       geom_pointrange(alpha = 0.5,
-                      size = .6,
-                      fatten = 1)
+                      size = .15)   # points are size * 4 (= .6), as before
   }
 
   # add ribbon if necessary

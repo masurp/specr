@@ -2,7 +2,8 @@
 #'
 #' @description `r lifecycle::badge("deprecated")`
 #'    This function is deprecated because the new version of specr uses a new analytic framework.
-#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    In this framework, you can obtain a similar summary simply by using the generic \code{summary()}
+#'    function and adding the argument \code{type = "curve"}.
 #'    This function allows to inspect results of the specification curves by returning a comparatively simple summary of the results. This summary can be produced for various specific analytical choices and customized summary functions.
 #'
 #' @param df a data frame resulting from \code{run_specs()}.
@@ -55,17 +56,17 @@ summarise_specs <- function(df,
 
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "summarise_specs()", "summary.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "summarise_specs()", I('`summary(<specr.object>, type = "curve")`'))
 
   group_var <- enquos(...)
+  var <- enquo(var)
 
   # internal function
   summary_specs <- function(df) {
 
-    var <- enquo(var)
-
     df %>%
-      dplyr::summarize_at(vars(!! var), stats)
+      dplyr::mutate(.specr_var = !! var) %>%
+      dplyr::summarize_at(".specr_var", stats)
   }
 
   # is grouping variable provided?
@@ -88,7 +89,8 @@ summarise_specs <- function(df,
         dplyr::group_by(!!! group_var) %>%
         dplyr::summarize(obs = median(.data$fit_nobs)),
       by = names_from_dots(...)
-    )
+    ) %>%
+      dplyr::ungroup()
   }
 }
 

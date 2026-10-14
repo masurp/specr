@@ -29,7 +29,7 @@ Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...
 
 \item{ribbon}{logical value indicating whether a ribbon instead should be plotted.}
 
-\item{legend}{logical value indicating whether the legend should be plotted Defaults to FALSE.}
+\item{legend}{logical value indicating whether the legend should be plotted. Defaults to FALSE. Currently has no effect, because the colors are set directly and no legend is created.}
 
 \item{null}{Indicate what value represents the null hypothesis (Defaults to zero)}
 }

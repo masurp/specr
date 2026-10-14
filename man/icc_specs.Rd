@@ -12,9 +12,13 @@ icc_specs(model, percent = TRUE)
 \item{percent}{a logical value indicating whether the ICC should also be printed as percentage. Defaults to TRUE.}
 }
 \value{
-a \link[tibble:tibble-package]{tibble} including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.
+a data frame including the grouping variable, the random effect variances, the raw intraclass correlation coefficient (ICC), and the ICC in percent.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+This function is deprecated because the new version of specr uses a new analytic framework.
+In this framework, you can decompose the variance simply by using the generic \code{plot()}
+function and adding the argument \code{type = "variance"}, which also prints the variance components.
 This function extracts intraclass correlation coefficients (ICC) from a multilevel model. It can be used to decompose the variance in the outcome variable of a specification curve analysis (e.g., the regression coefficients). This approach summarises the relative importance of analytical choices by estimating the share of variance in the outcome (e.g., the regression coefficient) that different analytical choices or combinations therefor account for. To use this approach, one needs to estimate a multilevel model that includes all analytical choices as grouping variables (see examples).
 }
 \examples{

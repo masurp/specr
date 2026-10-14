@@ -47,7 +47,8 @@ run_specs <- function(df,
                       keep.results = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "run_specs()", "specr()")
+  lifecycle::deprecate_warn("1.0.0", "run_specs()", "specr()",
+                            details = "Set up the specifications with `setup()` first.")
 
   if (rlang::is_missing(x)) {
     stop("You must specify at least one independent variable `x`.")
@@ -57,17 +58,21 @@ run_specs <- function(df,
     stop("You must specify at least one dependent variable `y`.")
   }
 
-  specs <- setup_specs(y = y,
-                       x = x,
-                       model = model,
-                       controls = controls,
-                       all.comb = all.comb)
+  if (!is.numeric(conf.level) || length(conf.level) != 1 || conf.level <= 0 || conf.level >= 1) {
+    stop("The confidence level must be strictly greater than 0 and less than 1.")
+  }
+
+  specs <- setup_specs_(y = y,
+                        x = x,
+                        model = model,
+                        controls = controls,
+                        all.comb = all.comb)
 
   if (!is.null(subsets)) {
 
     if (!inherits(subsets, "list")) {
       wrong_class <- class(subsets)
-      stop(glue("Subsets must be a 'list' and not a '{wrong_class}'."))
+      stop(paste0("Subsets must be a 'list' and not a '", wrong_class[1], "'."))
     }
 
   subsets <- map(subsets, as.character)
@@ -77,28 +82,21 @@ run_specs <- function(df,
 
   if (length(subsets) > 1) {
 
-  suppressMessages({
-  df_comb <- subsets %>%
-    cross %>%
-    map(~ create_subsets(subsets = .x, df = df) %>%
-          map(~ dplyr::select(.x, -filter)) %>%
-          reduce(dplyr::inner_join) %>%
+  # All combinations of subsets (same order as the former purrr::cross())
+  df_comb <- expand.grid(subsets, stringsAsFactors = FALSE, KEEP.OUT.ATTRS = FALSE) %>%
+    purrr::transpose() %>%
+    map(~ df[spec_subset_mask(.x, df, names(.x)), , drop = FALSE] %>%
           dplyr::mutate(filter = paste(names(.x),
                                        .x,
                                        collapse = " & ",
                                        sep = " = ")))
 
   df_all <- append(df_list, df_comb)
-  })
 
   } else {
 
   df_all <- df_list
 
-  }
-
-  if (conf.level > 1 | conf.level < 0) {
-    stop("The confidence level must be strictly greater than 0 and less than 1.")
   }
 
   res <- map_df(df_all, ~ run_spec(specs,

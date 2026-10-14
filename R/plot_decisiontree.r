@@ -33,14 +33,13 @@ plot_decisiontree <- function(df,
                               legend = FALSE) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_decisiontree()", "plot.specr.setup()")
+  lifecycle::deprecate_warn("1.0.0", "plot_decisiontree()", I("`plot(<specr.setup>)`"))
 
   # Create data set for graph transformation
   df <- df %>%
-    dplyr::select(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
+    dplyr::select("model", "x", "y", "controls", "subsets") %>%
     dplyr::arrange(.data$model, .data$x, .data$y, .data$controls, .data$subsets) %>%
-    dplyr::mutate(start = "raw data") %>%
-    dplyr::select(start, dplyr::everything()) %>%
+    dplyr::mutate(start = "raw data", .before = 1) %>%
     dplyr::mutate(x = paste0(.data$x, " & ", .data$model),
                   y = paste0(.data$y, " & ", .data$x),
                   controls = paste0(.data$controls, " & ", .data$y),
@@ -48,27 +47,27 @@ plot_decisiontree <- function(df,
 
   # Create edges
   edges_level1 <- df %>%
-    dplyr::select(.data$start, .data$model) %>%
-    dplyr::rename(from = .data$start, to = .data$model) %>%
+    dplyr::select("start", "model") %>%
+    dplyr::rename(from = "start", to = "model") %>%
     unique %>%
     dplyr::mutate(decisions = "model")
   edges_level2 <- df %>%
-    dplyr::select(.data$model, .data$x) %>%
-    dplyr::rename(from = .data$model, to = .data$x) %>%
+    dplyr::select("model", "x") %>%
+    dplyr::rename(from = "model", to = "x") %>%
     unique %>%
     dplyr::mutate(decisions = "independent variable")
   edges_level3 <- df %>%
-    dplyr::select(.data$x, .data$y) %>%
-    dplyr::rename(from = .data$x, to = .data$y) %>%
+    dplyr::select("x", "y") %>%
+    dplyr::rename(from = "x", to = "y") %>%
     unique %>%
     dplyr::mutate(decisions = "dependent variable")
   edges_level4 = df %>%
-    dplyr::select(.data$y, .data$controls) %>%
-    dplyr::rename(from = .data$y, to = .data$controls) %>%
+    dplyr::select("y", "controls") %>%
+    dplyr::rename(from = "y", to = "controls") %>%
     dplyr::mutate(decisions = "control variables")
   edges_level5 <- df %>%
-    dplyr::select(.data$controls, .data$subsets) %>%
-    dplyr::rename(from = .data$controls, to = .data$subsets) %>%
+    dplyr::select("controls", "subsets") %>%
+    dplyr::rename(from = "controls", to = "subsets") %>%
     dplyr::mutate(decisions = "subsets")
 
   # Combine edges

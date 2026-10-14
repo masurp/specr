@@ -19,7 +19,7 @@
 #'                      x = c("x1", "x2"),
 #'                      model = "lm",
 #'                      controls = c("c1", "c2"),
-#'                      subset = list(group1 = unique(example_data$group1)))
+#'                      subsets = list(group1 = unique(example_data$group1)))
 #'
 #' # plot boxplot comparing specific choices
 #' plot_summary(results, choices = c("subsets", "controls", "y"))
@@ -28,13 +28,19 @@ plot_summary <- function(df,
                          choices = c("x", "y", "model", "controls", "subsets")) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_summary()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_summary()", I('`plot(<specr.object>, type = "boxplot")`'))
 
   value <- key <- NULL
 
+  # Label the set of all covariates as such, but only if this is unambiguous
+  # (with all.comb = TRUE, there are several sets that combine covariates)
+  if (sum(grepl("[+]", unique(df$controls))) == 1) {
+    df <- df %>%
+      dplyr::mutate(controls = ifelse(grepl("[+]", .data$controls), "all covariates", .data$controls))
+  }
+
   df %>%
-    dplyr::mutate(controls = ifelse(grepl("[+]", .data$controls), "all covariates", .data$controls)) %>%
-    tidyr::gather(key, value, choices) %>%
+    tidyr::gather(key, value, all_of(choices)) %>%
     ggplot(aes(x = .data$value, y = .data$estimate, fill = .data$key)) +
       geom_boxplot(outlier.color = "red") +
       coord_flip() +
@@ -42,7 +48,7 @@ plot_summary <- function(df,
       facet_grid(.data$key~1, scales = "free_y", space = "free") +
       theme_minimal() +
       theme(legend.position = "none",
-            axis.line = element_line("black", size = .5),
+            axis.line = element_line("black", linewidth = .5),
             axis.text = element_text(colour = "black"),
             strip.text.x = element_blank()) +
     labs(x = "")

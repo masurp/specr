@@ -52,7 +52,7 @@ a \link[ggplot2]{ggplot} object.
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
 This function is deprecated because the new version of specr uses a new analytic framework.
 In this framework, you can plot a similar figure simply by using the generic \code{plot()}
-function and adding the argument \code{type = "default"}.This function plots an entire visualization of the specification curve analysis.
+function and adding the argument \code{type = "default"}. This function plots an entire visualization of the specification curve analysis.
 The function uses the entire \link[tibble:tibble-package]{tibble} that is produced by
 \code{run_specs()} to create a standard visualization of the specification curve analysis.
 Alternatively, one can also pass two separately created \link[ggplot2]{ggplot} objects
@@ -69,7 +69,7 @@ results <- run_specs(example_data,
                      x = c("x1", "x2"),
                      model = "lm",
                      controls = c("c1", "c2"),
-                     subset = list(group1 = unique(example_data$group1)))
+                     subsets = list(group1 = unique(example_data$group1)))
 
 # plot results directly
 plot_specs(results)
@@ -85,7 +85,7 @@ p2 <- plot_choices(results) +
 
 plot_specs(plot_a = p1,    # arguments must be called directly!
            plot_b = p2,
-           rel_height = c(2, 2))
+           rel_heights = c(2, 2))
 }
 \seealso{
 \itemize{

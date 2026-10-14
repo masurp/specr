@@ -35,10 +35,10 @@
 plot_variance <- function(model) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_variance()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_variance()", I('`plot(<specr.object>, type = "variance")`'))
 
 
-  icc_specs(model) %>%
+  icc_specs_(model) %>%
     ggplot(aes(x = .data$grp,
                y = .data$percent)) +
     geom_bar(stat = "identity", fill = "#377eb8") +
@@ -46,5 +46,5 @@ plot_variance <- function(model) {
     theme(axis.text = element_text(colour = "black"),
           axis.line.y = element_line(colour = "black"),
           axis.line.x = element_line(colour = "black")) +
-    labs(x = "", y = "proportion of variance", fill = "analytical choices")
+    labs(x = "", y = "proportion of variance")
 }

@@ -27,7 +27,7 @@ results <- run_specs(example_data,
                      x = c("x1", "x2"),
                      model = "lm",
                      controls = c("c1", "c2"),
-                     subset = list(group1 = unique(example_data$group1)))
+                     subsets = list(group1 = unique(example_data$group1)))
 
 # plot boxplot comparing specific choices
 plot_summary(results, choices = c("subsets", "controls", "y"))

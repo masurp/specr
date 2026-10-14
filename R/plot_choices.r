@@ -2,7 +2,7 @@
 #'
 #' @description `r lifecycle::badge("deprecated")`
 #'    This function is deprecated because the new version of specr uses a new analytic framework.
-#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function.
+#'    In this framework, you can plot a similar figure simply by using the generic \code{plot()} function
 #'    and adding the argument \code{type = "choices"}.
 #'    This functions plots how analytic choices affect the obtained results (i.e., the rank within the curve). Significant results are highlighted (negative = red, positive = blue, grey = nonsignificant). This functions creates the lower panel in \code{plot_specs()}.
 #'
@@ -41,7 +41,19 @@ plot_choices <- function(df,
                          null = 0) {
 
   # Deprecation warning
-  lifecycle::deprecate_warn("1.0.0", "plot_choices()", "plot.specr.object()")
+  lifecycle::deprecate_warn("1.0.0", "plot_choices()", I('`plot(<specr.object>, type = "choices")`'))
+
+  plot_choices_(df, var = {{ var }}, group = {{ group }}, choices = choices,
+                desc = desc, null = null)
+}
+
+# Internal version without deprecation warning (also used by plot_specs())
+plot_choices_ <- function(df,
+                          var = .data$estimate,
+                          group = NULL,
+                          choices = c("x", "y", "model", "controls", "subsets"),
+                          desc = FALSE,
+                          null = 0) {
 
   value <- key <- NULL
 
@@ -51,7 +63,7 @@ plot_choices <- function(df,
   # Create basic plot
   df %>%
     format_results(var = var, group = group, null = null, desc = desc) %>%
-    tidyr::gather(key, value, choices) %>%
+    tidyr::gather(key, value, all_of(choices)) %>%
     dplyr::mutate(key = factor(.data$key, levels = choices)) %>%
     ggplot(aes(x = .data$specifications,
                y = .data$value,
@@ -64,7 +76,7 @@ plot_choices <- function(df,
     theme_minimal() +
     facet_grid(.data$key~1, scales = "free_y", space = "free_y") +
     theme(
-          axis.line = element_line("black", size = .5),
+          axis.line = element_line("black", linewidth = .5),
           legend.position = "none",
           panel.spacing = unit(.75, "lines"),
           axis.text = element_text(colour = "black"),
