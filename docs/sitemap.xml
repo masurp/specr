@@ -1,159 +1,61 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/404.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/custom-plot.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/decompose_var.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/different-specifications.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/getting-started.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/inferences.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/invest-spec.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/measurement-models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/measurement_models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/multilevel-models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/parallel-bayesian-models.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/parallelization.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/progress.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/random_effects.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/articles/specr.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/index.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/as.data.frame.specr.object.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/as.data.frame.specr.setup.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.object.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.setup.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/boot_null.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/example_data.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/icc_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.boot.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.object.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot.specr.setup.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_choices.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_curve.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_decisiontree.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_samplesizes.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_summary.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/plot_variance.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/print.specr.boot.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/print.specr.object.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/print.specr.setup.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/reexports.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/run_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/setup.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/setup_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/specr.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/summarise_specs.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/summary.specr.boot.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/summary.specr.object.html</loc>
-  </url>
-  <url>
-    <loc>https://masurp.github.io/specr/index.html/reference/summary.specr.setup.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://masurp.github.io/specr/index.html/404.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/CONTRIBUTING.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/LICENSE.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/custom-plot.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/decompose_var.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/different-specifications.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/getting-started.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/index.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/inferences.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/invest-spec.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/measurement-models.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/measurement_models.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/multilevel-models.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/parallel-bayesian-models.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/parallelization.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/progress.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/random_effects.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/articles/specr.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/authors.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/index.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/news/index.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as.data.frame.specr.infer.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as.data.frame.specr.object.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as.data.frame.specr.setup.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.infer.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.object.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/as_tibble.specr.setup.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/boot_null.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/example_data.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/icc_specs.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/index.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/infer_curve.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot.specr.boot.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot.specr.infer.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot.specr.object.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot.specr.setup.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_choices.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_curve.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_decisiontree.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_samplesizes.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_specs.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_summary.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/plot_variance.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/print.specr.boot.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/print.specr.infer.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/print.specr.object.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/print.specr.setup.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/reexports.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/run_specs.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/setup.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/setup_specs.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/specr.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/summarise_specs.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/summary.specr.boot.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/summary.specr.infer.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/summary.specr.object.html</loc></url>
+<url><loc>https://masurp.github.io/specr/index.html/reference/summary.specr.setup.html</loc></url>
 </urlset>
+
