@@ -256,3 +256,20 @@ test_that("lm given as a function in a named list uses the fast route", {
   expect_equal(inf$n_fast, 4)
   expect_equal(inf$n_failed, 0)
 })
+
+test_that("plots and summaries work for a single specification", {
+  specs_one <- setup(data = example_data, x = "x1", y = "y1", model = "lm")
+  set.seed(14)
+  inf <- infer_curve(specr(specs_one), specs_one, n_samples = 20)
+  expect_s3_class(plot(inf), "ggplot")
+  expect_equal(nrow(summary(inf)), 3)
+})
+
+test_that("without p-values, only the median is tested", {
+  specs_nop <- setup(data = example_data, x = c("x1", "x2"), y = "y1", model = "lm",
+                     fun1 = function(x) broom::tidy(x)[, c("term", "estimate")])
+  set.seed(15)
+  s <- summary(infer_curve(specr(specs_nop), specs_nop, n_samples = 20))
+  expect_false(is.na(s$p.value[s$statistic == "median"]))
+  expect_true(all(is.na(s$p.value[s$statistic != "median"])))
+})
