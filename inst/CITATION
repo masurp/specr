@@ -1,15 +1,22 @@
+year <- if (!is.null(meta$`Date/Publication`)) {
+  sub("-.*", "", meta$`Date/Publication`)
+} else {
+  format(Sys.Date(), "%Y")
+}
 
 title <- sprintf("specr: Conducting and Visualizing Specification Curve Analyses (Version %s)", meta$Version)
 
 bibentry(
-    bibtype    = "misc",
-    title    = title,
-    author   = c(person("Philipp K.", "Masur"), person("Michael", "Scharkow")),
-    year     = "2020",
-    url      = "https://CRAN.R-project.org/package=specr",
-    textVersion =
-  	paste("Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and Visualizing Specification Curve Analyses.",
-		"Available from https://CRAN.R-project.org/package=specr."
-		),
-	mheader = "To cite 'specr' in publications use:"
+  bibtype = "misc",
+  key = "specr",
+  title = title,
+  author = c(person("Philipp K.", "Masur"), person("Michael", "Scharkow")),
+  year = year,
+  url = "https://CRAN.R-project.org/package=specr",
+  textVersion = paste0(
+    "Masur, P. K., & Scharkow, M. (", year, "). specr: Conducting and Visualizing ",
+    "Specification Curve Analyses (Version ", meta$Version, "). ",
+    "https://CRAN.R-project.org/package=specr"
+  ),
+  mheader = "To cite 'specr' in publications use:"
 )

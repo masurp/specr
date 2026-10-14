@@ -183,7 +183,7 @@ plot(inference_null)
 
 # A note on earlier development versions
 
-Earlier development versions of `specr` included this procedure under the name `boot_null()`. That implementation refitted each specification on too many rows, which made the curves under the null too narrow and the p-values too small. `boot_null()` still works but is deprecated: it now calls `infer_curve()`. If you used `boot_null()` before, please recompute your results with `infer_curve()`.
+Earlier development versions of `specr` included this procedure under the name `boot_null()`. That implementation refitted each specification on too many rows, which made the curves under the null too narrow and the p-values too small. `boot_null()` was removed in version 1.1.0. If you used `boot_null()` before, please recompute your results with `infer_curve()`.
 
 
 # References

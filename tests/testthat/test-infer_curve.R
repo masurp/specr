@@ -217,11 +217,6 @@ test_that("print, plot and as_tibble work", {
   expect_true(all(c("sample", "x", "y", "estimate", "p.value") %in% names(long)))
 })
 
-test_that("boot_null() is a deprecated alias of infer_curve()", {
-  lifecycle::expect_deprecated(b <- boot_null(results, specs, n_samples = 5))
-  expect_s3_class(b, "specr.infer")
-})
-
 
 # Calibration ----
 

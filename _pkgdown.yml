@@ -32,7 +32,7 @@ reference:
       - example_data
   - title: "Deprecated"
     desc: >
-      The following functions still exist and can be used, but are deprecated (boot_null() from version 1.0.1 on, all others from version 1.0.0 on).
+      The following functions still exist and can be used, but are deprecated from version 1.0.0 on.
     contents:
       - setup_specs
       - run_specs
@@ -45,7 +45,6 @@ reference:
       - plot_decisiontree
       - summarise_specs
       - icc_specs
-      - boot_null
 
 navbar:
   structure:

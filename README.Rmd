@@ -37,11 +37,11 @@ knitr::opts_chunk$set(
 
 - 22 May 2024: The new development version (specr version 1.0.1) includes new functions to conduct inferences on the specification curve analysis (the third step outlined Simonsohn et al., 2020). See [this vignette](https://masurp.github.io/specr/articles/inferences.html) for further details.
 
-- 20 January 2022: specr version 1.0.0 is now available via [CRAN](https://cran.r-project.org/package=specr). This is a major update with several new features and functions. Note: it introduces a new framework for conduction specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
+- 20 January 2023: specr version 1.0.0 is now available via [CRAN](https://cran.r-project.org/package=specr). This is a major update with several new features and functions. Note: it introduces a new framework for conducting specification curve analyses compared to earlier versions (see [version history](https://masurp.github.io/specr/news/index.html) for more details). 
 
 - 4 December 2020: specr development version 0.2.2 is available via github. Mostly minor updates and bug fixes.
 
-- 25 May 2020: specr version 0.2.1 has been released on CRAN.
+- 26 March 2020: specr version 0.2.1 has been released on CRAN.
 
 ### What is specr?
 
@@ -69,7 +69,7 @@ devtools::install_github("masurp/specr")
 
 ### Usage
 
-Using specr is comparatively simple. The two main function are `setup()`, in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
+Using specr is comparatively simple. The two main functions are `setup()`, in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
 
 ```{r, message=F, warning = F, fig.height=10, fig.width=10}
 # Load package ----
@@ -109,7 +109,7 @@ The following papers and websites are interesting resources to explore the metho
 
 - Good discussion of the multiverse analysis method: Del Giudice, M., & Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. *Advances in Methods and Practices in Psychological Science, 4*(1). https://journals.sagepub.com/doi/abs/10.1177/2515245920954925 
 
-- A systematic comparison of visualization techniques for multiverse analyses: Hall, B. D., Liu, Y., Jansen, Y., Dragicevic, P., Chevalier, F., & Kay, M. (2022,). A survey of tasks and visualizations in multiverse analysis reports. In *Computer Graphics Forum* (Vol. 41, No. 1, pp. 402-426).https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14443 
+- A systematic comparison of visualization techniques for multiverse analyses: Hall, B. D., Liu, Y., Jansen, Y., Dragicevic, P., Chevalier, F., & Kay, M. (2022). A survey of tasks and visualizations in multiverse analysis reports. In *Computer Graphics Forum* (Vol. 41, No. 1, pp. 402-426).https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14443 
 
 - Proposal to include data collection decisions as choices within the multiverse: Harder, J. A. (2020). The multiverse of methods: Extending the multiverse analysis to address data-collection decisions. *Perspectives on Psychological Science, 15*(5), 1158-1177. https://journals.sagepub.com/doi/abs/10.1177/1745691620917678
 
@@ -145,6 +145,8 @@ If you have published a paper in which you used `specr` and you would like to be
 - Gould, E., Fraser, H. S., Parker, T. H., Nakagawa, S., Griffith, S. C., Vesk, P. A., ... & Lagisz, M. (2025). Same data, different analysts: variation in effect sizes due to analytical decisions in ecology and evolutionary biology. *BMC biology, 23*(1), 35.
 
 - Haehner, P., Kritzler, S., & Luhmann, M. (2023). Can Perceived and Objective-Descriptive Event Characteristics Explain Individual Differences in Changes in Subjective Well-Being After Negative Life Events? A Specification Curve Analysis.
+
+- Haehner, P., Shirima, C. M., Kura, M., Naudé, L., Hopwood, C. J., & Thalmayer, A. G. (2025). Personality predictors of health, well-being, relationships, and employment in Namibia, Kenya, and South Africa: A three-year longitudinal study. *European Journal of Personality*, 08902070261477867.
 
 - Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating Associations Between Screen Time and Symptomatology in Individuals With Serious Mental Illness: Longitudinal Observational Study
 *Journal of Medical Internet Research, 23*(3), e23144. https://doi.org/10.2196/23144

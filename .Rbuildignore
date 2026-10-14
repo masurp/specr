@@ -9,8 +9,9 @@
 ^Meta$
 ^docs$
 ^_pkgdown\.yml$
-^\.travis\.yml$
 ^CLAUDE\.md$
 ^\.claude$
 ^dev$
 ^Rplots\.pdf$
+^vignettes/.*\.orig$
+^CRAN-SUBMISSION$

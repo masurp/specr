@@ -42,10 +42,10 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
   vignette](https://masurp.github.io/specr/articles/inferences.html) for
   further details.
 
-- 20 January 2022: specr version 1.0.0 is now available via
+- 20 January 2023: specr version 1.0.0 is now available via
   [CRAN](https://cran.r-project.org/package=specr). This is a major
   update with several new features and functions. Note: it introduces a
-  new framework for conduction specification curve analyses compared to
+  new framework for conducting specification curve analyses compared to
   earlier versions (see [version
   history](https://masurp.github.io/specr/news/index.html) for more
   details).
@@ -53,7 +53,7 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 - 4 December 2020: specr development version 0.2.2 is available via
   github. Mostly minor updates and bug fixes.
 
-- 25 May 2020: specr version 0.2.1 has been released on CRAN.
+- 26 March 2020: specr version 0.2.1 has been released on CRAN.
 
 ### What is specr?
 
@@ -96,7 +96,7 @@ devtools::install_github("masurp/specr")
 
 ### Usage
 
-Using specr is comparatively simple. The two main function are
+Using specr is comparatively simple. The two main functions are
 `setup()`, in which analytic choices are specified as arguments, and
 `specr()`, which fits the models across all specifications. The latter
 creates a class called “specr.object”, which can be summarized and
@@ -130,16 +130,16 @@ plot(results)
 citation("specr")
 #> To cite 'specr' in publications use:
 #> 
-#>   Masur, Philipp K. & Scharkow, M. (2020). specr: Conducting and
-#>   Visualizing Specification Curve Analyses. Available from
-#>   https://CRAN.R-project.org/package=specr.
+#>   Masur, P. K., & Scharkow, M. (2026). specr: Conducting and
+#>   Visualizing Specification Curve Analyses (Version 1.1.0).
+#>   https://CRAN.R-project.org/package=specr
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
-#>   @Misc{,
-#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 1.0.1)},
+#>   @Misc{specr,
+#>     title = {specr: Conducting and Visualizing Specification Curve Analyses (Version 1.1.0)},
 #>     author = {Philipp K. Masur and Michael Scharkow},
-#>     year = {2020},
+#>     year = {2026},
 #>     url = {https://CRAN.R-project.org/package=specr},
 #>   }
 ```
@@ -169,7 +169,7 @@ the method further and learn about potential promises and pitfalls:
 
 - A systematic comparison of visualization techniques for multiverse
   analyses: Hall, B. D., Liu, Y., Jansen, Y., Dragicevic, P., Chevalier,
-  F., & Kay, M. (2022,). A survey of tasks and visualizations in
+  F., & Kay, M. (2022). A survey of tasks and visualizations in
   multiverse analysis reports. In *Computer Graphics Forum* (Vol. 41,
   No. 1,
   pp. 402-426).https://onlinelibrary.wiley.com/doi/abs/10.1111/cgf.14443
@@ -251,6 +251,12 @@ like to be included in the following list, please send an email to
   Objective-Descriptive Event Characteristics Explain Individual
   Differences in Changes in Subjective Well-Being After Negative Life
   Events? A Specification Curve Analysis.
+
+- Haehner, P., Shirima, C. M., Kura, M., Naudé, L., Hopwood, C. J., &
+  Thalmayer, A. G. (2025). Personality predictors of health, well-being,
+  relationships, and employment in Namibia, Kenya, and South Africa: A
+  three-year longitudinal study. *European Journal of Personality*,
+  08902070261477867.
 
 - Henson, P., Rodriguez-Villa, E., Torous, J. (2021). Investigating
   Associations Between Screen Time and Symptomatology in Individuals

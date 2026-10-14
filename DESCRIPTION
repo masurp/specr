@@ -1,6 +1,6 @@
 Package: specr
 Title: Conducting and Visualizing Specification Curve Analyses
-Version: 1.0.1
+Version: 1.1.0
 Authors@R: c(
     person(given = "Philipp K.",
            family = "Masur",
@@ -12,16 +12,16 @@ Authors@R: c(
            role = c("aut"),
            email = "michael@underused.org")
            )
-Description: Provides utilities for conducting specification curve analyses (Simonsohn, Simmons & Nelson (2020, <doi: 10.1038/s41562-020-0912-z>) or multiverse analyses (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi: 10.1177/1745691616658637>) including functions to setup, run, evaluate, and plot all specifications.
+Description: Provides utilities for conducting specification curve analyses (Simonsohn, Simmons & Nelson, 2020, <doi:10.1038/s41562-020-0912-z>) or multiverse analyses (Steegen, Tuerlinckx, Gelman & Vanpaemel, 2016, <doi:10.1177/1745691616658637>) including functions to setup, run, evaluate, and plot all specifications, as well as to conduct inference on the specification curve based on resampling under the null.
 License: GPL-3
 URL: https://masurp.github.io/specr/, https://github.com/masurp/specr
 BugReports: https://github.com/masurp/specr/issues
 Depends:
-    R (>= 3.5.0)
+    R (>= 4.1.0)
 Imports:
     broom,
     cowplot,
-    dplyr,
+    dplyr (>= 1.1.0),
     furrr,
     future,
     ggplot2 (>= 3.4.0),
@@ -32,15 +32,14 @@ Imports:
     magrittr,
     methods,
     purrr,
-    rlang, 
+    rlang,
     stringr,
     tibble,
-    tidyr
+    tidyr (>= 1.0.0)
 Suggests:
     broom.mixed,
     fixest,
     gapminder,
-    ggridges,
     knitr,
     lavaan,
     testthat (>= 3.0.0),
