@@ -24,7 +24,7 @@ It requires an object of class \code{specr.setup}, usually
 the result of calling \code{setup()}.
 }
 \examples{
-\dontrun{
+\donttest{
 specs <- setup(data = example_data,
    x = c("x1", "x2", "x3"),
    y = c("y1", "y2"),

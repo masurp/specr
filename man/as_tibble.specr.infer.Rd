@@ -6,6 +6,15 @@
 \usage{
 \method{as_tibble}{specr.infer}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.infer".}
+
+\item{...}{further arguments (currently ignored).}
+}
+\value{
+A tibble with the estimates and p-values under the null (one row per
+bootstrap sample and specification).
+}
 \description{
 Long format with one row per bootstrap sample and specification.
 }

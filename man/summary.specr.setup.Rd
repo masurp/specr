@@ -13,13 +13,14 @@
 
 \item{rows}{The number of rows of the specification tibble that should be printed.}
 
-\item{print.specs}{Logical value; if \code{TRUE}, a head of the specification tibble
-is returned and printed.}
+\item{print.specs}{Logical value; if \code{TRUE}, the head of the specification tibble
+is printed.}
 
 \item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
-A printed summary of an object of class \code{specr.setup}.
+Prints a summary of an object of class \code{specr.setup} and returns
+the object invisibly.
 }
 \description{
 \code{summary} method for class "specr.setup". Provides a short summary of the

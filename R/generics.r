@@ -8,11 +8,12 @@
 #' @param object An object of class "specr.setup", usually, a result of a call to `setup`.
 #' @param digits The number of digits to use when printing the specification table.
 #' @param rows The number of rows of the specification tibble that should be printed.
-#' @param print.specs Logical value; if `TRUE`, a head of the specification tibble
-#'   is returned and printed.
+#' @param print.specs Logical value; if `TRUE`, the head of the specification tibble
+#'   is printed.
 #' @param ... further arguments passed to or from other methods (currently ignored).
 #'
-#' @return A printed summary of an object of class \code{specr.setup}.
+#' @return Prints a summary of an object of class \code{specr.setup} and returns
+#'   the object invisibly.
 #'
 #' @export
 #'
@@ -66,6 +67,9 @@ summary.specr.setup <- function(object,
 }
 
 #' Print method for S3 class "specr.setup"
+#' @param x An object of class "specr.setup".
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#' @return Prints the number of specifications and returns `x` invisibly.
 #' @keywords internal
 #' @export
 print.specr.setup <- function(x, ...) {
@@ -91,7 +95,7 @@ print.specr.setup <- function(x, ...) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' specs <- setup(data = example_data,
 #'    x = c("x1", "x2", "x3"),
 #'    y = c("y1", "y2"),
@@ -165,13 +169,19 @@ plot.specr.setup <- function(x,
 
 
 #' Return tibble from specr.setup object
+#' @param x An object of class "specr.setup".
+#' @param ... further arguments passed to [tibble::as_tibble()].
+#' @return A tibble with one row per specification.
 #' @keywords internal
 #' @export
 as_tibble.specr.setup <- function(x, ...) {
   as_tibble(x$specs, ...)
 }
 
-#' Return tibble from specr.setup object
+#' Return data.frame from specr.setup object
+#' @param x An object of class "specr.setup".
+#' @param ... further arguments passed to [as.data.frame()].
+#' @return A data frame with one row per specification.
 #' @keywords internal
 #' @export
 as.data.frame.specr.setup <- function(x, ...) {
@@ -180,21 +190,26 @@ as.data.frame.specr.setup <- function(x, ...) {
 
 #' Summarizing the Specification Curve Analysis
 #'
-#' `summary` method for class "specr". It provides a printed output including
-#'   technical details (e.g., cores used, duration of the fitting process, number
-#'   of specifications), a descriptive analysis of the overall specification curve,
-#'   a descriptive summary of the resulting sample sizes, and a head of the results.
+#' `summary` method for class "specr.object". With `type = "default"`, it provides
+#'   a printed output including technical details (e.g., cores used, duration of the
+#'   fitting process, number of specifications), a descriptive analysis of the overall
+#'   specification curve, a descriptive summary of the resulting sample sizes, and a
+#'   head of the results. With `type = "curve"`, it returns descriptive statistics of
+#'   the specification curve (overall or for groups of specifications).
 #'
-#' @param object An object of class "specr", usually resulting of a call to `specr`.
-#' @param type Different aspects can be summarized and printed. See details for alternative summaries
-#' @param group In combination with `what = "curve"`, provide a vector of one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.
-#' @param var In combination with `what = "curve"`, unquoted name of parameter to be summarized. Defaults to estimate.
+#' @param object An object of class "specr.object", usually resulting of a call to `specr`.
+#' @param type What should be summarized? Either `"default"` (printed summary of the
+#'   whole analysis) or `"curve"` (tibble with descriptive statistics of the curve).
+#' @param group In combination with `type = "curve"`, a character vector of one or more variables (e.g., "subsets", "controls",...) that denote the available analytic choices to group the summary of the estimate.
+#' @param var Unquoted name of the parameter to be summarized. Defaults to estimate.
 #' @param stats Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.
 #' @param digits The number of digits to use when printing the specification table.
 #' @param rows The number of rows of the specification tibble that should be printed.
 #' @param ... further arguments passed to or from other methods (currently ignored).
 #'
-#' @return A printed summary of an object of class \code{specr.object}.
+#' @return For `type = "default"`, a printed summary of an object of class
+#'   \code{specr.object}, which is returned invisibly. For `type = "curve"`, a tibble
+#'   with the descriptive statistics (and the median sample size `obs`, if available).
 #'
 #' @export
 #'
@@ -228,7 +243,7 @@ as.data.frame.specr.setup <- function(x, ...) {
 #'        stats = list(median = median,
 #'                     min = min,
 #'                     max = max))
-#' @seealso The function used to create the "specr.setup" object: `setup`.
+#' @seealso The function used to create the "specr.object" object: [specr()].
 summary.specr.object <- function(object,
                                  type = "default",
                                  group = NULL,
@@ -337,6 +352,9 @@ summary.specr.object <- function(object,
 }
 
 #' Print method for S3 class "specr.object"
+#' @param x An object of class "specr.object".
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#' @return Prints a short summary of the specification curve and returns `x` invisibly.
 #' @keywords internal
 #' @export
 print.specr.object <- function(x, ...) {
@@ -377,13 +395,17 @@ print.specr.object <- function(x, ...) {
 #'   panel (lower part of the default plot) is plotted. If \code{type = "boxplot"},
 #'   an alternative visualization of differences between choices is plotted that
 #'   summarizes results per choice using box-and-whisker plot(s). If
+#'   \code{type = "variance"}, the variance of the estimates is decomposed into
+#'   the shares explained by the analytical choices (see `formula`). If
 #'   \code{type = "samplesizes"}, a barplot of sample sizes per specification is
 #'   plotted.  See examples for more information.
 #' @param var Which parameter should be plotted in the curve? Defaults to
 #'    \code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
-#'    can be plotted too.
+#'    can be plotted too. Note that the confidence intervals (`ci`) and the colors
+#'    always refer to the estimate, so set `ci = FALSE` for other parameters.
 #' @param group Should the arrangement of the curve be grouped by a particular choice?
-#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)
+#'    Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...),
+#'    given unquoted (`group = x`) or as a string (`group = "x"`).
 #' @param choices A vector specifying which analytic choices should be plotted.
 #'     By default, all choices (x, y, model, controls, subsets) are plotted.
 #' @param labels Labels for the two parts of the plot
@@ -391,7 +413,8 @@ print.specr.object <- function(x, ...) {
 #' @param desc Logical value indicating whether the curve should the arranged in
 #'   a descending order. Defaults to FALSE.
 #' @param null Indicate what value represents the 'null' hypothesis (defaults to
-#'   zero).
+#'   zero). Specifications whose confidence intervals exclude this value are
+#'   highlighted (positive = blue, negative = red).
 #' @param ci Logical value indicating whether confidence intervals should be
 #'   plotted.
 #' @param ribbon Logical value indicating whether a ribbon instead should be
@@ -401,12 +424,12 @@ print.specr.object <- function(x, ...) {
 #'   formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
 #'   \code{"estimate ~ 1 + (1|x) + (1|y)"} (to estimate the amount of variance
 #'   explained by different independent `x` and dependent variables `y`). All other
-#'   choices are then subsumed under residual variance. By no formula is provided,
+#'   choices are then subsumed under residual variance. If no formula is provided,
 #'   all choices (x, y, model, controls, and subsets) that have more than one alternative
 #'   are included. See examples for further details.
 #' @param print In combination with \code{type = "variance"}, logical value indicating
 #'   whether the intra-class correlations (i.e., percentages of variance explained by
-#'   analstical choices) should be printed or not. Defaults to TRUE.
+#'   analytical choices) should be printed or not. Defaults to TRUE.
 #' @param choice_labels Where should the names of the analytical choices (x, y,
 #'   model, ...) be shown in the panel of choices (`type = "default"` or
 #'   `"choices"`)? Either `"right"` (default) or `"left"`, next to their options.
@@ -417,7 +440,7 @@ print.specr.object <- function(x, ...) {
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' # Specification Curve analysis ----
 #' # Setup specifications
 #' specs <- setup(data = example_data,
@@ -470,7 +493,7 @@ print.specr.object <- function(x, ...) {
 #' plot(results, type = "variance")
 #'
 #' # By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices
-#' # and also include interactions between chocies
+#' # and also include interactions between choices
 #' plot(results,
 #'      type = "variance",
 #'      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")
@@ -712,7 +735,7 @@ plot.specr.object <- function(x,
       theme(axis.text = element_text(colour = "black"),
             axis.line.y = element_line(colour = "black"),
             axis.line.x = element_line(colour = "black")) +
-      labs(x = "", y = "proportion of variance")
+      labs(x = "", y = "variance explained (%)")
 
     return(plot_d)
 
@@ -744,6 +767,9 @@ plot.specr.object <- function(x,
 
 
 #' Return tibble from specr.object
+#' @param x An object of class "specr.object".
+#' @param ... further arguments passed to [tibble::as_tibble()].
+#' @return A tibble with the results (one row per specification).
 #' @keywords internal
 #' @export
 as_tibble.specr.object <- function(x,...) {
@@ -752,6 +778,9 @@ as_tibble.specr.object <- function(x,...) {
 
 
 #' Return data.frame from specr.object
+#' @param x An object of class "specr.object".
+#' @param ... further arguments passed to [as.data.frame()].
+#' @return A data frame with the results (one row per specification).
 #' @keywords internal
 #' @export
 as.data.frame.specr.object <- function(x, ...) {
@@ -762,6 +791,10 @@ as.data.frame.specr.object <- function(x, ...) {
 
 
 #' Print method for S3 class "specr.infer"
+#' @param x An object of class "specr.infer".
+#' @param ... further arguments passed to or from other methods (currently ignored).
+#' @return Prints technical details and the test statistics (see
+#'   [summary.specr.infer()]) and returns `x` invisibly.
 #' @keywords internal
 #' @export
 print.specr.infer <- function(x, ...) {
@@ -910,6 +943,19 @@ summary.specr.infer <- function(object,
 #' @seealso [infer_curve()], [summary.specr.infer()]
 #'
 #' @export
+#'
+#' @examples
+#' specs <- setup(data = example_data,
+#'    y = "y1",
+#'    x = c("x1", "x2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2"))
+#'
+#' set.seed(42)
+#' inference <- infer_curve(specr(specs), specs, n_samples = 200) # better 1,000 or more
+#'
+#' # Observed curve against the curves under the null
+#' plot(inference)
 plot.specr.infer <- function(x, ...) {
 
   rank <- value <- curve <- NULL
@@ -949,6 +995,10 @@ plot.specr.infer <- function(x, ...) {
 #' Return tibble from specr.infer
 #'
 #' Long format with one row per bootstrap sample and specification.
+#' @param x An object of class "specr.infer".
+#' @param ... further arguments (currently ignored).
+#' @return A tibble with the estimates and p-values under the null (one row per
+#'   bootstrap sample and specification).
 #' @keywords internal
 #' @export
 as_tibble.specr.infer <- function(x, ...) {
@@ -964,6 +1014,10 @@ as_tibble.specr.infer <- function(x, ...) {
 
 
 #' Return data.frame from specr.infer
+#' @param x An object of class "specr.infer".
+#' @param ... further arguments passed to [as.data.frame()].
+#' @return A data frame with the estimates and p-values under the null (one row
+#'   per bootstrap sample and specification).
 #' @keywords internal
 #' @export
 as.data.frame.specr.infer <- function(x, ...) {

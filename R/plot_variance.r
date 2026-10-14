@@ -46,5 +46,5 @@ plot_variance <- function(model) {
     theme(axis.text = element_text(colour = "black"),
           axis.line.y = element_line(colour = "black"),
           axis.line.x = element_line(colour = "black")) +
-    labs(x = "", y = "proportion of variance")
+    labs(x = "", y = "variance explained (%)")
 }

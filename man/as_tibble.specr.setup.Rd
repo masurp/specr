@@ -6,6 +6,14 @@
 \usage{
 \method{as_tibble}{specr.setup}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.setup".}
+
+\item{...}{further arguments passed to \code{\link[tibble:as_tibble]{tibble::as_tibble()}}.}
+}
+\value{
+A tibble with one row per specification.
+}
 \description{
 Return tibble from specr.setup object
 }

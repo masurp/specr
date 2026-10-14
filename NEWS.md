@@ -32,6 +32,8 @@ Development version released: 2024-05-222
 
 * `setup()` warns if an independent variable is not numeric, because no estimates can be extracted for factors or character variables (GitHub issue #47).
 
+* Revised documentation: all help pages now describe their return values, `example_data` is documented in detail, and outdated or wrong statements in the vignettes were corrected (e.g., the mean index in `vignette("different-specifications")` only contained `x1`, and the custom structural equation model function did not remove the "+ 1" placeholder as described). Vignettes only evaluate their code if the suggested packages they need are installed.
+
 * New section "Other types of models" in `vignette("different-specifications")` with examples for weighted regressions (GitHub issue #27), survival models with `survival::coxph()` (#44), fixed effects models with `fixest::feols()` (#41, #43), and multilevel models with p-values from `lmerTest` (#48).
 
 ## Bug fixes
@@ -105,7 +107,7 @@ CRAN release: 2023-01-20
 
 This version of `specr` was something I wanted to tackle for a while. Although the previous versions seem to have embraced by the community and several relevant papers used them in interesting ways, certain issues kept coming up (ranging from slow fitting process to wanting to incorporate more complex analytical decisions and choices). This version is thus heavily inspired by the growing community of scholars who provide feedback and suggestions via [github](https://github.com/masurp/specr/issues). Thank you to all of you! But for this version, I want to thank two people particularly:
 
-* Big thanks go to [Matti Vuorre](https://github.com/mvuorre) who explored ways to parallelize specification curve analysis in this [blogpost](https://vuorre.netlify.app/posts/parallel-multiverse/), which became the basis for the implementation in specr. 
+* Big thanks go to [Matti Vuorre](https://github.com/mvuorre) who explored ways to parallelize specification curve analysis in this [blogpost](https://vuorre.com/posts/parallel-multiverse/), which became the basis for the implementation in specr. 
 
 * Many thanks to [Kasper Welbers](https://github.com/kasperwelbers) who contributed some essential code within the core function. 
 

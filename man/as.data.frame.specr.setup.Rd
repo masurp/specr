@@ -2,11 +2,19 @@
 % Please edit documentation in R/generics.r
 \name{as.data.frame.specr.setup}
 \alias{as.data.frame.specr.setup}
-\title{Return tibble from specr.setup object}
+\title{Return data.frame from specr.setup object}
 \usage{
 \method{as.data.frame}{specr.setup}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.setup".}
+
+\item{...}{further arguments passed to \code{\link[=as.data.frame]{as.data.frame()}}.}
+}
+\value{
+A data frame with one row per specification.
+}
 \description{
-Return tibble from specr.setup object
+Return data.frame from specr.setup object
 }
 \keyword{internal}

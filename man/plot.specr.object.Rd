@@ -33,15 +33,19 @@ of the default plot) is plotted. If \code{type = "choices"}, only the choice
 panel (lower part of the default plot) is plotted. If \code{type = "boxplot"},
 an alternative visualization of differences between choices is plotted that
 summarizes results per choice using box-and-whisker plot(s). If
+\code{type = "variance"}, the variance of the estimates is decomposed into
+the shares explained by the analytical choices (see \code{formula}). If
 \code{type = "samplesizes"}, a barplot of sample sizes per specification is
 plotted.  See examples for more information.}
 
 \item{var}{Which parameter should be plotted in the curve? Defaults to
 \code{estimate}, but other parameters (e.g., p.value, fit_r.squared,...)
-can be plotted too.}
+can be plotted too. Note that the confidence intervals (\code{ci}) and the colors
+always refer to the estimate, so set \code{ci = FALSE} for other parameters.}
 
 \item{group}{Should the arrangement of the curve be grouped by a particular choice?
-Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...)}
+Defaults to NULL, but can be any of the present choices (e.g., x, y, controls...),
+given unquoted (\code{group = x}) or as a string (\code{group = "x"}).}
 
 \item{choices}{A vector specifying which analytic choices should be plotted.
 By default, all choices (x, y, model, controls, subsets) are plotted.}
@@ -54,7 +58,8 @@ By default, all choices (x, y, model, controls, subsets) are plotted.}
 a descending order. Defaults to FALSE.}
 
 \item{null}{Indicate what value represents the 'null' hypothesis (defaults to
-zero).}
+zero). Specifications whose confidence intervals exclude this value are
+highlighted (positive = blue, negative = red).}
 
 \item{ci}{Logical value indicating whether confidence intervals should be
 plotted.}
@@ -67,13 +72,13 @@ a specific formula to extract specific variance components. The syntax of the
 formula is based on \code{lme4::lmer()} and thus looks something like, e.g.:
 \code{"estimate ~ 1 + (1|x) + (1|y)"} (to estimate the amount of variance
 explained by different independent \code{x} and dependent variables \code{y}). All other
-choices are then subsumed under residual variance. By no formula is provided,
+choices are then subsumed under residual variance. If no formula is provided,
 all choices (x, y, model, controls, and subsets) that have more than one alternative
 are included. See examples for further details.}
 
 \item{print}{In combination with \code{type = "variance"}, logical value indicating
 whether the intra-class correlations (i.e., percentages of variance explained by
-analstical choices) should be printed or not. Defaults to TRUE.}
+analytical choices) should be printed or not. Defaults to TRUE.}
 
 \item{choice_labels}{Where should the names of the analytical choices (x, y,
 model, ...) be shown in the panel of choices (\code{type = "default"} or
@@ -91,7 +96,7 @@ the results of calling \code{specr()} to create a standard visualization of the
 specification curve analysis. Several types of visualizations are possible.
 }
 \examples{
-\dontrun{
+\donttest{
 # Specification Curve analysis ----
 # Setup specifications
 specs <- setup(data = example_data,
@@ -144,7 +149,7 @@ plot(results, type = "curve", var = fit_r.squared) +
 plot(results, type = "variance")
 
 # By providing a specific formula in `lme4::lmer()`-style, we can extract specific choices
-# and also include interactions between chocies
+# and also include interactions between choices
 plot(results,
      type = "variance",
      formula = "estimate ~ 1 + (1|x) + (1|y) + (1|group1) + (1|x:y)")

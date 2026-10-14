@@ -20,9 +20,10 @@ setup(
 \arguments{
 \item{data}{The data set that should be used for the analysis}
 
-\item{x}{A vector denoting independent variables}
+\item{x}{A character vector denoting the independent variables (which should be
+numeric variables, see details)}
 
-\item{y}{A vector denoting the dependent variables}
+\item{y}{A character vector denoting the dependent variables}
 
 \item{model}{A character vector with the names of the model functions that
 should be estimated (e.g., \code{"lm"} or the name of a custom function), or a
@@ -41,12 +42,12 @@ in which these can be specified that both start from the assumption that the
 "grouping" variable is in the data set. The simplest way is to provide a named
 vector within the list, whose name is the variable that should be used for
 subsetting and whose values are the values that reflect the subsets (e.g.,
-\verb{list(group2 = c("female", "male")}). In this case, the specifications will
-includes "all", "only female" and "only male". Alternatively, you can also use
+\code{list(group2 = c("female", "male"))}). In this case, the specifications will
+include "all", "only female" and "only male". Alternatively, you can also use
 the \code{unique} function to extract that vector directly from the data set
-(e.g., \verb{list(group2 = unique(example_data$group2}). Both approaches lead to the
+(e.g., \code{list(group2 = unique(example_data$group2))}). Both approaches lead to the
 same result. The former, however, has the advantages that one can also remove some of the
-subgroups (e.g. \verb{list(group2 = c("female")}). In this case, the specifications
+subgroups (e.g. \code{list(group2 = c("female"))}). In this case, the specifications
 will include "all" (no subset) and "only females". See examples for more details. Missing values (NA) among the subset values are ignored.}
 
 \item{add_to_formula}{A string specifying aspects that should always be
@@ -89,10 +90,10 @@ all specifications.
 \details{
 Empirical results are often contingent on analytical decisions that
 are equally defensible, often arbitrary, and motivated by different reasons.
-This decisions may introduce bias or at least variability. To this end,
+These decisions may introduce bias or at least variability. To this end,
 specification curve analyses  (Simonsohn et al., 2020) or multiverse
 analyses (Steegen et al., 2016) refer to identifying the set of
-theoretically justified, statistically valid (and potentially also non-redundant
+theoretically justified, statistically valid (and potentially also non-redundant)
 specifications, fitting the "multiverse" of models represented by these
 specifications and extract relevant parameters often to display the results
 graphically as a so-called specification curve. This allows readers to
@@ -101,7 +102,7 @@ or parameter of interest.
 
 \bold{Use of this function}
 
-A general overview is provided in the vignettes \code{vignette("specr")}.
+A general overview is provided in the vignette \code{vignette("getting-started")}.
 It is assumed that you want to estimate the relationship between two variables
 (\code{x} and \code{y}). What varies may be what variables should be used for
 \code{x} and \code{y}, what model should be used to estimate the relationship,
@@ -111,6 +112,10 @@ allows to (re)produce almost any analytical decision imaginable. See examples
 below for how a number of typical analytical decision can be implemented.
 Afterwards you pass the resulting object of a class \code{specr.setup} to the
 function \code{specr()} to run the specification curve analysis.
+
+As \code{specr()} extracts the estimate whose term equals \code{x}, the
+independent variables should be numeric. For factor or character variables,
+models return terms such as "xB", so recode them as (dummy) variables instead.
 
 Note, the resulting class of \code{specr.setup} allows to use generic functions.
 Use \code{methods(class = "specr.setup")} for an overview on available methods and

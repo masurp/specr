@@ -9,11 +9,9 @@ vignette: >
 
 
 
-This vignette shows how to incorporate Bayesian modeling using the package [brms](https://paul-buerkner.github.io/brms/) in specr. When we fit a model with `brms`, the package actually calls Rstan in the background, which, in turn, is an R interface to the statistical programming language `Stan`. Stan is built in the programming language C++ and models have to be compiled using C++ to be run. This is all taken care of by brms, so you just need to run `brm(…)` to fit any model. `brms` uses a syntax for specifying model formulae that is based on the syntax of the commonly known lme4 package (for multilevel modeling). The comparatively easy syntax of `brms` is then converted into Stan code automatically.
+This vignette shows how to incorporate Bayesian modeling using the package [brms](https://paulbuerkner.com/brms/) in specr. When we fit a model with `brms`, the package actually calls Rstan in the background, which, in turn, is an R interface to the statistical programming language `Stan`. Stan is built in the programming language C++ and models have to be compiled using C++ to be run. This is all taken care of by brms, so you just need to run `brm(…)` to fit any model. `brms` uses a syntax for specifying model formulae that is based on the syntax of the commonly known lme4 package (for multilevel modeling). The comparatively easy syntax of `brms` is then converted into Stan code automatically.
 
 That said, since the models have to be compiled in C++, you need to set up your computer so that it can actually use C++. This has to be done only once, before installing brms. Unfortunately, as almost always, how you install C++ depends on your operating system. Check [this vignette](https://github.com/masurp/workshop_bayes/blob/main/exercises/Exercise_02.md) to if you have problems installing brms.
-
-We are also loading the library `furrr` as we want to parallelize the computations.
 
 
 
@@ -28,13 +26,13 @@ library(ggridges)
 
 ## Setting up custom functions
 
-Although you can simply pass the function `brm` to `setup` and run `specr()` with `workers = 1` without any specific custom function, it usually make sense to set up some custom model fitting and extraction functions to make sure `specr()` does exactly what we want. 
+Although you can simply pass the function `brm` to `setup` without any specific custom function, it usually makes sense to set up some custom model fitting and extraction functions to make sure `specr()` does exactly what we want.
 
-Here, I am creating a custom model fitting function and specify relevant parameters for the Bayesian models. Here, I am only switching of the progress indication and messages, and reduce the iteration to 1000 to save time. Of course, we can bump this up to wherever we need it to be. 
+Here, I am creating a custom model fitting function and specify relevant parameters for the Bayesian models. Here, I am only switching off the progress indication and messages, and reduce the iterations to 1000 to save time. Of course, we can bump this up to wherever we need it to be.
 
-Note that you can use specr to parallize the process (then you would set `workers = 1` in the brm function) and use the parallelization via `furrr` as outlined in [this vignette](https://masurp.github.io/specr/articles/parallelization.html). Alternatively, we can let `brms` parallelize the process (e.g., by setting e.g., `cores = 4`). Then, we would not use the parallelization procedure by `specr`. Here, I keep it simple and just do all computations sequentially. Thus, all chains per specifications as well as the specifications themselves are fitted one after the other.
+Note that you can use specr to parallelize the process (then you would set `cores = 1` in the brm function) and use the parallelization via `furrr` as outlined in [this vignette](https://masurp.github.io/specr/articles/parallelization.html). Alternatively, we can let `brms` parallelize the process (e.g., by setting `cores = 4`). Then, we would not use the parallelization procedure by `specr`. Here, I keep it simple and just do all computations sequentially. Thus, all chains per specifications as well as the specifications themselves are fitted one after the other.
 
-If you want to be able to inspect each brms-object after the computation, I suggest to also create a custom fit extract function.  Here, I added the full `brms.fit` object to the `glance` output. This way, we can later access the entire object in order to e.g., extract posterior distributions or other aspects of the Bayesian models.
+If you want to be able to inspect each brms-object after the computation, I suggest to also create a custom fit extract function. Here, I added the full `brms.fit` object to the `glance` output. This way, we can later access the entire object in order to e.g., extract posterior distributions or other aspects of the Bayesian models.
 
 
 ```r
@@ -96,7 +94,7 @@ summary(specs)
 
 ## Estimating the models
 
-Because we are estimating 24 Bayesian models, this may take a while, but, again, brms automatically parallelizes the computations if we do not 
+Because we are estimating 24 Bayesian models, this may take a while (see above for ways to parallelize the computations).
 
 
 ```r
@@ -143,7 +141,7 @@ summary(results)
 plot(results, choices = c("x", "y", "controls"))
 ```
 
-<img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="100%" />
+<img src="parallel-bayesian-models-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="100%" />
 
 Again, the coefficients are median estimates from the posterior and their respective 95% HDIs.
 
@@ -227,7 +225,7 @@ posteriors %>%
        fill = "")
 ```
 
-<img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="100%" />
+<img src="parallel-bayesian-models-unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" width="100%" />
 
 Of course, the posterior distributions are not sorted in any way. With a bit of data wrangling, we can create a specification curve consisting of posterior distributions.
 
@@ -287,6 +285,6 @@ plot_grid(p1, p2,
           rel_heights = c(3, 2))
 ```
 
-<img src="https://raw.githubusercontent.com/masurp/specr/master/docs/articles/parallel-bayesian-models_files/figure-html/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="100%" />
+<img src="parallel-bayesian-models-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="100%" />
 
 

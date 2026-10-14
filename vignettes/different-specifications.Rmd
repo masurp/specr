@@ -8,6 +8,11 @@ vignette: >
 ---
 
 
+```{r, include = FALSE}
+# Evaluate the code only if the suggested packages are installed
+knitr::opts_chunk$set(eval = requireNamespace("tidyverse", quietly = TRUE))
+```
+
 The function `setup()` seems rather simple, but it is in fact very versatile and allows to incorporate (almost) any analytic choice that one might engage in during data analysis. In this vignette, I am going to exemplify how this function can be used to create several analytical choices. 
 
 ```{r, message = F, warning = F}
@@ -40,7 +45,7 @@ head(results$data)
 
 ## Specific variable/model combinations
 
-However, in some cases, we may have different type of variables (e.g., a mean vs. a dichotomous variable). In some cases, for example when this refers to a dependent variable, such a choice of variables requires also different model estimation functions. So in our setup, we want to acknowledge for specific variable/model combinations. In the following, let's imagine that next to our standard dependent variables (`y1`-`y3`), we also have a dichotomous item (`y_dich`; here only recoded from `y1`). In this case, we want to specify and add a custom function - here a logistic model (`glm(formula, data, family = binomial()`)) - to the setup.  
+However, in some cases, we may have different type of variables (e.g., a mean vs. a dichotomous variable). In some cases, for example when this refers to a dependent variable, such a choice of variables requires also different model estimation functions. So in our setup, we want to acknowledge for specific variable/model combinations. In the following, let's imagine that next to our standard dependent variables (`y1`-`y3`), we also have a dichotomous item (`y_dich`; here only recoded from `y1`). In this case, we want to specify and add a custom function - here a logistic model (`glm(formula, data, family = binomial())`) - to the setup.  
 
 ```{r}
 # Dichotomous dependent variable
@@ -62,10 +67,10 @@ specs %>%
   as_tibble
 ```
 
-As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is were the strength of version 1.0.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `specr.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
+As we can see, the `setup()` function produces all combinations between the variables and the model functions. This is not meaningful as the logistic model should only be used if the dependent variable is `y_dich`. In comparison to specr version 0.2.1, this is where the strength of version 1.0.0 comes in. Because we setup all specifications beforehand, we can simply remove those that we are not interested in or that we deem non-meaningful. Note: You won't be able to filter or subset the `specr.setup` object (essentially a list). Instead, you want to filter/subset the first position of the list: the data frame that includes the specifications (here `specs$specs` or `specs[[1]]`). 
 
 ```{r}
-# Filter out models that are not meaningful (here only keep log_glm, when y == "y4")
+# Filter out models that are not meaningful (here only keep log_glm, when y == "y_dich")
 specs$specs <- specs$specs %>%
   filter(!(model == "log_glm" & y != "y_dich")) %>%
   filter(!(model == "lm" & y == "y_dich"))
@@ -82,18 +87,13 @@ head(results$data)
 
 In some cases, we may want to add mean indices or even latent measurement models of our variables of interest to explore how latent vs. manifest measurement affects our results. This requires a bit more upfront work as we need to work with [lavaan](https://lavaan.ugent.be/) for the latent measurement. Furthermore, we need to adjust the extract functions (`fun1` and `fun2` in `setup()`) so that the extraction of parameters aligns across different type of models. The beauty of `broom::tidy()` and `broom::glance()` (which are used by default) is that they adapt to the different model types that are passed to `setup`. Although the same parameters are extracted for most models, they sometimes differ for specific models (e.g., structural equation models resulting from `lavaan::sem()`). This means we need to adjust them to extract the same parameters across different models. 
 
-```{r, warning = F, message = F}
+```{r, warning = F, message = F, eval = requireNamespace("tidyverse", quietly = TRUE) && requireNamespace("lavaan", quietly = TRUE)}
 # Add mean (one choice)
 data <- data %>%
-  rowwise %>%
-  mutate(x_mean = mean(x1, x2, x3, x4)) %>%
-  ungroup
+  mutate(x_mean = rowMeans(across(c(x1, x2, x3, x4))))
 
 # Add custom function with latent measurement models to pass to "models" (another choice)
 custom_sem <- function(formula, data) {
-  
-  # Make sure lavaan is loaded
-  require(lavaan)
   
   # Add latent measurement as list
   latent <- list(latent_x12 = "latent_x12 =~ x1 + x2")
@@ -105,15 +105,15 @@ custom_sem <- function(formula, data) {
   valid <- purrr::keep(names(latent), ~ stringr::str_detect(formula, .x))
   
   # Create new formula that includes latent measurement models
-  formula <- paste(formula, "\n", paste(latent[valid], collapse = " \n "))
+  formula <- paste(semformula, "\n", paste(latent[valid], collapse = " \n "))
   
   # Pass formula to `sem()`
-  sem(formula, data)
+  lavaan::sem(formula, data)
 }
 
 # Create custom tidy function that extracts the same parameters from different models!
 tidy_new <- function(x) {
-  if(class(x) == "lavaan") {
+  if(inherits(x, "lavaan")) {
     broom::tidy(x, conf.int = TRUE) %>% 
     select(term, estimate, conf.low, conf.high) %>%   # select parameters you want to keep
     filter(grepl(" ~ ", term)) %>%                    # term needs to be adjusted
@@ -167,7 +167,7 @@ specs1 <- setup(data = example_data,
                model = "lm",
                controls = c("c1", "c2", "c3", "c4"))  # simply providing a vector of control variables
 
-# Setup secifications that include only no covariates, each individually, and all together
+# Setup specifications that include only no covariates, each individually, and all together
 specs2 <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
@@ -215,7 +215,7 @@ specs4$specs[1:6,]
 Finally, we may sometimes decide to add one of the independent or dependent variables as covariates as well. In this case, it would not make sense to add e.g., `x1` as covariate if it is already the independent variable. In this new version of specr, the `setup()` function automatically detects such duplications and deletes such specifications. 
 
 ```{r}
-# Adding a covariate that is also a independent or dependent variable
+# Adding a covariate that is also an independent or dependent variable
 specs5 <- setup(data = example_data,
                x = c("x1", "x2"),
                y = c("y1", "y2"),
@@ -233,10 +233,10 @@ One of the most powerful arguments within the `setup()` framework is `subsets`, 
 
 ## Simple subset analysis based on grouping variables
 
-In simple cases, we may want to investigate whether a relationship differs across certain subgroups. In the example data, we can for example investigate whether the relationship between `x` and `y` differs across age groups (`group1`) and gender (`group2`). We need to can add such subset analyses by specifying a list in two alternative ways. The easiest way refers to simply providing named vectors that refer to the respective variables in the data set and their unique values:
+In simple cases, we may want to investigate whether a relationship differs across certain subgroups. In the example data, we can for example investigate whether the relationship between `x` and `y` differs across age groups (`group1`) and gender (`group2`). We can add such subset analyses by specifying a list in two alternative ways. The easiest way refers to simply providing named vectors that refer to the respective variables in the data set and their unique values:
 
 ```
-list(group1 = c("young", "middle", "old),
+list(group1 = c("young", "middle", "old"),
       group2 = c("female", "male"))
 ```
 
@@ -356,7 +356,7 @@ For complex survey designs, wrappers around e.g. `survey::svyglm()` can be used 
 
 Survival outcomes consist of two variables (the survival time and the status). They can be used as dependent variable by writing them as `Surv(time, status)` (from the package `survival`), and Cox regressions can be fitted with a wrapper around `survival::coxph()`. With `exponentiate = TRUE`, the extraction function returns hazard ratios. As no effect corresponds to a hazard ratio of 1, we pass `null = 1` to `plot()` to highlight the significant specifications correctly.
 
-```{r, eval = requireNamespace("survival", quietly = TRUE)}
+```{r, eval = requireNamespace("tidyverse", quietly = TRUE) && requireNamespace("survival", quietly = TRUE)}
 library(survival)
 
 # Deaths in the data set `colon` from the package survival

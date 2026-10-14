@@ -6,6 +6,14 @@
 \usage{
 \method{print}{specr.object}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.object".}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
+}
+\value{
+Prints a short summary of the specification curve and returns \code{x} invisibly.
+}
 \description{
 Print method for S3 class "specr.object"
 }

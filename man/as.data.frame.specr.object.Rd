@@ -6,6 +6,14 @@
 \usage{
 \method{as.data.frame}{specr.object}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.object".}
+
+\item{...}{further arguments passed to \code{\link[=as.data.frame]{as.data.frame()}}.}
+}
+\value{
+A data frame with the results (one row per specification).
+}
 \description{
 Return data.frame from specr.object
 }

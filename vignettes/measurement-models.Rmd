@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
   comment = "#>",
   #fig.path = "man/figures/README-",
   out.width = "100%",
-  fig.retina = 2
+  fig.retina = 2,
+  # Evaluate the code only if the suggested packages are installed
+  eval = requireNamespace("tidyverse", quietly = TRUE) && requireNamespace("lavaan", quietly = TRUE)
 )
 ```
 
@@ -31,7 +33,7 @@ library(specr)
 library(lavaan)
 ```
 
-For this example, we will us the `HolzingerSwineford1939` data set that is included in the [lavaan](https://lavaan.ugent.be/) package. We quickly dummy-code the sex variable as we want to include it as a covariate. 
+For this example, we will use the `HolzingerSwineford1939` data set that is included in the [lavaan](https://lavaan.ugent.be/) package. We quickly dummy-code the sex variable as we want to include it as a covariate. 
 
 ```{r, message=F, warning = F}
 # Load data and recode
@@ -62,23 +64,21 @@ fit <- sem(model, d)
 broom::tidy(fit)
 ```
 
-Whenever we want to include more complex models in "specr", it makes sense to check what output the `broom::tidy()` function produces. Here, we can see that the variable `term` does not only include the predictor (as it usually does with models such as "lm" or "glm"), but it includes the entire paths within the model. If we do not specify different types of model, this will not be a problem, but we we do (e.g., "sem" and "lm"), we need to adjust the paremeter extract function. 
+Whenever we want to include more complex models in "specr", it makes sense to check what output the `broom::tidy()` function produces. Here, we can see that the variable `term` does not only include the predictor (as it usually does with models such as "lm" or "glm"), but it includes the entire paths within the model. If we do not specify different types of model, this will not be a problem, but if we do (e.g., "sem" and "lm"), we need to adjust the parameter extract function. 
 
 
 # Specification curve analysis with latent variables
 
 ## Defining the customized sem model function
 
-In a first step, we thus need to create a specific function that defines the latent measurement models for the latent measures specified as `x` and `y` in `setup()` and incoporate them into a formula that follows the lavaan-syntax. The function needs to have two arguments: a) formula and b) data. The exact function now depends on the purpose and goals of the particular question. 
+In a first step, we thus need to create a specific function that defines the latent measurement models for the latent measures specified as `x` and `y` in `setup()` and incorporate them into a formula that follows the lavaan-syntax. The function needs to have two arguments: a) formula and b) data. The exact function now depends on the purpose and goals of the particular question. 
 
-In this case, we want to include three different latent measurement models for dependent variables. First, we have to define a a *named list* with these measurement models. This is important as the function makes use of the "names". 
+In this case, we want to include three different latent measurement models for dependent variables. First, we have to define a *named list* with these measurement models. This is important as the function makes use of the "names". 
 
 In a second step, we need to exclude the "+ 1" placeholder the specr automatically adds to each formula if no covariates are included (in contrast to `lm()` or `lme4::lmer()`, `lavaan::sem()` does not support such a placeholder). Third, we need to make sure that only those measurement models are integrated which are actually used in the regression formula (it does not matter whether these are independent or control variables). Fourth, we need to paste the remaining measurement models into the formula. Finally, we run the structural equation model (here, additional arguments such as `estimator` could be used).  
 
 ```{r}
 sem_custom <- function(formula, data) {
-  
-  require(lavaan)
   
   # 1) Define latent variables as a named list
   latent <- list(visual =  "visual  =~ x1 + x2 + x3",
@@ -98,19 +98,18 @@ sem_custom <- function(formula, data) {
                          collapse = " \n "))
   
   # 5) Run SEM with sem function
-  sem(formula, data)
+  lavaan::sem(formula, data)
 }
 
 # In short:
 sem_custom <- function(formula, data) {
-  require(lavaan)
   latent <- list(visual =  "visual  =~ x1 + x2 + x3",
                  textual = "textual =~ x4 + x5 + x6",
                  speed =   "speed   =~ x7 + x8 + x9")
   formula <- stringr::str_remove_all(formula, "\\+ 1")
   valid <- purrr::keep(names(latent), ~ stringr::str_detect(formula, .x))
   formula <- paste(formula, "\n", paste(latent[valid], collapse = " \n "))
-  sem(formula, data)
+  lavaan::sem(formula, data)
 }
 
 ```
@@ -118,7 +117,7 @@ sem_custom <- function(formula, data) {
 
 ## Run the specification curve analysis with additional parameters
 
-Now we use `setup()` like we are used to. We only include the new function as model parameter and use the latent variables (see named list in the custom function) as depended variables.  Warning messages may appear if models do not converge or have other issues. 
+Now we use `setup()` like we are used to. We only include the new function as model parameter and use the latent variables (see named list in the custom function) as dependent variables.  Warning messages may appear if models do not converge or have other issues. 
 
 ```{r}
 # Setup specs
@@ -131,12 +130,12 @@ specs <- setup(data = d,
                               school = unique(d$school)))
 
 # Summarize specifications
-summary(specs, row = 10)
+summary(specs, rows = 10)
 ```
 
 Within the specification table, we don't really see much difference compared to standard models such as e.g., "lm". However, in the formula, variables refer to latent variables as specified in the custom function. 
 
-If we know pass it to `specr()`, actual structural equation models will be fitted in the background. 
+If we now pass it to `specr()`, actual structural equation models will be fitted in the background. 
 
 ```{r, fig.height=8, fig.width=8, message=F, warning = F}
 results <- specr(specs)
@@ -145,7 +144,7 @@ plot(results, choices = c("y", "controls", "model", "subsets"))
 
 ## Additional insights from "lavaan" objects
 
-Because the `broom::tidy()` functions also extracts standardized coefficients, we can plot them on top of the unstandarized coefficients with a little bit of extra code.
+Because the `broom::tidy()` function also extracts standardized coefficients, we can plot them on top of the unstandardized coefficients with a little bit of extra code.
 
 ```{r, fig.height=9, fig.width=9, message=F, warning = F}
 # Create curve with standardized coefficients

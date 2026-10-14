@@ -11,11 +11,11 @@
 #'    \code{as_tibble(setup(...))}).
 #' @param data If x is not an object of "specr.setup" and simply a tibble, you
 #'    need to provide the data set that should be used. Defaults to NULL as it is
-#'    assumend that most users will create an object of class "specr.setup" that they'll
+#'    assumed that most users will create an object of class "specr.setup" that they'll
 #'    pass to `specr()`.
 #' @param ... Further arguments that can be passed to \code{future_pmap}. This only becomes
-#'    important if parallelization is used. For example, if a custom model function is used
-#'    this involves passing `furrr_options` passing to the argument `.options`.
+#'    important if parallelization is used (they are ignored if the specifications are
+#'    fitted sequentially). For example, `furrr_options` can be passed to the argument `.options`.
 #'    When a plan for parallelization is set, one can also set `.progress = TRUE`
 #'    to print a progress bar during the fitting process. See details for more information
 #'    on parallelization.
@@ -24,17 +24,17 @@
 #'   with all specifications their respective results along with many other useful
 #'   information about the model. Parameters are extracted via the function passed
 #'   to \code{setup}. By default this is \code{broom::tidy()} and the function
-#'   \code{broom::glance()}).Several other aspects and information are included in
+#'   \code{broom::glance()}. Several other aspects and information are included in
 #'   the resulting class (e.g., number of specifications, time elapsed, subsets
 #'   included in the analyses). Use \code{methods(class = "specr.object")} for
 #'   an overview on available methods.
 #'
 #' @details Empirical results are often contingent on analytical decisions that
 #'    are equally defensible, often arbitrary, and motivated by different reasons.
-#'    This decisions may introduce bias or at least variability. To this end,
+#'    These decisions may introduce bias or at least variability. To this end,
 #'    specification curve analyses  (Simonsohn et al., 2020) or multiverse
 #'    analyses (Steegen et al., 2016) refer to identifying the set of
-#'    theoretically justified, statistically valid (and potentially also non-redundant
+#'    theoretically justified, statistically valid (and potentially also non-redundant)
 #'    specifications, fitting the "multiverse" of models represented by these
 #'    specifications and extract relevant parameters often to display the results
 #'    graphically as a so-called specification curve. This allows readers to
@@ -43,7 +43,7 @@
 #'
 #'    \bold{Use of this function}
 #'
-#'    A general overview is provided in the vignettes \code{vignette("specr")}.
+#'    A general overview is provided in the vignette \code{vignette("getting-started")}.
 #'    Generally, you create relevant specification using the function \code{setup()}.
 #'    You then pass the resulting object of a class \code{specr.setup} to the
 #'    present function \code{specr()} to run the specification curve analysis.
@@ -60,7 +60,7 @@
 #'    and the number of specifications is large, it can make sense to parallelize
 #'    these operations. One simply has to load the package `furrr` (which
 #'    in turn, builds on `future`) up front. Then parallelizing the fitting process
-#'    works as specified in the package description of `furr`/`future` by setting a
+#'    works as specified in the package description of `furrr`/`future` by setting a
 #'    "plan" before running `specr` such as:
 #'
 #'    `plan(multisession, workers = 4)`

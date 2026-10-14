@@ -7,7 +7,12 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-This vignette exemplifies different ways to plot results from specification curve analyses. Since version 0.3.0, running the function `specr()` creates an object of class `specr.object`, which can be investigated and plotted using generic function (e.g., `summary()` and `plot()`. For most cases, simply wrapping the function `plot()` around the results will already create a comprehensive visualization. However, more specific customization is possible if we use specify the argument `type` (e.g., `type = "curve"`). Different types are available. All of resulting plots are objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html), which means they can be customized and adjusted further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html). specr also exports the function `plot_grid()` from the package `cowplot`, which can be used to combine different types of plots. 
+```{r, include = FALSE}
+# Evaluate the code only if the suggested packages are installed
+knitr::opts_chunk$set(eval = requireNamespace("tidyverse", quietly = TRUE))
+```
+
+This vignette exemplifies different ways to plot results from specification curve analyses. Since version 1.0.0, running the function `specr()` creates an object of class `specr.object`, which can be investigated and plotted using generic functions (e.g., `summary()` and `plot()`). For most cases, simply wrapping the function `plot()` around the results will already create a comprehensive visualization. However, more specific customization is possible if we specify the argument `type` (e.g., `type = "curve"`). Different types are available. All of resulting plots are objects of the class [ggplot](https://ggplot2.tidyverse.org/index.html), which means they can be customized and adjusted further using the grammar of graphics provided by the package [ggplot2](https://ggplot2.tidyverse.org/index.html). specr also exports the function `plot_grid()` from the package `cowplot`, which can be used to combine different types of plots. 
 
 # Specification curve analysis
 
@@ -38,7 +43,7 @@ We can see that we will estimate `r specs$n_specs` models.
 ## Fitting the models
 
 Next, we fit the models across these `r specs$n_specs` specifications. As this example
-won't take much time, we do not parallelize and stick to one core (by setting `workers = 1`).
+won't take much time, we do not parallelize (see `vignette("parallelization")` for how to do so).
 
 ```{r}
 # Running specification curve analysis 
@@ -49,15 +54,15 @@ results <- specr(specs)
 
 Let's quickly get some ideas about the specification curve by using the generic `summary()` function. 
 
-```{r, message = F, warnings = F}
+```{r, message = F, warning = F}
 # Overall summary
 summary(results)
 ```
 
-The median effect size is b = 0.13 (mad = 0.45). Sample sizes range from 250 to 1000 (the full data set). We can also summarize different aspects in more detail. For example, by add `type = "curve"`, we are able to produce descriptive summaries of the multiverse of parameters.  
+The median effect size is b = `r round(median(results$data$estimate), 2)` (mad = `r round(mad(results$data$estimate), 2)`). Sample sizes range from `r min(results$data$fit_nobs)` to `r max(results$data$fit_nobs)` (the full data set). We can also summarize different aspects in more detail. For example, by adding `type = "curve"`, we are able to produce descriptive summaries of the multiverse of parameters.  
 
 
-```{r, message = F, warnings = F}
+```{r, message = F, warning = F}
 # Specific descriptive analysis of the curve, grouped by x and y
 summary(results, 
         type = "curve", 
@@ -68,7 +73,7 @@ We see that it makes quite a difference what variables are actually used to esti
 
 # Visualizations
 
-The primary goal of this vignette is to provide some examples of how these results - and specifically the specification curve - can be visualized. Because received an object of class `specr.object`, we can create most visualizations using the generic `plot()` function. Different plots can be created by changing the argument `type` (e.g., `type = "boxplot"`). 
+The primary goal of this vignette is to provide some examples of how these results - and specifically the specification curve - can be visualized. Because we received an object of class `specr.object`, we can create most visualizations using the generic `plot()` function. Different plots can be created by changing the argument `type` (e.g., `type = "boxplot"`). 
 
 ## Comprehensive standard visualization
 
@@ -100,9 +105,9 @@ plot(results,
 
 ## More advanced customization
 
-### Plot curve and choices seperately
+### Plot curve and choices separately
 
-Using `plot(x, type = "default")` is not very flexible. It is designed to provided a quick, but meaningful visualization that covers the most important aspects of the analysis. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots (using ggplot-functions!) 
+Using `plot(x, type = "default")` is not very flexible. It is designed to provide a quick, but meaningful visualization that covers the most important aspects of the analysis. Alternatively, we can plot the specification curve and the choice panel individually and bind them together afterwards. This is useful as it allows us to customize and change both individual plots (using ggplot-functions!) 
 
 ```{r, fig.height=8, fig.width=8, message=F, warning = F}
 # Plot specification curve
@@ -131,7 +136,7 @@ plot_grid(p1, p2,
 
 ### Include sample size histogram
 
-By default, we do not know how many participants were included in each specification. If you removed missing values listwise beforhand, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. Using `plot(x, type = "samplesizes")`, we get a barplot that shows the sample size per specification. 
+By default, we do not know how many participants were included in each specification. If you removed missing values listwise beforehand, this may not be a big problem as all models are based on the same subsample. If you have missing values in your dataset and you did not impute them or delete them listwise, we should investigate how many participants were included in each specification. Using `plot(x, type = "samplesizes")`, we get a barplot that shows the sample size per specification. 
 
 ```{r, fig.height=8.5, fig.width=8, message=F, warning = F}
 p3 <- plot(results, type = "samplesizes") 
@@ -147,10 +152,10 @@ plot_grid(p1, p2, p3,
 
 ## Alternative way to visualize specification results
 
-Although the above created figure is by far the most used in studies using specification curve analysis, there are alternative ways to visualize the results. As the parameters resulting from the different specifications are in fact a distribution of parameters, a box-n-whisker plot (short "boxplot") is a great alternative to investigate differences in results contingent on analytical chocies. We simply have to use the argument `type = "boxplot"` to create such plots. 
+Although the above created figure is by far the most used in studies using specification curve analysis, there are alternative ways to visualize the results. As the parameters resulting from the different specifications are in fact a distribution of parameters, a box-n-whisker plot (short "boxplot") is a great alternative to investigate differences in results contingent on analytical choices. We simply have to use the argument `type = "boxplot"` to create such plots. 
 
 ```{r, message = F, warning = F}
-# ALl choices
+# All choices
 plot(results, 
      type = "boxplot") 
 

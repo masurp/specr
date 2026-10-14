@@ -6,6 +6,15 @@
 \usage{
 \method{print}{specr.infer}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.infer".}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
+}
+\value{
+Prints technical details and the test statistics (see
+\code{\link[=summary.specr.infer]{summary.specr.infer()}}) and returns \code{x} invisibly.
+}
 \description{
 Print method for S3 class "specr.infer"
 }

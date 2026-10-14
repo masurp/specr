@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
   comment = "#>",
   #fig.path = "man/figures/README-",
   out.width = "100%",
-  fig.retina = 2
+  fig.retina = 2,
+  # Evaluate the code only if the suggested packages are installed
+  eval = requireNamespace("tidyverse", quietly = TRUE)
 )
 ```
 
@@ -28,16 +30,12 @@ The issue is as follows: Multiverse or specification curve analyses can serve di
 effect estimates in a sea of unjustified alternatives." (Del Giudice & Gangestad, 2021, p. 2).
 
 
-For these reasons, we have been, and continue to be, concerned that tools for such an inference test could be misused or lead to improperly conducted robustness tests. Nevertheless, due to frequent inquiries, we have now integrated a function called `infer_curve()` in the latest development version of `specr`. It implements the procedure described in the section "Inference with non-experimental data" of the paper by Simonsohn et al. (2020).
+For these reasons, we have been, and continue to be, concerned that tools for such an inference test could be misused or lead to improperly conducted robustness tests. Nevertheless, due to frequent inquiries, we have integrated a function called `infer_curve()` in `specr` (since version 1.1.0). It implements the procedure described in the section "Inference with non-experimental data" of the paper by Simonsohn et al. (2020).
 
 
 # How it works
 
-The idea behind this inference approach is that one forces the null on the data. Have a look at the following section of the Simonsohn et al. (2020) paper (p. 1213):
-
-```{r, out.width="45%", echo = F}
-knitr::include_graphics("https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png")
-```
+The idea behind this inference approach is that one forces the null on the data: for non-experimental data, Simonsohn et al. (2020, p. 1213) propose to modify the dependent variable of each specification such that the estimated effect becomes exactly zero, and then to draw bootstrap samples from these modified data. As the null hypothesis is true in these data by construction, the specification curves estimated in the bootstrap samples show what the curve would look like if there were no effect.
 
 In `infer_curve()`, this works as follows:
 
@@ -158,6 +156,7 @@ As we can see, the observed curve is clearly different from the curves that woul
 To illustrate what the results look like if there is no effect, we shuffle the dependent variable, which removes any relationship between `y1` and the other variables, and repeat the analysis.
 
 ```{r}
+set.seed(1)
 shuffled <- example_data
 shuffled$y1 <- sample(shuffled$y1)
 
@@ -175,7 +174,7 @@ inference_null <- infer_curve(results_null, specs_null, n_samples = 1000)
 summary(inference_null)
 ```
 
-Now, the observed statistics lie within the range of the statistics under the null, and the p-values are not significant. Accordingly, the observed curve lies within the curves under the null:
+Now, the observed statistics lie within the range of the statistics under the null, and the p-values are not significant. Accordingly, the observed curve lies within the curves under the null (note, however, that also in data without any effect, about 5% of such analyses yield p-values below .05 by chance):
 
 ```{r, fig.width=9, fig.height = 5, warning = F}
 plot(inference_null)

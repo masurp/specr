@@ -13,7 +13,9 @@ knitr::opts_chunk$set(
   comment = "#>",
   #fig.path = "man/figures/README-",
   out.width = "100%",
-  fig.retina = 2
+  fig.retina = 2,
+  # Evaluate the code only if the suggested packages are installed
+  eval = requireNamespace("tidyverse", quietly = TRUE) && requireNamespace("performance", quietly = TRUE)
 )
 ```
 
@@ -82,7 +84,7 @@ Or we could get r-squared values for both models (here using the function `r2()`
 ```{r}
 y_models %>%
   pull(res) %>% 
-  map(r2)       # r2 is include in the package "performance"
+  map(r2)       # r2 is included in the package "performance"
 ```
 
 
@@ -114,7 +116,7 @@ r2_results %>%
   geom_line() +
   theme_minimal() +
   theme(strip.text = element_blank(),
-        axis.line = element_line("black", size = .5),
+        axis.line = element_line("black", linewidth = .5),
         axis.text = element_text(colour = "black"))
 ```
 

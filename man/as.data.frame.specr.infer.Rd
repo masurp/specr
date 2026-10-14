@@ -6,6 +6,15 @@
 \usage{
 \method{as.data.frame}{specr.infer}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.infer".}
+
+\item{...}{further arguments passed to \code{\link[=as.data.frame]{as.data.frame()}}.}
+}
+\value{
+A data frame with the estimates and p-values under the null (one row
+per bootstrap sample and specification).
+}
 \description{
 Return data.frame from specr.infer
 }

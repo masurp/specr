@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 ```
 
 
-The following vignette is a more comprehensive version of the short example on the homepage and exemplifies how to use the core functions of this package. Although using specr strictly speaking does not require any other package, we recommend to also load the [tidyverse](https://www.tidyverse.org/) as it provides valuable functions for data wrangling and adapting outputs from specr functions. Furthermore, the tidyverse includes [ggplot2](https://ggplot2.tidyverse.org/) which can be used to modify the layout of the plots. 
+The following vignette is a more comprehensive version of the short example on the homepage and exemplifies how to use the core functions of this package. Although using specr strictly speaking does not require any other package, we recommend to also load the [tidyverse](https://tidyverse.org/) as it provides valuable functions for data wrangling and adapting outputs from specr functions. Furthermore, the tidyverse includes [ggplot2](https://ggplot2.tidyverse.org/) which can be used to modify the layout of the plots. 
 
 ```{r, message=F, warning = F}
 # Load library
@@ -35,7 +35,7 @@ In order to understand what type of analytical choices exists and how they could
 head(example_data)
 ```
 
-In this example, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. Note that these variables are `characters`. To use them as grouping variables later, they need to be such character-variables. Numeric variables will not work and need to be transformed beforehand. 
+In this example, we assume that `x` represents independent variables, `y` represents dependent variables, `c` represents control variables, and `group` denotes potential grouping variables that can be used for subsetting the data. The independent variables should be numeric, as specr extracts the estimate of the term that equals `x` (factors would result in terms such as "xB"; recode them as dummy variables instead). Grouping variables, in contrast, can be character, factor, or numeric variables. 
 
 ## Defining analytical choices
 
@@ -55,10 +55,10 @@ lm_gaussian <- function(formula, data) {
 
 # Specifying the analytic decisions
 specs <- setup(data = example_data,            # First, we provide the data set
-               y = c("y1", "y2"),              # We choose only one dependent variable
+               y = c("y1", "y2"),              # Two dependent variables
                x = c("x1", "x2"),              # Two independent variables
                model = c("lm", "lm_gaussian"), # We estimate two types of models
-               controls = c("c1", "c2"),       # We include two control variable 
+               controls = c("c1", "c2"),       # We include two control variables
                subsets = list(group1 = unique(example_data$group1),  # Subset 1
                               group2 = unique(example_data$group2))) # Subset 2
                       
@@ -67,7 +67,7 @@ specs <- setup(data = example_data,            # First, we provide the data set
 summary(specs, rows = 20)
 ```
 
-The resulting S3 class ("specr.setup") includes a data frame with 96 different specifications. We can also see that the analysis will use the function `tidy()` from the [broom](https://broom.tidymodels.org/) package to extract parameters from the models. 
+The resulting S3 class ("specr.setup") includes a data frame with `r nrow(specs$specs)` different specifications. We can also see that the analysis will use the function `tidy()` from the [broom](https://broom.tidymodels.org/) package to extract parameters from the models. 
 
 We can also get a "visual summary" of the specifications and the resulting "garden of forking paths" using the generic `plot()` function. 
 
@@ -77,7 +77,7 @@ plot(specs, circular = TRUE)
 
 ## Fit models across specifications
 
-The main function of the package is `specr()`. We simply pass the `specs`-object created above and specify the number of cores that should be use in evaluating all models. A good first check is to use the `summary()` function to get an overview of results. 
+The main function of the package is `specr()`. We simply pass the `specs`-object created above (to fit the models in parallel, see `vignette("parallelization")`). A good first check is to use the `summary()` function to get an overview of results. 
 
 ```{r, message=F, warning = F}
 # Run specification curve analysis
@@ -87,7 +87,7 @@ results <- specr(specs)
 summary(results)
 ```
 
-The resulting S3 class (`specr.object") includes relevant aspects of the specification curve analysis and a tibble that includes results for all specifications. We get a short descriptive summary of the specification curve, the sample sizes and an overview of the first 6 rows of the actual results. 
+The resulting S3 class ("specr.object") includes relevant aspects of the specification curve analysis and a tibble that includes results for all specifications. We get a short descriptive summary of the specification curve, the sample sizes and an overview of the first 6 rows of the actual results. 
 
 
 ## Investigating the specification curve
@@ -125,7 +125,7 @@ plot(results)
 
 The resulting plot includes the ranked specification curve (A) and an overview about how the different analytical choices affect the estimate of interest (B). Red represents negative and significant effects (based on the chosen significance level, by default $\alpha = .05$). Blue represents positive and significant effects. Grey refers to non-significant effects. 
 
-We can also just plot the curve and adjust the style and layout using ggplot2 functions. Here, I am also order the curve by control variables and rank them in a descending order. 
+We can also just plot the curve and adjust the style and layout using ggplot2 functions. Here, I also order the curve by control variables and rank them in a descending order. 
 
 ```{r, fig.height=5, fig.width=10, message=F, warning = F}
 # Plot 

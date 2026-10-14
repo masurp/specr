@@ -17,13 +17,14 @@
 )
 }
 \arguments{
-\item{object}{An object of class "specr", usually resulting of a call to \code{specr}.}
+\item{object}{An object of class "specr.object", usually resulting of a call to \code{specr}.}
 
-\item{type}{Different aspects can be summarized and printed. See details for alternative summaries}
+\item{type}{What should be summarized? Either \code{"default"} (printed summary of the
+whole analysis) or \code{"curve"} (tibble with descriptive statistics of the curve).}
 
-\item{group}{In combination with \code{what = "curve"}, provide a vector of one or more variables (e.g., subsets, controls,...) that denote the available analytic choices to group summary of the estimate.}
+\item{group}{In combination with \code{type = "curve"}, a character vector of one or more variables (e.g., "subsets", "controls",...) that denote the available analytic choices to group the summary of the estimate.}
 
-\item{var}{In combination with \code{what = "curve"}, unquoted name of parameter to be summarized. Defaults to estimate.}
+\item{var}{Unquoted name of the parameter to be summarized. Defaults to estimate.}
 
 \item{stats}{Named vector or named list of summary functions (individually defined summary functions can included). If it is not named, placeholders (e.g., "fn1") will be used as column names.}
 
@@ -34,13 +35,17 @@
 \item{...}{further arguments passed to or from other methods (currently ignored).}
 }
 \value{
-A printed summary of an object of class \code{specr.object}.
+For \code{type = "default"}, a printed summary of an object of class
+\code{specr.object}, which is returned invisibly. For \code{type = "curve"}, a tibble
+with the descriptive statistics (and the median sample size \code{obs}, if available).
 }
 \description{
-\code{summary} method for class "specr". It provides a printed output including
-technical details (e.g., cores used, duration of the fitting process, number
-of specifications), a descriptive analysis of the overall specification curve,
-a descriptive summary of the resulting sample sizes, and a head of the results.
+\code{summary} method for class "specr.object". With \code{type = "default"}, it provides
+a printed output including technical details (e.g., cores used, duration of the
+fitting process, number of specifications), a descriptive analysis of the overall
+specification curve, a descriptive summary of the resulting sample sizes, and a
+head of the results. With \code{type = "curve"}, it returns descriptive statistics of
+the specification curve (overall or for groups of specifications).
 }
 \examples{
 # Setup up specifications (returns object of class "specr.setup")
@@ -74,5 +79,5 @@ summary(results,
                     max = max))
 }
 \seealso{
-The function used to create the "specr.setup" object: \code{setup}.
+The function used to create the "specr.object" object: \code{\link[=specr]{specr()}}.
 }

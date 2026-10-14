@@ -6,6 +6,14 @@
 \usage{
 \method{print}{specr.setup}(x, ...)
 }
+\arguments{
+\item{x}{An object of class "specr.setup".}
+
+\item{...}{further arguments passed to or from other methods (currently ignored).}
+}
+\value{
+Prints the number of specifications and returns \code{x} invisibly.
+}
 \description{
 Print method for S3 class "specr.setup"
 }

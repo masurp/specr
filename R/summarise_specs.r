@@ -40,7 +40,7 @@
 #'                              min = min,
 #'                              max = max))
 #'
-#' # Unnamed vector instead of named list passed to `stats`
+#' # Named vector instead of named list passed to `stats`
 #' summarise_specs(results,
 #'                 controls,
 #'                 stats = c(mean = mean,
