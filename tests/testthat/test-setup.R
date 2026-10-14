@@ -1,9 +1,7 @@
-context("setup")
-
 # Test 1:
 
 test_that("setup returns an object of class specr.setup", {
-  expect_is(specr::setup(data = example_data,
+  expect_s3_class(specr::setup(data = example_data,
                   x = c("x1", "x2"),
                   y = c("y1", "y2"),
                   model = "lm",

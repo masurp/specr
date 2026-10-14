@@ -44,12 +44,14 @@ Suggests:
     ggridges,
     knitr,
     lavaan,
-    testthat,
+    testthat (>= 3.0.0),
     tidyverse,
     performance,
-    rmarkdown
+    rmarkdown,
+    withr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 VignetteBuilder: knitr
+Config/testthat/edition: 3

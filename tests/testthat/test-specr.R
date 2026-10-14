@@ -1,10 +1,5 @@
-context("specr")
-
-specs <- specr::setup(data = example_data,
-      x = c("x1", "x2"),
-      y = c("y1"),
-      model = "lm",
-      controls = c("c1"))
+# Fixtures: see helper-specs.R
+specs <- specs_simple
 
 
 # test 1: check that the function returns an object of class 'specr.object'

@@ -1,14 +1,6 @@
-context("infer_curve")
-
-specs <- setup(data = example_data,
-               x = c("x1", "x2"),
-               y = c("y1", "y2"),
-               model = "lm",
-               controls = c("c1", "c2"))
-results <- specr(specs)
-
-set.seed(1)
-inference <- infer_curve(results, specs, n_samples = 50)
+# Fixtures (incl. `inference`): see helper-specs.R
+specs <- specs_infer
+results <- results_infer
 
 
 # Structure ----
