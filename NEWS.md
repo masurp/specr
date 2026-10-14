@@ -34,6 +34,24 @@ Development version released: 2024-05-222
 
 * In `specr()`, rows with missing values in a subset variable are now excluded from the subset analyses (previously, they were passed to the model as rows of missing values, which most models dropped anyway).
 
+* `setup()` matched control variables against `x` and `y` as text patterns, so that e.g. a control `x10` was silently dropped from all specifications with `x = "x1"`. Control variables are now matched exactly. Specifications in which `x` and `y` are the same variable are now excluded.
+
+* `setup()` built the labels of subset combinations by removing the text "NA" from them, which garbled values containing "NA" (e.g., "DNA" became "D") and turned a value "NA" into "all". Missing values among the subset values (e.g., from `unique()`) are now ignored, and `subsets` is checked for unnamed, unknown, reserved, or duplicated entries, with informative errors instead of failures in `specr()`.
+
+* `setup()` gives an informative error if `model` is not a character vector.
+
+* The model functions in the specifications kept a reference to the internal environment of `setup()`, so that saved results contained an extra copy of the data. This no longer happens, which makes results objects much smaller.
+
+* With `fun2 = NULL`, the sample size (`fit_nobs`) is now obtained with `nobs()` instead of `broom::glance()`, so that it also works for models without a `glance()` method.
+
+* `specr()` reported durations of more than a minute in minutes but labelled them as seconds. It now warns if specifications return no estimate for the independent variable (e.g., if `x` is a factor; GitHub issue #47) instead of silently dropping them, and if `data` is given together with a specification setup (in which case it is ignored).
+
+* Plots failed if the results contained a column named `df` (e.g., models fitted with `lmerTest`; GitHub issue #48).
+
+* `plot(..., type = "boxplot")`, `"variance"` and `"samplesizes"` no longer require confidence intervals, and `summary()` and `plot()` no longer fail if the results contain no sample sizes. Invalid values of `type` now give an error instead of returning `NULL`. The argument `group` of `plot()` can now also be given as a string, as in `summary()`, and grouped summaries (`summary(..., type = "curve", group = ...)`) are no longer returned as grouped tibbles.
+
+* `print()` of a specification setup now counts the specifications after filtering, the summary of a setup always prints the head of the specifications table, and all `print()` and `summary()` methods return their input invisibly.
+
 # specr 1.0.0
 
 CRAN release: 2023-01-20

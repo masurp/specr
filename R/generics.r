@@ -45,7 +45,7 @@ summary.specr.setup <- function(object,
   cat("  Independent variable:    ", paste0(unique(object$x), collapse = ", "), "\n")
   cat("  Dependent variable:      ", paste0(unique(object$y), collapse = ", "), "\n")
   cat("  Models:                  ", paste0(unique(object$model), collapse = ", "), "\n")
-  cat("  Covariates:              ", sub("\\b1\\b", "1 (none)", paste0(unique(object$specs$controls), collapse = ", ")), "\n")
+  cat("  Covariates:              ", paste0(unique(object$specs$controls), collapse = ", "), "\n")
   cat("  Subsets analyses:        ", paste0(unique(object$specs$subsets), collapse = ", "), "\n\n")
 
 
@@ -58,8 +58,11 @@ summary.specr.setup <- function(object,
   object$specs %>%
     select(-.data$model_function) %>%
     mutate_if(is.numeric, round, digits) %>%
-    utils::head(n = rows)
+    utils::head(n = rows) %>%
+    print
   }
+
+  invisible(object)
 }
 
 #' Print method for S3 class "specr.setup"
@@ -67,8 +70,9 @@ summary.specr.setup <- function(object,
 #' @export
 print.specr.setup <- function(x, ...) {
 
-  cat("Number of specifications: ", as.numeric(x$n_specs), "\n\n")
+  cat("Number of specifications: ", nrow(x$specs), "\n\n")
 
+  invisible(x)
 }
 
 #' Plot visualization of the specification setup
@@ -257,6 +261,10 @@ summary.specr.object <- function(object,
                                  ...){
 
   var <- enquo(var)
+  type <- match.arg(type, c("default", "curve"))
+
+  # Sample sizes are only available if extracted (see `fun2` in setup())
+  has_nobs <- "fit_nobs" %in% names(object$data)
 
   if(type == "default") {
 
@@ -282,6 +290,7 @@ summary.specr.object <- function(object,
     cat("\n")
 
     # Head of the result table
+    if (has_nobs) {
     cat("Descriptive summary of sample sizes: \n\n")
     des2 <- object$data %>%
       summarize(median = median(.data$fit_nobs),
@@ -292,6 +301,7 @@ summary.specr.object <- function(object,
     print(des2, row.names = FALSE)
 
     cat("\n")
+    }
 
     # Head of the result table
     cat("Head of the specification results (first", rows, "rows): \n\n")
@@ -300,31 +310,45 @@ summary.specr.object <- function(object,
       mutate_if(is.numeric, round, digits) %>%
       utils::head(n = rows) %>%
       print
+
+    return(invisible(object))
   }
 
   if(type == "curve") {
 
     if (length(group) == 0) {
 
-      dplyr::bind_cols(
-        object$data %>%
-          summarize_at(vars(!! var), stats),
-        object$data %>%
-          dplyr::summarize(obs = median(.data$fit_nobs))
-      )
+      res <- object$data %>%
+        summarize_at(vars(!! var), stats)
+
+      if (has_nobs) {
+        res <- dplyr::bind_cols(
+          res,
+          object$data %>%
+            dplyr::summarize(obs = median(.data$fit_nobs))
+        )
+      }
 
     } else {
 
-      dplyr::left_join(
-        object$data %>%
-          dplyr::group_by_at(group) %>%
-          summarize_at(vars(!! var), stats),
-        object$data %>%
-          dplyr::group_by_at(group) %>%
-          dplyr::summarize(obs = median(.data$fit_nobs)),
-        by = group
-      )
+      res <- object$data %>%
+        dplyr::group_by_at(group) %>%
+        summarize_at(vars(!! var), stats) %>%
+        ungroup()
+
+      if (has_nobs) {
+        res <- dplyr::left_join(
+          res,
+          object$data %>%
+            dplyr::group_by_at(group) %>%
+            dplyr::summarize(obs = median(.data$fit_nobs)) %>%
+            ungroup(),
+          by = group
+        )
+      }
     }
+
+    return(res)
   }
 
 }
@@ -349,6 +373,7 @@ print.specr.object <- function(x, ...) {
     round(2) %>%
     print(row.names = FALSE)
 
+  invisible(x)
 }
 
 
@@ -491,8 +516,16 @@ plot.specr.object <- function(x,
 
   var <- enquo(var)
   group <- enquo(group)
+  type <- match.arg(type, c("default", "curve", "choices", "boxplot", "variance", "samplesizes"))
 
-  # Create specification curve plot
+  # `group` can also be given as a string (as in summary())
+  if (is.character(rlang::quo_get_expr(group))) {
+    group <- rlang::quo(!! rlang::sym(rlang::quo_get_expr(group)))
+  }
+
+  # Create specification curve plot (only if needed, as it requires confidence intervals)
+  if (type %in% c("default", "curve")) {
+
   plot_a <- x$data %>%
     format_results(var = var, group = group, null = null, desc = desc) %>%
     ggplot(aes(x = .data$specifications,
@@ -528,9 +561,12 @@ plot.specr.object <- function(x,
                   alpha = 0.25)
   }
 
+  }
 
-  # Create choice panel
+  # Create choice panel (only if needed)
   value <- key <- NULL
+
+  if (type %in% c("default", "choices")) {
 
   plot_b <- x$data %>%
     format_results(var = var, group = group, null = null, desc = desc) %>%
@@ -553,6 +589,8 @@ plot.specr.object <- function(x,
       axis.text = element_text(colour = "black"),
       strip.text.x = element_blank()) +
     labs(x = "", y = "")
+
+  }
 
   if(type == "default"){
 
@@ -683,6 +721,10 @@ plot.specr.object <- function(x,
   }
 
   if(type == "samplesizes") {
+
+    if (!"fit_nobs" %in% names(x$data)) {
+      stop("The results contain no sample sizes (`fit_nobs`), which are extracted with `fun2` in setup().")
+    }
 
     plot_e <- x$data %>%
       format_results(var = var, group = group, desc = desc) %>%

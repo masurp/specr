@@ -24,7 +24,7 @@
 #'    (e.g., `list(group2 = unique(example_data$group2`). Both approaches lead to the
 #'    same result. The former, however, has the advantages that one can also remove some of the
 #'    subgroups (e.g. `list(group2 = c("female")`). In this case, the specifications
-#'    will include "all" (no subset) and "only females". See examples for more details.
+#'    will include "all" (no subset) and "only females". See examples for more details. Missing values (NA) among the subset values are ignored.
 #' @param controls A vector of the control variables that should be included.
 #'    Defaults to NULL.
 #' @param add_to_formula A string specifying aspects that should always be
@@ -153,7 +153,7 @@ setup <- function(data,
                   fun2 = function(x) broom::glance(x),
                   simplify = FALSE) {
 
-  . <- group_var <- check <- check2 <- NULL
+  . <- group_var <- NULL
 
   if (rlang::is_missing(data)) {
     stop("You must provide the data set that should be used in the analyses.")
@@ -171,13 +171,46 @@ setup <- function(data,
     stop("You must name at least one model function (e.g., 'lm').")
   }
 
+  if (!is.character(model)) {
+    stop("`model` must be a character vector with the name(s) of the model function(s), e.g. \"lm\".")
+  }
+
   if (any(duplicated(x))| any(duplicated(y)) | any(duplicated(model)) | any(duplicated(controls))) {
     stop("Duplicate values in x, y, model, and controls are not allowed.")
   }
 
-  if (!is.null(subsets) & !inherits(subsets, "list")) {
+  if (!is.null(subsets) && !inherits(subsets, "list")) {
     stop("Subsets must be an object of class 'list'")
   }
+
+  if (!is.null(subsets)) {
+
+    if (is.null(names(subsets)) || any(names(subsets) == "") || any(duplicated(names(subsets)))) {
+      stop("Each element of `subsets` must be named after a grouping variable in the data, and names must be unique (e.g., `list(group2 = c(\"female\", \"male\"))`).")
+    }
+
+    reserved <- c("x", "y", "model", "controls", "subsets", "formula", "model_function")
+    if (any(names(subsets) %in% reserved)) {
+      stop("Subset variables cannot be named ", paste0("'", reserved, "'", collapse = ", "), ".")
+    }
+
+    if (!all(names(subsets) %in% names(data))) {
+      stop("The following subset variable(s) are not in the data: ",
+           paste(setdiff(names(subsets), names(data)), collapse = ", "), ".")
+    }
+
+    # NA is used internally for "all" (no subsetting)
+    subsets <- purrr::map(subsets, function(x) x[!is.na(x)])
+
+    if (any(purrr::map_lgl(subsets, function(x) any(duplicated(x))))) {
+      stop("Duplicate values within `subsets` are not allowed.")
+    }
+  }
+
+  # The default extraction functions should not keep the environment of this
+  # function (and thus a copy of the data) alive in every specification
+  if (missing(fun1)) environment(fun1) <- asNamespace("specr")
+  if (missing(fun2)) environment(fun2) <- asNamespace("specr")
 
   if(isTRUE(simplify)) {
     controls <- expand_covariate_simple(controls)
@@ -214,14 +247,13 @@ setup <- function(data,
 
 }
 
-  # Filter out non-meaningful specs (e.g., where control and independent are the same)
+  # Filter out non-meaningful specs (e.g., where independent and dependent variable,
+  # or a control and the independent or dependent variable, are the same). Controls
+  # are matched exactly, so that e.g. x1 does not exclude a control x10
   grid <- grid %>%
+    filter(x != y) %>%
     rowwise %>%
-    mutate(check = grepl(x, controls)) %>%
-    mutate(check2 = grepl(y, controls)) %>%
-    filter(isFALSE(check)) %>%
-    filter(isFALSE(check2)) %>%
-    select(-check, -check2) %>%
+    filter(!any(c(x, y) %in% strsplit(controls, " + ", fixed = TRUE)[[1]])) %>%
     ungroup
 
 
@@ -255,11 +287,9 @@ setup <- function(data,
     # Create subset variable (combination of group variables)
      grid <- grid %>%
        mutate(dplyr::across(all_of(subsets_names), ~ as.character(.))) %>%
-       tidyr::unite(subsets, all_of(subsets_names), sep = " & ", remove = FALSE) %>%
+       tidyr::unite(subsets, all_of(subsets_names), sep = " & ", remove = FALSE, na.rm = TRUE) %>%
        mutate(across(all_of(subsets_names),~ as.factor(.)),
-              subsets = stringr::str_remove_all(subsets, "NA & "),
-              subsets = stringr::str_remove_all(subsets, " & NA"),
-              subsets = ifelse(subsets == "NA", "all", subsets))
+              subsets = ifelse(subsets == "", "all", subsets))
 
   } else {
 

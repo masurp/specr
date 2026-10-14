@@ -159,3 +159,74 @@ test_that("setup creates object of class `specr.setup`", {
                  simplify = TRUE)
   expect_true(inherits(specs, "specr.setup"))
 })
+
+
+# Regression tests (overhaul phase 1) ----
+
+test_that("controls are matched exactly when excluding x and y", {
+  d <- example_data
+  d$x10 <- d$x1
+  s <- specr::setup(data = d, x = "x1", y = "y1", model = "lm",
+                    controls = c("x10", "c1"))
+  expect_true("x10" %in% s$specs$controls)
+  expect_equal(nrow(s$specs), 4)
+
+  # controls that are x or y are still excluded
+  s2 <- specr::setup(data = example_data, x = c("x1", "x2"), y = "y1", model = "lm",
+                     controls = c("x1", "c1"))
+  expect_false(any(s2$specs$x == "x1" & grepl("\\bx1\\b", s2$specs$controls)))
+})
+
+test_that("specifications where x and y are the same are excluded", {
+  s <- specr::setup(data = example_data, x = c("x1", "y1"), y = "y1", model = "lm")
+  expect_equal(s$specs$x, "x1")
+})
+
+test_that("subset labels are built from the values only", {
+  d <- example_data
+  d$grp <- rep(c("DNA", "NA", "RNA"), length.out = nrow(d))
+  s <- specr::setup(data = d, x = "x1", y = "y1", model = "lm",
+                    subsets = list(grp = c("DNA", "NA"), group2 = "female"))
+  expect_setequal(s$specs$subsets,
+                  c("DNA & female", "NA & female", "female", "DNA", "NA", "all"))
+  expect_equal(sum(s$specs$subsets == "all"), 1)
+})
+
+test_that("subsets are validated", {
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                            subsets = list(c("female"))),
+               "must be named")
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                            subsets = list(gruop2 = "female")),
+               "not in the data: gruop2")
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                            subsets = list(group2 = "female", group2 = "male")),
+               "must be named")
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                            subsets = list(model = "lm")),
+               "cannot be named")
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                            subsets = list(group2 = c("female", "female"))),
+               "Duplicate values within `subsets`")
+})
+
+test_that("missing values among the subset values are ignored", {
+  s <- specr::setup(data = example_data, x = "x1", y = "y1", model = "lm",
+                    subsets = list(group2 = c("female", NA)))
+  expect_equal(sort(s$specs$subsets), c("all", "female"))
+})
+
+test_that("model must be given as character", {
+  expect_error(specr::setup(data = example_data, x = "x1", y = "y1", model = lm),
+               "must be a character vector")
+})
+
+test_that("specifications do not keep a copy of the data", {
+  d <- example_data[rep(seq_len(nrow(example_data)), 5), ]
+  s <- specr::setup(data = d, x = c("x1", "x2"), y = "y1", model = "lm", controls = "c1")
+  size_data <- length(serialize(d, NULL))
+  # the setup contains the data once (not once more per default extraction function)
+  expect_lt(length(serialize(s, NULL)), 1.5 * size_data)
+  # the results contain no copy of the data
+  expect_lt(length(serialize(specr(s), NULL)), size_data / 2)
+})

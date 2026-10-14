@@ -40,7 +40,7 @@ the \code{unique} function to extract that vector directly from the data set
 (e.g., \verb{list(group2 = unique(example_data$group2}). Both approaches lead to the
 same result. The former, however, has the advantages that one can also remove some of the
 subgroups (e.g. \verb{list(group2 = c("female")}). In this case, the specifications
-will include "all" (no subset) and "only females". See examples for more details.}
+will include "all" (no subset) and "only females". See examples for more details. Missing values (NA) among the subset values are ignored.}
 
 \item{add_to_formula}{A string specifying aspects that should always be
 included in the formula (e.g. a constant covariate, random effect structures...)}

@@ -136,19 +136,22 @@ specr <- function(x,
 
   . <- out <- term <- y <- NULL
 
-  if(!inherits(x, c("specr.setup", "tbl_df", "tbl", "data.frame"))) {
+  if(!inherits(x, c("specr.setup", "data.frame"))) {
     stop("You need to provide an object of class 'specr.setup' (or a tibble or data frame of the specification setup).\n  Use 'setup()' to create such a specification setup.")
   }
 
-  if(isTRUE(any(c("tbl_df", "tbl", "data.frame") %in% class(x))) & is.null(data)) {
+  if(!inherits(x, "specr.setup") && is.null(data)) {
     stop("You provided a tibble or data.frame with all the specifications. In that case, you also need to provide the data set that should be used for the analyses.")
   }
 
-  # Collect data and subsets
-  if("specr.setup" %in% class(x)) {
+  if(inherits(x, "specr.setup") && !is.null(data)) {
+    warning("`data` is ignored, because the data set is taken from the specification setup.", call. = FALSE)
+  }
+
+  # Collect data and specifications
+  if(inherits(x, "specr.setup")) {
 
     data <- x$data
-    subsets <- x$subsets
     specs <- x$specs
 
   } else {
@@ -157,9 +160,15 @@ specr <- function(x,
 
   }
 
-  # Fit one specification (a row of the specification grid). The subset columns
-  # are the factor columns; the helper is bound locally so that parallel workers
-  # receive it together with this function
+  # Subset columns are the factor columns (see setup()) that refer to variables
+  # in the data
+  sub_cols <- names(specs)[vapply(specs, is.factor, logical(1)) & names(specs) %in% names(data)]
+
+  # Number the specifications to detect those that return no parameter for x
+  specs$.spec_id <- seq_len(nrow(specs))
+
+  # Fit one specification (a row of the specification grid). The helper is bound
+  # locally so that parallel workers receive it together with this function
   subset_mask <- spec_subset_mask
 
   fit_spec <- function(...) {
@@ -168,7 +177,7 @@ specr <- function(x,
     l = list(...)
 
     # Create relevant subset
-    s <- subset_mask(l, data, names(l)[vapply(l, is.factor, logical(1))])
+    s <- subset_mask(l, data, sub_cols)
 
     do.call(
       what = l$model_function,
@@ -202,13 +211,22 @@ specr <- function(x,
       dplyr::filter(term == x)
   }
 
+  # Warn about specifications that did not return a parameter for x
+  n_dropped <- nrow(specs) - length(unique(res$.spec_id))
+  if (n_dropped > 0) {
+    warning(n_dropped, " of ", nrow(specs), " specification(s) returned no estimate for the independent variable ",
+            "(no term equal to `x`) and were dropped. This happens, for example, if `x` is a factor or ",
+            "character variable (with terms such as 'xB'). Please recode such variables as numeric ",
+            "(e.g., dummy) variables.", call. = FALSE)
+  }
+  res$.spec_id <- NULL
+
   # Compute time
-  end <- Sys.time()
-  time <- end-start
+  time <- difftime(Sys.time(), start, units = "secs")
   time <- paste(round(as.numeric(time), 3), "sec elapsed")
 
-  # Create S2 class
-  if(class(x)[1] == "specr.setup") {
+  # Create S3 class
+  if(inherits(x, "specr.setup")) {
 
   # Create S3 class
   output <- list(data = res,
