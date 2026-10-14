@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 
 <div style = "padding-top:1em; padding-bottom: 0.5em;">
-<img src="man/figures/specr_logo.png" width = 135 align="right" />
+<img src="man/figures/specr_logo.png" width = 135 align="right" alt="specr logo" />
 </div>
 
 
@@ -71,7 +71,7 @@ devtools::install_github("masurp/specr")
 
 Using specr is comparatively simple. The two main functions are `setup()`, in which analytic choices are specified as arguments, and `specr()`, which fits the models across all specifications. The latter creates a class called "specr.object", which can be summarized and plotted with generic function such as `summary` or `plot`. 
 
-```{r, message=F, warning = F, fig.height=10, fig.width=10}
+```{r, message=F, warning = F, fig.height=10, fig.width=10, fig.alt = "Specification curve (estimates ranked from lowest to highest with confidence intervals) and the analytical choices of each specification"}
 # Load package ----
 library(specr)
 

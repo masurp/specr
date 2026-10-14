@@ -1,8 +1,8 @@
 destination: docs
-url: https://masurp.github.io/specr/index.html
+url: https://masurp.github.io/specr/
 
 template:
-  params:
+  bootstrap: 5
   bootswatch: lumen
 
 reference:
@@ -50,36 +50,33 @@ navbar:
   structure:
     left:  [intro, reference, articles, news]
     right: [search, github]
-  type: default
-  left:
-  - text: Getting started
-    href: articles/getting-started.html
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-    - text: Basics
-    - text: Setting up different types of specifications
-      href: articles/different-specifications.html
-    - text: Visualizing specification curve analyses
-      href: articles/custom-plot.html
-    - text: Investigating specific specifications
-      href: articles/invest-spec.html
-    - text: Inferences with specification curve analysis
-      href: articles/inferences.html
-    - text: Parallelization
-      href: articles/parallelization.html
-    - text: -------
-    - text: Incorporating specific models
-    - text: Structural equation models
-      href: articles/measurement-models.html
-    - text: Multilevel models
-      href: articles/multilevel-models.html
-    - text: Bayesian models
-      href: articles/parallel-bayesian-models.html
-  - text: News
-    href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/masurp/specr
-
+  components:
+    intro:
+      text: Getting started
+      href: articles/getting-started.html
+    articles:
+      text: Articles
+      menu:
+      - text: Basics
+      - text: Setting up different types of specifications
+        href: articles/different-specifications.html
+      - text: Visualizing specification curve analyses
+        href: articles/custom-plot.html
+      - text: Investigating specific specifications
+        href: articles/invest-spec.html
+      - text: Inferences with specification curve analysis
+        href: articles/inferences.html
+      - text: Parallelization
+        href: articles/parallelization.html
+      - text: -------
+      - text: Incorporating specific models
+      - text: Structural equation models
+        href: articles/measurement-models.html
+      - text: Multilevel models
+        href: articles/multilevel-models.html
+      - text: Bayesian models
+        href: articles/parallel-bayesian-models.html
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/masurp/specr
+      aria-label: GitHub

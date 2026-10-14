@@ -4,122 +4,83 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Using parallelization • specr</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Using parallelization">
-<!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
-<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Using parallelization">
 </head>
-<body data-spy="scroll" data-target="#toc">
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">specr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
-      </span>
-    </div>
+    <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../articles/getting-started.html">Getting started</a>
-</li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Articles
+    <a class="navbar-brand me-2" href="../index.html">specr</a>
 
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li class="dropdown-header">Basics</li>
-    <li>
-      <a href="../articles/different-specifications.html">Setting up different types of specifications</a>
-    </li>
-    <li>
-      <a href="../articles/custom-plot.html">Visualizing specification curve analyses</a>
-    </li>
-    <li>
-      <a href="../articles/invest-spec.html">Investigating specific specifications</a>
-    </li>
-    <li>
-      <a href="../articles/inferences.html">Inferences with specification curve analysis</a>
-    </li>
-    <li>
-      <a href="../articles/parallelization.html">Parallelization</a>
-    </li>
-    <li class="divider">
-    </li>
-<li class="dropdown-header">Incorporating specific models</li>
-    <li>
-      <a href="../articles/measurement-models.html">Structural equation models</a>
-    </li>
-    <li>
-      <a href="../articles/multilevel-models.html">Multilevel models</a>
-    </li>
-    <li>
-      <a href="../articles/parallel-bayesian-models.html">Bayesian models</a>
-    </li>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item"><a class="nav-link" href="../articles/getting-started.html">Getting started</a></li>
+<li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="active nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
+<li><h6 class="dropdown-header" data-toc-skip>Basics</h6></li>
+    <li><a class="dropdown-item" href="../articles/different-specifications.html">Setting up different types of specifications</a></li>
+    <li><a class="dropdown-item" href="../articles/custom-plot.html">Visualizing specification curve analyses</a></li>
+    <li><a class="dropdown-item" href="../articles/invest-spec.html">Investigating specific specifications</a></li>
+    <li><a class="dropdown-item" href="../articles/inferences.html">Inferences with specification curve analysis</a></li>
+    <li><a class="dropdown-item" href="../articles/parallelization.html">Parallelization</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><h6 class="dropdown-header" data-toc-skip>Incorporating specific models</h6></li>
+    <li><a class="dropdown-item" href="../articles/measurement-models.html">Structural equation models</a></li>
+    <li><a class="dropdown-item" href="../articles/multilevel-models.html">Multilevel models</a></li>
+    <li><a class="dropdown-item" href="../articles/parallel-bayesian-models.html">Bayesian models</a></li>
   </ul>
 </li>
-<li>
-  <a href="../news/index.html">News</a>
-</li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/masurp/specr" class="external-link">
-    <span class="fa fa-github fa-lg"></span>
-
-  </a>
-</li>
+<ul class="navbar-nav">
+<li class="nav-item"><form class="form-inline" role="search">
+ <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
+</form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/masurp/specr" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
-<!--/.nav-collapse -->
+
+
   </div>
-<!--/.container -->
-</div>
-<!--/.navbar -->
+</nav><div class="container template-article">
 
 
 
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Using parallelization</h1>
+
+<div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+
+      <h1>Using parallelization</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/masurp/specr/blob/HEAD/vignettes/parallelization.Rmd" class="external-link"><code>vignettes/parallelization.Rmd</code></a></small>
-      <div class="hidden name"><code>parallelization.Rmd</code></div>
-
+      <div class="d-none name"><code>parallelization.Rmd</code></div>
     </div>
 
     
     
-<p>A major improvement in version 0.3.0 of specr is that we can
+<p>A major improvement in version 1.0.0 of specr is that we can
 parallelize the computations, which can reduce fitting time. For this,
 specr uses functions from the package <a href="https://furrr.futureverse.org/" class="external-link">furrr</a>. I suggest to check out
-the website of the package for further information. To be to use
-relevant functions, we load the package furrr upfront.</p>
+the website of the package for further information. To be able to use
+the relevant functions, we load the package furrr upfront.</p>
 <p>Before we start to run some examples, bear in mind that using
 parallelization does not always mean that the computations are
 automatically faster. If the overall computation time is not very long,
@@ -127,14 +88,14 @@ using parallelization may even lead to a longer fitting process as
 setting up several “workers” (essentially setting up procedures on
 several cores) produces a considerable “overhead”. A true reduction in
 fitting time is thus only achieved when the data set is large, the
-number of specification are high, and the computed models are complex. I
+number of specifications is high, and the computed models are complex. I
 thus first simulate a comparatively large data set that allows to
 specify more than 1000 specifications.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load packages</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/" class="external-link">specr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/DavisVaughan/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://masurp.github.io/specr/">specr</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/futureverse/furrr" class="external-link">furrr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Data generating function</span></span>
 <span><span class="va">generate_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">seed</span> <span class="op">=</span> <span class="fl">42</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">1e5</span><span class="op">)</span> <span class="op">{</span></span>
@@ -161,13 +122,13 @@ specify more than 1000 specifications.</p>
 <div class="section level2">
 <h2 id="simple-parallelization-without-custom-functions">Simple parallelization without custom functions<a class="anchor" aria-label="anchor" href="#simple-parallelization-without-custom-functions"></a>
 </h2>
-<p>If we use standard model fitting function (e.g., “lm”) that are
-included in the base package, parallelization is comparatively simple.
-We only need to load the package <code>furrr</code> and specify a “plan
-for how to resolve a future” (for more information see
+<p>If we use standard model fitting functions (e.g., “lm”) that are
+included in base R, parallelization is comparatively simple. We only
+need to load the package <code>furrr</code> and specify a “plan for how
+to resolve a future” (for more information see
 <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">?future::plan</a></code>). In this case, I am choosing
-<code>multisession</code> (resolve the computations separate R sessions
-running in the background on the same machine) and specify
+<code>multisession</code> (resolve the computations in separate R
+sessions running in the background on the same machine) and specify
 <code>workers = 4</code> so that it runs on 4 cores in parallel.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Setup of specifications (number of specs = 1152)</span></span>
@@ -194,13 +155,13 @@ running in the background on the same machine) and specify
 minute (57.227 sec elapsed) and the parallel computation about half a
 minute (36.781 sec elapsed).</p>
 <p>We have to acknowledge that even with this comparatively large data
-set and more than 1,000 specifications, the reduction in time not too
-much. Thus, parallelization only makes sense if you have a truly large
-data set and thousands of specifications <em>or</em> the type of model
-you are estimating takes a really long time (e.g., a complex structural
-equation model, a negative binomial model, etc.). The true power of
-parallelization furthermore only come into play if you are using a
-considerable number of cores.</p>
+set and more than 1,000 specifications, the reduction in time is not
+very large. Thus, parallelization only makes sense if you have a truly
+large data set and thousands of specifications <em>or</em> the type of
+model you are estimating takes a really long time (e.g., a complex
+structural equation model, a negative binomial model, etc.). The true
+power of parallelization furthermore only comes into play if you are
+using a considerable number of cores.</p>
 </div>
 <div class="section level2">
 <h2 id="parallelization-with-custom-functions-from-different-packages">Parallelization with custom functions from different packages<a class="anchor" aria-label="anchor" href="#parallelization-with-custom-functions-from-different-packages"></a>
@@ -210,9 +171,9 @@ is passed to the different workers. This can be done by specifying so
 called <code>furrr_options</code>. We need to pass objects from the
 global environment (and potentially also packages) as shown below.
 Please note that we do not have to specify the “future plan” again,
-because have specified it already earlier in this session (see above).
-If we are unsure what plan is currently specified, we can simply run
-<code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code> and get some information about the current
+because we have specified it already earlier in this session (see
+above). If we are unsure what plan is currently specified, we can simply
+run <code><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan()</a></code> and get some information about the current
 setup.</p>
 <p>As computation can take a long time, it would be nice if we would see
 some kind of progress indication. This can easily be done by simply
@@ -293,29 +254,22 @@ multisession workers by switching the plan back to sequential.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://future.futureverse.org/reference/plan.html" class="external-link">plan</a></span><span class="op">(</span><span class="va">sequential</span><span class="op">)</span></span></code></pre></div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-      </div>
-
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p></p>
-<p>Developed by Philipp K. Masur, Michael Scharkow.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p>Developed by Philipp K. Masur, Michael Scharkow.</p>
 </div>
 
-<div class="pkgdown">
-  <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+<div class="pkgdown-footer-right">
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
-
 
 
 

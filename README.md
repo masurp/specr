@@ -3,7 +3,7 @@
 
 <div style="padding-top:1em; padding-bottom: 0.5em;">
 
-<img src="man/figures/specr_logo.png" width = 135 align="right" />
+<img src="man/figures/specr_logo.png" width = 135 align="right" alt="specr logo" />
 
 </div>
 
@@ -122,7 +122,7 @@ results <- specr(specs)
 plot(results)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" alt="" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" alt="Specification curve (estimates ranked from lowest to highest with confidence intervals) and the analytical choices of each specification" width="100%" />
 
 ### How to cite this package
 
