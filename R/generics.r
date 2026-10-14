@@ -863,7 +863,7 @@ print.specr.infer <- function(x, ...) {
 #'    specifications (`n_specs`).
 #'
 #' @references \itemize{
-#'  \item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+#'  \item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208-1214. https://doi.org/10.1038/s41562-020-0912-z
 #' }
 #'
 #' @seealso [infer_curve()], [plot.specr.infer()]

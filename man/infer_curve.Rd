@@ -122,8 +122,8 @@ summary(infer_curve(specr(specs_null), specs_null, n_samples = 200))
 }
 \references{
 \itemize{
-\item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. \emph{Nature Human Behaviour, 4}, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
-\item Del Giudice, M., & Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. \emph{Advances in Methods and Practices in Psychological Science, 4}(1). https://doi.org/10.1177/2515245920954925
+\item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. \emph{Nature Human Behaviour, 4}, 1208-1214. https://doi.org/10.1038/s41562-020-0912-z
+\item Del Giudice, M., & Gangestad, S. W. (2021). A traveler's guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. \emph{Advances in Methods and Practices in Psychological Science, 4}(1). https://doi.org/10.1177/2515245920954925
 }
 }
 \seealso{

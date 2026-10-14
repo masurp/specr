@@ -84,7 +84,7 @@ summary(inference, group = "x")
 }
 \references{
 \itemize{
-\item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. \emph{Nature Human Behaviour, 4}, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+\item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. \emph{Nature Human Behaviour, 4}, 1208-1214. https://doi.org/10.1038/s41562-020-0912-z
 }
 }
 \seealso{
