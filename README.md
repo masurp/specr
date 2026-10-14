@@ -23,9 +23,21 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
+- 14 October 2026: The inference procedure of the development version
+  (specr version 1.0.1) has been rewritten. The new function
+  `infer_curve()` replaces `boot_null()`, which refitted each
+  specification on too many rows and therefore produced p-values that
+  were too small. `infer_curve()` is calibrated (about 5% false
+  positives at alpha = .05 in simulations), much faster, and reports all
+  three test statistics proposed by Simonsohn et al. (2020). If you have
+  used `boot_null()`, please recompute your results. See [this
+  vignette](https://masurp.github.io/specr/articles/inferences.html) and
+  the [version history](https://masurp.github.io/specr/news/index.html)
+  for details.
+
 - 22 May 2024: The new development version (specr version 1.0.1)
   includes new functions to conduct inferences on the specification
-  curve analysis (the third step outlined Simohnsohn et al., 2020). See
+  curve analysis (the third step outlined Simonsohn et al., 2020). See
   [this
   vignette](https://masurp.github.io/specr/articles/inferences.html) for
   further details.
@@ -110,7 +122,7 @@ results <- specr(specs)
 plot(results)
 ```
 
-<img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-2-1.png" alt="" width="100%" />
 
 ### How to cite this package
 
