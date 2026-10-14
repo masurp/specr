@@ -17,18 +17,42 @@ knitr::opts_chunk$set(
 )
 ```
 
-In their paper, Simonsohn et al. (2020) propose a third step within the logic of specification curve analysis, which refers to conducting inference tests across the entire range of the specification curve. This step aims to address the following question: 
-*Considering the full set of reasonable specifications jointly, how inconsistent are the results with the null hypothesis of no effect?* 
+In their paper, Simonsohn et al. (2020) propose a third step within the logic of specification curve analysis, which refers to conducting inference tests across the entire range of the specification curve. This step aims to address the following question:
+*Considering the full set of reasonable specifications jointly, how inconsistent are the results with the null hypothesis of no effect?*
 
 We have been contemplating the implementation of this third step in our package. Until recently, we have concluded that there remains significant uncertainty regarding when such joint inferences are appropriate (see, for example, the recent discussion by Del Giudice & Gangestad, 2021), who highlight:
 
 >"In principle, multiverse-style analyses can be highly instructive. At the same time, analyses that explore multiverse spaces that are not homogeneous can produce misleading results and interpretations, lead scholars to dismiss the robustness of theoretically important findings that do exist, and discourage them from following fruitful avenues of research. This can hinder scientific progress just as much as the proliferation of false, unreplicable findings does" (p. 2).
 
 The issue is as follows: Multiverse or specification curve analyses can serve different purposes. In the simplest form, it may serve to explore and discover differences in effect sizes that relate to specific theoretical or analytical decisions. Yet, the method is also suggestive of being a "somehow better approach to testing a relationship". The aim of this second purpose, which is akin to a robustness test, is to exhaust the multiverse of truly arbitrary decisions in order to gain some sort of aggregate finding that can be use to refute or support a hypothesis. As Del Giudice and Gangestad point out very convincingly, however, it is often not straight-forward to decide whether specification is truly arbitrary (or in their terms: exhibits principled equivalence) compared to another specification. Yet, if this is not the case, running any inference tests is futile as "Just a few decisions incorrectly treated as arbitrary can quickly explode the size of the multiverse, drowning reasonable
-effect estimates in a sea of unjustified alternatives." (Del Giudice & Gangestad, 2021, p. 2).   
+effect estimates in a sea of unjustified alternatives." (Del Giudice & Gangestad, 2021, p. 2).
 
 
-For these reasons, we have been, and continue to be, concerned that tools for such an inference test could be misused or lead to improperly conducted robustness tests. Nevertheless, due to frequent inquiries, we have now integrated a function called `boot_null()` in the latest development version of `specr`. For details on the procedure, please refer to the paper by Simonsohn et al. (2020). Please note that the implemented procedure pertains to the section "Inference with non-experimental data" in the paper.
+For these reasons, we have been, and continue to be, concerned that tools for such an inference test could be misused or lead to improperly conducted robustness tests. Nevertheless, due to frequent inquiries, we have now integrated a function called `infer_curve()` in the latest development version of `specr`. It implements the procedure described in the section "Inference with non-experimental data" of the paper by Simonsohn et al. (2020).
+
+
+# How it works
+
+The idea behind this inference approach is that one forces the null on the data. Have a look at the following section of the Simonsohn et al. (2020) paper (p. 1213):
+
+```{r, out.width="45%", echo = F}
+knitr::include_graphics("https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png")
+```
+
+In `infer_curve()`, this works as follows:
+
+1. For every specification $k$, the dependent variable is modified so that the null hypothesis is true by construction: $y^*_k = y_k - b_k x_k$, where $b_k$ is the estimate observed in that specification. Each specification thus gets its own modified dependent variable.
+2. $N$ rows are drawn at random with replacement from the data set (with $N$ being the number of rows of the data set). The same rows are used for all specifications, which preserves the dependence between them.
+3. Every specification is refitted on these rows with $y^*_k$ as its dependent variable. Each specification keeps its own model, control variables, subset, and additions to the formula.
+4. Steps 2 and 3 are repeated many times (e.g., 1,000 times). This produces a distribution of specification curves that would be expected if all specifications had a true effect of zero.
+
+Based on these curves, the observed specification curve can be tested with three test statistics:
+
+1. The **median** effect estimated across all specifications: is it more extreme than would be expected if all specifications had a true effect of zero?
+2. The **share of specifications that obtain a statistically significant effect** in the predicted direction: is it more extreme (higher) than would be expected if all specifications had an effect of zero?
+3. The **aggregated z-value** (Stouffer's Z), which combines the p-values of all specifications: is it more extreme than would be expected if all specifications had an effect of zero?
+
+Because the null is imposed by subtracting $b_k x_k$ from the dependent variable, this procedure requires models that are linear in the dependent variable (e.g., `lm`, `lmer`, or `glm` with a gaussian family), numeric independent and dependent variables, and unstandardized estimates. `infer_curve()` checks this before resampling (by refitting every specification on its modified dependent variable, which has to yield an estimate of zero) and stops otherwise. For example, logistic regression models or structural equation models are not supported.
 
 
 # Preparations
@@ -41,107 +65,130 @@ library(specr)
 library(tidyverse)
 ```
 
-For this tutorial, we will simple use the data set included in the package, which we can call using `example_data`. 
+For this tutorial, we will simply use the data set included in the package, which we can call using `example_data`.
 
 ```{r}
 glimpse(example_data)
 ```
 
 
-## Creating a custom function to extract full model
+## Setup specifications and run the specification curve analysis
 
-To prepare the inference under-the-null bootstrapping procedure, we need to run the standard specification curve analysis, but make sure that we keep the entire model object. By default, the function `specr()` only keeps the relevant coefficient, but by creating a customized fitting function, we can add a column that contains the full model. 
-
-
-```{r}
-# Requires to keep full model
-tidy_full <- function(x) {
-  fit <- broom::tidy(x, conf.int = TRUE)
-  fit$res <- list(x)  # Store model object
-  return(fit)
-}
-```
-
-
-## Setup specifications
-
-When setting up the specifications, we simply pass the customized function via the argument `fun1`. 
+We first run a standard specification curve analysis using the functions `setup()` and `specr()`. In this example, we investigate the relationship between two independent variables (`x1` and `x2`, e.g., two alternative measures of the same construct) and the dependent variable `y1`, with different combinations of two control variables and in different subsets of the data.
 
 ```{r}
 specs <- setup(data = example_data,
-   y = c("y1", "y2"),
+   y = "y1",
    x = c("x1", "x2"),
    model = "lm",
    controls = c("c1", "c2"),
-   fun1 = tidy_full)          # Important to use the custom function here!
-```
+   subsets = list(group2 = c("female", "male")))
 
-
-## Run standard specification curve analysis
-
-Next, we simply ran the standard specification curve analysis using the core function `specr`. 
-
-```{r}
 results <- specr(specs)
 summary(results)
 ```
 
 So far, nothing new. We get the results of the specification curve analysis and can explore them descriptively or visually.
 
+
 # Refit the models under-the-null
 
-The idea behind this inference approach is that one forces the null on the data. Have a look at the following section of the Simonsohn et al. (2020) paper (p. 1213):
+## Run the resampling procedure
 
-
-```{r, out.width="45%", echo = F}
-knitr::include_graphics("https://raw.githubusercontent.com/masurp/specr/master/docs/articles/simonsohn_inference.png")
-```
-
-## Run bootstrap sampling procedure
-
-To run this procedure, we simply use the function `boot_null()`, which requires the results, the specification setup, and the number of samples that should be drawn (Simonsohn et al. suggest n_samples = 500, here I am only demonstrating it with 10 resamples). Technically, we would suggest to run at least 1,000 or better 10,000 samples to obtain robust results (as is common in bootstrapping procedures or Monte Carlo simulations).
+To run the procedure, we simply use the function `infer_curve()`, which requires the results, the specification setup (or the data set), and the number of bootstrap samples that should be drawn. Simonsohn et al. (2020) use 500 samples. Here, we use 1,000 samples, which is a reasonable minimum for results that are reported. As the procedure relies on random sampling, we set a seed to make the results reproducible.
 
 ```{r}
 set.seed(42)
-boot_models <- boot_null(results, specs, n_samples = 10) # better 1,000 - 10,000!
-boot_models
+inference <- infer_curve(results, specs, n_samples = 1000)
+inference
 ```
 
-The resulting fit object includes all resamples under the null (the output shows the first 6 curves summarized). 
+For specifications fitted with `lm`, `infer_curve()` uses a fast least-squares routine that gives the same results as `lm()`, so that even several thousand bootstrap samples only take a few seconds. Other models are refitted with their original model function, which takes longer. In this case, the resampling can be parallelized by setting up a plan before running `infer_curve()` (see `vignette("parallelization")`), e.g.:
+
+```{r, eval = FALSE}
+library(furrr)
+plan(multisession, workers = 4)
+inference <- infer_curve(results, specs, n_samples = 1000)
+plan(sequential)
+```
+
+The results are identical whether they are computed sequentially or in parallel.
+
 
 ## Summarize findings
 
-Based on these resamples, we can compute several test statistics. Simonsohn et al. propose three, but we implemented the first two for now:
-
-1. Obtaining the median effect estimated across all specifications, and then testing whether this median estimated
-effect is more extreme than would be expected if all specifications had a true effect of zero.
-
-2. The share of specifications that obtain a statistically significant effect in the predicted direction,
-testing whether such share is more extreme (higher) than would be expected if all specifications had an effect of zero. 
-
-These test statistics can be obtained by simply using the generic function `summary()` around the fitted bootstrap object:
+The test statistics are obtained by using the generic function `summary()` around the resulting object:
 
 ```{r}
-summary(boot_models)
+summary(inference)
 ```
 
-As we can see here, first, the likelihood of obtaining a median of 0.14 under the assumption that all specifications had a true effect of zero is very low (p < .001). Furthermore, 8 out of 16 specifications are actually in the right direction and the likelihood of this share of specifications that obtains a statistically significant effect in the predicted direction (here: positive) to be obtained if the true effect was zero is again low (p < .001).  
+```{r, include = FALSE}
+s <- summary(inference)
+```
+
+For each test statistic, the output shows the observed value (`estimate`), the range in which 95% of the values under the null fall (`null_lower` and `null_upper`), and the p-value, i.e., the share of curves under the null whose statistic is at least as extreme as the observed one. Here, the observed median estimate is `r round(s$estimate[1], 2)`, whereas 95% of the medians under the null lie between `r round(s$null_lower[1], 2)` and `r round(s$null_upper[1], 2)`. Similarly, `r s$estimate[2]` of `r s$n_specs[1]` specifications obtain a significant positive effect, which is more than would be expected if all specifications had a true effect of zero. Not a single curve under the null was as extreme as the observed curve, so all p-values are at their minimum of 1 / (1 + 1,000).
+
+By default, the tests are two-sided. If the direction of the effect was predicted before the results were known, one-sided tests can be obtained with the argument `direction`:
+
+```{r}
+summary(inference, direction = "greater")
+```
+
+The test statistics can also be computed separately for groups of specifications, e.g., for each independent variable:
+
+```{r}
+summary(inference, group = "x")
+```
+
 
 ## Plot inference curve
 
-Simonsohn et al. also suggest that the observed specification curve can be plotted against the expected under-the-null specification curves. In the figure, we see three expected curves that are based on the 10 resamples under-the-null (if more resamples are drawn, they are based on those resamples). The three curves here represent the 2.5th (low), the 50th (mid) and the 97.5th percentiles of these resamples. 
+Simonsohn et al. also suggest that the observed specification curve can be plotted against the expected under-the-null specification curves. In the figure, the estimates of each curve are ranked from lowest to highest. The grey lines represent the median as well as the 2.5th and 97.5th percentiles of the ranked curves under the null.
 
-```{r, fig.width=9, fig.height = 7, warning = F}
-plot(boot_models)
+```{r, fig.width=9, fig.height = 5, warning = F}
+plot(inference)
+```
+
+As we can see, the observed curve is clearly different from the curves that would be expected if the true effect was zero.
+
+
+# For comparison: no effect in any specification
+
+To illustrate what the results look like if there is no effect, we shuffle the dependent variable, which removes any relationship between `y1` and the other variables, and repeat the analysis.
+
+```{r}
+shuffled <- example_data
+shuffled$y1 <- sample(shuffled$y1)
+
+specs_null <- setup(data = shuffled,
+   y = "y1",
+   x = c("x1", "x2"),
+   model = "lm",
+   controls = c("c1", "c2"),
+   subsets = list(group2 = c("female", "male")))
+
+results_null <- specr(specs_null)
+
+set.seed(42)
+inference_null <- infer_curve(results_null, specs_null, n_samples = 1000)
+summary(inference_null)
+```
+
+Now, the observed statistics lie within the range of the statistics under the null, and the p-values are not significant. Accordingly, the observed curve lies within the curves under the null:
+
+```{r, fig.width=9, fig.height = 5, warning = F}
+plot(inference_null)
 ```
 
 
-As we can see, the observed curve is clearly different than the simulated curves unter the assumption that the true effect is zero. 
+# A note on earlier development versions
+
+Earlier development versions of `specr` included this procedure under the name `boot_null()`. That implementation refitted each specification on too many rows, which made the curves under the null too narrow and the p-values too small. `boot_null()` still works but is deprecated: it now calls `infer_curve()`. If you used `boot_null()` before, please recompute your results with `infer_curve()`.
+
 
 # References
 
 - Del Giudice, M., & Gangestad, S. W. (2021). A traveler’s guide to the multiverse: Promises, pitfalls, and a framework for the evaluation of analytic decisions. Advances in Methods and Practices in Psychological Science, 4(1), https://journals.sagepub.com/doi/full/10.1177/2515245920954925.
 
 - Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. Nature Human Behaviour, 4, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
-
-

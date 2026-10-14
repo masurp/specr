@@ -157,67 +157,38 @@ specr <- function(x,
 
   }
 
+  # Fit one specification (a row of the specification grid). The subset columns
+  # are the factor columns; the helper is bound locally so that parallel workers
+  # receive it together with this function
+  subset_mask <- spec_subset_mask
+
+  fit_spec <- function(...) {
+
+    # Initialize specs as list
+    l = list(...)
+
+    # Create relevant subset
+    s <- subset_mask(l, data, names(l)[vapply(l, is.factor, logical(1))])
+
+    do.call(
+      what = l$model_function,
+      args = list(
+        formula = l$formula,
+        data = data[s,])
+    )
+  }
+
   # Differentiate between 1 and >1 workers
   if(methods::is(plan(), "sequential")) {
 
     res <- specs %>%
-      dplyr::mutate(out = pmap(., function(...) {
-
-        # Initialize specs as list
-        l = list(...)
-
-        # identify the grouping columns
-        group_i <- which(sapply(l, is.factor))
-        s <- rep(TRUE, nrow(data))
-
-        # Create relevant subsets
-        for (i in group_i) {
-          column <- names(l)[i]
-          value <- l[[i]]
-          if (is.na(value)) next
-          s <- s & data[[column]] == value
-        }
-
-        # Iterate across specifications
-        do.call(
-          what = l$model_function,
-          args = list(
-            formula = l$formula,
-            data = data[s,])
-        )
-      })) %>%
+      dplyr::mutate(out = pmap(., fit_spec)) %>%
       tidyr::unnest(out)
 
   } else {
 
     res <- specs %>%
-      dplyr::mutate(out = future_pmap(., function(...) {
-
-        # Initialize specs as list
-        l = list(...)
-
-        # identify the grouping columns
-        group_i <- which(sapply(l, is.factor))
-        s <- rep(TRUE, nrow(data))
-
-        # Create relevant subsets
-        for (i in group_i) {
-          column <- names(l)[i]
-          value <- l[[i]]
-          if (is.na(value)) next
-          s <- s & data[[column]] == value
-        }
-
-        # Iterate across specifications
-        do.call(
-          what = l$model_function,
-          args = list(
-            formula = l$formula,
-            data = data[s,])
-        )
-      },
-      ...),
-      ) %>%
+      dplyr::mutate(out = future_pmap(., fit_spec, ...)) %>%
       tidyr::unnest(out)
 
   }
@@ -245,7 +216,7 @@ specr <- function(x,
                  x = x$x,
                  y = x$y,
                  model = x$model,
-                 controls = x$model,
+                 controls = x$controls,
                  subsets = x$subsets,
                  workers = nbrOfWorkers(),
                  time = time)

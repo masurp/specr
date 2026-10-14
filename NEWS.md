@@ -5,14 +5,34 @@ Development version released: 2024-05-222
 
 ## Breaking changes
 
-None
+* `boot_null()` is renamed to `infer_curve()` and rewritten. `boot_null()` still works but is deprecated: it calls `infer_curve()` and returns an object of class `specr.infer` (instead of `specr.boot`). It will be removed before the next CRAN release.
+
+* **Results differ from earlier development versions.** The earlier resampling procedure stacked the data of all specifications and refitted each specification on all stacked rows that contained its variables. Each specification was therefore refitted on too many rows (and partly on rows in which the null was imposed for another specification), which made the curves under the null too narrow. In simulations without any true effect, the earlier version rejected the null for the median in about 30% of the cases (at alpha = .05); `infer_curve()` rejects it in about 5%. P-values obtained with earlier development versions of `boot_null()` were thus too small and should be recomputed.
 
 ## Updates
 
-* This new development version includes new functions to conduct inferences on the specification curve analysis (the third step outlined Simohnsohn et al., 2020). 
+* This new development version includes `infer_curve()` to conduct inference on the specification curve (the third step outlined by Simonsohn et al., 2020), based on resampling under the null. See [this vignette](https://masurp.github.io/specr/articles/inferences.html) for a comprehensive tutorial.
 
-    - It thereby facilitates resampling under-the-null to obtain test statistics to evaluate the extremity of the specification curve analysis results. 
-    - See [this vignette](https://masurp.github.io/specr/articles/inferences.html) for a comprehensive tutorial.
+    - For each specification, the null is imposed on its own dependent variable, and all specifications are refitted on the same bootstrap samples of N rows, following Simonsohn et al. (2020).
+    - The curves under the null are based on exactly the same specifications as the observed curve, including subsets, `simplify`, `add_to_formula`, and specifications that were filtered out after `setup()`.
+    - Storing the full model objects (via a custom `fun1`) is no longer needed.
+    - Much faster: specifications fitted with `lm` are refitted with a fast least-squares routine (which gives the same results as `lm()`), and only the relevant parameters are extracted for other models.
+    - `infer_curve()` checks that the null can be imposed (models that are linear in the dependent variable, e.g., `lm`, `lmer`, or gaussian `glm`, and numeric variables) and stops otherwise.
+    - Resampling can be parallelized (via `furrr`) and is reproducible with `set.seed()`, regardless of the number of workers.
+
+* `summary()` of the resulting `specr.infer` object reports all three test statistics proposed by Simonsohn et al. (2020): the median estimate, the number of significant specifications, and the aggregated z-value (Stouffer's Z). Tests are two-sided by default (`direction = "greater"` or `"less"` for predicted directions), p-values can no longer be zero, and the significance level can be set via `alpha`. Results can be summarized by groups of specifications (`group`).
+
+* `plot()` of the `specr.infer` object shows the observed curve against the median and the 2.5% and 97.5% quantiles of the curves under the null.
+
+* The package no longer depends on `rsample`.
+
+## Bug fixes
+
+* `specr()` stored the model names instead of the control variables in the `controls` element of the resulting `specr.object`.
+
+* `plot(..., type = "variance")` failed when no control variables were specified, or when the specifications were filtered down to a single option of a choice ("grouping factors must have > 1 sampled level"). The variance decomposition now only includes analytical choices that have more than one option in the results.
+
+* In `specr()`, rows with missing values in a subset variable are now excluded from the subset analyses (previously, they were passed to the model as rows of missing values, which most models dropped anyway).
 
 # specr 1.0.0
 

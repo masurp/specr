@@ -8,31 +8,31 @@ template:
 reference:
   - title: "Conduct specification curve analysis"
     desc: >
-      Core functions of the package that allow to a) setup all specifications and b) then fit models across all specifications
+      Core functions of the package that allow to a) setup all specifications, b) fit models across all specifications, and c) conduct inference on the resulting specification curve
     contents:
       - setup
       - specr
-      - boot_null
+      - infer_curve
   - title: "Summarize results"
     desc: >
       All functions above create S3 classes that can be investigated with the generic summary function and transformed to data frames.
     contents:
       - summary.specr.setup
       - summary.specr.object
-      - summary.specr.boot
+      - summary.specr.infer
   - title: "Visualizations"
     desc: >
-      After running setup() or specr(), the resulting S3 class objects can be passed to the generic plot function to create visualizations.
+      After running setup(), specr(), or infer_curve(), the resulting S3 class objects can be passed to the generic plot function to create visualizations.
     contents:
       - plot.specr.setup
       - plot.specr.object
-      - plot.specr.boot
+      - plot.specr.infer
   - title: "Data set(s)"
     contents:
       - example_data
   - title: "Deprecated"
     desc: >
-      The following function still exist and can be used, but are deprecated from version 1.0.0 on.
+      The following functions still exist and can be used, but are deprecated (boot_null() from version 1.0.1 on, all others from version 1.0.0 on).
     contents:
       - setup_specs
       - run_specs
@@ -45,6 +45,7 @@ reference:
       - plot_decisiontree
       - summarise_specs
       - icc_specs
+      - boot_null
 
 navbar:
   structure:

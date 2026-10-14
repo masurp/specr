@@ -37,6 +37,21 @@ expand_covariate_simple <- function(covariate) {
   }
 }
 
+# Rows of the data that belong to the subset of a specification. `spec` is one
+# row of the specification grid; `sub_cols` are its subset columns (factors, NA = all)
+spec_subset_mask <- function(spec, data, sub_cols) {
+
+  keep <- rep(TRUE, nrow(data))
+
+  for (column in sub_cols) {
+    value <- spec[[column]]
+    if (is.na(value)) next
+    keep <- keep & !is.na(data[[column]]) & data[[column]] == as.character(value)
+  }
+
+  keep
+}
+
 # Function to determine the method of parameter extraction
 tidy_model <- function(f, fun1, fun2) {
   function(...) {

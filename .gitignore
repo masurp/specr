@@ -6,3 +6,5 @@
 inst/doc
 doc
 Meta
+CLAUDE.md
+.claude/

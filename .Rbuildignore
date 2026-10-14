@@ -10,3 +10,6 @@
 ^docs$
 ^_pkgdown\.yml$
 ^\.travis\.yml$
+^CLAUDE\.md$
+^\.claude$
+^dev$

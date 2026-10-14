@@ -45,6 +45,28 @@ test_that("Results include confidence intervals", {
   expect_true(any(c("conf.low", "conf.high") %in% names(results$data)))
 })
 
+# test 6
+test_that("Subsets are fitted on the right rows, sequentially and in parallel", {
+  specs_sub <- specr::setup(data = example_data,
+                            x = "x1",
+                            y = "y1",
+                            model = "lm",
+                            subsets = list(group2 = c("female", "male")))
+  sequential <- specr(specs_sub)
+  expect_equal(sequential$data$fit_nobs[sequential$data$subsets == "female"],
+               sum(example_data$group2 == "female"))
+  expect_equal(sequential$data$fit_nobs[sequential$data$subsets == "all"],
+               nrow(example_data))
+
+  skip_on_cran()
+  skip_on_os("windows")
+  skip_if_not(future::supportsMulticore())
+  old_plan <- future::plan(future::multicore, workers = 2)
+  on.exit(future::plan(old_plan), add = TRUE)
+  parallel <- specr(specs_sub)
+  expect_equal(parallel$data$estimate, sequential$data$estimate)
+})
+
 
 
 

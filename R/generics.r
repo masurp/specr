@@ -38,7 +38,7 @@ summary.specr.setup <- function(object,
   cat("Setup for the Specification Curve Analysis\n")
   cat("-------------------------------------------\n")
   cat("Class:                     ", class(object), "-- version:", as.character(utils::packageVersion("specr")), "\n")
-  cat("Number of specifications:  ", as.numeric(object$n_specs), "\n\n")
+  cat("Number of specifications:  ", nrow(object$specs), "\n\n")
 
 
   cat("Specifications:\n\n")
@@ -605,34 +605,42 @@ plot.specr.object <- function(x,
 
    if(is.null(formula)) {
 
-    if(length(x$x) > 1) {
+    # Only choices with more than one option in the results can be random effects
+    # (counted in the results, so that filtered specifications are respected)
+    n_options <- function(choice) length(unique(x$data[[choice]]))
+
+    if(n_options("x") > 1) {
       var_x = "+ (1|x)"
     } else {
       var_x = ""
     }
 
-    if(length(x$y) > 1) {
+    if(n_options("y") > 1) {
       var_y = "+ (1|y)"
     } else {
       var_y = ""
     }
 
-    if(length(x$model) > 1) {
+    if(n_options("model") > 1) {
       var_model = "+ (1|model)"
     } else {
       var_model = ""
     }
 
-    if(length(x$controls) > 0) {
+    if(n_options("controls") > 1) {
       var_controls = "+ (1|controls)"
     } else {
       var_controls = ""
     }
 
-    if(x$subsets[1] == "none") {
-      var_subsets = ""
-    } else {
+    if(n_options("subsets") > 1) {
       var_subsets = "+ (1|subsets)"
+    } else {
+      var_subsets = ""
+    }
+
+    if(all(c(var_x, var_y, var_model, var_controls, var_subsets) == "")) {
+      stop("The variance decomposition requires at least one analytical choice with more than one option.")
     }
 
     formula <- paste("estimate ~ 1", var_x, var_y, var_model, var_controls, var_subsets)
@@ -715,261 +723,183 @@ as.data.frame.specr.object <- function(x, ...) {
 
 
 
-#' Print method for S3 class "specr.book"
+#' Print method for S3 class "specr.infer"
 #' @keywords internal
 #' @export
-print.specr.boot <- function(x, ...) {
+print.specr.infer <- function(x, ...) {
 
   # Short technical summary
-  cat("Results of bootstrapping 'under-the-null' procedure\n")
+  cat("Inference on the specification curve (resampling under the null)\n")
   cat("-------------------\n")
 
   cat("Technical details:\n\n")
   cat("  Class:                          ", class(x), "-- version:", as.character(utils::packageVersion("specr")), "\n")
   cat("  Cores used:                     ", x$workers, "\n")
   cat("  Duration of fitting process:    ", x$time, "\n")
-  cat("  Number of bootstrapped samples: ", x$n_samples, "\n\n")
+  cat("  Number of specifications:       ", x$n_specs, "\n")
+  cat("  Number of bootstrap samples:    ", x$n_samples, "\n")
+  if (x$n_failed > 0) {
+    cat("  Failed refits (ignored):        ", x$n_failed, "\n")
+  }
 
-  cat("Descriptive summary of the specification curves 'under-the-null' (head):\n\n")
+  cat("\nTest statistics (two-sided, see ?summary.specr.infer):\n\n")
+  print(summary(x))
 
-  med1 <- x$boot_models %>%
-    unnest(cols = c(fit)) %>%
-    group_by(id) %>%
-    summarize(median = median(estimate),
-              min = min(estimate),
-              max = max(estimate))
-
-  med1 %>%
-    head(n = 6) %>%
-    mutate_if(is.numeric, round, 2) %>%
-    as.data.frame %>%
-    print(row.names = F)
-
-  cat("\n\nOverall median across all resamples (should be close to NULL):\n\n")
-
-  med1 %>%
-    ungroup %>%
-    summarize(median = median(median),
-              min = min(median),
-              max = max(median)) %>%
-    mutate_if(is.numeric, round, 2) %>%
-    as.data.frame %>%
-    print(row.names = F)
-
+  invisible(x)
 }
 
-#' Summarizing the bootstrapped results
+#' Summarizing inference on the specification curve
 #'
-#' Generic summary function for an object of class `specr.boot` (resulting from
-#' `boot_null()`. Provides an approach to inference for specification curve analysis
-#' consists of obtaining the median effect estimated across all specifications,
-#' and then testing whether this median estimated effect is more extreme than
-#' would be expected if all specifications had a true effect of zero.
+#' @description Computes the three test statistics proposed by Simonsohn et al.
+#'    (2020) for the observed specification curve and for each curve under the null
+#'    (resulting from [infer_curve()]), and tests how extreme the observed statistics
+#'    are compared to their distribution under the null.
 #'
-#' @param x A `specr.boot` object, resulting from calling \code{boot_null()}.
-#' @param group Variables indicating which variables to summarize the results by
-#' @param ... further arguments passed to or from other methods (currently ignored).
+#' @param object A `specr.infer` object, resulting from calling [infer_curve()].
+#' @param direction Direction of the alternative hypothesis. The default
+#'    `"two.sided"` tests for an effect in either direction. Use `"greater"` or
+#'    `"less"` only if the direction of the effect was predicted before the results
+#'    were known.
+#' @param alpha Significance level that is used to count significant
+#'    specifications. Defaults to .05.
+#' @param group Optional character vector with names of analytical choices (e.g.,
+#'    `"y"` or `"subsets"`) to compute the test statistics separately within each
+#'    group of specifications.
+#' @param ... Further arguments passed to or from other methods (currently ignored).
 #'
+#' @details The three test statistics are:
+#'    \describe{
+#'      \item{median}{The median estimate across all specifications.}
+#'      \item{share significant}{The number of specifications with a significant
+#'        estimate (p < `alpha`) in the tested direction: positive for `"greater"`,
+#'        negative for `"less"`, and the more frequent (dominant) direction for
+#'        `"two.sided"`.}
+#'      \item{aggregated z}{Stouffer's Z: each p-value is converted into a z-value
+#'        with the sign of its estimate, and the sum of these z-values is divided by
+#'        the square root of the number of specifications.}
+#'    }
+#'    The p-value of each statistic is the share of curves under the null whose
+#'    statistic is at least as extreme as the observed one, computed as (1 + number
+#'    of curves at least as extreme) / (1 + number of bootstrap samples), so that it
+#'    is never zero. For `"two.sided"`, "at least as extreme" refers to the absolute
+#'    value of the median and of Stouffer's Z, and to the number of significant
+#'    specifications in the dominant direction of each curve. If the extraction
+#'    function did not return p-values, only the median can be tested.
 #'
-#' @return A tibble.
+#' @return A tibble with one row per test statistic (and group), including the
+#'    observed `estimate`, the 2.5% and 97.5% quantiles of the statistic under the
+#'    null (`null_lower` and `null_upper`), the `p.value`, and the number of
+#'    specifications (`n_specs`).
+#'
+#' @references \itemize{
+#'  \item Simonsohn, U., Simmons, J.P. & Nelson, L.D. (2020). Specification curve analysis. *Nature Human Behaviour, 4*, 1208–1214. https://doi.org/10.1038/s41562-020-0912-z
+#' }
+#'
+#' @seealso [infer_curve()], [plot.specr.infer()]
 #'
 #' @export
-summary.specr.boot <- function(x, group = NULL, ...) {
+#'
+#' @examples
+#' specs <- setup(data = example_data,
+#'    y = "y1",
+#'    x = c("x1", "x2"),
+#'    model = "lm",
+#'    controls = c("c1", "c2"))
+#'
+#' results <- specr(specs)
+#'
+#' set.seed(42)
+#' inference <- infer_curve(results, specs, n_samples = 200) # better 1,000 or more
+#'
+#' # Two-sided tests (default)
+#' summary(inference)
+#'
+#' # One-sided tests for a predicted positive effect
+#' summary(inference, direction = "greater")
+#'
+#' # Separately for each independent variable
+#' summary(inference, group = "x")
+summary.specr.infer <- function(object,
+                                direction = c("two.sided", "greater", "less"),
+                                alpha = .05,
+                                group = NULL,
+                                ...) {
 
-  options(dplyr.summarise.inform = FALSE)
+  direction <- match.arg(direction)
+  observed <- object$observed
 
-  # Summarizing observed specification curve
-  obs_summary <- x$observed_model %>%
-    mutate(pos = ifelse(estimate > 0, 1, 0),
-           neg = ifelse(estimate < 0, 1, 0),
-           sig = ifelse(p.value < .05, 1, 0),
-           pos_sig = ifelse(pos == 1 & sig == 1, 1, 0),
-           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0))
+  if (is.null(group)) {
 
-  if(is.null(group)) {
-
-    obs_summary <- obs_summary %>%
-      summarize(obs_median = median(estimate),
-                obs_n = n(),
-                obs_n_positive_sig = sum(pos_sig),
-                obs_n_negative_sig = sum(neg_sig)) %>%
-      select(obs_median, everything()) %>%
-      ungroup %>%
-      mutate(id2 = "bind")
-
-  } else {
-
-    obs_summary <- obs_summary %>%
-      dplyr::group_by_at(group) %>%
-      summarize(obs_median = median(estimate),obs_n = n(),
-                obs_n_positive_sig = sum(pos_sig),
-                obs_n_negative_sig = sum(neg_sig)) %>%
-      select(!!group, obs_median, everything()) %>%
-      ungroup %>%
-      mutate(id2 = "bind")
-  }
-
-
-  # Summarizing the specification curves 'under-the
-  boot_summary = x$boot_models %>%
-    unnest(cols = c(fit)) %>%
-    dplyr::group_by_at(vars(id)) %>%
-    mutate(pos = ifelse(estimate > 0, 1, 0),
-           neg = ifelse(estimate < 0, 1, 0),
-           sig = ifelse(p.value < .05, 1, 0),
-           pos_sig = ifelse(pos == 1 & sig == 1, 1, 0),
-           neg_sig = ifelse(neg == 1 & sig == 1, 1, 0)) %>%
-    ungroup
-
-  if(is.null(group)){
-
-    boot_summary <- boot_summary %>%
-      group_by_at(vars(id)) %>%
-      summarize(median = median(estimate),
-                n = n(),
-                n_positive_sig = sum(pos_sig),
-                n_negative_sig = sum(neg_sig)) %>%
-      ungroup() %>%
-      mutate(id2 = "bind")
-
-    temp = boot_summary %>%
-      left_join(., obs_summary, by = "id2") %>%
-      mutate(extreme_median = ifelse(obs_median > 0 & median >= obs_median, 1,
-                                     ifelse(obs_median < 0 & median <= obs_median, 1, 0)),
-             extreme_positive_sig = ifelse(n_positive_sig >= obs_n_positive_sig, 1, 0),
-             extreme_negative_sig = ifelse(n_negative_sig >= obs_n_negative_sig, 1, 0))
+    groups <- list(seq_len(nrow(observed)))
 
   } else {
 
-    boot_summary <- boot_summary %>%
-      dplyr::group_by_at(vars(id, group)) %>%
-      summarize(median = median(estimate),
-                n = n(),
-                n_positive_sig = sum(pos_sig),
-                n_negative_sig = sum(neg_sig)) %>%
-      ungroup() %>%
-      mutate(id2 = "bind")
-
-    temp = suppressMessages(left_join(boot_summary, obs_summary)) %>%
-      mutate(extreme_median = ifelse(obs_median > 0 & median >= obs_median, 1,
-                                     ifelse(obs_median < 0 & median <= obs_median, 1, 0)),
-             extreme_positive_sig = ifelse(n_positive_sig >= obs_n_positive_sig, 1, 0),
-             extreme_negative_sig = ifelse(n_negative_sig >= obs_n_negative_sig, 1, 0))
-
+    if (!all(group %in% names(observed))) {
+      stop("`group` must contain names of analytical choices, e.g. \"x\", \"y\", \"controls\", or \"subsets\".")
+    }
+    groups <- split(seq_len(nrow(observed)),
+                    interaction(as.data.frame(observed[group]), drop = TRUE, lex.order = TRUE))
   }
 
-  if(is.null(group)) {
+  res <- lapply(groups, function(cols) {
+    out <- curve_inference(observed$estimate[cols],
+                           observed$p.value[cols],
+                           object$estimates[, cols, drop = FALSE],
+                           object$p_values[, cols, drop = FALSE],
+                           direction = direction,
+                           alpha = alpha)
+    if (!is.null(group)) {
+      out <- dplyr::bind_cols(observed[rep(cols[1], nrow(out)), group], out)
+    }
+    out
+  })
 
-    summary <- temp %>%
-      summarize(n = n(),
-                extreme_median = sum(extreme_median),
-                extreme_positive_sig = sum(extreme_positive_sig),
-                extreme_negative_sig = sum(extreme_negative_sig)) %>%
-      ungroup %>%
-      tidyr::gather(variable, n_extreme, contains("extreme")) %>%
-      mutate(p_value = n_extreme / n,
-             p_value = ifelse(p_value == 1.000, "1.000",
-                              ifelse(p_value < .001, "< .001", gsub("0.(.*)", ".\\1", sprintf("%.3f", p_value))))) %>%
-      select(variable, p_value) %>%
-      tidyr::spread(variable, p_value) %>%
-      cbind(., obs_summary) %>%
-      mutate(Mdn = sprintf("%.2f", obs_median),
-             obs_n_positive_sig = sprintf("%s / %s", obs_n_positive_sig, obs_n),
-             obs_n_negative_sig = sprintf("%s / %s", obs_n_negative_sig, obs_n)) %>%
-      select(median = Mdn, extreme_median,
-             obs_n_positive_sig,
-             extreme_positive_sig,
-             obs_n_negative_sig,
-             extreme_negative_sig)
-
-  } else {
-
-    summary <- temp %>%
-      group_by_at(group) %>%
-      summarize(n = n(),
-                extreme_median = sum(extreme_median),
-                extreme_positive_sig = sum(extreme_positive_sig),
-                extreme_negative_sig = sum(extreme_negative_sig)) %>%
-      ungroup %>%
-      tidyr::gather(variable, n_extreme, contains("extreme")) %>%
-      mutate(p_value = n_extreme / n,
-             p_value = ifelse(p_value == 1.000, "1.000",
-                              ifelse(p_value < .001, "< .001", gsub("0.(.*)", ".\\1", sprintf("%.3f", p_value))))) %>%
-      select(!!group, variable, p_value) %>%
-      tidyr::spread(variable, p_value)
-    summary <- suppressMessages(left_join(summary, obs_summary)) %>%
-      mutate(Mdn = sprintf("%.2f", obs_median),
-             obs_n_positive_sig = sprintf("%s/%s", obs_n_positive_sig, obs_n),
-             obs_n_negative_sig = sprintf("%s/%s", obs_n_negative_sig, obs_n)) %>%
-      select(!!group, median = Mdn,
-             extreme_median,
-             obs_n_positive_sig,
-             extreme_positive_sig,
-             obs_n_negative_sig,
-             extreme_negative_sig)
-
-  }
-
-  summary <- summary %>%
-    rename("median" = median,
-           "median p" = extreme_median,
-           "share positive" = obs_n_positive_sig,
-           "share positive p" = extreme_positive_sig,
-           "share negative" = obs_n_negative_sig,
-           "share negative p" = extreme_negative_sig) %>%
-    as.data.frame() |>
-    gather(key, value)  |>
-    mutate(key = gsub(" p(?=$)", "", key, perl = TRUE)) |>
-    group_by(grp = str_c('Column', rep(1:2, length.out = n()))) %>%
-    mutate(rn = row_number()) %>%
-    ungroup %>%
-    tidyr::pivot_wider(names_from = grp, values_from = value) %>%
-    select(-rn) |>
-    rename(type = key, estimate = Column1, p.value = Column2)
-
-  return(summary)
-
-
+  dplyr::bind_rows(res)
 }
 
 
-#' Plot specification curve and under-the-null distributions
+#' Plot specification curve against curves under the null
 #'
-#' @description This function plots the original specification curve on top of
-#'   95% quantiles of the bootstrapped 'under-the-null' distributions.
+#' @description This function plots the observed specification curve (estimates
+#'   ranked from lowest to highest) on top of the median and the 2.5% and 97.5%
+#'   quantiles of the ranked curves under the null (resulting from [infer_curve()]).
 #'
-#' @param x A `specr.boot` object, resulting from calling \code{boot_null()}.
+#' @param x A `specr.infer` object, resulting from calling [infer_curve()].
 #' @param ... further arguments passed to or from other methods (currently ignored).
 #'
 #' @return A \link[ggplot2]{ggplot} object that can be customized further.
 #'
+#' @seealso [infer_curve()], [summary.specr.infer()]
+#'
 #' @export
-plot.specr.boot <- function(x, ...) {
+plot.specr.infer <- function(x, ...) {
 
-  x$boot_models %>%
-    unnest(cols = c(fit)) %>%
-    group_by(id) %>%
-    arrange(id, estimate) %>%
-    select(id, x, y, estimate) %>%
-    dplyr::mutate(rank = 1:n()) %>%
-    group_by(rank) %>%
-    summarize(low = quantile(estimate, c(.025)),
-              mid = quantile(estimate, c(.5)),
-              high = quantile(estimate, c(.975))) %>%
-    left_join(x$observed_model %>%
-                as_tibble %>%
-                arrange(estimate) %>%
-                mutate(rank = 1:n()) %>%
-                select(rank, observed = estimate),
-              by = "rank") %>%
-    tidyr::gather(key, value, -rank) %>%
-    ggplot(aes(x = rank, y = value, color = key, linetype = key)) +
-    scale_color_manual(values = c("grey40", "grey40", "grey40", "steelblue")) +
-    scale_linetype_manual(values = c(3, 3, 4, 1)) +
-    geom_line(size = .75) +
+  rank <- value <- curve <- NULL
+
+  n_specs <- x$n_specs
+
+  # Rank the estimates within each curve under the null
+  sorted <- if (n_specs == 1) {
+    x$estimates
+  } else {
+    t(apply(x$estimates, 1, sort, na.last = TRUE))
+  }
+  quantiles <- apply(sorted, 2, stats::quantile, probs = c(.025, .5, .975), na.rm = TRUE)
+
+  curves <- c("observed", "null: median", "null: 2.5%", "null: 97.5%")
+
+  df <- tibble::tibble(
+    rank = rep(seq_len(n_specs), times = 4),
+    curve = factor(rep(curves, each = n_specs), levels = curves),
+    value = c(sort(x$observed$estimate), quantiles[2, ], quantiles[1, ], quantiles[3, ]))
+
+  ggplot(df, aes(x = rank, y = value, color = curve, linetype = curve)) +
+    geom_line(linewidth = .75) +
+    scale_color_manual(values = c("steelblue", "grey40", "grey40", "grey40")) +
+    scale_linetype_manual(values = c("solid", "dashed", "dotted", "dotted")) +
     theme_minimal() +
     theme(
-      axis.line = element_line("black", size = .5),
+      axis.line = element_line("black", linewidth = .5),
       panel.spacing = unit(.75, "lines"),
       axis.text = element_text(colour = "black")
     ) +
@@ -978,3 +908,26 @@ plot.specr.boot <- function(x, ...) {
 }
 
 
+#' Return tibble from specr.infer
+#'
+#' Long format with one row per bootstrap sample and specification.
+#' @keywords internal
+#' @export
+as_tibble.specr.infer <- function(x, ...) {
+
+  keys <- setdiff(names(x$observed), c("estimate", "std.error", "p.value"))
+
+  dplyr::bind_cols(
+    tibble::tibble(sample = rep(seq_len(x$n_samples), each = x$n_specs)),
+    x$observed[rep(seq_len(x$n_specs), times = x$n_samples), keys],
+    tibble::tibble(estimate = as.vector(t(x$estimates)),
+                   p.value = as.vector(t(x$p_values))))
+}
+
+
+#' Return data.frame from specr.infer
+#' @keywords internal
+#' @export
+as.data.frame.specr.infer <- function(x, ...) {
+  as.data.frame(as_tibble(x), ...)
+}

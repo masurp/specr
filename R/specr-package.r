@@ -3,7 +3,7 @@
 #' @import dplyr
 #' @importFrom lme4 VarCorr lmer
 #' @importFrom glue glue
-#' @importFrom tidyr expand_grid unnest unite pivot_wider
+#' @importFrom tidyr expand_grid unnest unite
 #' @importFrom rlang enquo enquos .data
 #' @importFrom tibble tibble as_tibble lst
 #' @importFrom igraph graph_from_data_frame
@@ -15,6 +15,5 @@
 #' @importFrom stats formula mad median nobs quantile start vcov
 #' @importFrom stringr str_glue str_remove_all
 #' @importFrom utils stack head packageVersion
-#' @importFrom rsample bootstraps analysis
 ## usethis namespace: end
 NULL
