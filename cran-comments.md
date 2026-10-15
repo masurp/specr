@@ -7,7 +7,6 @@ This is a minor release (1.0.0 -> 1.1.0). It adds the function `infer_curve()` f
 * local: macOS (Apple silicon), R 4.6.1
 * GitHub Actions: macOS (release), Windows (release), Ubuntu (devel, release, oldrel-1)
 * win-builder: R-devel
-* mac-builder: R-release
 
 ## R CMD check results
 
