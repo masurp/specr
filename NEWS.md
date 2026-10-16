@@ -1,5 +1,7 @@
 # specr 1.1.0
 
+CRAN release: 2026-10-16
+
 ## New features
 
 * New function `infer_curve()` to conduct inference on the specification curve (the third step outlined by Simonsohn et al., 2020), based on resampling under the null. See [this vignette](https://masurp.github.io/specr/articles/inferences.html) for a comprehensive tutorial.

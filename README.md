@@ -23,6 +23,16 @@ stable](https://lifecycle.r-lib.org/articles/figures/lifecycle-stable.svg)](http
 
 ### News
 
+- 16 October 2026: specr version 1.1.0 is now available via
+  [CRAN](https://cran.r-project.org/package=specr). It adds the function
+  `infer_curve()` to conduct inference on the specification curve (the
+  third step outlined by Simonsohn et al., 2020), accepts a named list
+  of model functions in `setup()`, can show the choice labels on the
+  left side of the plot, and fixes several bugs. See [this
+  vignette](https://masurp.github.io/specr/articles/inferences.html) and
+  the [version history](https://masurp.github.io/specr/news/index.html)
+  for details.
+
 - 14 October 2026: The inference procedure of the development version
   (specr version 1.0.1) has been rewritten. The new function
   `infer_curve()` replaces `boot_null()`, which refitted each
